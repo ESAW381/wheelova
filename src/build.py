@@ -8,7 +8,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "6"
+V = "7"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -249,7 +249,7 @@ def hub():
 {cards}
 </div></main>
 {footer()}
-<script>(function(){{var b=document.getElementById('burger'),n=document.getElementById('mnav');b.onclick=function(){{var o=!n.classList.contains('open');n.classList.toggle('open',o);b.setAttribute('aria-expanded',o)}};var t=document.getElementById('theme'),r=document.documentElement;t.onclick=function(){{var v=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',v);try{{localStorage.setItem('wv_theme',v)}}catch(e){{}}}}}})();</script>
+<script>(function(){{var lg=document.querySelector('.logo');lg.addEventListener('click',function(){{try{{localStorage.removeItem('wv_entries_home2')}}catch(e){{}}}});var b=document.getElementById('burger'),n=document.getElementById('mnav');b.onclick=function(){{var o=!n.classList.contains('open');n.classList.toggle('open',o);b.setAttribute('aria-expanded',o)}};var t=document.getElementById('theme'),r=document.documentElement;t.onclick=function(){{var v=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',v);try{{localStorage.setItem('wv_theme',v)}}catch(e){{}}}}}})();</script>
 </body>
 </html>
 """
