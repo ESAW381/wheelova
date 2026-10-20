@@ -1,6 +1,6 @@
 (function(){
 var cfg=window.WV||{};
-var COLORS=['#7C6CF2','#1E1E27','#B3A8FF','#2A2A36','#5A48D8','#24242E','#D3CCFF','#33333F'];
+var COLORS=['#6E56F0','#E11D48','#F59E0B','#16A34A','#2563EB','#DB2777','#0D9488','#EA580C'];
 var DARK={2:1,6:1};
 var DEFAULT=cfg.entries||['Ayesha','Bilal','Chloe','Daniyal','Emma','Faisal','Grace','Hamza'];
 var TEMPLATES=[
@@ -26,7 +26,7 @@ function lum(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(function(c
 function fillFor(i,n,name){
 if(cfg.mode==='color'&&cfg.colorMap){var c=cfg.colorMap[name.toLowerCase()];if(c)return {f:c,t:lum(c)>0.6?'#141418':'#FFFFFF'}}
 if(cfg.palette){var P=cfg.palette,k=(n%P.length===1&&i===n-1&&n>1)?1:i%P.length;return {f:P[k],t:lum(P[k])>0.62?'#141418':'#FFFFFF'}}
-var ci=(n%8===1&&i===n-1&&n>1)?3:i%8;return {f:COLORS[ci],t:DARK[ci]?'#141418':'#FFFFFF'}}
+var ci=(n%8===1&&i===n-1&&n>1)?1:i%8;return {f:COLORS[ci],t:lum(COLORS[ci])>0.62?'#141418':'#FFFFFF'}}
 function draw(){
 var W=cv.width,R=W/2,n=entries.length;ctx.clearRect(0,0,W,W);
 if(!n){ctx.fillStyle='#1E1E27';ctx.beginPath();ctx.arc(R,R,R,0,Math.PI*2);ctx.fill();ctx.fillStyle='#8A8A97';ctx.font='600 36px Inter,sans-serif';ctx.textAlign='center';ctx.fillText('Add entries',R,R+150);return}

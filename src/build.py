@@ -8,13 +8,13 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "10"
+V = "11"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
 POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]
 CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "mystery-wheel", "lucky-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Colors", ["color-wheel"])]
-DOTS = ["#7C6CF2", "#E2603B", "#14A37F", "#2F7BF6", "#D94F8A", "#E0A21B"]
+DOTS = ["#6E56F0", "#E11D48", "#F59E0B", "#16A34A", "#2563EB", "#DB2777", "#0D9488", "#EA580C"]
 e = html.escape
 
 def md(s):
