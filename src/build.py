@@ -153,7 +153,7 @@ def card(slug, i):
 
 def byline(p):
     if not p.get("upgraded"): return ""
-    return f'<p class="byline">By <span>{e(AUTHOR["name"])}</span> · {e(AUTHOR["role"])} · Updated <time datetime="{UPDATED}">October 21, 2026</time></p>'
+    return f'<p class="byline">Written by <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Last updated <time datetime="{UPDATED}">October 21, 2026</time></p>'
 
 def scripts(p, cfg):
     if p.get("tool"):
@@ -215,7 +215,6 @@ def page(p):
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <a href="/wheels">Wheels</a> / <span aria-current="page">{e(p["h1"])}</span></nav>
 <h1>{e(p["h1"])}</h1>
 <p class="sub1">{e(p["subhead"])}</p>
-{byline(p)}
 {gentool(p) if p.get("tool") else tool(controls)}
 </div>
 
@@ -237,6 +236,7 @@ def page(p):
 <h2 style="margin-bottom:20px">Related wheels</h2>
 <div class="grid">{rel}</div>
 <p class="src">Randomness: Wheelova uses the browser's <a href="{MDN["url"]}" rel="noopener">crypto.getRandomValues()</a> (MDN Web Docs).{srcs}</p>
+{byline(p)}
 </div></section>
 </main>
 {POP}
