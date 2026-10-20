@@ -4,7 +4,7 @@ from pages import PAGES, MDN
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "5"
+V = "6"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -232,6 +232,9 @@ def hub():
 </html>
 """
 
+HOME_CFG = {"key": "home2", "entries": ["Emma", "Liam", "Olivia", "Noah", "Ava", "James", "Sophia", "Oliver", "Mia", "Lucas"],
+            "palette": ["#6E56F0", "#E11D48", "#F59E0B", "#16A34A", "#2563EB", "#DB2777", "#0D9488", "#EA580C"]}
+
 def home():
     src = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
     main = re.search(r"<main>[\s\S]*?</main>", src).group(0)
@@ -241,7 +244,7 @@ def home():
     main = main.replace("<h2>A ready-made wheel for everything</h2>", "<h2>Quick templates</h2>")
     t = re.search(r"<title>(.*?)</title>", src).group(1)
     d = re.search(r'<meta name="description" content="(.*?)">', src).group(1)
-    return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + POP + footer() + f'<script src="/app.js?v={V}"></script>\n</body>\n</html>\n'
+    return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + POP + footer() + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/app.js?v={V}"></script>\n</body>\n</html>\n'
 
 import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 files = {"index.html": home(), "wheels.html": hub()}

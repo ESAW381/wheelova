@@ -25,6 +25,7 @@ function setEntries(arr){ta.value=arr.join('\n');parse()}
 function lum(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c}).join('');var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);return (0.299*r+0.587*g+0.114*b)/255}
 function fillFor(i,n,name){
 if(cfg.mode==='color'&&cfg.colorMap){var c=cfg.colorMap[name.toLowerCase()];if(c)return {f:c,t:lum(c)>0.6?'#141418':'#FFFFFF'}}
+if(cfg.palette){var P=cfg.palette,k=(n%P.length===1&&i===n-1&&n>1)?1:i%P.length;return {f:P[k],t:lum(P[k])>0.62?'#141418':'#FFFFFF'}}
 var ci=(n%8===1&&i===n-1&&n>1)?3:i%8;return {f:COLORS[ci],t:DARK[ci]?'#141418':'#FFFFFF'}}
 function draw(){
 var W=cv.width,R=W/2,n=entries.length;ctx.clearRect(0,0,W,W);
