@@ -4,11 +4,12 @@ from pages import PAGES, MDN
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "4"
+V = "5"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
-NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("number-wheel", "Numbers"), ("wheels", "All wheels")]
-POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "number-wheel", "spinner", "decision-wheel", "raffle-wheel", "color-wheel", "lucky-wheel", "mystery-wheel", "letter-wheel"]
+NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
+POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]
+CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "mystery-wheel", "lucky-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Colors", ["color-wheel"])]
 DOTS = ["#7C6CF2", "#E2603B", "#14A37F", "#2F7BF6", "#D94F8A", "#E0A21B"]
 e = html.escape
 
@@ -63,6 +64,7 @@ def head(title, desc, path, ld, ogtitle=None):
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <script>try{{var t=localStorage.getItem("wv_theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 <link rel="stylesheet" href="/app.css?v={V}">
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <header><div class="hd">
@@ -75,14 +77,14 @@ def head(title, desc, path, ld, ogtitle=None):
 
 POP = """
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popwin"><div class="popc">
-<div class="lbl" id="poplbl">WE HAVE A WINNER</div><div class="popswatch" id="popswatch" aria-hidden="true"></div><div class="win" id="popwin"></div>
+<div class="lbl" id="poplbl">WE HAVE A WINNER</div><div class="popswatch" id="popswatch" aria-hidden="true"></div><div class="win" id="popwin"></div><div class="pophex" id="pophex"></div>
 <div class="acts"><button class="pbtn" id="popremove" type="button">Remove from wheel</button><button class="pbtn pri" id="popclose" type="button">Close</button></div>
 </div></div>
 """
 
 def footer():
     pop = "".join(f'<a href="/{s}">{e(BY[s]["nav"])}</a>' for s in POPULAR[:6])
-    more = "".join(f'<a href="/{s}">{e(BY[s]["nav"])}</a>' for s in POPULAR[6:])
+    more = "".join(f'<a href="/{s}">{e(BY[s]["nav"])}</a>' for s in POPULAR[6:12])
     return f"""<footer><div class="ft">
 <div style="flex:1 1 240px;color:var(--mu2)">© 2026 Wheelova. Free random wheel spinner.</div>
 <div><span class="h">Popular wheels</span>{pop}</div>
@@ -124,6 +126,39 @@ def card(slug, i):
     p = BY[slug]; c = DOTS[i % len(DOTS)]
     return f'<a class="tpl" href="/{slug}"><span class="dot" style="background:conic-gradient({c} 0 25%,#2A2A36 0 50%,{c} 0 75%,#2A2A36 0)"></span><span><b>{e(p["h1"])}</b><span>{e(p["subhead"])}</span></span></a>'
 
+def scripts(p, cfg):
+    if p.get("tool"):
+        g = {"type": p["tool"]}
+        if p["tool"] == "team": g["sample"] = p["sample"]
+        if p["tool"] == "name": g["data"] = p["data"]
+        return f'<script>window.WG={json.dumps(g, ensure_ascii=False)}</script>\n<script src="/gen.js?v={V}"></script>'
+    return f'<script>window.WV={json.dumps(cfg, ensure_ascii=False)}</script>\n<script src="/app.js?v={V}"></script>'
+
+def gentool(p):
+    t = p["tool"]
+    if t == "number":
+        ctr = """<div class="gq">""" + "".join(f'<button class="chip" type="button" data-range="{r}">{r.replace("-", "–")}</button>' for r in ["1-10", "1-20", "1-50", "1-100", "1-1000", "1-6"]) + """</div>
+<div class="nrow"><label>From<input id="nmin" type="number" inputmode="numeric" value="1"></label><label>To<input id="nmax" type="number" inputmode="numeric" value="100"></label><label>How many<input id="ncount" type="number" inputmode="numeric" value="1" min="1" max="1000"></label></div>
+<label class="ck"><input id="nuniq" type="checkbox" checked> No repeats</label><label class="ck"><input id="nsort" type="checkbox"> Sort results</label>"""
+    elif t == "team":
+        ctr = """<label for="tnames" style="font-weight:600;color:var(--hi)">Names <span id="tcount" style="color:var(--mu2);font-weight:500"></span></label>
+<textarea id="tnames" spellcheck="false" style="min-height:200px"></textarea>
+<div class="nrow"><label>Split by<select id="tmode" style="width:170px"><option value="teams">Number of teams</option><option value="size">People per team</option></select></label><label>Number<input id="tnum" type="number" inputmode="numeric" value="3" min="1"></label></div>"""
+    else:
+        ctr = """<div class="nrow"><label>Names<select id="ngender" style="width:130px"><option value="any">Any</option><option value="female">Female</option><option value="male">Male</option></select></label><label>How many<input id="ncount" type="number" inputmode="numeric" value="10" min="1" max="100"></label></div>
+<label class="ck"><input id="nfull" type="checkbox" checked> Add last name</label>"""
+    return f"""<div class="tool gtool" id="tool">
+<div class="card gctl">{ctr}
+<button class="gbtn" id="ggo" type="button">Generate</button>
+<p class="err" id="gerr" role="alert"></p>
+</div>
+<div class="stage gres">
+<div class="row" style="width:100%"><span id="gcount" style="color:var(--mu2);font-size:14px"></span><button class="btn" id="gcopy" type="button">Copy</button></div>
+<div class="gout" id="gout" aria-live="polite"></div>
+{'' if t == "team" else '<div style="width:100%"><div style="font-weight:600;color:var(--hi);font-size:14px">Recent</div><ol id="ghist" class="ghist"></ol></div>'}
+</div>
+</div>"""
+
 def page(p):
     path = "/" + p["slug"]
     controls = ""
@@ -144,13 +179,14 @@ def page(p):
     secs = "".join(f'<h2>{e(s["h2"])}</h2>\n{md(s["body"])}\n' for s in p["sections"])
     faqs = "".join(f'<details><summary>{e(f["q"])}</summary><p>{e(f["a"])}</p></details>' for f in p["faq"])
     rel = "".join(card(s, i) for i, s in enumerate(p["related"]))
+    srcs = "".join(f' List source: <a href="{x["url"]}" rel="noopener">{e(x["title"])}</a>.' for x in p.get("sources", []))
     return head(p["title"], p["description"], path, ld) + f"""
 <main>
 <div class="wrap hero">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <a href="/wheels">Wheels</a> / <span aria-current="page">{e(p["h1"])}</span></nav>
 <h1>{e(p["h1"])}</h1>
 <p class="sub1">{e(p["subhead"])}</p>
-{tool(controls)}
+{gentool(p) if p.get("tool") else tool(controls)}
 </div>
 
 <section id="how"><div class="wrap">
@@ -170,26 +206,25 @@ def page(p):
 <section><div class="wrap">
 <h2 style="margin-bottom:20px">Related wheels</h2>
 <div class="grid">{rel}</div>
-<p class="src">Randomness: Wheelova uses the browser's <a href="{MDN["url"]}" rel="noopener">crypto.getRandomValues()</a> (MDN Web Docs).</p>
+<p class="src">Randomness: Wheelova uses the browser's <a href="{MDN["url"]}" rel="noopener">crypto.getRandomValues()</a> (MDN Web Docs).{srcs}</p>
 </div></section>
 </main>
 {POP}
 {footer()}
-<script>window.WV={json.dumps(cfg, ensure_ascii=False)}</script>
-<script src="/app.js?v={V}"></script>
+{scripts(p, cfg)}
 </body>
 </html>
 """
 
 def hub():
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "All Wheelova wheels", "url": SITE + "/wheels", "hasPart": [{"@type": "WebPage", "name": BY[s]["h1"], "url": f"{SITE}/{s}"} for s in POPULAR]}
-    cards = "".join(card(s, i) for i, s in enumerate(POPULAR))
-    return head("All Wheels – Free Random Wheel Spinners | Wheelova", "Browse every Wheelova wheel: yes or no, name picker, numbers, colors, letters, raffle, lucky, mystery and decision wheels. All free.", "/wheels", ld) + f"""
+    cards = "".join(f'<h2 style="margin:36px 0 16px">{e(c)}</h2><div class="grid">' + "".join(card(s, i) for i, s in enumerate(ss)) + '</div>' for c, ss in CLUSTERS)
+    return head("All Tools – Random Wheels & Generators | Wheelova", "Every Wheelova tool: yes or no wheel, name picker, random number and team generators, country, state and sports team wheels, and more. All free.", "/wheels", ld) + f"""
 <main><div class="wrap hero">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <span aria-current="page">Wheels</span></nav>
-<h1>All wheels</h1>
+<h1>All wheels &amp; generators</h1>
 <p class="sub1">Pick a ready-made wheel, or <a href="/">build your own on the homepage</a>.</p>
-<div class="grid" style="margin-top:32px">{cards}</div>
+{cards}
 </div></main>
 {footer()}
 <script>(function(){{var b=document.getElementById('burger'),n=document.getElementById('mnav');b.onclick=function(){{var o=!n.classList.contains('open');n.classList.toggle('open',o);b.setAttribute('aria-expanded',o)}};var t=document.getElementById('theme'),r=document.documentElement;t.onclick=function(){{var v=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',v);try{{localStorage.setItem('wv_theme',v)}}catch(e){{}}}}}})();</script>
@@ -208,13 +243,13 @@ def home():
     d = re.search(r'<meta name="description" content="(.*?)">', src).group(1)
     return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + POP + footer() + f'<script src="/app.js?v={V}"></script>\n</body>\n</html>\n'
 
-os.makedirs(OUT, exist_ok=True)
+import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 files = {"index.html": home(), "wheels.html": hub()}
 for p in PAGES:
     files[p["slug"] + ".html"] = page(p)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
-for f in ["app.css", "app.js", "about.html", "privacy.html", "terms.html", "favicon.svg", "robots.txt"]:
+for f in ["app.css", "app.js", "gen.js", "about.html", "privacy.html", "terms.html", "favicon.svg", "robots.txt"]:
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(open(os.path.join(ROOT, f), encoding="utf-8").read())
 urls = ["", "wheels"] + [p["slug"] for p in PAGES] + ["about", "privacy", "terms"]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>{SITE}/{u}</loc><lastmod>2026-10-21</lastmod></url>" for u in urls) + "</urlset>\n"

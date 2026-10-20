@@ -222,3 +222,189 @@ PAGES = [
  "related":["number-wheel","color-wheel","name-picker-wheel","spinner"]
 },
 ]
+
+# ---------------- Batch 2 ----------------
+from data import COUNTRIES, STATES, NFL, NBA, NBA_CONF, MLB, NAMES, flat
+
+def _variants(groups, all_label):
+    v = [{"label": all_label, "entries": flat(groups)}]
+    v += [{"label": k, "entries": groups[k]} for k in groups]
+    return v
+
+UN_SRC = {"title": "UN Statistics Division — Standard country or area codes (M49)", "url": "https://unstats.un.org/unsd/methodology/m49/"}
+CENSUS_SRC = {"title": "U.S. Census Bureau — Census regions and divisions", "url": "https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf"}
+
+PAGES += [
+{
+ "slug":"random-number-generator","key":"rng","nav":"Number Generator","tool":"number",
+ "title":"Random Number Generator – Pick Numbers 1–100 or Any Range | Wheelova",
+ "description":"Free random number generator. Pick one or many numbers in any range, with or without repeats, sorted or not. Copy the results in one click.",
+ "h1":"Random Number Generator","subhead":"Pick one number or a whole list, in any range, with or without repeats.",
+ "howTo":["Set the range with From and To (or tap a quick range).","Choose how many numbers you want, and whether repeats are allowed.","Press Generate. Copy the results with one click."],
+ "sections":[
+  {"h2":"How this random number generator works","body":"Each number in your range has the same chance of being picked. The numbers come from your browser's cryptographically secure random number generator (`crypto.getRandomValues`), not a predictable formula — the same source browsers use for security features."},
+  {"h2":"Repeats or no repeats?","body":"- **No repeats (unique)** — like drawing tickets from a hat. Use it for raffles, lottery-style draws, seat numbers or picking several winners. You can't ask for more unique numbers than the range contains.\n- **Repeats allowed** — like rolling a die many times. Use it for games, dice simulations and practice problems."},
+  {"h2":"Common ranges","body":"- **1–10** — quick choices, games, \"pick a number\".\n- **1–100** — percentages, classroom questions, raffles.\n- **1–6** — a standard die. For a visual version, try the [Random Number Wheel](/number-wheel).\n- **Any range** — use negative numbers or big ranges, such as 1000–9999 for a four-digit code."},
+  {"h2":"What it isn't for","body":"This tool is fine for games, classrooms, raffles and everyday choices. It is not a certified lottery system or a replacement for audited draw software where the law requires one."}
+ ],
+ "faq":[
+  {"q":"How do I pick a random number between 1 and 100?","a":"Set From to 1 and To to 100 (or tap the 1–100 button), keep How many at 1, and press Generate."},
+  {"q":"Can I generate numbers without repeats?","a":"Yes. Tick \"No repeats\". Each number then appears at most once in your results."},
+  {"q":"How many numbers can I generate at once?","a":"Up to 1,000 per click."},
+  {"q":"Is it truly random?","a":"It uses the browser's cryptographically secure random number generator, which is designed to be unpredictable. Each click is independent of the last."}
+ ],
+ "related":["number-wheel","spinner","raffle-wheel","random-team-generator"]
+},
+{
+ "slug":"random-team-generator","key":"teams","nav":"Team Generator","tool":"team",
+ "title":"Random Team Generator – Split Names into Random Groups | Wheelova",
+ "description":"Paste a list of names and split them into random teams or groups in one click. Choose the number of teams or people per team. Free, no sign-up.",
+ "h1":"Random Team Generator","subhead":"Paste your names and split them into fair, random teams.",
+ "sample":["Ayesha","Ben","Chloe","Daniyal","Emma","Faisal","Grace","Hamza","Isabella","Jack","Kiran","Lena"],
+ "howTo":["Paste names, one per line.","Choose the number of teams, or how many people per team.","Press Generate. Not happy? Press it again to reshuffle."],
+ "sections":[
+  {"h2":"How the teams are made","body":"The list is shuffled with your browser's cryptographically secure random number generator, then people are dealt into teams one by one, like dealing cards. That keeps team sizes within one person of each other — with 13 people in 3 teams you get 5, 4 and 4."},
+  {"h2":"Number of teams vs. people per team","body":"- **Number of teams** — \"split my class into 4 groups\".\n- **People per team** — \"make pairs\" (2) or \"groups of 5\". The last team may be one smaller if the numbers don't divide evenly."},
+  {"h2":"Ideas","body":"- **Classrooms** — project groups, reading circles, seating.\n- **Sports and PE** — fair sides for a match.\n- **Work** — breakout rooms, workshop tables, hackathon teams.\n- **Game nights** — quiz teams or partners for card games."},
+  {"h2":"Keeping teams fair","body":"Random teams are fair in the sense that nobody chooses them — but they don't balance skill. If you need balanced ability, generate the teams, then swap one or two people by hand. Enter each person once so nobody appears in two teams."}
+ ],
+ "faq":[
+  {"q":"How do I make random pairs?","a":"Choose \"People per team\" and enter 2. With an odd number of people, the last team has one person — move them into any pair to make a group of three."},
+  {"q":"Can I name the teams?","a":"Teams are numbered Team 1, Team 2 and so on. Copy the results and rename them wherever you paste them."},
+  {"q":"Are the names saved?","a":"Yes, in your own browser only, so the list is there next time. Nothing is uploaded."},
+  {"q":"Can I pick one person instead of making teams?","a":"Yes — use the [Name Picker Wheel](/name-picker-wheel)."}
+ ],
+ "related":["name-picker-wheel","random-name-generator","random-number-generator","decision-wheel"]
+},
+{
+ "slug":"random-name-generator","key":"namegen","nav":"Name Generator","tool":"name",
+ "title":"Random Name Generator – Generate First & Full Names | Wheelova",
+ "description":"Generate random first names or full names in one click. Choose female, male or any, and up to 100 names at once. Great for characters, games and test data.",
+ "h1":"Random Name Generator","subhead":"Generate random first names or full names in one click.",
+ "data":NAMES,
+ "howTo":["Choose female, male or any names.","Choose how many names and whether to add a last name.","Press Generate and copy the list."],
+ "sections":[
+  {"h2":"Name generator vs. name picker","body":"This page **creates** names from a built-in list. If you already have a list of real people and want to choose one of them, use the [Name Picker Wheel](/name-picker-wheel) instead."},
+  {"h2":"Where the names come from","body":"The generator mixes common first names and surnames used in English-speaking countries, plus some widely used South Asian, Middle Eastern and East Asian names. It is a fun, illustrative list — not a statistical sample of any population."},
+  {"h2":"Ideas","body":"- **Writers** — names for side characters.\n- **Games and role-play** — quick NPC or player names.\n- **Teachers** — names for word problems and examples.\n- **Developers and designers** — placeholder names for mock-ups and test data."},
+  {"h2":"A note on real people","body":"Generated full names are random combinations, but some will match real people. Don't use them to imply that a real person said or did something."}
+ ],
+ "faq":[
+  {"q":"Can I generate full names?","a":"Yes. Keep \"Add last name\" ticked to get first + last names."},
+  {"q":"How many names can I generate?","a":"Up to 100 per click, with no duplicates in a single batch."},
+  {"q":"Can I filter by gender?","a":"Yes — choose female, male, or any."}
+ ],
+ "related":["name-picker-wheel","random-team-generator","random-letter-generator","random-country-generator"]
+},
+{
+ "slug":"random-country-generator","key":"countries","nav":"Country Generator",
+ "title":"Random Country Generator – Spin the Wheel of Countries | Wheelova",
+ "description":"Spin to pick a random country from all 193 UN member states, or filter by Africa, Americas, Asia, Europe or Oceania. Free country wheel for games and lessons.",
+ "h1":"Random Country Generator","subhead":"Spin to pick a random country — all 193 UN members, or one region.",
+ "entries":flat(COUNTRIES),"variants":_variants(COUNTRIES,"All 193 countries"),
+ "resultLabel":"YOUR COUNTRY","popLabel":"YOUR COUNTRY IS",
+ "howTo":["Choose all countries or one region.","Spin the wheel.","Turn on \"Remove winner\" to go through countries without repeats."],
+ "sections":[
+  {"h2":"Which countries are included?","body":"The list contains the 193 member states of the United Nations, grouped by the UN's M49 regions: Africa (54), the Americas (35), Asia (47), Europe (43) and Oceania (14). Observer states and territories (for example Palestine, the Holy See, Taiwan or Kosovo) are not on the default list — add them yourself if your game needs them."},
+  {"h2":"Ideas for a random country","body":"- **Geography lessons** — find it on a map, name the capital, or describe the flag.\n- **Travel inspiration** — spin for a dream destination to research.\n- **Cooking challenge** — cook a dish from the country you spin.\n- **Quiz nights** — one country per round, teams answer questions about it."},
+  {"h2":"About the regions","body":"The UN groups some countries differently from everyday usage — for example, Cyprus, Turkey, Armenia, Azerbaijan and Georgia are in Asia, and Russia is in Europe. The wheel follows the UN grouping so the lists are consistent."}
+ ],
+ "faq":[
+  {"q":"How many countries are on the wheel?","a":"All 193 UN member states when \"All 193 countries\" is selected."},
+  {"q":"Can I pick a country from one continent?","a":"Yes. Choose Africa, Americas, Asia, Europe or Oceania above the list."},
+  {"q":"Can I add territories?","a":"Yes. Type any extra names into the list, one per line."}
+ ],
+ "sources":[UN_SRC],
+ "related":["random-state-generator","random-name-generator","random-letter-generator","decision-wheel"]
+},
+{
+ "slug":"random-state-generator","key":"states","nav":"State Generator",
+ "title":"Random State Generator – Spin a Random US State | Wheelova",
+ "description":"Pick a random US state from all 50, or by region: Northeast, Midwest, South or West. Free state wheel for road trips, lessons and games.",
+ "h1":"Random State Generator","subhead":"Spin to pick one of the 50 US states — or one region.",
+ "entries":flat(STATES),"variants":_variants(STATES,"All 50 states")+[{"label":"50 states + DC","entries":flat(STATES)+["District of Columbia"]}],
+ "resultLabel":"YOUR STATE","popLabel":"YOUR STATE IS",
+ "howTo":["Choose all states or a region.","Spin.","Turn on \"Remove winner\" to visit every state once."],
+ "sections":[
+  {"h2":"Regions on this wheel","body":"The regions follow the U.S. Census Bureau: **Northeast** (9 states), **Midwest** (12), **South** (16) and **West** (13). Washington, D.C. is not a state; add it with the \"50 states + DC\" preset."},
+  {"h2":"Ideas","body":"- **Road-trip planning** — spin for your next destination.\n- **US geography lessons** — capital, nickname, neighbouring states.\n- **License-plate or trivia games** — one state per round.\n- **Writing prompts** — set a story in the state you spin."}
+ ],
+ "faq":[
+  {"q":"Is Washington, D.C. included?","a":"Not by default, because it isn't a state. Choose \"50 states + DC\" to add it."},
+  {"q":"Can I spin only one region?","a":"Yes. Choose Northeast, Midwest, South or West above the list."}
+ ],
+ "sources":[CENSUS_SRC],
+ "related":["random-country-generator","random-nfl-team-generator","decision-wheel","random-number-generator"]
+},
+{
+ "slug":"random-nfl-team-generator","key":"nfl","nav":"NFL Teams",
+ "title":"Random NFL Team Generator – Spin the NFL Team Wheel | Wheelova",
+ "description":"Spin to pick a random NFL team from all 32, or by AFC, NFC or division. Free NFL team wheel for fantasy drafts, Madden picks and watch parties.",
+ "h1":"Random NFL Team Generator","subhead":"Spin to pick one of the 32 NFL teams.",
+ "entries":flat(NFL),"variants":[{"label":"All 32 teams","entries":flat(NFL)},{"label":"AFC","entries":[t for k,v in NFL.items() if k.startswith("AFC") for t in v]},{"label":"NFC","entries":[t for k,v in NFL.items() if k.startswith("NFC") for t in v]}]+[{"label":k,"entries":v} for k,v in NFL.items()],
+ "resultLabel":"YOUR TEAM","popLabel":"YOUR TEAM IS",
+ "howTo":["Choose all teams, a conference or a division.","Spin.","Use \"Remove winner\" so each person gets a different team."],
+ "sections":[
+  {"h2":"What's on the wheel","body":"All 32 current NFL teams: 16 in the AFC and 16 in the NFC, each split into East, North, South and West divisions of four teams."},
+  {"h2":"Ideas","body":"- **Madden and video games** — let the wheel choose your team for a challenge run.\n- **Office pools and parties** — give everyone a random team for the season or a game day.\n- **Fantasy football** — randomize draft order with the [Name Picker Wheel](/name-picker-wheel), then spin a team for each manager.\n- **Trivia** — answer questions about the team you spin."}
+ ],
+ "faq":[
+  {"q":"How many NFL teams are on the wheel?","a":"All 32 teams by default. Pick AFC, NFC or a division to narrow it down."},
+  {"q":"Can each person get a different team?","a":"Yes. Turn on \"Remove winner after each spin\"."},
+  {"q":"Is this affiliated with the NFL?","a":"No. Wheelova is an independent tool; team names are used only to identify the teams."}
+ ],
+ "related":["random-nba-team-generator","random-mlb-team-generator","random-team-generator","random-state-generator"]
+},
+{
+ "slug":"random-nba-team-generator","key":"nba","nav":"NBA Teams",
+ "title":"Random NBA Team Generator – Spin the NBA Team Wheel | Wheelova",
+ "description":"Spin to pick a random NBA team from all 30, or by Eastern or Western Conference and division. Free NBA team wheel for 2K, drafts and games.",
+ "h1":"Random NBA Team Generator","subhead":"Spin to pick one of the 30 NBA teams.",
+ "entries":flat(NBA),"variants":[{"label":"All 30 teams","entries":flat(NBA)}]+[{"label":c+" Conference","entries":[t for d in ds for t in NBA[d]]} for c,ds in NBA_CONF.items()]+[{"label":k,"entries":v} for k,v in NBA.items()],
+ "resultLabel":"YOUR TEAM","popLabel":"YOUR TEAM IS",
+ "howTo":["Choose all teams, a conference or a division.","Spin.","Turn on \"Remove winner\" for a draft-style pick."],
+ "sections":[
+  {"h2":"What's on the wheel","body":"All 30 current NBA teams — 15 in the Eastern Conference and 15 in the Western Conference, in six divisions of five teams."},
+  {"h2":"Ideas","body":"- **NBA 2K challenges** — spin your team for a rebuild or a random franchise.\n- **Watch parties** — everyone spins a team to cheer for.\n- **Classrooms and trivia** — spin a team, then name its city or arena."}
+ ],
+ "faq":[
+  {"q":"How many NBA teams are on the wheel?","a":"All 30 by default. Choose a conference or division to narrow it."},
+  {"q":"Is this affiliated with the NBA?","a":"No. Wheelova is an independent tool; team names are used only to identify the teams."}
+ ],
+ "related":["random-nfl-team-generator","random-mlb-team-generator","random-team-generator","number-wheel"]
+},
+{
+ "slug":"random-mlb-team-generator","key":"mlb","nav":"MLB Teams",
+ "title":"Random MLB Team Generator – Spin the MLB Team Wheel | Wheelova",
+ "description":"Spin to pick a random MLB team from all 30, or by American or National League and division. Free MLB team wheel for MLB The Show, pools and games.",
+ "h1":"Random MLB Team Generator","subhead":"Spin to pick one of the 30 MLB teams.",
+ "entries":flat(MLB),"variants":[{"label":"All 30 teams","entries":flat(MLB)},{"label":"American League","entries":[t for k,v in MLB.items() if k.startswith("AL") for t in v]},{"label":"National League","entries":[t for k,v in MLB.items() if k.startswith("NL") for t in v]}]+[{"label":k,"entries":v} for k,v in MLB.items()],
+ "resultLabel":"YOUR TEAM","popLabel":"YOUR TEAM IS",
+ "howTo":["Choose all teams, a league or a division.","Spin.","Turn on \"Remove winner\" so nobody gets the same team."],
+ "sections":[
+  {"h2":"What's on the wheel","body":"All 30 current MLB teams: 15 in the American League and 15 in the National League, in six divisions of five. The A's appear as \"Athletics\", the name the club uses since leaving Oakland."},
+  {"h2":"Ideas","body":"- **MLB The Show** — spin a team for a franchise or Road to the Show challenge.\n- **Office pools** — assign random teams for the season.\n- **Ballpark bucket list** — spin the next stadium to visit."}
+ ],
+ "faq":[
+  {"q":"How many MLB teams are on the wheel?","a":"All 30 by default. Choose a league or division to narrow it."},
+  {"q":"Is this affiliated with MLB?","a":"No. Wheelova is an independent tool; team names are used only to identify the teams."}
+ ],
+ "related":["random-nfl-team-generator","random-nba-team-generator","random-team-generator","random-state-generator"]
+},
+]
+
+# Retargets
+for p in PAGES:
+    if p["slug"] == "letter-wheel":
+        p.update({"slug":"random-letter-generator","nav":"Letter Generator",
+          "title":"Random Letter Generator – Spin the Alphabet Wheel A–Z | Wheelova",
+          "description":"Random letter generator: spin the alphabet wheel to pick a letter from A to Z. Vowels only, consonants, or no hard letters. Free for word games.",
+          "h1":"Random Letter Generator","subhead":"Spin the alphabet wheel to pick a random letter."})
+    if p["slug"] == "color-wheel":
+        p.update({"nav":"Color Generator",
+          "title":"Random Color Generator & Color Wheel Picker | Wheelova",
+          "description":"Spin the color wheel picker for a random color, shown with its hex code. Rainbow, basic, primary or pastel colors, or your own list. Free.",
+          "h1":"Random Color Generator","subhead":"Spin the color wheel to pick a random color — with its hex code."})
+
+for p in PAGES:
+    p["related"] = ["random-letter-generator" if r == "letter-wheel" else r for r in p["related"]]

@@ -58,7 +58,7 @@ if(!spinning)return;spinning=false;rot=rot%(Math.PI*2);var i=idxAt(rot),w=entrie
 res.innerHTML='<div class="lbl">'+(cfg.resultLabel||'WINNER')+'</div><div class="win"></div>';res.querySelector('.win').textContent=w;
 hist.unshift(w);var li=document.createElement('li');li.textContent=w;$('history').prepend(li);$('rcount').textContent='· '+hist.length;
 lastIdx=i;$('popwin').textContent=w;$('poplbl').textContent=cfg.popLabel||'WE HAVE A WINNER';
-var sw=$('popswatch');if(sw){var c=cfg.mode==='color'&&cfg.colorMap?cfg.colorMap[w.toLowerCase()]:null;sw.style.display=c?'block':'none';if(c)sw.style.background=c}
+var sw=$('popswatch'),hx=$('pophex');var c=cfg.mode==='color'&&cfg.colorMap?cfg.colorMap[w.toLowerCase()]:null;if(sw){sw.style.display=c?'block':'none';if(c)sw.style.background=c}if(hx)hx.textContent=c?c.toUpperCase():''
 $('popremove').style.display=removeW?'none':'';$('pop').classList.add('on');$('popclose').focus();
 if(removeW){entries.splice(i,1);ta.value=entries.join('\n');parse()}}
 var lastIdx=-1;function closePop(){$('pop').classList.remove('on');$('spin').focus()}
