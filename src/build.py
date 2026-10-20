@@ -8,7 +8,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "8"
+V = "9"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -73,8 +73,16 @@ def head(title, desc, path, ld, ogtitle=None):
 <meta property="og:title" content="{e(ogtitle or title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{url}">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="{SITE}/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Wheelova — spin the wheel, trust the result">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{SITE}/icons/og-image.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -85,7 +93,7 @@ def head(title, desc, path, ld, ogtitle=None):
 </head>
 <body>
 <header><div class="hd">
-<a class="logo" href="/"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11" fill="none" stroke="#6E56F0" stroke-width="2.4"/><path d="M13 2v11l8 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Wheelova</a>
+<a class="logo" href="/"><svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 35 L32 9 A26 26 0 0 1 58 35 Z" fill="#6E56F0"/><path d="M32 35 L58 35 A26 26 0 0 1 32 61 Z" fill="#E11D48"/><path d="M32 35 L32 61 A26 26 0 0 1 6 35 Z" fill="#F59E0B"/><path d="M32 35 L6 35 A26 26 0 0 1 32 9 Z" fill="#16A34A"/><circle cx="32" cy="35" r="6.5" fill="#FFFFFF"/><path d="M25 2 H39 L32 14 Z" fill="currentColor"/></svg>Wheelova</a>
 <button class="theme" id="theme" type="button" aria-label="Switch to light mode"><svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="b1" d="M4 7h16"/><path class="b2" d="M4 12h16"/><path class="b3" d="M4 17h16"/></svg></button>
 <nav id="mnav" aria-label="Main">{navhtml(path)}</nav>
@@ -261,6 +269,7 @@ def home():
     src = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
     main = re.search(r"<main>[\s\S]*?</main>", src).group(0)
     ld = json.loads(re.search(r'<script type="application/ld\+json">\s*([\s\S]*?)\s*</script>', src).group(1))
+    ld["@graph"].insert(0, {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": SITE + "/icons/icon-512.png"})
     popular = "".join(card(s, i) for i, s in enumerate(POPULAR))
     main = main.replace('<section id="features">', f'<section id="popular"><div class="wrap">\n<h2>Popular wheels</h2>\n<p style="margin:0 0 28px;color:var(--mu)">Ready-made wheels with their own presets and guides.</p>\n<div class="grid">{popular}</div>\n</div></section>\n\n<section id="features">', 1)
     main = main.replace("<h2>A ready-made wheel for everything</h2>", "<h2>Quick templates</h2>")
@@ -274,8 +283,10 @@ for p in PAGES:
     files[p["slug"] + ".html"] = page(p)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
-for f in ["app.css", "app.js", "gen.js", "about.html", "privacy.html", "terms.html", "favicon.svg", "robots.txt"]:
+for f in ["app.css", "app.js", "gen.js", "about.html", "privacy.html", "terms.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(open(os.path.join(ROOT, f), encoding="utf-8").read())
+shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
+shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))
 urls = ["", "wheels"] + [p["slug"] for p in PAGES] + ["about", "privacy", "terms"]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>{SITE}/{u}</loc><lastmod>2026-10-21</lastmod></url>" for u in urls) + "</urlset>\n"
 open(os.path.join(OUT, "sitemap.xml"), "w").write(sm)
