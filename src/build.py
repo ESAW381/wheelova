@@ -1,6 +1,10 @@
 import json, re, html, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from pages import PAGES, MDN
+from content_v2 import UPGRADES, AUTHOR, UPDATED
+for _p in PAGES:
+    if _p['slug'] in UPGRADES:
+        _p.update(UPGRADES[_p['slug']]); _p['upgraded'] = True
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
@@ -18,8 +22,19 @@ def md(s):
     s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
     s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
     s = re.sub(r"\[([^\]]+)\]\((/[^)]*)\)", r'<a href="\2">\1</a>', s)
-    out, lst = [], None
+    out, lst, tbl = [], None, []
+    def flush():
+        if not tbl: return
+        rows = [[c.strip() for c in r.strip().strip("|").split("|")] for r in tbl if not re.match(r"^\|?\s*-", r.strip("| ").strip() or "-") or "|" not in r]
+        rows = [r for r in rows if not all(re.fullmatch(r"-+", c) for c in r)]
+        h, body = rows[0], rows[1:]
+        out.append('<div class="tw"><table><thead><tr>' + "".join(f"<th>{c}</th>" for c in h) + "</tr></thead><tbody>" + "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in body) + "</tbody></table></div>")
+        tbl.clear()
     for line in s.split("\n"):
+        if line.startswith("|"):
+            if lst: out.append(f"</{lst}>"); lst = None
+            tbl.append(line); continue
+        flush()
         m1, m2 = re.match(r"^- (.*)", line), re.match(r"^\d+\. (.*)", line)
         tag = "ul" if m1 else "ol" if m2 else None
         if tag:
@@ -30,8 +45,10 @@ def md(s):
         else:
             if lst: out.append(f"</{lst}>"); lst = None
             if line.strip(): out.append(f"<p>{line}</p>")
+    flush()
     if lst: out.append(f"</{lst}>")
-    return "\n".join(out)
+    s2 = "\n".join(out)
+    return re.sub(r"(?<![\w*])\*([^*\n]+)\*(?!\*)", r"<em>\1</em>", s2)
 
 def plain(s):
     return re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", s).replace("**", "").replace("`", "")
@@ -126,6 +143,10 @@ def card(slug, i):
     p = BY[slug]; c = DOTS[i % len(DOTS)]
     return f'<a class="tpl" href="/{slug}"><span class="dot" style="background:conic-gradient({c} 0 25%,#2A2A36 0 50%,{c} 0 75%,#2A2A36 0)"></span><span><b>{e(p["h1"])}</b><span>{e(p["subhead"])}</span></span></a>'
 
+def byline(p):
+    if not p.get("upgraded"): return ""
+    return f'<p class="byline">By <span>{e(AUTHOR["name"])}</span> · {e(AUTHOR["role"])} · Updated <time datetime="{UPDATED}">October 21, 2026</time></p>'
+
 def scripts(p, cfg):
     if p.get("tool"):
         g = {"type": p["tool"]}
@@ -174,7 +195,7 @@ def page(p):
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebApplication", "name": p["h1"], "url": SITE + path, "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": p["description"], "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/"}},
         {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Wheelova", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": "Wheels", "item": SITE + "/wheels"}, {"@type": "ListItem", "position": 3, "name": p["h1"], "item": SITE + path}]},
-        faq_ld]}
+        faq_ld] + ([{"@type": "WebPage", "@id": SITE + path + "#page", "url": SITE + path, "name": p["h1"], "dateModified": UPDATED, "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/"}}] if p.get("upgraded") else [])}
     steps = "".join(f'<div><span class="n">{i+1:02d}</span><p>{md(s)[3:-4]}</p></div>' for i, s in enumerate(p["howTo"]))
     secs = "".join(f'<h2>{e(s["h2"])}</h2>\n{md(s["body"])}\n' for s in p["sections"])
     faqs = "".join(f'<details><summary>{e(f["q"])}</summary><p>{e(f["a"])}</p></details>' for f in p["faq"])
@@ -186,6 +207,7 @@ def page(p):
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <a href="/wheels">Wheels</a> / <span aria-current="page">{e(p["h1"])}</span></nav>
 <h1>{e(p["h1"])}</h1>
 <p class="sub1">{e(p["subhead"])}</p>
+{byline(p)}
 {gentool(p) if p.get("tool") else tool(controls)}
 </div>
 
