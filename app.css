@@ -1,3 +1,6 @@
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/inter.woff2) format('woff2')}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/inter-tight.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-500.woff2) format('woff2')}
 :root{--bg:#0A0A0C;--panel:#111116;--line:#1E1E25;--line2:#2A2A33;--tx:#EDEDF2;--mu:#A3A3B0;--mu2:#8A8A97;--ac:#6E56F0;--acl:#B3A8FF;--ok:#8FE3C7;--hi:#FFFFFF;--tx2:#D6D6DE;--link:#C9C2FF;--inv:#FFFFFF;--invtx:#0A0A0C;--ring:#17171D;--sh:rgba(0,0,0,.55);--soonb:#2c4a40;--hov:#44444f;color-scheme:dark}
 :root[data-theme="light"]{--bg:#F6F6F9;--panel:#FFFFFF;--line:#E6E6EC;--line2:#D6D6DF;--tx:#1A1A22;--mu:#565665;--mu2:#62626F;--acl:#5A48D8;--ok:#0E7556;--hi:#0A0A0C;--tx2:#2E2E38;--link:#5A48D8;--inv:#0A0A0C;--invtx:#FFFFFF;--ring:#ECECF2;--sh:rgba(20,20,40,.14);--soonb:#B7DCCD;--hov:#B5B5C2;color-scheme:light}
 *{box-sizing:border-box}
