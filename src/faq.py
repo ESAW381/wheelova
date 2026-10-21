@@ -9,7 +9,8 @@ FAQ_PAGE = {
   ("Randomness and fairness", "random", [
    ("Is the wheel truly random?",
     "Yes, in the way that matters for games, lessons and draws. Every spin uses your browser's `crypto.getRandomValues()`, which [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues) describes as a cryptographically secure pseudo-random generator seeded with system entropy. "
-    "The random number decides how far the wheel turns, and the winner is whichever slice stops under the pointer. Each spin is independent of the last one."),
+    "The random number decides how far the wheel turns, and the winner is whichever slice stops under the pointer. Each spin is independent of the last one. "
+    "We tested this with 1,000,000 spins per wheel: see the [fairness study](/is-the-wheel-random) for the results and raw data."),
    ("Does every entry have the same chance?",
     "Yes, as long as each entry appears once. All slices are the same size, so with 8 unique entries each has a 1 in 8 (12.5%) chance. "
     "If you type the same entry twice, it gets two slices and twice the chance. That is how you weight the wheel on purpose."),

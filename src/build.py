@@ -145,7 +145,7 @@ def footer():
 {fbrand("/", "Spin the wheel. Trust the result.", "© 2026 Wheelova. Free random wheel spinner.")}
 <div><span class="h">Popular wheels</span>{pop}</div>
 <div><span class="h">More wheels</span>{more}<a href="/wheels">All wheels</a></div>
-<div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+<div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/is-the-wheel-random">Fairness study</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
 </div></footer>
 """
 
@@ -341,6 +341,30 @@ def faq_page():
 </html>
 """
 
+import study
+def study_page():
+    path = "/" + study.SLUG
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "Article", "headline": study.H1, "description": study.DESC, "url": SITE + path, "datePublished": study.DATE_ISO, "dateModified": study.DATE_ISO, "image": SITE + "/icons/og-image.png", "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/icons/icon-512.png"}}},
+        {"@type": "Dataset", "name": "Wheelova spin fairness test: 1,000,000 spins per wheel", "description": "Raw results of 1,000,000 simulated spins of Wheelova's spin code on 2-entry and 10-entry wheels, one digit per spin.", "url": SITE + path, "creator": {"@type": "Organization", "name": "Wheelova"}, "license": "https://creativecommons.org/licenses/by/4.0/", "isAccessibleForFree": True, "distribution": [{"@type": "DataDownload", "encodingFormat": "text/plain", "contentUrl": SITE + "/data/fairness/ten-entries-1m-spins.txt"}, {"@type": "DataDownload", "encodingFormat": "text/plain", "contentUrl": SITE + "/data/fairness/two-entries-1m-spins.txt"}]},
+        {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Wheelova", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": "Fairness study", "item": SITE + path}]}]}
+    return head(study.TITLE, study.DESC, path, ld, "We spun an online wheel 1,000,000 times. Is it random?") + f"""
+<main><div class="wrap hero">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <span aria-current="page">Fairness study</span></nav>
+<h1>{e(study.H1)}</h1>
+<p class="sub1">{e(study.SUB)}</p>
+<p class="byline" style="margin-top:14px">By <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Published <time datetime="{study.DATE_ISO}">{study.DATE_TXT}</time></p>
+</div>
+<section style="padding-top:24px"><div class="wrap prose study">
+{study.body()}
+</div></section>
+</main>
+{footer()}
+{CHROME_JS}
+</body>
+</html>
+"""
+
 def hub():
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "All Wheelova wheels", "url": SITE + "/wheels", "hasPart": [{"@type": "WebPage", "name": BY[s]["h1"], "url": f"{SITE}/{s}"} for s in POPULAR]}
     cards = "".join(f'<h2 style="margin:36px 0 16px">{e(c)}</h2><div class="grid">' + "".join(card(s, i) for i, s in enumerate(ss)) + '</div>' for c, ss in CLUSTERS)
@@ -422,7 +446,7 @@ def es_page(p):
 
 import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 from static_pages import STATIC
-files = {"index.html": home(), "wheels.html": hub(), "faq.html": faq_page()}
+files = {"index.html": home(), "wheels.html": hub(), "faq.html": faq_page(), study.SLUG + ".html": study_page()}
 for s in STATIC:
     files[s["slug"] + ".html"] = simple(**s)
 for p in PAGES:
@@ -437,12 +461,13 @@ for f in ["app.css", "app.js", "gen.js", "embed.js", "embed.html", "favicon.svg"
 shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
 shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))
 shutil.copytree(os.path.join(ROOT, "fonts"), os.path.join(OUT, "fonts"))
+shutil.copytree(os.path.join(ROOT, "data"), os.path.join(OUT, "data"))
 import hashlib, datetime
 LM_PATH = os.path.join(ROOT, "src", "lastmod.json")
 try: LM = json.load(open(LM_PATH))
 except Exception: LM = {}
 TODAY = datetime.date.today().isoformat()
-urls = ["", "wheels", "faq"] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
+urls = ["", "wheels", "faq", study.SLUG] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
 for u in urls:
     body = files["index.html" if u == "" else u + ".html"]
     m = re.search(r"<main>[\s\S]*?</main>", body)
