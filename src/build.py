@@ -8,12 +8,12 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "15"
+V = "16"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
-POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]
-CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "mystery-wheel", "lucky-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Colors", ["color-wheel"])]
+POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "truth-or-dare-wheel", "coin-flip", "dice-roller", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]
+CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "coin-flip"]), ("Games & parties", ["truth-or-dare-wheel", "dice-roller", "lucky-wheel", "mystery-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner", "dice-roller", "coin-flip"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Colors", ["color-wheel"])]
 DOTS = ["#6E56F0", "#E11D48", "#F59E0B", "#16A34A", "#2563EB", "#DB2777", "#0D9488", "#EA580C"]
 e = html.escape
 
@@ -119,7 +119,7 @@ SHARE = """
 
 POP = """
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popwin"><div class="popc">
-<div class="lbl" id="poplbl">WE HAVE A WINNER</div><div class="popswatch" id="popswatch" aria-hidden="true"></div><div class="win" id="popwin"></div><div class="pophex" id="pophex"></div>
+<div class="lbl" id="poplbl">WE HAVE A WINNER</div><div class="popswatch" id="popswatch" aria-hidden="true"></div><div class="win" id="popwin"></div><div class="popprompt" id="popprompt"></div><div class="pophex" id="pophex"></div>
 <div class="acts"><button class="pbtn" id="popremove" type="button">Remove from wheel</button><button class="pbtn pri" id="popclose" type="button">Close</button></div>
 </div></div>
 """
@@ -193,12 +193,16 @@ def gentool(p):
         ctr = """<label for="tnames" style="font-weight:600;color:var(--hi)">Names <span id="tcount" style="color:var(--mu2);font-weight:500"></span></label>
 <textarea id="tnames" spellcheck="false" style="min-height:200px"></textarea>
 <div class="nrow"><label>Split by<select id="tmode" style="width:170px"><option value="teams">Number of teams</option><option value="size">People per team</option></select></label><label>Number<input id="tnum" type="number" inputmode="numeric" value="3" min="1"></label></div>"""
+    elif t == "coin":
+        ctr = """<div class="nrow"><label>How many flips<select id="ccount" style="width:150px"><option>1</option><option>5</option><option>10</option><option>20</option><option>50</option><option>100</option></select></label></div>"""
+    elif t == "dice":
+        ctr = """<div class="nrow"><label>Dice<select id="dcount" style="width:110px">""" + "".join(f'<option{" selected" if n==2 else ""}>{n}</option>' for n in range(1,7)) + """</select></label><label>Sides<select id="dsides" style="width:110px">""" + "".join(f'<option value="{s}"{" selected" if s==6 else ""}>d{s}</option>' for s in (4,6,8,10,12,20)) + """</select></label></div>"""
     else:
         ctr = """<div class="nrow"><label>Names<select id="ngender" style="width:130px"><option value="any">Any</option><option value="female">Female</option><option value="male">Male</option></select></label><label>How many<input id="ncount" type="number" inputmode="numeric" value="10" min="1" max="100"></label></div>
 <label class="ck"><input id="nfull" type="checkbox" checked> Add last name</label>"""
     return f"""<div class="tool gtool" id="tool">
 <div class="card gctl">{ctr}
-<button class="gbtn" id="ggo" type="button">Generate</button>
+<button class="gbtn" id="ggo" type="button">{ {"coin": "Flip", "dice": "Roll"}.get(t, "Generate") }</button>
 <p class="err" id="gerr" role="alert"></p>
 </div>
 <div class="stage gres">
@@ -215,10 +219,12 @@ def page(p):
         controls += '<div class="chips" id="variants" aria-label="Presets"></div>'
     if p.get("numberRange"):
         controls += '<div class="nrow"><label>From<input id="nmin" type="number" inputmode="numeric" value="1"></label><label>To<input id="nmax" type="number" inputmode="numeric" value="100"></label><button class="btn" id="ngo" type="button" style="height:40px">Make wheel</button></div><p class="err" id="nerr" role="alert"></p>'
+    if p.get("prompts"):
+        controls += '<div class="nrow"><label>Deck<select id="tddeck" style="width:190px"><option value="kids">Kids</option><option value="teens">Teens &amp; party</option></select></label></div>'
     if p.get("spinnerCount"):
         opts = "".join(f'<option value="{n}"{" selected" if n==6 else ""}>{n} slices</option>' for n in range(2, 21))
         controls += f'<div class="nrow"><label>Number of slices<select id="scount" style="width:150px">{opts}</select></label></div>'
-    cfg = {k: p[k] for k in ("entries", "variants", "mode", "colorMap", "removeWinner", "resultLabel", "popLabel", "key") if k in p}
+    cfg = {k: p[k] for k in ("entries", "variants", "mode", "colorMap", "removeWinner", "resultLabel", "popLabel", "key", "prompts") if k in p}
     faq_ld = {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": f["q"], "acceptedAnswer": {"@type": "Answer", "text": f["a"]}} for f in p["faq"]]}
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebApplication", "name": p["h1"], "url": SITE + path, "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": p["description"], "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/"}},
@@ -240,7 +246,7 @@ def page(p):
 </div>
 
 <section id="how"><div class="wrap">
-<h2 style="margin-bottom:24px">How to use the {e(p["h1"].lower().replace("random ", "").replace("online ", ""))}</h2>
+<h2 style="margin-bottom:24px">{e(p.get("howTitle") or "How to use the " + p["h1"].lower().replace("random ", "").replace("online ", ""))}</h2>
 <div class="steps3">{steps}</div>
 </div></section>
 

@@ -696,3 +696,94 @@ for _slug, _h, _body in [
     ("random-state-generator", "All 50 states by region", _STATE_T),
 ]:
     UPGRADES[_slug]["sections"].insert(2, {"h2": _h, "body": _body})
+
+# ================================================================ NEW TOOLS
+UPGRADES.update({
+"truth-or-dare-wheel": {
+ "sections": [
+  {"h2": "How the Truth or Dare wheel works", "body":
+   "Spin the wheel to land on **Truth** or **Dare**. The popup then shows a random prompt from the deck you chose — a question to answer honestly, or a challenge to do. With the default wheel, Truth and Dare each have a 50% chance; use **More truths** or **More dares** to tilt it (4 of 6 slices = about 67%).\n\n" + RANDOM_NOTE},
+  {"h2": "Two decks, 80 clean prompts", "body":
+   "| Deck | Truths | Dares | Good for |\n|---|---|---|---|\n"
+   "| Kids | 20 | 20 | Family game nights, classrooms, younger groups |\n"
+   "| Teens & party | 20 | 20 | Sleepovers, youth groups, parties, team socials |\n\n"
+   "Both decks are written to be fun without being harmful: no dares that are dangerous, cost money, involve posting online or touch on anything private. Every prompt is suitable for mixed groups."},
+  {"h2": "How to play", "body":
+   "1. **Sit in a circle** and agree who goes first — spin the [Name Picker Wheel](/name-picker-wheel) if nobody wants to.\n"
+   "2. **Spin for Truth or Dare.** The player reads the prompt in the popup.\n"
+   "3. **Answer or do it.** If a player really doesn't want to, they can use a **pass** (agree how many each player gets before you start).\n"
+   "4. **Pass the turn** to the left and spin again."},
+  {"h2": "Ground rules that keep it fun", "body":
+   "- **Anyone can pass.** Truth or Dare only works when everyone feels safe saying no.\n"
+   "- **No dares that could hurt someone** or damage anything.\n"
+   "- **Nothing goes online.** No posting, messaging or recording anyone without their clear okay.\n"
+   "- **Keep secrets in the room.** What someone shares as a truth stays in the game.\n"
+   "- **Adults set the level** for kids' groups — remove any prompt you think doesn't suit your group."},
+  {"h2": "Use your own questions", "body":
+   "Want custom prompts? Type your own truths and dares straight into the entry box, one per line — for example \"Truth: What's your dream holiday?\" or \"Dare: Sing a nursery rhyme\". The wheel then lands directly on those. Use **Share link** to send your custom game to friends."},
+  {"h2": "Classroom and team versions", "body":
+   "In class, swap \"Dare\" for \"Do\" and use quick, curriculum-friendly prompts: \"Name three prime numbers\", \"Spell your favourite word backwards\". For team icebreakers, keep truths light — favourite holiday, hidden talent, first job — and dares simple, like a 10-second impression."}
+ ],
+ "faq": [
+  {"q": "How do I play Truth or Dare with the wheel?", "a": "Choose a deck, spin to land on Truth or Dare, and read the random prompt in the popup. Answer the truth or do the dare, then pass to the next player."},
+  {"q": "Are the questions safe for kids?", "a": "Yes. The Kids deck is written for younger players, and both decks avoid anything dangerous, private or inappropriate. Adults can remove any prompt that doesn't suit their group."},
+  {"q": "Can I add my own truths and dares?", "a": "Yes. Type them into the entry box, one per line, and the wheel lands directly on your prompts."},
+  {"q": "Can I make truths more likely than dares?", "a": "Yes. Use the More truths preset, which gives Truth 4 of 6 slices (about 67%)."},
+  {"q": "What if someone doesn't want to do their dare?", "a": "Let them pass. Agree before the game how many passes each player gets — the game only works when everyone can say no."},
+  {"q": "How many prompts are there?", "a": "80 in total: 20 truths and 20 dares in each of the two decks."}
+ ],
+ "sources": [S_MDN],
+},
+"coin-flip": {
+ "sections": [
+  {"h2": "How the coin flip works", "body":
+   "Press **Flip** and the coin lands on heads or tails, each with exactly a 50% chance. You can flip once, or flip up to 100 times in one go and see the tally and the longest streak.\n\n" + RANDOM_NOTE},
+  {"h2": "Is an online coin flip fair?", "body":
+   "Yes — and arguably fairer than a real coin. Statistician Persi Diaconis predicted that a flipped coin is slightly more likely to land the same way up it started, because of how coins wobble in the air. A 2023 study by František Bartoš and colleagues tested this with 350,757 real flips and found coins landed on their starting side about 50.8% of the time. An online flip has no starting side and no wobble: every flip is an independent 50/50 from the random generator."},
+  {"h2": "Streaks are normal", "body":
+   "People expect heads and tails to alternate. They don't. In 10 flips, getting three or more of the same side in a row happens about 83% of the time. In 100 flips, a streak of six or more in a row happens about 80% of the time. If you see a long streak in the tally, that's randomness behaving normally — not a broken coin.\n\n"
+   "| Flips | Expected heads | Typical range (about 95% of the time) |\n|---|---|---|\n"
+   "| 10 | 5 | 2 to 8 |\n| 100 | 50 | 40 to 60 |\n| 1,000 | 500 | 469 to 531 |"},
+  {"h2": "When to flip a coin", "body":
+   "**Tie-breakers:** who goes first, who picks the film, which team kicks off.\n\n"
+   "**Two good options:** when both choices are fine and you're wasting time deciding. Notice your reaction to the result — if you feel disappointed, you probably wanted the other option.\n\n"
+   "**Teaching probability:** flip 10, 100 and 1,000 times and watch the tally get closer to 50% as the number grows.\n\n"
+   "For yes/no questions with a third option like \"maybe\", try the [Yes or No Wheel](/yes-or-no-wheel)."}
+ ],
+ "faq": [
+  {"q": "Is the coin flip 50/50?", "a": "Yes. Heads and tails each have exactly a 50% chance on every flip."},
+  {"q": "Can I flip more than one coin?", "a": "Yes. Choose up to 100 flips and the tool shows each result, the heads/tails tally and the longest streak."},
+  {"q": "Why did I get heads five times in a row?", "a": "Streaks are a normal part of randomness. Five in a row happens about once every 16 tries starting fresh."},
+  {"q": "Is an online coin flip fairer than a real coin?", "a": "A 2023 study of 350,757 real flips found coins land on the side they started about 50.8% of the time. An online flip has no starting side, so it's an even 50/50."},
+  {"q": "Can I use it for a tie-breaker in a game?", "a": "Yes. Agree which side means what before you flip."}
+ ],
+ "sources": [{"title": "Bartoš et al. (2023) — Fair coins tend to land on the same side they started: evidence from 350,757 flips (arXiv)", "url": "https://arxiv.org/abs/2310.04153"}, S_MDN],
+},
+"dice-roller": {
+ "sections": [
+  {"h2": "How the dice roller works", "body":
+   "Choose how many dice (1 to 6) and how many sides each die has, then press **Roll**. You'll see each die and the total. Every face has the same chance: 1 in 6 on a d6, 1 in 20 on a d20.\n\n" + RANDOM_NOTE},
+  {"h2": "Which dice can I roll?", "body":
+   "| Die | Sides | Chance of each face | Common uses |\n|---|---|---|---|\n"
+   "| d4 | 4 | 25% | Tabletop RPG damage |\n| d6 | 6 | 16.7% | Board games, Yahtzee, Monopoly |\n| d8 | 8 | 12.5% | RPG damage rolls |\n| d10 | 10 | 10% | Percentile rolls, RPGs |\n| d12 | 12 | 8.3% | RPG damage, maths games |\n| d20 | 20 | 5% | Dungeons & Dragons checks and attacks |"},
+  {"h2": "Two dice: why 7 comes up most", "body":
+   "With one die, every number is equally likely. With two dice added together, they aren't — there are more ways to make 7 than any other total:\n\n"
+   "| Total | Ways to roll it | Chance |\n|---|---|---|\n"
+   "| 2 or 12 | 1 | 2.8% |\n| 3 or 11 | 2 | 5.6% |\n| 4 or 10 | 3 | 8.3% |\n| 5 or 9 | 4 | 11.1% |\n| 6 or 8 | 5 | 13.9% |\n| 7 | 6 | 16.7% |\n\n"
+   "That's why 7 matters so much in games like Catan and craps. The dice roller adds the total for you, so it works for any game that uses sums."},
+  {"h2": "Ideas", "body":
+   "**Board games:** replace lost dice, or roll for a game that needs more dice than you have.\n\n"
+   "**Tabletop RPGs:** quick d20 checks or damage rolls when you're away from your dice bag.\n\n"
+   "**Maths lessons:** roll two dice 50 times, record the totals and compare with the table above.\n\n"
+   "**Decisions:** number your options 1–6 and roll. For more than six options, use the [Online Spinner](/spinner)."}
+ ],
+ "faq": [
+  {"q": "How many dice can I roll at once?", "a": "Up to six dice of the same type per roll."},
+  {"q": "Can I roll a d20?", "a": "Yes. Choose 20 sides. Each face has a 1 in 20 (5%) chance."},
+  {"q": "Is the virtual dice roller fair?", "a": "Yes. Every face has the same chance, chosen by your browser's cryptographically secure random generator, and each roll is independent."},
+  {"q": "What's the most likely total with two dice?", "a": "7, with a 1 in 6 (16.7%) chance. 2 and 12 are least likely, at 1 in 36 each."},
+  {"q": "Can I use it for Dungeons & Dragons?", "a": "Yes for single-type rolls like 1d20 or 3d6. For mixed rolls such as 1d8+1d6, roll each type separately."}
+ ],
+ "sources": [S_MDN],
+},
+})

@@ -408,3 +408,45 @@ for p in PAGES:
 
 for p in PAGES:
     p["related"] = ["random-letter-generator" if r == "letter-wheel" else r for r in p["related"]]
+
+# ---------------- Batch 3: Truth or Dare, Coin flip, Dice roller ----------------
+TOD = {
+"kids": {
+ "Truth": ["What's your favourite food, and what's the worst food you've ever tried?","If you could have any animal as a pet, what would it be?","What's the funniest thing that's happened to you at school?","If you could be any superhero, who would you be?","What's something you're really good at?","What's your favourite thing to do on a weekend?","If you could visit any place in the world, where would you go?","What's the silliest thing you've ever done?","Who is your best friend, and why?","What's your favourite book or film, and why?","If you could invent something, what would it be?","What's the best present you've ever received?","What are you scared of?","If you were a teacher for a day, what would you teach?","What's your favourite joke?","What would you do if you were invisible for a day?","What's something nice someone did for you recently?","If you could have any job, what would it be?","What's your favourite game to play?","What's one thing you'd like to learn this year?"],
+ "Dare": ["Do your best animal impression for 10 seconds.","Hop on one foot five times.","Say the alphabet backwards as far as you can.","Make the silliest face you can and hold it for five seconds.","Speak like a robot until your next turn.","Do five jumping jacks.","Sing the first line of your favourite song.","Pretend to be a news reporter for 20 seconds.","Walk like a penguin across the room.","Tell a joke — if nobody laughs, tell another.","Balance a book on your head for 10 seconds.","Do your best dance move.","Say a tongue twister three times fast.","Act out your favourite animal without making a sound.","Give everyone a compliment.","Draw a picture with your eyes closed.","Spin around three times, then try to walk in a straight line.","Pretend you're a statue until someone makes you laugh.","Talk in a whisper until your next turn.","Do your best impression of a teacher (kindly!)."]
+},
+"teens": {
+ "Truth": ["What's the most embarrassing thing that's happened to you in public?","What's a song you secretly love but would never admit to?","What's the last thing you searched for on your phone?","What's your biggest pet peeve?","Who in this room would survive longest in a zombie apocalypse?","What's the weirdest dream you've ever had?","What's a habit you're trying to break?","What's the best advice you've ever been given?","If you could swap lives with anyone for a day, who would it be?","What's a rule you think is completely pointless?","What's your most unpopular opinion?","What's the worst haircut you've ever had?","What's the most useless talent you have?","What's one thing you'd change about yourself?","What's the most childish thing you still do?","Which app do you spend the most time on?","What's a goal you have for this year?","What's the funniest text you've ever sent by mistake?","Who was your first celebrity crush?","What's something you're proud of but rarely talk about?"],
+ "Dare": ["Let the group pick a song for you to sing the chorus of.","Talk in an accent of the group's choice until your next turn.","Do 10 push-ups (or 10 squats).","Let someone draw a moustache on your hand.","Tell a story using only song titles.","Do your best runway walk across the room.","Strike your best selfie pose and hold it for five seconds.","Speak only in questions until your next turn.","Do an impression of someone in the group — they choose who.","Try to lick your elbow.","Hold a plank for 30 seconds.","Let the group choose your phone wallpaper for the next hour.","Say something nice about every person here.","Recite a poem the group picks, dramatically.","Do your best evil laugh.","Let the group give you a new nickname until your next turn.","Act out a famous movie scene without words.","Keep your eyes closed until your next turn.","Invent a new handshake with the person on your left.","Describe your day as if you were a sports commentator."]
+},
+}
+
+PAGES += [
+{
+ "slug":"truth-or-dare-wheel","key":"tod","nav":"Truth or Dare",
+ "title":"Truth or Dare Wheel – Spin for a Truth or Dare Question | Wheelova",
+ "description":"Spin the Truth or Dare wheel and get a random question or dare. Kids and teen/party decks with 80 clean prompts, or add your own. Free, no sign-up.",
+ "h1":"Truth or Dare Wheel","subhead":"Spin, land on Truth or Dare, and get a random prompt to answer or do.",
+ "entries":["Truth","Dare","Truth","Dare","Truth","Dare"],
+ "variants":[{"label":"Truth / Dare (equal)","entries":["Truth","Dare","Truth","Dare","Truth","Dare"]},{"label":"More truths","entries":["Truth","Dare","Truth","Truth","Dare","Truth"]},{"label":"More dares","entries":["Dare","Truth","Dare","Dare","Truth","Dare"]}],
+ "prompts":TOD,"resultLabel":"YOU GOT","popLabel":"YOU GOT",
+ "howTo":["Choose a deck: Kids or Teens & party.","Spin to land on Truth or Dare.","Read the prompt in the popup — answer the truth or do the dare, then pass to the next player."],
+ "sections":[],"faq":[],"related":["yes-or-no-wheel","mystery-wheel","decision-wheel","name-picker-wheel"]
+},
+{
+ "slug":"coin-flip","key":"coin","nav":"Coin Flip","tool":"coin",
+ "title":"Flip a Coin – Free Online Coin Flip, Heads or Tails | Wheelova",
+ "description":"Flip a coin online for heads or tails. Flip once or up to 100 times, see the tally and longest streak. Fair, instant and free — no sign-up.",
+ "h1":"Flip a Coin","howTitle":"How to flip a coin online","subhead":"Heads or tails? Flip once, or flip many times and see the tally.",
+ "howTo":["Press Flip (or the Space bar).","Choose how many flips if you want more than one.","Read the result and the running heads/tails tally."],
+ "sections":[],"faq":[],"related":["yes-or-no-wheel","dice-roller","random-number-generator","decision-wheel"]
+},
+{
+ "slug":"dice-roller","key":"dice","nav":"Dice Roller","tool":"dice",
+ "title":"Dice Roller – Roll Virtual Dice Online (d4 to d20) | Wheelova",
+ "description":"Roll 1 to 6 virtual dice online — d4, d6, d8, d10, d12 or d20. See each die and the total. Free dice roller for board games, D&D and class.",
+ "h1":"Dice Roller","subhead":"Roll up to six dice — d4, d6, d8, d10, d12 or d20 — and see the total.",
+ "howTo":["Choose how many dice and how many sides.","Press Roll (or the Space bar).","See each die and the total. Recent rolls are listed below."],
+ "sections":[],"faq":[],"related":["coin-flip","spinner","random-number-generator","number-wheel"]
+},
+]

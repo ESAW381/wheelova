@@ -48,8 +48,34 @@ if(cfg.type==='name'){
   show(r,c===1)}
  $('ggo').onclick=run;
 }
-document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();$('ggo').click()}});
-$('ggo').click();
+
+if(cfg.type==='coin'){
+ var tot={h:0,t:0};
+ function runc(){err.textContent='';var n=parseInt($('ccount').value,10)||1,r=[],best=0,cur=0,prev=null;
+  for(var i=0;i<n;i++){var s=rand()<0.5?'Heads':'Tails';r.push(s);if(s===prev)cur++;else cur=1;prev=s;if(cur>best)best=cur;s==='Heads'?tot.h++:tot.t++}
+  out.innerHTML='';out.className='gout'+(n===1?' big coinout':'');
+  if(n===1){var c=document.createElement('div');c.className='coin '+(r[0]==='Heads'?'heads':'tails');c.innerHTML='<span></span>';c.querySelector('span').textContent=r[0]==='Heads'?'H':'T';out.appendChild(c);var l=document.createElement('div');l.className='coinlbl';l.textContent=r[0];out.appendChild(l)}
+  else{r.forEach(function(s){var x=document.createElement('span');x.className='gitem '+(s==='Heads'?'ch':'ct');x.textContent=s==='Heads'?'H':'T';x.title=s;out.appendChild(x)})}
+  var h=r.filter(function(s){return s==='Heads'}).length;last=r;
+  $('gcount').textContent=n===1?('Session: '+tot.h+' heads · '+tot.t+' tails'):(h+' heads ('+Math.round(h/n*100)+'%) · '+(n-h)+' tails · longest streak '+best);
+  var hi=$('ghist');if(hi){var li=document.createElement('li');li.textContent=n===1?r[0]:(n+' flips: '+h+' H / '+(n-h)+' T');hi.prepend(li);while(hi.children.length>10)hi.removeChild(hi.lastChild)}}
+ $('ggo').onclick=runc;
+}
+if(cfg.type==='dice'){
+ var PIPS={1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
+ function rund(){err.textContent='';var n=parseInt($('dcount').value,10)||1,s=parseInt($('dsides').value,10)||6,r=[];for(var i=0;i<n;i++)r.push(1+Math.floor(rand()*s));
+  out.innerHTML='';out.className='gout diceout';
+  r.forEach(function(v){var d=document.createElement('div');d.className='die'+(s===6?' pips':'');d.setAttribute('aria-label',v);
+   if(s===6){for(var k=1;k<=9;k++){var p=document.createElement('i');if(PIPS[v].indexOf(k)>-1)p.className='on';d.appendChild(p)}}else{d.textContent=v}out.appendChild(d)});
+  var sum=r.reduce(function(a,b){return a+b},0);last=r.map(String);
+  $('gcount').textContent=n>1?('Total: '+sum):(n+'d'+s);
+  var tl=document.createElement('div');tl.className='dicetotal';tl.textContent=n>1?('Total '+sum):('You rolled '+sum);out.appendChild(tl);
+  var hi=$('ghist');if(hi){var li=document.createElement('li');li.textContent=n+'d'+s+': '+r.join(' + ')+(n>1?' = '+sum:'');hi.prepend(li);while(hi.children.length>10)hi.removeChild(hi.lastChild)}}
+ $('ggo').onclick=rund;
+}
+document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();$('ggo').click()}
+if((cfg.type==='coin'||cfg.type==='dice')&&e.code==='Space'&&!/TEXTAREA|INPUT|SELECT|BUTTON|A/.test(document.activeElement.tagName)){e.preventDefault();$('ggo').click()}});
+if(cfg.type==='coin'||cfg.type==='dice'){out.innerHTML='<div class="gwait">'+(cfg.type==='coin'?'Press Flip':'Press Roll')+'</div>'}else{$('ggo').click()}
 var lg=document.querySelector('.logo');if(lg)lg.addEventListener('click',function(){try{localStorage.removeItem('wv_entries_home2')}catch(e){}});
 var bg=$('burger'),nv=$('mnav');bg.onclick=function(){var o=!nv.classList.contains('open');nv.classList.toggle('open',o);bg.setAttribute('aria-expanded',o);bg.setAttribute('aria-label',o?'Close menu':'Open menu')};
 nv.addEventListener('click',function(e){if(e.target.tagName==='A'){nv.classList.remove('open');bg.setAttribute('aria-expanded',false)}});
