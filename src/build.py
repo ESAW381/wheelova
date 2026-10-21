@@ -8,7 +8,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "18"
+V = "19"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -134,11 +134,15 @@ POP = """
 </div></div>
 """
 
+LOGO_SVG = '''<svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 35 L32 9 A26 26 0 0 1 58 35 Z" fill="#6E56F0"/><path d="M32 35 L58 35 A26 26 0 0 1 32 61 Z" fill="#E11D48"/><path d="M32 35 L32 61 A26 26 0 0 1 6 35 Z" fill="#F59E0B"/><path d="M32 35 L6 35 A26 26 0 0 1 32 9 Z" fill="#16A34A"/><circle cx="32" cy="35" r="6.5" fill="#FFFFFF"/><path d="M25 2 H39 L32 14 Z" fill="currentColor"/></svg>'''
+def fbrand(home, tag, copy):
+    return f'<div class="fbrand"><a class="flogo" href="{home}">{LOGO_SVG}Wheelova</a><p class="ftag">{tag}</p><p class="fcopy">{copy}</p></div>'
+
 def footer():
     pop = "".join(f'<a href="/{s}">{e(BY[s]["nav"])}</a>' for s in POPULAR[:6])
     more = "".join(f'<a href="/{s}">{e(BY[s]["nav"])}</a>' for s in POPULAR[6:12])
     return f"""<footer><div class="ft">
-<div style="flex:1 1 240px;color:var(--mu2)">© 2026 Wheelova. Free random wheel spinner.</div>
+{fbrand("/", "Spin the wheel. Trust the result.", "© 2026 Wheelova. Free random wheel spinner.")}
 <div><span class="h">Popular wheels</span>{pop}</div>
 <div><span class="h">More wheels</span>{more}<a href="/wheels">All wheels</a></div>
 <div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
@@ -354,7 +358,7 @@ def es_page(p):
     h = h.replace('"name": "Wheels", "item": "' + SITE + '/wheels"', '"name": "Ruleta aleatoria", "item": "' + SITE + '/es"')
     if p["slug"] == "es":
         h = h.replace(', {"@type": "ListItem", "position": 3, "name": "Ruleta aleatoria", "item": "' + SITE + '/es"}', '')
-    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft"><div style="flex:1 1 240px;color:var(--mu2)">© 2026 Wheelova. Ruleta aleatoria gratis.</div><div><span class="h">Ruletas</span>' + "".join(f'<a href="/{x["slug"]}">{e(x["nav"])}</a>' for x in ES) + '</div><div><span class="h">Wheelova</span><a href="/" hreflang="en" lang="en">English</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div></footer>', h, count=1)
+    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand("/es", "Gira la ruleta. Confía en el resultado.", "© 2026 Wheelova. Ruleta aleatoria gratis.") + '<div><span class="h">Ruletas</span>' + "".join(f'<a href="/{x["slug"]}">{e(x["nav"])}</a>' for x in ES) + '</div><div><span class="h">Wheelova</span><a href="/" hreflang="en" lang="en">English</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div></footer>', h, count=1)
     R = [('<html lang="en">', '<html lang="es">'),
          ('aria-label="Switch to light mode"', 'aria-label="' + ES_JS["tolight"] + '"'), ('aria-label="Open menu"', 'aria-label="Abrir menú"'),
          ('aria-label="Fullscreen" title="Fullscreen (F)"', 'aria-label="Pantalla completa" title="Pantalla completa (F)"'),
