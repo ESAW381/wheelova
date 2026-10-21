@@ -8,7 +8,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "17"
+V = "18"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -61,6 +61,17 @@ def navhtml(path):
     cur = ' aria-current="page"'
     return ''.join('<a href="/%s"%s>%s</a>' % (s, cur if '/'+s==path else '', n) for s, n in NAV)
 
+from pages_es import ES, UI as ES_UI, JS as ES_JS, NAV_ES
+ALT = {}
+for _p in ES:
+    _en = "/" + _p["en"] if _p["en"] else "/"
+    ALT[_en] = ALT["/" + _p["slug"]] = {"en": _en, "es": "/" + _p["slug"]}
+def hreflang(path):
+    a = ALT.get(path)
+    if not a: return ""
+    u = lambda x: SITE + (x if x != "/" else "/")
+    return "".join(f'\n<link rel="alternate" hreflang="{k}" href="{u(v)}">' for k, v in (("en", a["en"]), ("es", a["es"]), ("x-default", a["en"])))
+
 def head(title, desc, path, ld, ogtitle=None):
     url = SITE + path
     return f"""<!doctype html>
@@ -70,7 +81,7 @@ def head(title, desc, path, ld, ogtitle=None):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
-<link rel="canonical" href="{url}">
+<link rel="canonical" href="{url}">{hreflang(path)}
 <meta name="theme-color" content="#0A0A0C">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wheelova">
@@ -326,6 +337,50 @@ def home():
     d = re.search(r'<meta name="description" content="(.*?)">', src).group(1)
     return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + POP + SHARE + footer() + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/app.js?v={V}"></script>\n</body>\n</html>\n'
 
+BY.update({x["slug"]: x for x in ES})
+
+def es_page(p):
+    U = ES_UI
+    q = dict(p); q["upgraded"] = True
+    q["howTitle"] = "Cómo usar la " + p["h1"][0].lower() + p["h1"][1:]
+    path = "/" + p["slug"]
+    h = page(q)
+    h = h.replace("window.WV=" + json.dumps({k: q[k] for k in ("entries", "variants", "mode", "colorMap", "removeWinner", "resultLabel", "popLabel", "key", "prompts") if k in q}, ensure_ascii=False),
+                  "window.WV=" + json.dumps(dict({k: q[k] for k in ("entries", "variants", "removeWinner", "resultLabel", "popLabel", "key", "palette") if k in q}, t=ES_JS), ensure_ascii=False), 1)
+    nav = "".join('<a href="/%s"%s%s>%s</a>' % (sl, ' aria-current="page"' if "/" + sl == path else "", ' hreflang="en" lang="en"' if sl == "" else "", n) for sl, n in NAV_ES)
+    h = re.sub(r'<nav id="mnav" aria-label="Main">[\s\S]*?</nav>', f'<nav id="mnav" aria-label="Principal">{nav}</nav>', h, count=1)
+    crumbs = f'<a href="/es">Wheelova</a> / <span aria-current="page">{e(p["h1"])}</span>' if p["slug"] != "es" else '<span aria-current="page">Wheelova</span>'
+    h = re.sub(r'(<nav class="crumbs" aria-label=")Breadcrumb(">)[\s\S]*?(</nav>)', lambda m: m.group(1) + "Ruta de navegación" + m.group(2) + crumbs + m.group(3), h, count=1)
+    h = h.replace('"name": "Wheels", "item": "' + SITE + '/wheels"', '"name": "Ruleta aleatoria", "item": "' + SITE + '/es"')
+    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft"><div style="flex:1 1 240px;color:var(--mu2)">© 2026 Wheelova. Ruleta aleatoria gratis.</div><div><span class="h">Ruletas</span>' + "".join(f'<a href="/{x["slug"]}">{e(x["nav"])}</a>' for x in ES) + '</div><div><span class="h">Wheelova</span><a href="/" hreflang="en" lang="en">English</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div></footer>', h, count=1)
+    R = [('<html lang="en">', '<html lang="es">'),
+         ('aria-label="Switch to light mode"', 'aria-label="' + ES_JS["tolight"] + '"'), ('aria-label="Open menu"', 'aria-label="Abrir menú"'),
+         ('aria-label="Fullscreen" title="Fullscreen (F)"', 'aria-label="Pantalla completa" title="Pantalla completa (F)"'),
+         ('aria-label="Spinning wheel"', 'aria-label="Ruleta"'), ('aria-label="Spin the wheel">SPIN<', 'aria-label="' + U["spin_aria"] + '">' + U["spin"] + '<'),
+         ('Press SPIN or the Space bar', U["spin_hint"]), ('>Entries <span id="count"', '>' + U["entries"] + ' <span id="count"'),
+         ('>Shuffle<', '>' + U["shuffle"] + '<'), ('>Sort<', '>' + U["sort"] + '<'), ('>Clear<', '>' + U["clear"] + '<'),
+         ('aria-label="Presets"', 'aria-label="Ajustes rápidos"'),
+         ('You opened a shared wheel.', U["shared_note"]), ('Back to my list', U["my_list"]),
+         ('One entry per line. Saved in your browser automatically.', U["help"]),
+         ('Remove winner after each spin', U["remove"]), ('</span>Sound<', '</span>' + U["sound"] + '<'),
+         ('Share link</button>', U["share"] + '</button>'), ('Embed</button>', U["embed"] + '</button>'),
+         ('>Results <span id="rcount"', '>' + U["results"] + ' <span id="rcount"'),
+         ('WE HAVE A WINNER', ES_JS["pop"]), ('>Remove from wheel<', '>' + U["pop_remove"] + '<'), ('>Close<', '>' + U["close"] + '<'),
+         ('SHARE THIS WHEEL', U["share_title"]),
+         ('Anyone with this link opens the wheel with your entries. Nothing is stored on our server — the entries are inside the link.', U["share_help"]),
+         ('for="shareurl">Link<', 'for="shareurl">' + U["link"] + '<'), ('id="sharecopy" type="button">Copy<', 'id="sharecopy" type="button">' + U["copy"] + '<'),
+         ('Embed code — paste into your website, blog or OBS browser source', U["embed_label"]), ('>Copy embed code<', '>' + U["copy_embed"] + '<'),
+         ('margin-bottom:12px">Questions<', 'margin-bottom:12px">' + U["faq"] + '<'), ('margin-bottom:20px">Related wheels<', 'margin-bottom:20px">' + U["related"] + '<'),
+         ('Written by <span>', 'Escrito por <span>'), ('Editor, Wheelova', 'editor de Wheelova'), ('Last updated <time', 'Actualizado el <time'), ('>October 21, 2026<', '>21 de octubre de 2026<'),
+         ("Wheelova – Spin the wheel, trust the result", "Wheelova – Gira la ruleta, confía en el resultado"),
+         ('content="Wheelova — spin the wheel, trust the result"', 'content="Wheelova — gira la ruleta"'),
+         ]
+    for a, b in R:
+        h = h.replace(a, b)
+    h = re.sub(r'<p class="src">Randomness:.*?(?= Sources:|</p>)', '<p class="src">' + U["rand_src"], h, count=1).replace(" Sources: ", " " + U["sources"] + " ")
+    h = h.replace('<meta property="og:type"', '<meta property="og:locale" content="es_ES">\n<meta property="og:type"', 1)
+    return h
+
 import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 from static_pages import STATIC
 files = {"index.html": home(), "wheels.html": hub()}
@@ -333,6 +388,9 @@ for s in STATIC:
     files[s["slug"] + ".html"] = simple(**s)
 for p in PAGES:
     files[p["slug"] + ".html"] = page(p)
+for p in ES:
+    files[p["slug"] + ".html"] = es_page(p)
+os.makedirs(os.path.join(OUT, "es"), exist_ok=True)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
 for f in ["app.css", "app.js", "gen.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
@@ -345,7 +403,7 @@ LM_PATH = os.path.join(ROOT, "src", "lastmod.json")
 try: LM = json.load(open(LM_PATH))
 except Exception: LM = {}
 TODAY = datetime.date.today().isoformat()
-urls = ["", "wheels"] + [p["slug"] for p in PAGES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
+urls = ["", "wheels"] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
 for u in urls:
     body = files["index.html" if u == "" else u + ".html"]
     m = re.search(r"<main>[\s\S]*?</main>", body)

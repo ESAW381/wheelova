@@ -1,5 +1,5 @@
 (function(){
-var cfg=window.WV||{};
+var cfg=window.WV||{},T=cfg.t||{};
 var COLORS=['#6E56F0','#E11D48','#F59E0B','#16A34A','#2563EB','#DB2777','#0D9488','#EA580C'];
 var DARK={2:1,6:1};
 var DEFAULT=cfg.entries||['Ayesha','Bilal','Chloe','Daniyal','Emma','Faisal','Grace','Hamza'];
@@ -30,7 +30,7 @@ if(cfg.palette){var P=cfg.palette,k=(n%P.length===1&&i===n-1&&n>1)?1:i%P.length;
 var ci=(n%8===1&&i===n-1&&n>1)?1:i%8;return {f:COLORS[ci],t:lum(COLORS[ci])>0.62?'#141418':'#FFFFFF'}}
 function draw(){
 var W=cv.width,R=W/2,n=entries.length;ctx.clearRect(0,0,W,W);
-if(!n){ctx.fillStyle='#1E1E27';ctx.beginPath();ctx.arc(R,R,R,0,Math.PI*2);ctx.fill();ctx.fillStyle='#8A8A97';ctx.font='600 36px Inter,sans-serif';ctx.textAlign='center';ctx.fillText('Add entries',R,R+150);return}
+if(!n){ctx.fillStyle='#1E1E27';ctx.beginPath();ctx.arc(R,R,R,0,Math.PI*2);ctx.fill();ctx.fillStyle='#8A8A97';ctx.font='600 36px Inter,sans-serif';ctx.textAlign='center';ctx.fillText((T.empty||'Add entries'),R,R+150);return}
 var seg=Math.PI*2/n;ctx.save();ctx.translate(R,R);ctx.rotate(rot);
 var base=Math.min(58,Math.max(9,(2*Math.PI*R*0.6/n)*0.46)),maxW=R-36-120;
 for(var i=0;i<n;i++){
@@ -46,8 +46,8 @@ ctx.restore()}
 var actx=null;function tick(){if(!sound)return;try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=900;g.gain.setValueAtTime(.06,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.04);o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+.05)}catch(e){}}
 function idxAt(r){var n=entries.length,seg=Math.PI*2/n;var a=((-r)%(Math.PI*2)+Math.PI*2)%(Math.PI*2);return Math.min(n-1,Math.floor(a/seg))}
 function spin(){
-if(spinning)return;if(entries.length<2){res.innerHTML='<div class="hint">Add at least two entries</div>';return}
-spinning=true;idleOn=false;res.innerHTML='<div class="hint">Spinning…</div>';
+if(spinning)return;if(entries.length<2){res.innerHTML='<div class="hint">'+(T.add2||'Add at least two entries')+'</div>';return}
+spinning=true;idleOn=false;res.innerHTML='<div class="hint">'+(T.spinning||'Spinning…')+'</div>';
 var start=rot,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var target=start+Math.PI*2*(reduce?1:6)+rand()*Math.PI*2;
 var dur=reduce?300:4600,t0=performance.now(),last=idxAt(start);
@@ -57,9 +57,9 @@ if(!spinning)return;if(t<1)requestAnimationFrame(f);else done()}
 requestAnimationFrame(f);clearTimeout(window._wvT);window._wvT=setTimeout(function(){if(spinning){rot=target;draw();done()}},dur+400)}
 function done(){
 if(!spinning)return;spinning=false;rot=rot%(Math.PI*2);var i=idxAt(rot),w=entries[i];
-res.innerHTML='<div class="lbl">'+(cfg.resultLabel||'WINNER')+'</div><div class="win"></div>';res.querySelector('.win').textContent=w;
+res.innerHTML='<div class="lbl">'+(cfg.resultLabel||T.winner||'WINNER')+'</div><div class="win"></div>';res.querySelector('.win').textContent=w;
 hist.unshift(w);var li=document.createElement('li');li.textContent=w;$('history').prepend(li);$('rcount').textContent='· '+hist.length;
-lastIdx=i;$('popwin').textContent=w;var pp=$('popprompt');if(pp){var pr='';if(cfg.prompts){var dk=($('tddeck')&&$('tddeck').value)||'kids',L=cfg.prompts[dk]&&cfg.prompts[dk][w];if(L&&L.length)pr=L[Math.floor(rand()*L.length)]}pp.textContent=pr;if(pr){res.querySelector('.win').textContent=w+': '+pr}}$('poplbl').textContent=cfg.popLabel||'WE HAVE A WINNER';
+lastIdx=i;$('popwin').textContent=w;var pp=$('popprompt');if(pp){var pr='';if(cfg.prompts){var dk=($('tddeck')&&$('tddeck').value)||'kids',L=cfg.prompts[dk]&&cfg.prompts[dk][w];if(L&&L.length)pr=L[Math.floor(rand()*L.length)]}pp.textContent=pr;if(pr){res.querySelector('.win').textContent=w+': '+pr}}$('poplbl').textContent=cfg.popLabel||T.pop||'WE HAVE A WINNER';
 var sw=$('popswatch'),hx=$('pophex');var c=cfg.mode==='color'&&cfg.colorMap?cfg.colorMap[w.toLowerCase()]:null;if(sw){sw.style.display=c?'block':'none';if(c)sw.style.background=c}if(hx)hx.textContent=c?c.toUpperCase():''
 $('popremove').style.display=removeW?'none':'';$('pop').classList.add('on');$('popclose').focus();
 if(removeW){entries.splice(i,1);ta.value=entries.join('\n');parse()}}
@@ -91,26 +91,26 @@ if(shared&&shared.length){sharedMode=true;ta.value=shared.join('\n');var sn=$('s
 parse();
 var ml=$('mylist');if(ml)ml.onclick=function(){leaveShared();ta.value=saved!=null&&saved.trim()?saved:DEFAULT.join('\n');parse()};
 var SITE='https://wheelova.com',PATH=location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'');
-function openShare(withEmbed){if(entries.length<2){res.innerHTML='<div class="hint">Add at least two entries to share</div>';return}
+function openShare(withEmbed){if(entries.length<2){res.innerHTML='<div class="hint">'+(T.add2share||'Add at least two entries to share')+'</div>';return}
 var code=enc(entries),url=SITE+PATH+'#w='+code;$('shareurl').value=url;
 var emb=SITE+'/embed#w='+code+(cfg.mode&&cfg.mode!=='color'?'&m='+cfg.mode:'');
-$('embedcode').value='<iframe src="'+emb+'" title="Spin the wheel – Wheelova" width="100%" height="560" style="max-width:560px;border:0" loading="lazy"></iframe>\n<p style="font:14px sans-serif">Spin wheel by <a href="'+SITE+PATH+'">Wheelova</a></p>';
-$('embedwrap').hidden=!withEmbed;$('sharettl').textContent=withEmbed?'EMBED THIS WHEEL':'SHARE THIS WHEEL';
-var w=$('sharewarn');w.hidden=url.length<=3000;w.textContent='This list is long, so the link is long ('+url.length+' characters). It still works, but some chat apps may cut it off.';
+$('embedcode').value='<iframe src="'+emb+'" title="'+(T.iframe_title||'Spin the wheel – Wheelova')+'" width="100%" height="560" style="max-width:560px;border:0" loading="lazy"></iframe>\n<p style="font:14px sans-serif">'+(T.credit_pre||'Spin wheel by')+' <a href="'+SITE+PATH+'">Wheelova</a></p>';
+$('embedwrap').hidden=!withEmbed;$('sharettl').textContent=withEmbed?(T.embed_title||'EMBED THIS WHEEL'):(T.share_title||'SHARE THIS WHEEL');
+var w=$('sharewarn');w.hidden=url.length<=3000;w.textContent=(T.long?T.long.replace('{n}',url.length):'This list is long, so the link is long ('+url.length+' characters). It still works, but some chat apps may cut it off.');
 $('sharepop').classList.add('on');(withEmbed?$('embedcopy'):$('sharecopy')).focus()}
-function copyFrom(id,btn){var el=$(id);el.select();var txt=el.value,done=function(){btn.textContent='Copied';setTimeout(function(){btn.textContent=id==='shareurl'?'Copy':'Copy embed code'},1500)};
+function copyFrom(id,btn){var el=$(id);el.select();var txt=el.value,done=function(){btn.textContent=T.copied||'Copied';setTimeout(function(){btn.textContent=id==='shareurl'?(T.copy||'Copy'):(T.copy_embed||'Copy embed code')},1500)};
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,function(){document.execCommand('copy');done()})}else{document.execCommand('copy');done()}}
 if($('sharebtn')){$('sharebtn').onclick=function(){openShare(false)};$('embedbtn').onclick=function(){openShare(true)};
 $('sharecopy').onclick=function(){copyFrom('shareurl',this)};$('embedcopy').onclick=function(){copyFrom('embedcode',this)};
 var sp=$('sharepop');$('shareclose').onclick=function(){sp.classList.remove('on')};sp.onclick=function(e){if(e.target===sp)sp.classList.remove('on')};
 document.addEventListener('keydown',function(e){if(e.key==='Escape')sp.classList.remove('on')})}
-var fb=$('fsbtn'),body=document.body;function setFs(on){body.classList.toggle('is-fs',on);fb.setAttribute('aria-label',on?'Exit fullscreen':'Fullscreen');
+var fb=$('fsbtn'),body=document.body;function setFs(on){body.classList.toggle('is-fs',on);fb.setAttribute('aria-label',on?(T.exitfs||'Exit fullscreen'):(T.fs||'Fullscreen'));
 try{if(on&&document.documentElement.requestFullscreen&&!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});if(!on&&document.fullscreenElement)document.exitFullscreen().catch(function(){})}catch(e){}draw()}
 if(fb){fb.onclick=function(){setFs(!body.classList.contains('is-fs'))};document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&body.classList.contains('is-fs'))setFs(false)});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&body.classList.contains('is-fs')&&!$('pop').classList.contains('on'))setFs(false);if((e.key==='f'||e.key==='F')&&!/TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName)&&!e.ctrlKey&&!e.metaKey)setFs(!body.classList.contains('is-fs'))})}
-var bg=$('burger'),nv=$('mnav');function setNav(o){nv.classList.toggle('open',o);bg.setAttribute('aria-expanded',o);bg.setAttribute('aria-label',o?'Close menu':'Open menu')}
+var bg=$('burger'),nv=$('mnav');function setNav(o){nv.classList.toggle('open',o);bg.setAttribute('aria-expanded',o);bg.setAttribute('aria-label',o?(T.closemenu||'Close menu'):(T.openmenu||'Open menu'))}
 bg.onclick=function(){setNav(!nv.classList.contains('open'))};nv.addEventListener('click',function(e){if(e.target.tagName==='A')setNav(false)});
-var th=$('theme'),root=document.documentElement,mt=document.querySelector('meta[name=theme-color]');function applyT(t){root.setAttribute('data-theme',t);th.setAttribute('aria-label',t==='light'?'Switch to dark mode':'Switch to light mode');if(mt)mt.setAttribute('content',t==='light'?'#F6F6F9':'#0A0A0C')}
+var th=$('theme'),root=document.documentElement,mt=document.querySelector('meta[name=theme-color]');function applyT(t){root.setAttribute('data-theme',t);th.setAttribute('aria-label',t==='light'?(T.todark||'Switch to dark mode'):(T.tolight||'Switch to light mode'));if(mt)mt.setAttribute('content',t==='light'?'#F6F6F9':'#0A0A0C')}
 applyT(root.getAttribute('data-theme')||'dark');th.onclick=function(){var t=root.getAttribute('data-theme')==='light'?'dark':'light';applyT(t);store('wv_theme',t)};
 var idleOn=!matchMedia('(prefers-reduced-motion: reduce)').matches,idleVis=true,idleT=null;
 try{new IntersectionObserver(function(es){idleVis=es[0].isIntersecting}).observe(cv)}catch(e){}
