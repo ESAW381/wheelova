@@ -352,6 +352,8 @@ def es_page(p):
     crumbs = f'<a href="/es">Wheelova</a> / <span aria-current="page">{e(p["h1"])}</span>' if p["slug"] != "es" else '<span aria-current="page">Wheelova</span>'
     h = re.sub(r'(<nav class="crumbs" aria-label=")Breadcrumb(">)[\s\S]*?(</nav>)', lambda m: m.group(1) + "Ruta de navegación" + m.group(2) + crumbs + m.group(3), h, count=1)
     h = h.replace('"name": "Wheels", "item": "' + SITE + '/wheels"', '"name": "Ruleta aleatoria", "item": "' + SITE + '/es"')
+    if p["slug"] == "es":
+        h = h.replace(', {"@type": "ListItem", "position": 3, "name": "Ruleta aleatoria", "item": "' + SITE + '/es"}', '')
     h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft"><div style="flex:1 1 240px;color:var(--mu2)">© 2026 Wheelova. Ruleta aleatoria gratis.</div><div><span class="h">Ruletas</span>' + "".join(f'<a href="/{x["slug"]}">{e(x["nav"])}</a>' for x in ES) + '</div><div><span class="h">Wheelova</span><a href="/" hreflang="en" lang="en">English</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div></footer>', h, count=1)
     R = [('<html lang="en">', '<html lang="es">'),
          ('aria-label="Switch to light mode"', 'aria-label="' + ES_JS["tolight"] + '"'), ('aria-label="Open menu"', 'aria-label="Abrir menú"'),
