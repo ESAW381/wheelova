@@ -431,3 +431,268 @@ UPGRADES.update({
  "sources": [S_NBER, S_MDN],
 },
 })
+
+# ================================================================ ROUND 3
+S_SSA = {"title": "U.S. Social Security Administration — Olivia and Liam remain most popular baby names for 2024", "url": "https://www.ssa.gov/blog/en/posts/2025-05-09.html"}
+S_CENSUS_NAMES = {"title": "U.S. Census Bureau — Frequently occurring surnames from the 2010 Census", "url": "https://census.gov/topics/population/genealogy/data/2010_surnames.html"}
+S_CENSUS_REG = {"title": "U.S. Census Bureau — Census regions and divisions", "url": "https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf"}
+S_NFL = {"title": "NFL.com — Teams", "url": "https://www.nfl.com/teams/"}
+S_NBA = {"title": "NBA.com — Teams", "url": "https://www.nba.com/teams"}
+S_MLB = {"title": "MLB.com — Teams", "url": "https://www.mlb.com/team"}
+
+def _draft(n, league):
+    return ("Use **Remove winner** so every person gets a different team. With " + str(n) + " teams and Remove winner off, repeats come quickly — "
+            "on average it takes about " + {32: "130", 30: "120"}[n] + " spins before every team has come up at least once. With Remove winner on, "
+            "it takes exactly " + str(n) + ". For a draft order, first spin the managers' names on the [Name Picker Wheel](/name-picker-wheel), then spin " + league + " teams in that order.")
+
+UPGRADES.update({
+# ---------------------------------------------------------------- LUCKY
+"lucky-wheel": {
+ "sections": [
+  {"h2": "How the lucky wheel works", "body":
+   "Every prize you add is one equal slice. Spin, and the wheel stops on a prize at random. To make a prize rarer or more common, change how many slices it has — that's the only lever, and it's completely transparent to players.\n\n" + RANDOM_NOTE},
+  {"h2": "Design your odds", "body":
+   "The chance of a prize is **its slices ÷ total slices**. Some example setups:\n\n"
+   "| Wheel | Grand prize chance | Try again chance |\n|---|---|---|\n"
+   "| 8 slices, 1 grand prize | 1 in 8 (12.5%) | — |\n"
+   "| 8 slices, 1 grand prize, 2 try again | 12.5% | 25% |\n"
+   "| 12 slices, 1 grand prize, 4 try again | 8.3% | 33.3% |\n"
+   "| 20 slices, 1 grand prize, 6 try again | 5% | 30% |\n\n"
+   "A good rule of thumb for events: keep \"try again\" under a third of the wheel, so most spins still feel like a win."},
+  {"h2": "Budgeting prizes for an event", "body":
+   "Expected prize use is simple: **spins × chance**. If 200 people spin a wheel where \"Free drink\" is 2 of 8 slices (25%), expect about 50 free drinks — but plan for some extra, because randomness can run above average. With Remove winner on, each prize can be won only once, which caps your cost exactly but changes the odds as prizes disappear."},
+  {"h2": "Lucky wheel ideas", "body":
+   "**Shops and market stalls:** small discounts, free samples, a mystery bag, one rare voucher.\n\n"
+   "**Classrooms:** homework pass, choose the music, line leader, sit anywhere, extra break minutes.\n\n"
+   "**Birthday parties:** party favours, silly forfeits, who opens the next present.\n\n"
+   "**Streams and online events:** shout-outs, small prizes, viewer-chosen challenges. Use **Embed** to put the wheel on your page or into OBS."},
+  {"h2": "Being fair to players", "body":
+   "- **Show the wheel before anyone spins**, so players can see every prize and how many slices each has.\n"
+   "- **Don't change the wheel mid-event** without telling people.\n"
+   "- **Real prizes = real rules.** For giveaways open to the public, check local promotion and sweepstakes rules first. See the [Raffle Wheel](/raffle-wheel) guide for more on fair draws."},
+  {"h2": "Not affiliated with any TV show", "body":
+   "Wheelova is an independent random wheel you fill with your own prizes. It isn't connected to any game show, casino or brand."}
+ ],
+ "faq": [
+  {"q": "How do I make the grand prize rare?", "a": "Add more slices of other prizes or \"Try again\". With one grand prize among 20 slices, the chance is 5%."},
+  {"q": "Can I remove a prize once it's won?", "a": "Yes. Press \"Remove from wheel\" in the winner popup, or turn on \"Remove winner after each spin\"."},
+  {"q": "How many of each prize will I give away?", "a": "On average, number of spins × chance. 200 spins on a 25% prize means about 50 — plan for a few extra."},
+  {"q": "Can I put the lucky wheel on my website or stream?", "a": "Yes. Press Embed to get code for a website or an OBS browser source."},
+  {"q": "Is this the same as Wheel of Fortune?", "a": "No. Wheelova is a free random wheel you fill with your own prizes; it isn't connected to any TV show."}
+ ],
+ "sources": [S_MDN],
+},
+# ---------------------------------------------------------------- MYSTERY
+"mystery-wheel": {
+ "sections": [
+  {"h2": "How the mystery wheel works", "body":
+   "It's a normal random wheel with the labels hidden. Every slice shows **?**, so players can't see where the good or bad outcomes sit. When the wheel stops, the popup reveals the result.\n\n" + RANDOM_NOTE},
+  {"h2": "Why hide the outcomes?", "body":
+   "On a visible wheel, players watch the pointer slow down and know what's coming a second early. Hiding the labels keeps the suspense until the reveal — which is the whole fun of a challenge wheel, a prize reveal or a game-show moment in class. The odds don't change: every slice still has an equal chance."},
+  {"h2": "Set it up without spoiling it", "body":
+   "1. Type the outcomes into the list **before** sharing your screen or turning the screen toward players.\n"
+   "2. Press **Shuffle** so even you don't know the order.\n"
+   "3. Scroll so only the wheel is visible, or press the **fullscreen** button.\n"
+   "4. Spin. The result appears only in the popup."},
+  {"h2": "Mystery wheel ideas", "body":
+   "**Party challenges:** sing a chorus, do an impression, swap seats, tell a joke, free pass.\n\n"
+   "**Classroom:** hidden quiz questions, a mystery reward, a surprise brain-break activity, which topic comes next.\n\n"
+   "**Date night or weekends:** hidden activities or restaurants — spin to find out where you're going.\n\n"
+   "**Streams:** viewers spin a mystery challenge or prize; add it to OBS with **Embed**."},
+  {"h2": "Mix good and bad on purpose", "body":
+   "A mystery wheel works best with a mix: a few great outcomes, a few silly ones and a couple of \"free pass\" slices. If one outcome would genuinely upset someone, leave it off — random doesn't mean anything goes. For classes and kids, keep every slice age-appropriate."}
+ ],
+ "faq": [
+  {"q": "Can players see the entries?", "a": "Not on the wheel — slices show \"?\". The entry list below the wheel still shows them, so set it up before players look or use fullscreen."},
+  {"q": "Does hiding the labels change the odds?", "a": "No. Every slice still has an equal chance; only the labels are hidden."},
+  {"q": "Can I remove an outcome once it's revealed?", "a": "Yes. Press \"Remove from wheel\" or turn on \"Remove winner after each spin\"."},
+  {"q": "Can I share a mystery wheel?", "a": "Yes. Share link and Embed keep the slices hidden for whoever opens them."}
+ ],
+ "sources": [S_MDN],
+},
+# ---------------------------------------------------------------- NUMBER WHEEL
+"number-wheel": {
+ "sections": [
+  {"h2": "How the number wheel works", "body":
+   "Choose a range, and every whole number in it becomes one equal slice. Spin, and the wheel stops on one at random. It's the visual version of a random number generator — better when people are watching, like a raffle, a bingo call or a classroom game.\n\n" + RANDOM_NOTE},
+  {"h2": "Number wheel or number generator?", "body":
+   "| Use the number wheel when… | Use the [number generator](/random-number-generator) when… |\n|---|---|\n"
+   "| People are watching the draw | You just need the result |\n"
+   "| The range is up to a few hundred | The range is huge (e.g. 1–1,000,000) |\n"
+   "| You draw one number at a time | You want many numbers at once |\n"
+   "| The spin itself is part of the fun | You want to copy a list |"},
+  {"h2": "Odds and repeats", "body":
+   "Each number has a chance of **1 ÷ (size of the range)**: 10% on 1–10, 1% on 1–100.\n\n"
+   "- **Remove winner off:** numbers can repeat, like rolling a die. Repeats come sooner than people expect.\n"
+   "- **Remove winner on:** each number appears once, like drawing tickets from a hat — the right choice for raffles and bingo."},
+  {"h2": "Bingo caller", "body":
+   "- **US-style bingo** uses 75 numbers: set From 1, To 75.\n"
+   "- **UK-style bingo** uses 90 numbers: set From 1, To 90.\n\n"
+   "Turn **Remove winner** on so no number is called twice, and keep the Results list visible as your called-numbers board. Any single number has about a 6.7% chance of appearing in the first five calls of a 75-ball game."},
+  {"h2": "Classroom ideas", "body":
+   "**Times tables:** spin two numbers from 1–12 and multiply.\n\n"
+   "**Place value:** spin 0–9 three times to build a three-digit number.\n\n"
+   "**Rounding and estimating:** spin 1–1,000 and round to the nearest ten or hundred.\n\n"
+   "**Student numbers:** give each student a number and spin to choose who answers — or use the [Name Picker Wheel](/name-picker-wheel) with real names."},
+  {"h2": "Make your own number lists", "body":
+   "The entry box accepts any numbers, one per line. Use only even numbers, negative numbers (−10 to 10), decimals for a measurement game, or a custom list like seat numbers. Up to 500 numbers can be generated with the From/To fields."}
+ ],
+ "faq": [
+  {"q": "What is the biggest range I can use?", "a": "Up to 500 numbers in one wheel (for example 1–500). For bigger ranges, use the Random Number Generator."},
+  {"q": "Can I use it as a bingo caller?", "a": "Yes. Set 1–75 or 1–90, turn on Remove winner, and spin for each call."},
+  {"q": "Can I use negative numbers or skip numbers?", "a": "Yes. Type any numbers you want into the entry box, one per line."},
+  {"q": "Is every number equally likely?", "a": "Yes, as long as each number appears once. Slices are equal and the stop point is random."},
+  {"q": "Can I draw several numbers in a row without repeats?", "a": "Yes. Turn on \"Remove winner after each spin\" and keep spinning."}
+ ],
+ "sources": [S_MDN],
+},
+# ---------------------------------------------------------------- NAME GENERATOR
+"random-name-generator": {
+ "sections": [
+  {"h2": "How the random name generator works", "body":
+   "Choose female, male or any names, how many you want, and whether to add a last name. Each click draws first names and surnames at random from Wheelova's built-in lists, with no duplicates in a single batch.\n\n" + RANDOM_NOTE},
+  {"h2": "Name generator vs. name picker", "body":
+   "This page **creates** names. If you already have a list of real people — a class, a team, giveaway entrants — and want to pick one of them, use the [Name Picker Wheel](/name-picker-wheel) instead."},
+  {"h2": "Where the names come from", "body":
+   "The first-name lists focus on names that are common in English-speaking countries today, plus widely used South Asian, Middle Eastern and East Asian names. Many of them — Olivia, Emma, Mia, Sophia, Liam, Noah, Oliver, James, Lucas — appear in the U.S. Social Security Administration's most popular baby names for 2024, where Olivia and Liam were number one.\n\n"
+   "The surname list starts with the most common surnames in the 2010 U.S. Census — Smith, Johnson, Williams, Brown, Jones and Garcia — and adds common surnames from other countries. The lists are illustrative: they're built to produce realistic-sounding names, not to reflect how often each name occurs in a population."},
+  {"h2": "Ideas", "body":
+   "**Writers:** names for side characters, especially when you need a lot of them. Generate ten and pick the one that fits.\n\n"
+   "**Games and role-play:** quick names for NPCs, players or characters in a tabletop campaign.\n\n"
+   "**Teachers:** names for word problems and examples, so worksheets don't use real students.\n\n"
+   "**Developers and designers:** placeholder names for mock-ups, demos and test data — clearly fake, but realistic."},
+  {"h2": "A note on real people", "body":
+   "Generated full names are random combinations, but some will match real people. Don't use a generated name to imply that a real person said or did something, and don't use generated names to impersonate anyone."}
+ ],
+ "faq": [
+  {"q": "Can I generate full names?", "a": "Yes. Keep \"Add last name\" ticked to get first and last names."},
+  {"q": "How many names can I generate at once?", "a": "Up to 100 per click, with no duplicates in a single batch."},
+  {"q": "Can I filter by gender?", "a": "Yes — choose female, male or any."},
+  {"q": "Are these real people's names?", "a": "They're random combinations of common first names and surnames. Some may match real people by coincidence."},
+  {"q": "What were the most popular baby names in 2024?", "a": "In the U.S., Olivia and Liam, according to the Social Security Administration."},
+  {"q": "Can I pick a name from my own list?", "a": "Yes — use the Name Picker Wheel."}
+ ],
+ "sources": [S_SSA, S_CENSUS_NAMES, S_MDN],
+},
+# ---------------------------------------------------------------- STATE
+"random-state-generator": {
+ "sections": [
+  {"h2": "How the random state generator works", "body":
+   "All 50 US states are on the wheel, one equal slice each — a 1 in 50 (2%) chance per spin. Choose a region to narrow it down, or add Washington, D.C. with the \"50 states + DC\" preset.\n\n" + RANDOM_NOTE},
+  {"h2": "The four Census regions", "body":
+   "The regions follow the U.S. Census Bureau. Because they have different numbers of states, spinning all 50 doesn't give each region the same chance:\n\n"
+   "| Region | States | Chance a spin lands here |\n|---|---|---|\n"
+   "| South | 16 | 32% |\n| West | 13 | 26% |\n| Midwest | 12 | 24% |\n| Northeast | 9 | 18% |\n\n"
+   "Delaware, Maryland and West Virginia are in the **South** in the Census grouping, which surprises some people."},
+  {"h2": "Is Washington, D.C. a state?", "body":
+   "No. Washington, D.C. is a federal district, not a state, so it isn't on the default wheel. Use the \"50 states + DC\" preset if your game counts it. US territories such as Puerto Rico and Guam aren't included either — type them in if you need them."},
+  {"h2": "Geography games and lessons", "body":
+   "**State capitals:** spin a state and name its capital. Keep score over ten rounds.\n\n"
+   "**Neighbours:** spin a state and list every state that borders it.\n\n"
+   "**Fact cards:** each student spins a state and researches its nickname, flag, largest city and one famous landmark.\n\n"
+   "**50-state challenge:** turn on Remove winner and spin one state per lesson until all 50 are covered."},
+  {"h2": "Road trips and travel", "body":
+   "- **Next destination:** spin for a road-trip state, or spin within your region for a shorter trip.\n"
+   "- **License-plate game:** spin a state and see who spots its plate first.\n"
+   "- **Bucket list:** remove states you've visited from the list and spin for the next one."}
+ ],
+ "faq": [
+  {"q": "Is Washington, D.C. included?", "a": "Not by default, because it isn't a state. Choose \"50 states + DC\" to add it."},
+  {"q": "Can I spin only one region?", "a": "Yes. Choose Northeast, Midwest, South or West above the list."},
+  {"q": "Does each region have the same chance?", "a": "No. The South has 16 states (32% of spins) and the Northeast 9 (18%). Spin a region first if you want equal chances."},
+  {"q": "Can I avoid repeats?", "a": "Yes. Turn on \"Remove winner after each spin\"."},
+  {"q": "Can I add Puerto Rico or other territories?", "a": "Yes. Type any extra names on new lines."}
+ ],
+ "sources": [S_CENSUS_REG, S_MDN],
+},
+# ---------------------------------------------------------------- NFL
+"random-nfl-team-generator": {
+ "sections": [
+  {"h2": "How the NFL team wheel works", "body":
+   "All 32 NFL teams are on the wheel, one equal slice each — a 1 in 32 (3.1%) chance per spin. Narrow it to the AFC, the NFC or a single division with the presets.\n\n" + RANDOM_NOTE},
+  {"h2": "How the NFL is organized", "body":
+   "The NFL has **32 teams** in two conferences of 16: the **AFC** and the **NFC**. Each conference has four divisions — East, North, South and West — of four teams each. Since 2021, each team plays a 17-game regular season.\n\n"
+   "| Preset | Teams | Chance per team |\n|---|---|---|\n| All teams | 32 | 3.1% |\n| AFC or NFC | 16 | 6.25% |\n| One division | 4 | 25% |"},
+  {"h2": "Every manager gets a different team", "body": _draft(32, "NFL")},
+  {"h2": "Ideas", "body":
+   "**Madden challenges:** spin your franchise team, or spin a division and rebuild its weakest team.\n\n"
+   "**Office pools and game days:** give everyone a random team for the season or the weekend.\n\n"
+   "**Watch parties:** each guest spins a team to cheer for.\n\n"
+   "**Trivia:** spin a team, then name its city, stadium or division rival."},
+  {"h2": "Keeping the list current", "body":
+   "Team names on the wheel match the teams listed on NFL.com at the time of our last update. If a team relocates or rebrands, edit the entry or tell us at support@wheelova.com."}
+ ],
+ "faq": [
+  {"q": "How many NFL teams are on the wheel?", "a": "All 32 by default. Pick AFC, NFC or a division to narrow it down."},
+  {"q": "Can each person get a different team?", "a": "Yes. Turn on \"Remove winner after each spin\"."},
+  {"q": "How do I randomize a fantasy draft order?", "a": "Spin managers' names on the Name Picker Wheel with Remove winner on; the order they come up is the draft order."},
+  {"q": "Is this affiliated with the NFL?", "a": "No. Wheelova is an independent tool; team names are used only to identify the teams."}
+ ],
+ "sources": [S_NFL, S_MDN],
+},
+# ---------------------------------------------------------------- NBA
+"random-nba-team-generator": {
+ "sections": [
+  {"h2": "How the NBA team wheel works", "body":
+   "All 30 NBA teams are on the wheel, one equal slice each — a 1 in 30 (3.3%) chance per spin. Choose a conference or a division to narrow it down.\n\n" + RANDOM_NOTE},
+  {"h2": "How the NBA is organized", "body":
+   "The NBA has **30 teams**: 15 in the **Eastern Conference** and 15 in the **Western Conference**. Each conference has three divisions of five teams. Each team plays an 82-game regular season.\n\n"
+   "| Preset | Teams | Chance per team |\n|---|---|---|\n| All teams | 30 | 3.3% |\n| Eastern or Western | 15 | 6.7% |\n| One division | 5 | 20% |\n\n"
+   "One team on the list plays outside the United States: the **Toronto Raptors**, in Canada."},
+  {"h2": "Every player gets a different team", "body": _draft(30, "NBA")},
+  {"h2": "Ideas", "body":
+   "**NBA 2K challenges:** spin a team for a MyNBA rebuild, or spin a division and take its last-place team.\n\n"
+   "**Watch parties and brackets:** each person spins a team to follow through the season.\n\n"
+   "**Classroom and trivia:** spin a team and name its city, arena or division."},
+  {"h2": "Keeping the list current", "body":
+   "Team names match NBA.com at the time of our last update. The NBA has discussed adding teams in the future; if the league expands or a team moves, edit the list or tell us at support@wheelova.com."}
+ ],
+ "faq": [
+  {"q": "How many NBA teams are on the wheel?", "a": "All 30 by default. Choose a conference or division to narrow it."},
+  {"q": "Can each person get a different team?", "a": "Yes. Turn on \"Remove winner after each spin\"."},
+  {"q": "Which conference is each team in?", "a": "Use the Eastern Conference or Western Conference presets — each loads that conference's 15 teams."},
+  {"q": "Is this affiliated with the NBA?", "a": "No. Wheelova is an independent tool; team names are used only to identify the teams."}
+ ],
+ "sources": [S_NBA, S_MDN],
+},
+# ---------------------------------------------------------------- MLB
+"random-mlb-team-generator": {
+ "sections": [
+  {"h2": "How the MLB team wheel works", "body":
+   "All 30 MLB teams are on the wheel, one equal slice each — a 1 in 30 (3.3%) chance per spin. Choose the American League, the National League or a division to narrow it down.\n\n" + RANDOM_NOTE},
+  {"h2": "How MLB is organized", "body":
+   "Major League Baseball has **30 teams**: 15 in the **American League (AL)** and 15 in the **National League (NL)**, each split into East, Central and West divisions of five. Each team plays a 162-game regular season.\n\n"
+   "| Preset | Teams | Chance per team |\n|---|---|---|\n| All teams | 30 | 3.3% |\n| AL or NL | 15 | 6.7% |\n| One division | 5 | 20% |\n\n"
+   "The A's appear as **Athletics**, the name the club has used since leaving Oakland. The **Toronto Blue Jays** are the one team based outside the United States."},
+  {"h2": "Everyone gets a different team", "body": _draft(30, "MLB")},
+  {"h2": "Ideas", "body":
+   "**MLB The Show:** spin a team for a franchise or Road to the Show challenge.\n\n"
+   "**Office pools:** assign every coworker a random team for the season.\n\n"
+   "**Ballpark bucket list:** spin the next stadium to visit, and remove ones you've already seen.\n\n"
+   "**Trivia nights:** spin a team, then name its city, ballpark or division."},
+  {"h2": "Keeping the list current", "body":
+   "Team names match MLB.com at the time of our last update. If a team moves or renames, edit the entry or tell us at support@wheelova.com."}
+ ],
+ "faq": [
+  {"q": "How many MLB teams are on the wheel?", "a": "All 30 by default. Choose a league or division to narrow it."},
+  {"q": "Why does it say Athletics instead of Oakland Athletics?", "a": "The club uses the name Athletics since leaving Oakland, and that's how it's listed by MLB."},
+  {"q": "Can each person get a different team?", "a": "Yes. Turn on \"Remove winner after each spin\"."},
+  {"q": "Is this affiliated with MLB?", "a": "No. Wheelova is an independent tool; team names are used only to identify the teams."}
+ ],
+ "sources": [S_MLB, S_MDN],
+},
+})
+
+# Full-list tables generated from data
+from data import NFL, NBA, MLB, STATES
+def _tbl(groups, col1):
+    rows = "".join(f"| {k} | {', '.join(v)} |\n" for k, v in groups.items())
+    return f"| {col1} | Teams |\n|---|---|\n" + rows
+_STATE_T = "| Region | States |\n|---|---|\n" + "".join(f"| {k} ({len(v)}) | {', '.join(v)} |\n" for k, v in STATES.items())
+for _slug, _h, _body in [
+    ("random-nfl-team-generator", "All 32 NFL teams by division", _tbl(NFL, "Division")),
+    ("random-nba-team-generator", "All 30 NBA teams by division", _tbl(NBA, "Division")),
+    ("random-mlb-team-generator", "All 30 MLB teams by division", _tbl(MLB, "Division")),
+    ("random-state-generator", "All 50 states by region", _STATE_T),
+]:
+    UPGRADES[_slug]["sections"].insert(2, {"h2": _h, "body": _body})
