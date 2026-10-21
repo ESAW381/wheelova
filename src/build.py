@@ -332,7 +332,7 @@ def faq_page():
 <section id="faq" style="padding-top:8px"><div class="wrap" style="max-width:860px">
 {body}
 <p class="src" style="margin-top:40px">Didn't find your answer? Email <a href="mailto:support@wheelova.com">support@wheelova.com</a>.</p>
-<p class="byline">Written by <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Last updated <time datetime="{UPDATED}">October 22, 2026</time></p>
+<p class="byline">Written by <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Last updated <time datetime="{UPDATED}">October 21, 2026</time></p>
 </div></section>
 </main>
 {footer()}
