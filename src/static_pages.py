@@ -20,7 +20,7 @@ The names and options you type are saved only in your own browser, on your devic
 Each tool page explains how the tool works, when to use it, and its limits. We check probabilities by calculation before publishing, cite sources for facts (for example standards bodies, official league sites and published research), and correct mistakes when we find them. Guides are written and reviewed by **Sajid Ali**, Editor.
 
 ## Contact
-Questions, ideas or corrections: [hello@wheelova.com](mailto:hello@wheelova.com)
+Questions, ideas or corrections: [support@wheelova.com](mailto:support@wheelova.com)
 """,
 },
 {
@@ -45,7 +45,7 @@ Our hosting provider may process standard technical data such as IP address and 
 Wheelova does not currently use advertising or tracking cookies. If that changes, this policy will be updated and you will be asked for consent where the law requires it.
 
 ## Contact
-[hello@wheelova.com](mailto:hello@wheelova.com)
+[support@wheelova.com](mailto:support@wheelova.com)
 """,
 },
 {
@@ -59,7 +59,7 @@ Wheelova does not currently use advertising or tracking cookies. If that changes
 Do not use Wheelova for unlawful gambling or to mislead participants. You may embed Wheelova wheels on your own website using the embed code we provide, as long as the credit link stays in place. We may change or discontinue the service at any time.
 
 ## Contact
-[hello@wheelova.com](mailto:hello@wheelova.com)
+[support@wheelova.com](mailto:support@wheelova.com)
 """,
 },
 {
