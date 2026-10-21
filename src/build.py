@@ -228,7 +228,8 @@ def page(p):
     secs = "".join(f'<h2>{e(s["h2"])}</h2>\n{md(s["body"])}\n' for s in p["sections"])
     faqs = "".join(f'<details><summary>{e(f["q"])}</summary><p>{e(f["a"])}</p></details>' for f in p["faq"])
     rel = "".join(card(s, i) for i, s in enumerate(p["related"]))
-    srcs = "".join(f' List source: <a href="{x["url"]}" rel="noopener">{e(x["title"])}</a>.' for x in p.get("sources", []))
+    _s = [x for x in p.get("sources", []) if x["url"] != MDN["url"]]
+    srcs = (" Sources: " + "; ".join(f'<a href="{x["url"]}" rel="noopener">{e(x["title"])}</a>' for x in _s) + ".") if _s else ""
     return head(p["title"], p["description"], path, ld) + f"""
 <main>
 <div class="wrap hero">

@@ -226,3 +226,208 @@ UPGRADES = {
  "sources": [S_NORVIG, S_MDN],
 },
 }
+
+# ================================================================ ROUND 2
+S_NBER = {"title": "Levitt (2016), NBER Working Paper 22487 — Heads or Tails: The Impact of a Coin Toss on Major Life Decisions", "url": "https://www.nber.org/digest/oct16/change-or-not-change-just-flip-coin"}
+S_UTMB = {"title": "UTMB Digital Accessibility — Color blindness", "url": "https://www.utmb.edu/accessibility/digital/100-days-of-a11y/100-days-article/days-of-a11y/2024/04/03/3.-color-blindness"}
+S_UNM49 = {"title": "UN Statistics Division — Standard country or area codes (M49)", "url": "https://unstats.un.org/unsd/methodology/m49/"}
+S_TNW = {"title": "The Next Web (June 2017) — Google adds a virtual fidget spinner to search", "url": "https://thenextweb.com/news/google-virtual-fidget-spinner-search"}
+S_CMS = {"title": "CMS — Prize competitions and free prize draws: Gambling Commission guidance (UK)", "url": "https://cms.law/en/gbr/legal-updates/prize-competitions-and-free-prize-draws-new-guidance-1"}
+S_AMOE = {"title": "Mondaq — The importance of a valid sweepstakes AMOE (US)", "url": "https://www.mondaq.com/unitedstates/dodd-frank-consumer-protection-act/1336530/the-importance-of-a-valid-sweepstakes-amoe"}
+
+UPGRADES.update({
+# ---------------------------------------------------------------- COLOR
+"color-wheel": {
+ "sections": [
+  {"h2": "How the random color generator works", "body":
+   "Each color on your list becomes one equal slice, painted in that real color. Spin, and the wheel stops on one at random; the popup shows the color name, a large swatch and its **hex code** (for example `#E53935` for red), so you can copy it straight into a design tool, a slide or a craft project.\n\n" + RANDOM_NOTE},
+  {"h2": "Which colors are painted, and with which codes", "body":
+   "These names are drawn in their real color. Type any of them, one per line:\n\n"
+   "| Color | Hex | Color | Hex | Color | Hex |\n|---|---|---|---|---|---|\n"
+   "| Red | `#E53935` | Orange | `#FB8C00` | Yellow | `#FDD835` |\n| Green | `#43A047` | Blue | `#1E88E5` | Indigo | `#3949AB` |\n| Violet | `#8E24AA` | Purple | `#7B1FA2` | Pink | `#EC407A` |\n| Brown | `#6D4C41` | Black | `#212121` | White | `#FAFAFA` |\n| Gray | `#9E9E9E` | Teal | `#00897B` | Cyan | `#00ACC1` |\n| Navy | `#1A237E` | Maroon | `#800000` | Gold | `#D4AF37` |\n| Lavender | `#B39DDB` | Mint | `#98E2C6` | Coral | `#FF7F6B` |\n\n"
+   "Silver, beige, turquoise, magenta, olive, lime, peach and sky blue work too. Any other word still spins — it just uses the standard Wheelova colors instead of a real swatch."},
+  {"h2": "What is a hex code?", "body":
+   "A hex code describes a color for screens using three pairs of characters: the amount of **red**, **green** and **blue** light, each from `00` (none) to `FF` (full). `#FF0000` is pure red, `#000000` is black and `#FFFFFF` is white. Paste a hex code into Canva, Figma, PowerPoint, Google Slides or CSS to get exactly the same color. Printed colors (paint, fabric, ink) can look slightly different from the screen, so treat the code as a close guide for physical projects."},
+  {"h2": "Which preset should I use?", "body":
+   "| Preset | Colors | Chance of each | Good for |\n|---|---|---|---|\n"
+   "| Rainbow | 7 | 1 in 7 (14.3%) | Kids' games, art lessons, the classic ROYGBIV order |\n"
+   "| Basic colors | 12 | 1 in 12 (8.3%) | Scavenger hunts, outfit or theme days |\n"
+   "| Primary | 3 | 1 in 3 (33.3%) | Early-years colour learning, quick team colours |\n"
+   "| Pastels | 6 | 1 in 6 (16.7%) | Design prompts, party themes, nail or craft ideas |\n\n"
+   "The rainbow's seven colors come from Isaac Newton, who named seven bands in the spectrum — partly to match the seven notes of a musical scale. The real spectrum is continuous, which is why some people struggle to see a separate indigo."},
+  {"h2": "Ideas for a random color", "body":
+   "**Art and design.** Spin a main color for a drawing challenge, or spin twice for a two-color palette. Designers can use the hex code as a starting point and build lighter and darker shades around it.\n\n"
+   "**Classroom.** \"Find something in the room that is this color\", color-word spelling, or sorting games for younger children.\n\n"
+   "**Parties and teams.** Assign team colours, pick the colour theme for a birthday, or play \"wear something this colour tomorrow\".\n\n"
+   "**Everyday.** Choose a nail polish, a phone wallpaper, a gift-wrap colour or the colour of the week."},
+  {"h2": "Playing with people who are color-blind", "body":
+   "Some players may not tell certain colors apart. As many as 1 in 12 men and about 1 in 200 women have some form of color vision deficiency, most often red–green. The wheel always shows the **color name** on each slice and in the popup, so nobody has to rely on the swatch alone. For games, avoid putting only red and green — or only blue and purple — on the same wheel."},
+  {"h2": "Is this a color theory wheel?", "body":
+   "No. This page picks a color at random. A color theory wheel shows how hues relate — complementary, analogous, triadic — and is used to build matching palettes. Use this tool when you want chance to choose, and a palette tool when you want colors that match."}
+ ],
+ "faq": [
+  {"q": "How do I get a random color with its hex code?", "a": "Spin the wheel. The popup shows the color name, a swatch and its hex code, ready to copy."},
+  {"q": "Can I add my own colors?", "a": "Yes. Type any color name on a new line. Names in the table above are painted in their real color."},
+  {"q": "Is each color equally likely?", "a": "Yes, as long as each color appears once. With the 7 rainbow colors, each has a 1 in 7 chance."},
+  {"q": "Can I pick colors without repeats?", "a": "Yes. Turn on \"Remove winner after each spin\" so each color is used once."},
+  {"q": "Why does indigo look so close to blue?", "a": "The spectrum is continuous; Newton named seven bands partly to match the musical scale. Indigo sits between blue and violet and is hard for many people to see as separate."},
+  {"q": "Will the hex code match my paint or fabric?", "a": "Closely, but not exactly. Screens mix light while paint and ink mix pigment, so printed colors can look slightly different."}
+ ],
+ "sources": [S_UTMB, S_MDN],
+},
+# ---------------------------------------------------------------- COUNTRY
+"random-country-generator": {
+ "sections": [
+  {"h2": "How the random country generator works", "body":
+   "Every country on the list is one equal slice of the wheel. With all 193 countries, each one has a 1 in 193 chance (about 0.5%) on every spin. Pick a region to narrow it down, or turn on **Remove winner** to work through countries without repeats.\n\n" + RANDOM_NOTE},
+  {"h2": "Which countries are on the wheel?", "body":
+   "The default list is the **193 member states of the United Nations**, grouped by the UN's M49 regions. The UN also has two **observer states** — the Holy See (Vatican City) and the State of Palestine — which aren't on the default list. Some places that govern themselves but aren't UN members, such as Taiwan and Kosovo, aren't included either.\n\n"
+   "There is no single official answer to \"how many countries are there?\" — it depends on who is counting. If your game or lesson needs a different list, type extra names in or delete ones you don't want."},
+  {"h2": "Odds by region", "body":
+   "Because regions have different numbers of countries, spinning **all 193** doesn't give each region the same chance:\n\n"
+   "| Region (UN M49) | Countries | Chance a spin lands here |\n|---|---|---|\n"
+   "| Africa | 54 | 28.0% |\n| Asia | 47 | 24.4% |\n| Europe | 43 | 22.3% |\n| Americas | 35 | 18.1% |\n| Oceania | 14 | 7.3% |\n\n"
+   "If you want every continent to have an equal chance, spin a region first — make a quick wheel with the five region names — then use that region's preset."},
+  {"h2": "Why some countries are in \"unexpected\" regions", "body":
+   "The UN grouping follows statistical convention, not everyday usage. On this wheel **Cyprus, Turkey, Armenia, Azerbaijan and Georgia** are in Asia; **Russia** is in Europe; **Egypt** is in Africa; and the **Americas** covers North, Central and South America plus the Caribbean together. The wheel follows the UN so the lists are consistent and checkable."},
+  {"h2": "Geography games and lesson ideas", "body":
+   "**Map hunt.** Spin a country; the first person to find it on a map scores a point. Make it harder by hiding labels.\n\n"
+   "**Capital, flag, language.** Spin, then name the capital, describe the flag and name a main language. One point each.\n\n"
+   "**Twenty questions.** One person spins secretly and the others ask yes-or-no questions to guess the country.\n\n"
+   "**Research cards.** Each student spins a country and makes a one-page fact card: population, currency, a famous landmark, a traditional food.\n\n"
+   "**Around the world in a term.** Turn on Remove winner and spin one country per lesson so the class never repeats."},
+  {"h2": "Travel and food ideas", "body":
+   "- **Dream-trip planning** — spin for a destination, then research the best time to visit and three things to see.\n"
+   "- **Cooking challenge** — cook a dish from the country you land on; spin again if ingredients are impossible to find.\n"
+   "- **Film or book club** — watch a film or read a book from the spun country this month.\n"
+   "- **Language taster** — learn \"hello\" and \"thank you\" in a main language of the country."},
+  {"h2": "Related tools", "body":
+   "For US states instead of countries, use the [Random State Generator](/random-state-generator). To split a class into groups that each research a country, use the [Random Team Generator](/random-team-generator)."}
+ ],
+ "faq": [
+  {"q": "How many countries are on the wheel?", "a": "All 193 UN member states when \"All 193 countries\" is selected."},
+  {"q": "Why isn't Taiwan, Kosovo or Palestine on the list?", "a": "The default list uses UN membership. Palestine and the Holy See are UN observer states; Taiwan and Kosovo aren't UN members. You can add any of them by typing the name on a new line."},
+  {"q": "Can I pick a random country from one continent?", "a": "Yes. Choose Africa, Americas, Asia, Europe or Oceania above the list."},
+  {"q": "Does each continent have the same chance?", "a": "Not when spinning all 193 — Africa has the most countries (28% of spins), Oceania the fewest (7.3%). Spin a region first if you want equal chances."},
+  {"q": "Can I avoid getting the same country twice?", "a": "Yes. Turn on \"Remove winner after each spin\"."},
+  {"q": "Why is Turkey listed in Asia?", "a": "The wheel follows the UN M49 regions, which place Turkey, Cyprus, Armenia, Azerbaijan and Georgia in Western Asia."}
+ ],
+ "sources": [S_UNM49, S_MDN],
+},
+# ---------------------------------------------------------------- SPINNER
+"spinner": {
+ "sections": [
+  {"h2": "A simple online spinner", "body":
+   "Choose 2 to 20 numbered slices and spin. It works like the cardboard spinner in a board game — but it can't bend, wobble or favour one side, and it keeps a list of every result. Type words into the entry box to turn it into a custom spinner for names, tasks or prizes.\n\n" + RANDOM_NOTE},
+  {"h2": "Looking for the spinner from Google search?", "body":
+   "In 2017 Google added a small spinner to its search results, with a fidget-spinner mode and a number mode. This page is an independent alternative to that idea, not Google's tool. It adds a few things a quick search widget doesn't: up to 20 slices, your own words instead of numbers, a results history, sound on or off, fullscreen for a classroom projector, and a share link."},
+  {"h2": "Odds for each spinner size", "body":
+   "Every slice is the same size, so each number has a chance of **1 ÷ slices**. The last column shows how many spins it takes, on average, before every number has come up at least once — handy for games where everyone needs a turn:\n\n"
+   "| Slices | Chance per number | Average spins to see every number |\n|---|---|---|\n"
+   "| 2 | 50% | 3 |\n| 4 | 25% | 8.3 |\n| 6 | 16.7% | 14.7 |\n| 8 | 12.5% | 21.7 |\n| 10 | 10% | 29.3 |\n| 20 | 5% | 72 |\n\n"
+   "That last column surprises people: with a six-slice spinner it typically takes about 15 spins, not 6, before all six numbers appear. If everyone must get a turn quickly, turn on **Remove winner** instead."},
+  {"h2": "Spinner vs. dice", "body":
+   "A 6-slice spinner gives exactly the same odds as a standard die: 1 in 6 for each number. A spinner is easier to see on a shared screen and can't roll off the table, and you can make sizes that dice don't come in — a 5-slice or 7-slice spinner, for example. For two dice added together, though, a single spinner isn't the same: totals like 7 are more common than 2 or 12. Spin twice and add the results to copy two dice."},
+  {"h2": "Ways to use the spinner", "body":
+   "**Board games.** Replace a lost spinner or die. Snakes and Ladders, Twister-style games and homemade board games all work.\n\n"
+   "**Classroom.** Spin a question number from a worksheet, a page number, a times table, or which group presents next.\n\n"
+   "**Fitness.** Spin for the number of reps, rounds or minutes. Write exercise names in the entry box for a workout spinner.\n\n"
+   "**Family decisions.** Number the options — which film, which chore, who goes first — and spin."},
+  {"h2": "Need bigger numbers?", "body":
+   "For ranges like 1–100 as a wheel, use the [Random Number Wheel](/number-wheel). For one or many numbers as a list — with or without repeats — use the [Random Number Generator](/random-number-generator)."}
+ ],
+ "faq": [
+  {"q": "How many slices can the spinner have?", "a": "Choose 2 to 20 from the menu. For more, type your own entries into the list."},
+  {"q": "Is this Google's spinner?", "a": "No. It's an independent spinner that works the same basic way, with extra options such as words, history and fullscreen."},
+  {"q": "Is a 6-slice spinner the same as a die?", "a": "Yes for a single die — each number has a 1 in 6 chance. For two dice added together, spin twice and add the results."},
+  {"q": "Can I put words on the spinner?", "a": "Yes. Type anything into the entry box, one per line, and each line becomes a slice."},
+  {"q": "Does it work on phones?", "a": "Yes. It runs in any modern mobile browser with no app to install."},
+  {"q": "Is the spinner random?", "a": "Yes. The stop point is chosen with your browser's cryptographically secure random generator, and each spin is independent."}
+ ],
+ "sources": [S_TNW, S_MDN],
+},
+# ---------------------------------------------------------------- RAFFLE
+"raffle-wheel": {
+ "sections": [
+  {"h2": "How the raffle wheel works", "body":
+   "Each line on the list is one entry and one equal slice. Spin to draw a winner; with **Remove winner** on, that entry leaves the wheel so it can't win again. The **Results** list records every winner in order for the session.\n\n" + RANDOM_NOTE},
+  {"h2": "Run a fair draw in six steps", "body":
+   "1. **Write the rules first.** Who can enter, how many entries each person gets, the closing time, the prizes and how winners will be contacted.\n"
+   "2. **Close entries** at the stated time, then build the list. Remove duplicates and anyone who doesn't qualify.\n"
+   "3. **Say the numbers out loud.** \"We have 214 valid entries and 3 prizes.\"\n"
+   "4. **Announce the prize order** before the first spin — smallest prize first, or grand prize first.\n"
+   "5. **Spin live** on screen, in a stream, or on a recorded video, with Remove winner on.\n"
+   "6. **Keep a record.** Screenshot the entry count and the Results list, and keep it until prizes are delivered.\n\n"
+   "If a winner doesn't respond within the time in your rules, spin again for a replacement and record that too."},
+  {"h2": "Tickets or names?", "body":
+   "- **One entry each:** paste names, one per line.\n"
+   "- **Multiple tickets:** paste **ticket numbers**, not names. Someone with five tickets then has five slices — exactly the odds they paid for. The \"Tickets 1–100\" preset gives you numbered lines to start from.\n\n"
+   "For very large draws (thousands of tickets), the [Random Number Generator](/random-number-generator) can draw several winning ticket numbers in one click with No repeats on."},
+  {"h2": "What are my chances of winning?", "body":
+   "With equal entries and no repeat winners, the chance of winning at least one prize is:\n\n"
+   "| Entries in the draw | Your tickets | Prizes | Your chance |\n|---|---|---|---|\n"
+   "| 100 | 1 | 1 | 1.0% |\n| 100 | 3 | 1 | 3.0% |\n| 100 | 3 | 3 | 8.8% |\n| 100 | 10 | 3 | 27.3% |\n| 250 | 5 | 1 | 2.0% |\n| 250 | 5 | 3 | 5.9% |\n| 500 | 20 | 5 | 18.5% |\n\n"
+   "More prizes help everyone a little, but buying more tickets is the only thing that raises *your* share relative to others."},
+  {"h2": "Social media giveaways", "body":
+   "1. Export or copy the comments or entries (most platforms and tools let you copy usernames).\n"
+   "2. Remove duplicates, the host's own account, and entries that don't meet your rules (for example, missing a required tag).\n"
+   "3. Paste the usernames here, one per line, and spin live — a screen recording is the easiest proof.\n"
+   "4. Check the winner still meets the rules before announcing.\n\n"
+   "Each platform has its own promotion rules, and some require you to state that the giveaway isn't sponsored or endorsed by them. Read them before you post."},
+  {"h2": "Is a random draw legal?", "body":
+   "A fair wheel makes the **pick** fair; it doesn't make the **promotion** legal. Rules depend on your country:\n\n"
+   "- In the **United States**, a promotion that combines a prize, chance and a required payment is generally treated as an illegal lottery. That's why sweepstakes usually offer a free \"alternative method of entry\" and say \"no purchase necessary\".\n"
+   "- In the **United Kingdom**, the Gambling Commission's guidance says free prize draws must offer a genuinely free entry route that is publicised and treated equally with paid entries; otherwise the draw may be a lottery that needs a licence.\n"
+   "- Charity raffles often have their own rules and registration requirements.\n\n"
+   "This is general information, not legal advice. For a business promotion with valuable prizes, check local rules or ask a professional."}
+ ],
+ "faq": [
+  {"q": "How many entries can the raffle wheel handle?", "a": "Hundreds work well. Labels shrink as the list grows; for thousands of tickets, the Random Number Generator is easier."},
+  {"q": "How do I draw several winners?", "a": "Keep \"Remove winner\" on and spin once per prize, in the order you announced."},
+  {"q": "Should I enter names or ticket numbers?", "a": "Names when everyone has one entry; ticket numbers when people can have more than one, so each ticket gets its own slice."},
+  {"q": "Can people verify the result?", "a": "Spin live or record your screen, and keep a screenshot of the entry count and the Results list. Verifiable draw receipts are planned but not available yet."},
+  {"q": "What if a winner doesn't reply?", "a": "Follow your published rules: after the deadline, spin again for a replacement and keep a record of it."},
+  {"q": "Does using a wheel make my giveaway legal?", "a": "No. The wheel makes the pick fair, but giveaway and lottery rules depend on your country and platform. Check them before you launch."}
+ ],
+ "sources": [S_AMOE, S_CMS, S_MDN],
+},
+# ---------------------------------------------------------------- DECISION
+"decision-wheel": {
+ "sections": [
+  {"h2": "How the decision wheel works", "body":
+   "Put your options on the wheel — anything from restaurants to weekend plans — and spin. Every option is an equal slice, so each has the same chance. Use the presets for common choices, or type your own.\n\n" + RANDOM_NOTE},
+  {"h2": "Does letting chance decide actually help?", "body":
+   "There is some interesting evidence. In a 2016 study, economist Steven Levitt invited people who were stuck on a decision to flip a virtual coin on his website, with heads meaning \"make the change\". Over 20,000 flips were recorded, and participants were surveyed two and six months later. People who got heads were about **25% more likely** to make the change. And people who made a change — quitting a job, ending a relationship, breaking a habit — reported being happier six months later than those who stayed put.\n\n"
+   "The study has limits: participants were volunteers from a website, and happiness was self-reported. But it suggests that when people are genuinely torn, a random nudge can help them act — and that many of us wait too long before making a change."},
+  {"h2": "When to use a decision wheel — and when not to", "body":
+   "| Good fit | Not a good fit |\n|---|---|\n"
+   "| Every option is acceptable | One option is clearly better on the facts |\n"
+   "| You've spent longer deciding than the choice deserves | The decision affects health, safety, money or the law |\n"
+   "| A group can't agree and needs a fair tie-break | Someone would be harmed by one of the outcomes |\n"
+   "| You want to find out what you really prefer | You need a reason you can explain later |"},
+  {"h2": "Five ways to decide better with a wheel", "body":
+   "1. **Only add options you'd accept.** If you'd refuse an outcome, take it off before spinning.\n"
+   "2. **Weight what matters.** Enter a favourite twice to double its chance.\n"
+   "3. **Use the disappointment test.** If the result makes you hope for a re-spin, you've learned which option you actually wanted — go with that.\n"
+   "4. **Agree before you spin.** In a group, everyone agrees to accept the result first. That's what makes it fair.\n"
+   "5. **Narrow it down.** With many options, turn on Remove winner and spin to *eliminate* until two are left, then spin once more."},
+  {"h2": "Popular decision wheels", "body":
+   "**What to eat:** pizza, burger, biryani, sushi, tacos, pasta, salad, noodles — or your local favourites.\n\n"
+   "**What to watch:** comedy, action, drama, horror, sci-fi, romance, animation, documentary.\n\n"
+   "**Weekend plans:** stay in, eat out, hike, visit friends, shopping, movie night.\n\n"
+   "**Who does it:** names of housemates or family members for chores, driving or paying.\n\n"
+   "For a single question, the [Yes or No Wheel](/yes-or-no-wheel) is quicker. For hidden outcomes, try the [Mystery Wheel](/mystery-wheel)."},
+  {"h2": "Decision wheel for groups and teams", "body":
+   "Teams use decision wheels to choose who presents first, which task to tackle next, or where to go for a team lunch. Share your screen, spin, and the result is visible to everyone — no one can claim the choice was rigged. To divide people into groups rather than choose an option, use the [Random Team Generator](/random-team-generator)."}
+ ],
+ "faq": [
+  {"q": "How does a decision wheel help me decide?", "a": "It breaks ties between options you'd accept, saves time, and your reaction to the result often shows which option you really wanted."},
+  {"q": "Can I make one option more likely?", "a": "Yes. Enter it more than once — each copy is another equal slice."},
+  {"q": "Is there evidence that random decisions help?", "a": "A 2016 study by Steven Levitt found people who were nudged by a coin flip into making a change reported being happier six months later. It used volunteers and self-reported happiness, so treat it as suggestive."},
+  {"q": "How many options can I add?", "a": "As many as you like, but 3–12 options are easiest to read and decide between."},
+  {"q": "Is it fair for a group decision?", "a": "Yes, if everyone agrees the list and to accept the result before spinning. The result is chosen at random and everyone can watch."},
+  {"q": "Should I use it for big life decisions?", "a": "Use it to break a deadlock between options you're genuinely happy with. For decisions about health, money or legal matters, get proper information or advice first."}
+ ],
+ "sources": [S_NBER, S_MDN],
+},
+})
