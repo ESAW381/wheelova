@@ -8,7 +8,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "19"
+V = "20"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -145,7 +145,7 @@ def footer():
 {fbrand("/", "Spin the wheel. Trust the result.", "© 2026 Wheelova. Free random wheel spinner.")}
 <div><span class="h">Popular wheels</span>{pop}</div>
 <div><span class="h">More wheels</span>{more}<a href="/wheels">All wheels</a></div>
-<div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+<div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
 </div></footer>
 """
 
@@ -172,6 +172,7 @@ def tool(controls="", default_label="Entries"):
 <p class="small" id="entries-help">One entry per line. Saved in your browser automatically.</p>
 <button class="toggle" id="remove" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Remove winner after each spin</button>
 <button class="toggle" id="sound" type="button" aria-pressed="true"><span class="sw" aria-hidden="true"></span>Sound</button>
+<details class="wset"><summary>Settings</summary><div class="wsetb"><label>Spin speed<select id="wspeed"><option value="fast">Fast</option><option value="normal">Normal</option><option value="slow">Slow</option></select></label><label>Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"></label></div></details>
 <div class="sharerow"><button class="btn" id="sharebtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Share link</button><button class="btn" id="embedbtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>Embed</button></div>
 </div>
 <div class="card">
@@ -271,6 +272,7 @@ def page(p):
 <section id="faq"><div class="wrap" style="max-width:860px">
 <h2 style="margin-bottom:12px">Questions</h2>
 {faqs}
+<p style="margin-top:18px"><a class="more" href="/faq">More questions? Read the full FAQ →</a></p>
 </div></section>
 
 <section><div class="wrap">
@@ -302,6 +304,35 @@ def simple(slug, title, desc, h1, sub, body, noindex=False):
 </div>
 <section style="padding-top:32px"><div class="wrap prose">
 {md(body)}
+</div></section>
+</main>
+{footer()}
+{CHROME_JS}
+</body>
+</html>
+"""
+
+from faq import FAQ_PAGE
+def faq_page():
+    F = FAQ_PAGE; path = "/faq"
+    allq = [(q, a) for _, _, qs in F["sections"] for q, a in qs]
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "FAQPage", "url": SITE + path, "name": F["h1"], "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": plain(a)}} for q, a in allq]},
+        {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Wheelova", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": "FAQ", "item": SITE + path}]},
+        {"@type": "WebPage", "@id": SITE + path + "#page", "url": SITE + path, "name": F["h1"], "dateModified": UPDATED, "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/"}}]}
+    toc = "".join(f'<a class="chip" href="#{sid}">{e(t)}</a>' for t, sid, _ in F["sections"])
+    body = "".join(f'<h2 id="{sid}" style="margin:44px 0 12px">{e(t)}</h2>' + "".join(f'<details><summary>{e(q)}</summary>{md(a)}</details>' for q, a in qs) for t, sid, qs in F["sections"])
+    return head(F["title"], F["desc"], path, ld) + f"""
+<main><div class="wrap hero">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <span aria-current="page">FAQ</span></nav>
+<h1>{e(F["h1"])}</h1>
+<p class="sub1">{e(F["sub"])}</p>
+<div class="chips faqtoc">{toc}</div>
+</div>
+<section id="faq" style="padding-top:8px"><div class="wrap" style="max-width:860px">
+{body}
+<p class="src" style="margin-top:40px">Didn't find your answer? Email <a href="mailto:support@wheelova.com">support@wheelova.com</a>.</p>
+<p class="byline">Written by <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Last updated <time datetime="{UPDATED}">October 22, 2026</time></p>
 </div></section>
 </main>
 {footer()}
@@ -368,7 +399,8 @@ def es_page(p):
          ('aria-label="Presets"', 'aria-label="Ajustes rápidos"'),
          ('You opened a shared wheel.', U["shared_note"]), ('Back to my list', U["my_list"]),
          ('One entry per line. Saved in your browser automatically.', U["help"]),
-         ('Remove winner after each spin', U["remove"]), ('</span>Sound<', '</span>' + U["sound"] + '<'),
+         ('Remove winner after each spin', U["remove"]),
+         ('<summary>Settings</summary>', '<summary>Ajustes</summary>'), ('<label>Spin speed<', '<label>Velocidad de giro<'), ('>Fast<', '>Rápida<'), ('>Slow<', '>Lenta<'), ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Título de la ventana del ganador<input id="wmsg" maxlength="60" placeholder="¡TENEMOS GANADOR!"'), ('</span>Sound<', '</span>' + U["sound"] + '<'),
          ('Share link</button>', U["share"] + '</button>'), ('Embed</button>', U["embed"] + '</button>'),
          ('>Results <span id="rcount"', '>' + U["results"] + ' <span id="rcount"'),
          ('WE HAVE A WINNER', ES_JS["pop"]), ('>Remove from wheel<', '>' + U["pop_remove"] + '<'), ('>Close<', '>' + U["close"] + '<'),
@@ -381,6 +413,7 @@ def es_page(p):
          ("Wheelova – Spin the wheel, trust the result", "Wheelova – Gira la ruleta, confía en el resultado"),
          ('content="Wheelova — spin the wheel, trust the result"', 'content="Wheelova — gira la ruleta"'),
          ]
+    h = h.replace('\n<p style="margin-top:18px"><a class="more" href="/faq">More questions? Read the full FAQ →</a></p>', '')
     for a, b in R:
         h = h.replace(a, b)
     h = re.sub(r'<p class="src">Randomness:.*?(?= Sources:|</p>)', '<p class="src">' + U["rand_src"], h, count=1).replace(" Sources: ", " " + U["sources"] + " ")
@@ -389,7 +422,7 @@ def es_page(p):
 
 import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 from static_pages import STATIC
-files = {"index.html": home(), "wheels.html": hub()}
+files = {"index.html": home(), "wheels.html": hub(), "faq.html": faq_page()}
 for s in STATIC:
     files[s["slug"] + ".html"] = simple(**s)
 for p in PAGES:
@@ -409,7 +442,7 @@ LM_PATH = os.path.join(ROOT, "src", "lastmod.json")
 try: LM = json.load(open(LM_PATH))
 except Exception: LM = {}
 TODAY = datetime.date.today().isoformat()
-urls = ["", "wheels"] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
+urls = ["", "wheels", "faq"] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
 for u in urls:
     body = files["index.html" if u == "" else u + ".html"]
     m = re.search(r"<main>[\s\S]*?</main>", body)

@@ -182,3 +182,6 @@ a.tpl{text-decoration:none}a.tpl:hover{color:var(--tx)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 .fbrand{flex:1 1 240px;display:flex;flex-direction:column;gap:6px}.flogo{display:inline-flex!important;align-items:center;gap:10px;font-family:"Inter Tight",Inter,sans-serif;font-weight:700;font-size:22px;letter-spacing:-.02em;color:var(--hi)!important;text-decoration:none}.flogo svg{width:30px;height:30px;color:var(--hi)}.ftag{margin:2px 0 0;color:var(--mu);font-size:15px}.fcopy{margin:6px 0 0;color:var(--mu2);font-size:13px}
+.wset{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}.wset summary{cursor:pointer;font-weight:600;color:var(--hi);font-size:15px;padding:4px 0}.wsetb{display:flex;flex-direction:column;gap:10px;margin-top:10px}.wsetb label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--mu)}.wsetb select,.wsetb input{height:40px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--hi);padding:0 12px;font:inherit;font-size:15px}
+.faqtoc .chip{display:inline-flex;align-items:center;text-decoration:none}
+.card details.wset{border-bottom:0;padding-bottom:2px}
