@@ -8,7 +8,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "14"
+V = "15"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -22,6 +22,7 @@ def md(s):
     s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
     s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
     s = re.sub(r"\[([^\]]+)\]\((/[^)]*)\)", r'<a href="\2">\1</a>', s)
+    s = re.sub(r"\[([^\]]+)\]\(((?:https?://|mailto:)[^)]*)\)", r'<a href="\2" rel="noopener">\1</a>', s)
     out, lst, tbl = [], None, []
     def flush():
         if not tbl: return
@@ -35,6 +36,9 @@ def md(s):
             if lst: out.append(f"</{lst}>"); lst = None
             tbl.append(line); continue
         flush()
+        if line.startswith("## "):
+            if lst: out.append(f"</{lst}>"); lst = None
+            out.append(f"<h2>{line[3:]}</h2>"); continue
         m1, m2 = re.match(r"^- (.*)", line), re.match(r"^\d+\. (.*)", line)
         tag = "ul" if m1 else "ol" if m2 else None
         if tag:
@@ -100,6 +104,19 @@ def head(title, desc, path, ld, ogtitle=None):
 </div></header>
 """
 
+SHARE = """
+<div class="pop" id="sharepop" role="dialog" aria-modal="true" aria-labelledby="sharettl"><div class="popc sharec">
+<div class="lbl" id="sharettl">SHARE THIS WHEEL</div>
+<p class="sharehelp" id="sharehelp">Anyone with this link opens the wheel with your entries. Nothing is stored on our server — the entries are inside the link.</p>
+<label class="sharelbl" for="shareurl">Link</label>
+<div class="sharefield"><input id="shareurl" readonly><button class="pbtn pri" id="sharecopy" type="button">Copy</button></div>
+<div id="embedwrap"><label class="sharelbl" for="embedcode">Embed code — paste into your website, blog or OBS browser source</label>
+<textarea id="embedcode" readonly rows="5"></textarea><button class="pbtn" id="embedcopy" type="button">Copy embed code</button></div>
+<p class="sharewarn" id="sharewarn" hidden></p>
+<div class="acts"><button class="pbtn" id="shareclose" type="button">Close</button></div>
+</div></div>
+"""
+
 POP = """
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popwin"><div class="popc">
 <div class="lbl" id="poplbl">WE HAVE A WINNER</div><div class="popswatch" id="popswatch" aria-hidden="true"></div><div class="win" id="popwin"></div><div class="pophex" id="pophex"></div>
@@ -121,6 +138,7 @@ def footer():
 def tool(controls="", default_label="Entries"):
     return f"""<div class="tool" id="tool">
 <div class="stage">
+<button class="fsbtn" id="fsbtn" type="button" aria-label="Fullscreen" title="Fullscreen (F)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="fs-in" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><path class="fs-out" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
 <div class="wheelbox">
 <div class="pointer" aria-hidden="true"></div>
 <canvas id="wheel" width="960" height="960" role="img" aria-label="Spinning wheel"></canvas>
@@ -135,10 +153,12 @@ def tool(controls="", default_label="Entries"):
 <div style="display:flex;gap:6px"><button class="btn" id="shuffle" type="button">Shuffle</button><button class="btn" id="sort" type="button">Sort</button><button class="btn" id="clear" type="button">Clear</button></div>
 </div>
 {controls}
+<div class="sharenote" id="sharenote" hidden><span>You opened a shared wheel.</span><button class="linkbtn" id="mylist" type="button">Back to my list</button></div>
 <textarea id="entries" spellcheck="false" aria-describedby="entries-help"></textarea>
 <p class="small" id="entries-help">One entry per line. Saved in your browser automatically.</p>
 <button class="toggle" id="remove" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Remove winner after each spin</button>
 <button class="toggle" id="sound" type="button" aria-pressed="true"><span class="sw" aria-hidden="true"></span>Sound</button>
+<div class="sharerow"><button class="btn" id="sharebtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Share link</button><button class="btn" id="embedbtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>Embed</button></div>
 </div>
 <div class="card">
 <div style="font-weight:600;color:var(--hi)">Results <span id="rcount" style="color:var(--mu2);font-weight:500">· 0</span></div>
@@ -239,9 +259,32 @@ def page(p):
 {byline(p)}
 </div></section>
 </main>
-{POP}
+{POP}{SHARE if not p.get("tool") else ""}
 {footer()}
 {scripts(p, cfg)}
+</body>
+</html>
+"""
+
+CHROME_JS = """<script>(function(){var lg=document.querySelector('.logo');lg.addEventListener('click',function(){try{localStorage.removeItem('wv_entries_home2')}catch(e){}});var b=document.getElementById('burger'),n=document.getElementById('mnav');b.onclick=function(){var o=!n.classList.contains('open');n.classList.toggle('open',o);b.setAttribute('aria-expanded',o)};var t=document.getElementById('theme'),r=document.documentElement;t.onclick=function(){var v=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',v);try{localStorage.setItem('wv_theme',v)}catch(e){}}})();</script>"""
+
+def simple(slug, title, desc, h1, sub, body, noindex=False):
+    path = "/" + slug
+    ld = {"@context": "https://schema.org", "@type": "WebPage", "name": h1, "url": SITE + path}
+    h = head(title, desc, path, ld)
+    if noindex:
+        h = h.replace('<link rel="canonical"', '<meta name="robots" content="noindex">\n<link rel="canonical"', 1)
+    return h + f"""
+<main><div class="wrap hero">
+<h1>{e(h1)}</h1>
+<p class="sub1">{sub}</p>
+</div>
+<section style="padding-top:32px"><div class="wrap prose">
+{md(body)}
+</div></section>
+</main>
+{footer()}
+{CHROME_JS}
 </body>
 </html>
 """
@@ -257,7 +300,7 @@ def hub():
 {cards}
 </div></main>
 {footer()}
-<script>(function(){{var lg=document.querySelector('.logo');lg.addEventListener('click',function(){{try{{localStorage.removeItem('wv_entries_home2')}}catch(e){{}}}});var b=document.getElementById('burger'),n=document.getElementById('mnav');b.onclick=function(){{var o=!n.classList.contains('open');n.classList.toggle('open',o);b.setAttribute('aria-expanded',o)}};var t=document.getElementById('theme'),r=document.documentElement;t.onclick=function(){{var v=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',v);try{{localStorage.setItem('wv_theme',v)}}catch(e){{}}}}}})();</script>
+{CHROME_JS}
 </body>
 </html>
 """
@@ -270,24 +313,39 @@ def home():
     main = re.search(r"<main>[\s\S]*?</main>", src).group(0)
     ld = json.loads(re.search(r'<script type="application/ld\+json">\s*([\s\S]*?)\s*</script>', src).group(1))
     ld["@graph"].insert(0, {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": SITE + "/icons/icon-512.png"})
-    popular = "".join(card(s, i) for i, s in enumerate(POPULAR))
-    main = main.replace('<section id="features">', f'<section id="popular"><div class="wrap">\n<h2>Popular wheels</h2>\n<p style="margin:0 0 28px;color:var(--mu)">Ready-made wheels with their own presets and guides.</p>\n<div class="grid">{popular}</div>\n</div></section>\n\n<section id="features">', 1)
-    main = main.replace("<h2>A ready-made wheel for everything</h2>", "<h2>Quick templates</h2>")
+    popular = "".join(card(s, i) for i, s in enumerate(POPULAR[:8]))
+    main = main.replace('<section id="features">', f'<section id="popular"><div class="wrap">\n<h2>Popular wheels</h2>\n<p style="margin:0 0 28px;color:var(--mu)">Ready-made wheels with their own presets and guides.</p>\n<div class="grid">{popular}</div>\n<p style="margin-top:24px"><a class="more" href="/wheels">See all {len(PAGES)} tools →</a></p>\n</div></section>\n\n<section id="features">', 1)
+    main = re.sub(r'<section id="wheels">[\s\S]*?</section>\s*', '', main, count=1)
     t = re.search(r"<title>(.*?)</title>", src).group(1)
     d = re.search(r'<meta name="description" content="(.*?)">', src).group(1)
-    return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + POP + footer() + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/app.js?v={V}"></script>\n</body>\n</html>\n'
+    return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + POP + SHARE + footer() + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/app.js?v={V}"></script>\n</body>\n</html>\n'
 
 import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
+from static_pages import STATIC
 files = {"index.html": home(), "wheels.html": hub()}
+for s in STATIC:
+    files[s["slug"] + ".html"] = simple(**s)
 for p in PAGES:
     files[p["slug"] + ".html"] = page(p)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
-for f in ["app.css", "app.js", "gen.js", "about.html", "privacy.html", "terms.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
+for f in ["app.css", "app.js", "gen.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(open(os.path.join(ROOT, f), encoding="utf-8").read())
 shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
 shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))
-urls = ["", "wheels"] + [p["slug"] for p in PAGES] + ["about", "privacy", "terms"]
-sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>{SITE}/{u}</loc><lastmod>2026-10-21</lastmod></url>" for u in urls) + "</urlset>\n"
+import hashlib, datetime
+LM_PATH = os.path.join(ROOT, "src", "lastmod.json")
+try: LM = json.load(open(LM_PATH))
+except Exception: LM = {}
+TODAY = datetime.date.today().isoformat()
+urls = ["", "wheels"] + [p["slug"] for p in PAGES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
+for u in urls:
+    body = files["index.html" if u == "" else u + ".html"]
+    m = re.search(r"<main>[\s\S]*?</main>", body)
+    hsh = hashlib.sha1((m.group(0) if m else body).encode()).hexdigest()[:12]
+    if LM.get(u, {}).get("h") != hsh:
+        LM[u] = {"h": hsh, "d": TODAY if u in LM else LM.get(u, {}).get("d", "2026-10-21")}
+json.dump(LM, open(LM_PATH, "w"), indent=0, sort_keys=True)
+sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>{SITE}/{u}</loc><lastmod>{LM[u]['d']}</lastmod></url>" for u in urls) + "</urlset>\n"
 open(os.path.join(OUT, "sitemap.xml"), "w").write(sm)
 print("built", len(files), "pages +", len(urls), "sitemap urls")

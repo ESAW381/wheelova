@@ -20,8 +20,9 @@ var entries=[],rot=0,spinning=false,removeW=!!cfg.removeWinner,sound=true,hist=[
 function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function rand(){var a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]/4294967296}
-function parse(){entries=ta.value.split('\n').map(function(s){return s.trim()}).filter(Boolean);$('count').textContent='· '+entries.length;store(KEY,ta.value);draw()}
-function setEntries(arr){ta.value=arr.join('\n');parse()}
+var sharedMode=false;function parse(){entries=ta.value.split('\n').map(function(s){return s.trim()}).filter(Boolean);$('count').textContent='· '+entries.length;if(!sharedMode)store(KEY,ta.value);draw()}
+function setEntries(arr){leaveShared();ta.value=arr.join('\n');parse()}
+function leaveShared(){if(!sharedMode)return;sharedMode=false;var n=$('sharenote');if(n)n.hidden=true;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}
 function lum(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c}).join('');var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);return (0.299*r+0.587*g+0.114*b)/255}
 function fillFor(i,n,name){
 if(cfg.mode==='color'&&cfg.colorMap){var c=cfg.colorMap[name.toLowerCase()];if(c)return {f:c,t:lum(c)>0.6?'#141418':'#FFFFFF'}}
@@ -67,13 +68,13 @@ $('popclose').onclick=closePop;$('pop').onclick=function(e){if(e.target===this)c
 $('popremove').onclick=function(){if(lastIdx>-1&&lastIdx<entries.length){entries.splice(lastIdx,1);ta.value=entries.join('\n');parse()}lastIdx=-1;closePop()};
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('pop').classList.contains('on'))closePop()});
 $('spin').onclick=spin;cv.onclick=spin;
-ta.addEventListener('input',parse);
+ta.addEventListener('input',function(){leaveShared();parse()});
 $('shuffle').onclick=function(){var a=entries.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(rand()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}setEntries(a)};
 $('sort').onclick=function(){setEntries(entries.slice().sort(function(a,b){return a.localeCompare(b,undefined,{numeric:true})}))};
 $('clear').onclick=function(){setEntries([]);ta.focus()};
 var rb=$('remove');rb.setAttribute('aria-pressed',removeW);rb.onclick=function(){removeW=!removeW;this.setAttribute('aria-pressed',removeW)};
 $('sound').onclick=function(){sound=!sound;this.setAttribute('aria-pressed',sound)};
-document.addEventListener('keydown',function(e){if(e.code==='Space'&&!$('pop').classList.contains('on')&&!/TEXTAREA|INPUT|BUTTON|SUMMARY|A|SELECT/.test(document.activeElement.tagName)){e.preventDefault();spin()}});
+document.addEventListener('keydown',function(e){if(e.code==='Space'&&!$('pop').classList.contains('on')&&!($('sharepop')&&$('sharepop').classList.contains('on'))&&!/TEXTAREA|INPUT|BUTTON|SUMMARY|A|SELECT/.test(document.activeElement.tagName)){e.preventDefault();spin()}});
 var g=$('templates');if(g){TEMPLATES.forEach(function(t){var b=document.createElement('button');b.type='button';b.className='tpl';
 b.innerHTML='<span class="dot" style="background:conic-gradient('+t.c+' 0 25%,#2A2A36 0 50%,'+t.c+' 0 75%,#2A2A36 0)"></span><span><b></b><span></span></span>';
 b.querySelector('b').textContent=t.n;b.querySelector('span span').textContent=t.e.length+' entries';
@@ -83,7 +84,30 @@ var ng=$('ngo');if(ng){ng.onclick=function(){var a=parseInt($('nmin').value,10),
 if(isNaN(a)||isNaN(b)||b<=a){err.textContent='Enter a range where "To" is bigger than "From".';return}
 if(b-a+1>500){err.textContent='Up to 500 numbers per wheel.';return}err.textContent='';var arr=[];for(var x=a;x<=b;x++)arr.push(String(x));setEntries(arr)}}
 var sc=$('scount');if(sc){sc.onchange=function(){var n=parseInt(sc.value,10),arr=[];for(var x=1;x<=n;x++)arr.push(String(x));setEntries(arr)}}
-var saved=load(KEY);ta.value=saved!=null&&saved.trim()?saved:DEFAULT.join('\n');parse();
+function enc(arr){var u=new TextEncoder().encode(arr.join('\n')),s='';for(var i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function dec(t){try{t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';var s=atob(t),u=new Uint8Array(s.length);for(var i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return new TextDecoder().decode(u).split('\n').map(function(x){return x.trim()}).filter(Boolean).slice(0,1000)}catch(e){return null}}
+var saved=load(KEY),hm=/[#&]w=([^&]+)/.exec(location.hash),shared=hm?dec(hm[1]):null;
+if(shared&&shared.length){sharedMode=true;ta.value=shared.join('\n');var sn=$('sharenote');if(sn)sn.hidden=false}else{ta.value=saved!=null&&saved.trim()?saved:DEFAULT.join('\n')}
+parse();
+var ml=$('mylist');if(ml)ml.onclick=function(){leaveShared();ta.value=saved!=null&&saved.trim()?saved:DEFAULT.join('\n');parse()};
+var SITE='https://wheelova.com',PATH=location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'');
+function openShare(withEmbed){if(entries.length<2){res.innerHTML='<div class="hint">Add at least two entries to share</div>';return}
+var code=enc(entries),url=SITE+PATH+'#w='+code;$('shareurl').value=url;
+var emb=SITE+'/embed#w='+code+(cfg.mode&&cfg.mode!=='color'?'&m='+cfg.mode:'');
+$('embedcode').value='<iframe src="'+emb+'" title="Spin the wheel – Wheelova" width="100%" height="560" style="max-width:560px;border:0" loading="lazy"></iframe>\n<p style="font:14px sans-serif">Spin wheel by <a href="'+SITE+PATH+'">Wheelova</a></p>';
+$('embedwrap').hidden=!withEmbed;$('sharettl').textContent=withEmbed?'EMBED THIS WHEEL':'SHARE THIS WHEEL';
+var w=$('sharewarn');w.hidden=url.length<=3000;w.textContent='This list is long, so the link is long ('+url.length+' characters). It still works, but some chat apps may cut it off.';
+$('sharepop').classList.add('on');(withEmbed?$('embedcopy'):$('sharecopy')).focus()}
+function copyFrom(id,btn){var el=$(id);el.select();var txt=el.value,done=function(){btn.textContent='Copied';setTimeout(function(){btn.textContent=id==='shareurl'?'Copy':'Copy embed code'},1500)};
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,function(){document.execCommand('copy');done()})}else{document.execCommand('copy');done()}}
+if($('sharebtn')){$('sharebtn').onclick=function(){openShare(false)};$('embedbtn').onclick=function(){openShare(true)};
+$('sharecopy').onclick=function(){copyFrom('shareurl',this)};$('embedcopy').onclick=function(){copyFrom('embedcode',this)};
+var sp=$('sharepop');$('shareclose').onclick=function(){sp.classList.remove('on')};sp.onclick=function(e){if(e.target===sp)sp.classList.remove('on')};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')sp.classList.remove('on')})}
+var fb=$('fsbtn'),body=document.body;function setFs(on){body.classList.toggle('is-fs',on);fb.setAttribute('aria-label',on?'Exit fullscreen':'Fullscreen');
+try{if(on&&document.documentElement.requestFullscreen&&!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});if(!on&&document.fullscreenElement)document.exitFullscreen().catch(function(){})}catch(e){}draw()}
+if(fb){fb.onclick=function(){setFs(!body.classList.contains('is-fs'))};document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&body.classList.contains('is-fs'))setFs(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&body.classList.contains('is-fs')&&!$('pop').classList.contains('on'))setFs(false);if((e.key==='f'||e.key==='F')&&!/TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName)&&!e.ctrlKey&&!e.metaKey)setFs(!body.classList.contains('is-fs'))})}
 var bg=$('burger'),nv=$('mnav');function setNav(o){nv.classList.toggle('open',o);bg.setAttribute('aria-expanded',o);bg.setAttribute('aria-label',o?'Close menu':'Open menu')}
 bg.onclick=function(){setNav(!nv.classList.contains('open'))};nv.addEventListener('click',function(e){if(e.target.tagName==='A')setNav(false)});
 var th=$('theme'),root=document.documentElement,mt=document.querySelector('meta[name=theme-color]');function applyT(t){root.setAttribute('data-theme',t);th.setAttribute('aria-label',t==='light'?'Switch to dark mode':'Switch to light mode');if(mt)mt.setAttribute('content',t==='light'?'#F6F6F9':'#0A0A0C')}
