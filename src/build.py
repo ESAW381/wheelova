@@ -8,7 +8,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "20"
+V = "21"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -39,13 +39,20 @@ def md(s):
         if line.startswith("## "):
             if lst: out.append(f"</{lst}>"); lst = None
             out.append(f"<h2>{line[3:]}</h2>"); continue
-        m1, m2 = re.match(r"^- (.*)", line), re.match(r"^\d+\. (.*)", line)
+        if line.startswith("&gt;"):
+            if lst and lst != "blockquote": out.append(f"</{lst}>"); lst = None
+            if lst != "blockquote": out.append('<blockquote class="quote">'); lst = "blockquote"
+            t = line[4:].strip()
+            if t: out.append(f"<p>{t}</p>")
+            continue
+        m1, m2 = re.match(r"^- (.*)", line), re.match(r"^(\d+)\. (.*)", line)
         tag = "ul" if m1 else "ol" if m2 else None
         if tag:
             if lst != tag:
                 if lst: out.append(f"</{lst}>")
-                out.append(f"<{tag}>"); lst = tag
-            out.append(f"<li>{(m1 or m2).group(1)}</li>")
+                st = int(m2.group(1)) if m2 else 1
+                out.append(f'<{tag} start="{st}">' if tag == "ol" and st != 1 else f"<{tag}>"); lst = tag
+            out.append(f"<li>{m1.group(1) if m1 else m2.group(2)}</li>")
         else:
             if lst: out.append(f"</{lst}>"); lst = None
             if line.strip(): out.append(f"<p>{line}</p>")
@@ -145,7 +152,7 @@ def footer():
 {fbrand("/", "Spin the wheel. Trust the result.", "© 2026 Wheelova. Free random wheel spinner.")}
 <div><span class="h">Popular wheels</span>{pop}</div>
 <div><span class="h">More wheels</span>{more}<a href="/wheels">All wheels</a></div>
-<div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/is-the-wheel-random">Fairness study</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+<div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/guides">Guides</a><a href="/is-the-wheel-random">Fairness study</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
 </div></footer>
 """
 
@@ -172,7 +179,7 @@ def tool(controls="", default_label="Entries"):
 <p class="small" id="entries-help">One entry per line. Saved in your browser automatically.</p>
 <button class="toggle" id="remove" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Remove winner after each spin</button>
 <button class="toggle" id="sound" type="button" aria-pressed="true"><span class="sw" aria-hidden="true"></span>Sound</button>
-<details class="wset"><summary>Settings</summary><div class="wsetb"><label>Spin speed<select id="wspeed"><option value="fast">Fast</option><option value="normal">Normal</option><option value="slow">Slow</option></select></label><label>Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"></label></div></details>
+<details class="wset"><summary>Settings</summary><div class="wsetb"><label>Spin speed<select id="wspeed"><option value="fast">Fast</option><option value="normal">Normal</option><option value="slow">Slow</option></select></label><label>Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"></label><label class="ck"><input id="wspeak" type="checkbox"> Read the result aloud</label></div></details>
 <div class="sharerow"><button class="btn" id="sharebtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Share link</button><button class="btn" id="embedbtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>Embed</button></div>
 </div>
 <div class="card">
@@ -260,6 +267,7 @@ def page(p):
 {gentool(p) if p.get("tool") else tool(controls)}
 </div>
 
+{('<div class="wrap"><a class="guidecta" href="/' + GUIDE_FOR[p["slug"]]["slug"] + '"><b>Guide:</b> ' + e(GUIDE_FOR[p["slug"]]["h1"][0].upper() + GUIDE_FOR[p["slug"]]["h1"][1:]) + ' →</a></div>') if p["slug"] in GUIDE_FOR else ''}
 <section id="how"><div class="wrap">
 <h2 style="margin-bottom:24px">{e(p.get("howTitle") or "How to use the " + p["h1"].lower().replace("random ", "").replace("online ", ""))}</h2>
 <div class="steps3">{steps}</div>
@@ -365,6 +373,49 @@ def study_page():
 </html>
 """
 
+from guides import TEACHER, GIVEAWAY
+GUIDES = [TEACHER, GIVEAWAY]
+GUIDE_FOR = {"name-picker-wheel": TEACHER, "random-team-generator": TEACHER, "raffle-wheel": GIVEAWAY}
+def guide_page(G):
+    path = "/" + G["slug"]
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "Article", "headline": G["h1"], "description": G["desc"], "url": SITE + path, "datePublished": "2026-10-23", "dateModified": "2026-10-23", "image": SITE + "/icons/og-image.png", "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/icons/icon-512.png"}}},
+        {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Wheelova", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": SITE + "/guides"}, {"@type": "ListItem", "position": 3, "name": G["h1"], "item": SITE + path}]}]}
+    return head(G["title"], G["desc"], path, ld) + f"""
+<main><div class="wrap hero">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <a href="/guides">Guides</a> / <span aria-current="page">{e(G["h1"])}</span></nav>
+<h1>{e(G["h1"])}</h1>
+<p class="sub1">{e(G["sub"])}</p>
+<p class="byline" style="margin-top:14px">By <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Published <time datetime="2026-10-23">October 23, 2026</time></p>
+</div>
+<section style="padding-top:24px"><div class="wrap prose study">
+{md(G["body"])}
+</div></section>
+</main>
+{footer()}
+{CHROME_JS}
+</body>
+</html>
+"""
+
+def guides_hub():
+    path = "/guides"
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Wheelova guides", "url": SITE + path, "hasPart": [{"@type": "Article", "name": G["h1"], "url": SITE + "/" + G["slug"]} for G in GUIDES] + [{"@type": "Article", "name": study.H1, "url": SITE + "/" + study.SLUG}]}
+    items = [(G["slug"], G["h1"], G["sub"]) for G in GUIDES] + [(study.SLUG, study.H1, study.SUB)]
+    cards = "".join(f'<a class="tpl" href="/{sl}"><span class="dot" style="background:conic-gradient({DOTS[i]} 0 25%,#2A2A36 0 50%,{DOTS[i]} 0 75%,#2A2A36 0)"></span><span><b>{e(h)}</b><span>{e(sb)}</span></span></a>' for i, (sl, h, sb) in enumerate(items))
+    return head("Guides – Classroom, Giveaways & Fair Random Picks | Wheelova", "Practical guides for teachers and giveaway hosts, plus our 1,000,000-spin fairness study.", path, ld) + f"""
+<main><div class="wrap hero">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <span aria-current="page">Guides</span></nav>
+<h1>Guides</h1>
+<p class="sub1">Practical help for classrooms, giveaways and fair random picks.</p>
+<div class="grid" style="margin-top:28px">{cards}</div>
+</div></main>
+{footer()}
+{CHROME_JS}
+</body>
+</html>
+"""
+
 def hub():
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "All Wheelova wheels", "url": SITE + "/wheels", "hasPart": [{"@type": "WebPage", "name": BY[s]["h1"], "url": f"{SITE}/{s}"} for s in POPULAR]}
     cards = "".join(f'<h2 style="margin:36px 0 16px">{e(c)}</h2><div class="grid">' + "".join(card(s, i) for i, s in enumerate(ss)) + '</div>' for c, ss in CLUSTERS)
@@ -424,7 +475,7 @@ def es_page(p):
          ('You opened a shared wheel.', U["shared_note"]), ('Back to my list', U["my_list"]),
          ('One entry per line. Saved in your browser automatically.', U["help"]),
          ('Remove winner after each spin', U["remove"]),
-         ('<summary>Settings</summary>', '<summary>Ajustes</summary>'), ('<label>Spin speed<', '<label>Velocidad de giro<'), ('>Fast<', '>Rápida<'), ('>Slow<', '>Lenta<'), ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Título de la ventana del ganador<input id="wmsg" maxlength="60" placeholder="¡TENEMOS GANADOR!"'), ('</span>Sound<', '</span>' + U["sound"] + '<'),
+         ('<summary>Settings</summary>', '<summary>Ajustes</summary>'), ('<label>Spin speed<', '<label>Velocidad de giro<'), ('> Read the result aloud<', '> Leer el resultado en voz alta<'), ('>Fast<', '>Rápida<'), ('>Slow<', '>Lenta<'), ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Título de la ventana del ganador<input id="wmsg" maxlength="60" placeholder="¡TENEMOS GANADOR!"'), ('</span>Sound<', '</span>' + U["sound"] + '<'),
          ('Share link</button>', U["share"] + '</button>'), ('Embed</button>', U["embed"] + '</button>'),
          ('>Results <span id="rcount"', '>' + U["results"] + ' <span id="rcount"'),
          ('WE HAVE A WINNER', ES_JS["pop"]), ('>Remove from wheel<', '>' + U["pop_remove"] + '<'), ('>Close<', '>' + U["close"] + '<'),
@@ -446,7 +497,7 @@ def es_page(p):
 
 import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 from static_pages import STATIC
-files = {"index.html": home(), "wheels.html": hub(), "faq.html": faq_page(), study.SLUG + ".html": study_page()}
+files = {"index.html": home(), "wheels.html": hub(), "faq.html": faq_page(), study.SLUG + ".html": study_page(), "guides.html": guides_hub(), **{G["slug"] + ".html": guide_page(G) for G in GUIDES}}
 for s in STATIC:
     files[s["slug"] + ".html"] = simple(**s)
 for p in PAGES:
@@ -454,6 +505,7 @@ for p in PAGES:
 for p in ES:
     files[p["slug"] + ".html"] = es_page(p)
 os.makedirs(os.path.join(OUT, "es"), exist_ok=True)
+os.makedirs(os.path.join(OUT, "guides"), exist_ok=True)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
 for f in ["app.css", "app.js", "gen.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
@@ -462,12 +514,13 @@ shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
 shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))
 shutil.copytree(os.path.join(ROOT, "fonts"), os.path.join(OUT, "fonts"))
 shutil.copytree(os.path.join(ROOT, "data"), os.path.join(OUT, "data"))
+for _f in [x for x in os.listdir(os.path.join(ROOT, "static", "guides")) if not x.startswith(".")]: shutil.copy(os.path.join(ROOT, "static", "guides", _f), os.path.join(OUT, "guides", _f))
 import hashlib, datetime
 LM_PATH = os.path.join(ROOT, "src", "lastmod.json")
 try: LM = json.load(open(LM_PATH))
 except Exception: LM = {}
 TODAY = datetime.date.today().isoformat()
-urls = ["", "wheels", "faq", study.SLUG] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
+urls = ["", "wheels", "faq", study.SLUG, "guides"] + [G["slug"] for G in GUIDES] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
 for u in urls:
     body = files["index.html" if u == "" else u + ".html"]
     m = re.search(r"<main>[\s\S]*?</main>", body)

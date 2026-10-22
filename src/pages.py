@@ -206,7 +206,7 @@ PAGES = [
  "description":"Spin the letter wheel to pick a random letter from A to Z. Choose vowels only, consonants, or remove hard letters. Great for word games. Free.",
  "h1":"Random Letter Wheel","subhead":"Spin to pick a random letter of the alphabet.",
  "entries":list("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
- "variants":[{"label":"A–Z","entries":list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")},{"label":"Vowels","entries":list("AEIOU")},{"label":"Consonants","entries":list("BCDFGHJKLMNPQRSTVWXYZ")},{"label":"No Q, X, Z","entries":list("ABCDEFGHIJKLMNOPRSTUVWY")}],
+ "variants":[{"label":"A–Z","entries":list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")},{"label":"Vowels","entries":list("AEIOU")},{"label":"Consonants","entries":list("BCDFGHJKLMNPQRSTVWXYZ")},{"label":"No Q, X, Z","entries":list("ABCDEFGHIJKLMNOPRSTUVWY")},{"label":"lowercase a–z","entries":list("abcdefghijklmnopqrstuvwxyz")},{"label":"Upper + lower (Aa–Zz)","entries":[c for x in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" for c in (x, x.lower())]}],
  "resultLabel":"YOUR LETTER","popLabel":"YOUR LETTER IS",
  "howTo":["Choose A–Z, vowels, consonants, or edit the list.","Spin.","Turn on \"Remove winner\" to go through letters without repeats."],
  "sections":[
