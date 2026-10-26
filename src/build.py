@@ -438,6 +438,7 @@ HOME_CFG = {"key": "home2", "entries": ["Emma", "Liam", "Olivia", "Noah", "Ava",
 FEATURED = """<section class="featured"><div class="wrap"><span class="fh">Featured on</span>
 <a href="https://launchstag.com/p/wheelova" target="_blank" rel="noopener"><img src="https://launchstag.com/badge-light.svg" alt="Featured on Launchstag" width="198" height="62" loading="lazy" decoding="async"></a>
 <a href="https://tools.cafe" target="_blank" rel="noopener"><img src="https://tools.cafe/b/light.svg" alt="Featured on tools.cafe" width="256" height="80" loading="lazy" decoding="async"></a>
+<a href="https://launchbuff.com/products/wheelova-n778wi" target="_blank" rel="noopener noreferrer" title="Featured on LaunchBuff"><img src="https://launchbuff.com/badge-featured-dark.svg" alt="Featured on LaunchBuff" width="256" height="80" loading="lazy" decoding="async"></a>
 </div></section>
 """
 def home():
