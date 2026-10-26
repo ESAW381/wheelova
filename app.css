@@ -199,3 +199,4 @@ blockquote.quote{margin:16px 0;padding:18px 22px;border:1px solid var(--line);bo
 .guidecta{display:block;margin:28px 0 0;padding:14px 18px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--tx2)!important}.guidecta b{color:var(--acl)}.guidecta:hover{border-color:var(--ac)}
 .wsetb .ck{flex-direction:row!important;align-items:center;gap:8px;color:var(--tx2)}.wsetb .ck input{height:auto;width:16px;accent-color:var(--ac)}
 .featured{padding:28px 0 8px}.featured .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.featured .fh{font:600 12px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu2)}.featured img{display:block;height:auto;max-width:198px}
+.featured img{height:56px!important;width:auto!important;max-width:none}
