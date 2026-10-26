@@ -8,7 +8,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "22"
+V = "23"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -136,7 +136,7 @@ SHARE = """
 
 POP = """
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popwin"><div class="popc">
-<div class="lbl" id="poplbl">WE HAVE A WINNER</div><div class="popswatch" id="popswatch" aria-hidden="true"></div><div class="win" id="popwin"></div><div class="popprompt" id="popprompt"></div><div class="pophex" id="pophex"></div>
+<div class="lbl" id="poplbl">WE HAVE A WINNER</div><div class="popswatch" id="popswatch" aria-hidden="true"></div><img class="popflag" id="popflag" hidden alt="" width="96" height="72"><div class="win" id="popwin"></div><div class="popprompt" id="popprompt"></div><div class="pophex" id="pophex"></div>
 <div class="acts"><button class="pbtn" id="popremove" type="button">Remove from wheel</button><button class="pbtn pri" id="popclose" type="button">Close</button></div>
 </div></div>
 """
@@ -243,10 +243,12 @@ def page(p):
         controls += '<div class="nrow"><label>From<input id="nmin" type="number" inputmode="numeric" value="1"></label><label>To<input id="nmax" type="number" inputmode="numeric" value="100"></label><button class="btn" id="ngo" type="button" style="height:40px">Make wheel</button></div><p class="err" id="nerr" role="alert"></p>'
     if p.get("prompts"):
         controls += '<div class="nrow"><label>Deck<select id="tddeck" style="width:190px"><option value="kids">Kids</option><option value="teens">Teens &amp; party</option></select></label></div>'
+    if p.get("flags"):
+        controls += '<div class="nrow"><label>Show<select id="wflag" style="width:170px"><option value="both">Flag &amp; name</option><option value="name">Name only</option><option value="flag">Flag only</option></select></label></div>'
     if p.get("spinnerCount"):
         opts = "".join(f'<option value="{n}"{" selected" if n==6 else ""}>{n} slices</option>' for n in range(2, 21))
         controls += f'<div class="nrow"><label>Number of slices<select id="scount" style="width:150px">{opts}</select></label></div>'
-    cfg = {k: p[k] for k in ("entries", "variants", "mode", "colorMap", "removeWinner", "resultLabel", "popLabel", "key", "prompts") if k in p}
+    cfg = {k: p[k] for k in ("entries", "variants", "mode", "colorMap", "removeWinner", "resultLabel", "popLabel", "key", "prompts", "flags") if k in p}
     faq_ld = {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": f["q"], "acceptedAnswer": {"@type": "Answer", "text": f["a"]}} for f in p["faq"]]}
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebApplication", "name": p["h1"], "url": SITE + path, "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": p["description"], "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/"}},
@@ -519,6 +521,7 @@ for f in ["app.css", "app.js", "gen.js", "embed.js", "embed.html", "favicon.svg"
 shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
 shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))
 shutil.copytree(os.path.join(ROOT, "fonts"), os.path.join(OUT, "fonts"))
+shutil.copytree(os.path.join(ROOT, "flags"), os.path.join(OUT, "flags"))
 shutil.copytree(os.path.join(ROOT, "data"), os.path.join(OUT, "data"))
 for _f in [x for x in os.listdir(os.path.join(ROOT, "static", "guides")) if not x.startswith(".")]: shutil.copy(os.path.join(ROOT, "static", "guides", _f), os.path.join(OUT, "guides", _f))
 import hashlib, datetime

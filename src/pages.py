@@ -297,7 +297,7 @@ PAGES += [
  "related":["name-picker-wheel","random-team-generator","random-letter-generator","random-country-generator"]
 },
 {
- "slug":"random-country-generator","key":"countries","nav":"Country Generator",
+ "slug":"random-country-generator","key":"countries","nav":"Country Generator", "flags":__import__("json").load(open(__import__("os").path.join(__import__("os").path.dirname(__file__),"country_iso.json"),encoding="utf-8")),
  "title":"Random Country Generator – Spin the Wheel of Countries | Wheelova",
  "description":"Spin to pick a random country from all 193 UN member states, or filter by Africa, Americas, Asia, Europe or Oceania. Free country wheel for games and lessons.",
  "h1":"Random Country Generator","subhead":"Spin to pick a random country — all 193 UN members, or one region.",
