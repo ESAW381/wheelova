@@ -152,7 +152,7 @@ def footer():
 {fbrand("/", "Spin the wheel. Trust the result.", "© 2026 Wheelova. Free random wheel spinner.")}
 <div><span class="h">Popular wheels</span>{pop}</div>
 <div><span class="h">More wheels</span>{more}<a href="/wheels">All wheels</a></div>
-<div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/guides">Guides</a><a href="/is-the-wheel-random">Fairness study</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+<div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/guides">Guides</a><a href="/embed-a-wheel">Embed a wheel</a><a href="/is-the-wheel-random">Fairness study</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
 </div></footer>
 """
 
@@ -418,6 +418,35 @@ def guides_hub():
 </html>
 """
 
+import embedpage as EP
+def embed_page():
+    path = "/" + EP.SLUG
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "WebApplication", "name": "Wheelova embeddable spin wheel", "url": SITE + path, "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": EP.DESC, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/"}},
+        {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": plain(a)}} for q, a in EP.FAQ]},
+        {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Wheelova", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": "Embed a wheel", "item": SITE + path}]}]}
+    faqs = "".join(f'<details><summary>{e(q)}</summary>{md(a)}</details>' for q, a in EP.FAQ)
+    return head(EP.TITLE, EP.DESC, path, ld) + f"""
+<main><div class="wrap hero">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <span aria-current="page">Embed a wheel</span></nav>
+<h1>{e(EP.H1)}</h1>
+<p class="sub1">{e(EP.SUB)}</p>
+{EP.TOOL}
+</div>
+<section><div class="wrap prose">
+{md(EP.BODY)}
+</div></section>
+<section id="faq"><div class="wrap" style="max-width:860px">
+<h2 style="margin-bottom:12px">Questions</h2>
+{faqs}
+</div></section>
+</main>
+{footer()}
+{CHROME_JS}
+</body>
+</html>
+"""
+
 def hub():
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "All Wheelova wheels", "url": SITE + "/wheels", "hasPart": [{"@type": "WebPage", "name": BY[s]["h1"], "url": f"{SITE}/{s}"} for s in POPULAR]}
     cards = "".join(f'<h2 style="margin:36px 0 16px">{e(c)}</h2><div class="grid">' + "".join(card(s, i) for i, s in enumerate(ss)) + '</div>' for c, ss in CLUSTERS)
@@ -505,7 +534,7 @@ def es_page(p):
 
 import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 from static_pages import STATIC
-files = {"index.html": home(), "wheels.html": hub(), "faq.html": faq_page(), study.SLUG + ".html": study_page(), "guides.html": guides_hub(), **{G["slug"] + ".html": guide_page(G) for G in GUIDES}}
+files = {"index.html": home(), "wheels.html": hub(), "faq.html": faq_page(), study.SLUG + ".html": study_page(), "guides.html": guides_hub(), EP.SLUG + ".html": embed_page(), **{G["slug"] + ".html": guide_page(G) for G in GUIDES}}
 for s in STATIC:
     files[s["slug"] + ".html"] = simple(**s)
 for p in PAGES:
@@ -529,7 +558,7 @@ LM_PATH = os.path.join(ROOT, "src", "lastmod.json")
 try: LM = json.load(open(LM_PATH))
 except Exception: LM = {}
 TODAY = datetime.date.today().isoformat()
-urls = ["", "wheels", "faq", study.SLUG, "guides"] + [G["slug"] for G in GUIDES] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
+urls = ["", "wheels", "faq", study.SLUG, "guides", EP.SLUG] + [G["slug"] for G in GUIDES] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
 for u in urls:
     body = files["index.html" if u == "" else u + ".html"]
     m = re.search(r"<main>[\s\S]*?</main>", body)

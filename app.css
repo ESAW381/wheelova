@@ -201,3 +201,4 @@ blockquote.quote{margin:16px 0;padding:18px 22px;border:1px solid var(--line);bo
 .featured{padding:28px 0 8px}.featured .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.featured .fh{font:600 12px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu2)}.featured img{display:block;height:auto;max-width:198px}
 .featured img{height:56px!important;width:auto!important;max-width:none}
 .popflag{display:block;margin:6px auto 10px;width:96px;height:72px;object-fit:cover;border-radius:6px;box-shadow:0 0 0 1px rgba(0,0,0,.15)}.popflag[hidden]{display:none}
+.embgen{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-top:28px}.embgen textarea{width:100%}@media(max-width:900px){.embgen{grid-template-columns:1fr}}
