@@ -11,7 +11,7 @@ items.forEach(function(t){var s=document.createElement('span');s.className='gite
 last=items;$('gcount').textContent=items.length+' result'+(items.length===1?'':'s');
 var h=$('ghist');if(h){var li=document.createElement('li');li.textContent=items.slice(0,20).join(', ')+(items.length>20?' …':'');h.prepend(li);while(h.children.length>10)h.removeChild(h.lastChild)}}
 function fail(m){err.textContent=m}
-$('gcopy').onclick=function(){var txt=cfg.type==='team'?Array.prototype.map.call(out.querySelectorAll('.team'),function(t){return t.innerText}).join('\n\n'):last.join(cfg.type==='number'?', ':'\n');
+$('gcopy').onclick=function(){var txt=cfg.type==='pair'?last.join('\n'):cfg.type==='team'?Array.prototype.map.call(out.querySelectorAll('.team'),function(t){return t.innerText}).join('\n\n'):last.join(cfg.type==='number'?', ':'\n');
 try{navigator.clipboard.writeText(txt);this.textContent='Copied';var b=this;setTimeout(function(){b.textContent='Copy'},1400)}catch(e){}};
 
 if(cfg.type==='number'){
@@ -39,6 +39,25 @@ if(cfg.type==='team'){
    var ul=document.createElement('ul');t.forEach(function(p){var li=document.createElement('li');li.textContent=p;ul.appendChild(li)});d.appendChild(ul);out.appendChild(d);last.push(t.join(', '))});
   $('gcount').textContent=teams+' teams · '+n.length+' people'}
  $('ggo').onclick=run;
+}
+if(cfg.type==='pair'){
+ var pa=$('pnames');pa.value=load('wg_pair')||cfg.sample.join('\n');
+ function pn(){return pa.value.split('\n').map(function(s){return s.trim()}).filter(Boolean)}
+ function pu(){$('pcount').textContent='· '+pn().length;store('wg_pair',pa.value)}pa.addEventListener('input',pu);pu();
+ function box(title,items){var d=document.createElement('div');d.className='team';var h=document.createElement('b');h.textContent=title;d.appendChild(h);var ul=document.createElement('ul');items.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li)});d.appendChild(ul);out.appendChild(d)}
+ function runp(){err.textContent='';var n=shuffle(pn()),mode=$('pmode').value,odd=$('podd').value;out.innerHTML='';out.className='gout teams';last=[];
+  if(n.length<2)return fail('Add at least two names.');if(n.length>500)return fail('Up to 500 names at a time.');
+  if(mode==='pairs'){var pairs=[];for(var i=0;i+1<n.length;i+=2)pairs.push([n[i],n[i+1]]);var extra=n.length%2?n[n.length-1]:null;
+   if(extra){if(odd==='trio'&&pairs.length)pairs[pairs.length-1].push(extra);}
+   pairs.forEach(function(p,i){box('Pair '+(i+1)+(p.length===3?' (trio)':''),p);last.push('Pair '+(i+1)+': '+p.join(' & '))});
+   if(extra&&odd==='bye'){box('Sits out',[extra]);last.push('Sits out: '+extra)}
+   $('gcount').textContent=pairs.length+' pairs · '+n.length+' people'}
+  else{if(n.length>40)return fail('Round-robin schedules work for up to 40 names.');var L=n.slice();if(L.length%2)L.push(null);var m=L.length,rounds=m-1,tot=0;
+   for(var r=0;r<rounds;r++){var g=[],bye=null;for(var k=0;k<m/2;k++){var a=L[k],b=L[m-1-k];if(a===null||b===null)bye=a===null?b:a;else{g.push(a+' vs '+b);tot++}}
+    if(bye)g.push(bye+' — bye');box('Round '+(r+1),g);last.push('Round '+(r+1)+': '+g.join('; '));L.splice(1,0,L.pop())}
+   $('gcount').textContent=rounds+' rounds · '+tot+' matches'}
+  var h=$('ghist');if(h){var li=document.createElement('li');li.textContent=(mode==='pairs'?'Pairs':'Round robin')+' for '+n.length+' people';h.prepend(li);while(h.children.length>10)h.removeChild(h.lastChild)}}
+ $('ggo').onclick=runp;
 }
 if(cfg.type==='name'){
  var D=cfg.data;

@@ -484,3 +484,31 @@ for _p in PAGES:
         _w = [28, 28, 28, 25, 21, 18, 15, 12, 9, 6, 4, 3, 2, 1]
         assert sum(_w) == 200
         _p["variants"] = _p.get("variants", []) + [{"label": "Draft lottery (No. 1 pick)", "entries": [f"Seed {i+1}" for i, n in enumerate(_w) for _ in range(n)]}]
+
+# ---- Random pair / matchup generator
+PAGES += [{
+ "slug":"random-pair-generator","key":"pairs","nav":"Pair Generator","tool":"pair","upgraded":True,
+ "sample":["Ava","Ben","Chloe","Daniel","Ella","Felix","Grace","Hugo","Isla","Jack"],
+ "title":"Random Pair Generator – Make Random Pairs & Matchups | Wheelova",
+ "description":"Paste names and get random pairs in one click, or a full round-robin schedule where everyone meets everyone. Handles odd numbers. Free, no sign-up.",
+ "h1":"Random Pair Generator","subhead":"Paste names to make random pairs, or a round-robin schedule of matchups.",
+ "howTitle":"How to make random pairs",
+ "howTo":["Paste or type the names, one per line. The list is saved in your browser.","Choose random pairs or a round-robin schedule, and what to do with an odd number.","Press Generate. Press it again for a fresh set, then copy the result."],
+ "sections":[
+  {"h2":"Two ways to pair people","body":"**Random pairs** shuffles the list and splits it into twos, so every person has exactly one partner. Use it for partner work, buddy systems, gift exchanges or one-off games.\n\n**Round-robin schedule** makes a full set of rounds where **everyone meets everyone else exactly once**. Use it for tournaments, speed-networking, peer review or rotating study partners. The order of names is shuffled first, so the schedule is different every time.\n\nThe shuffle uses your browser's cryptographically secure random number source, the same one behind every Wheelova wheel."},
+  {"h2":"What happens with an odd number?","body":"With an odd number of names, one person can't have a partner. Choose what suits you:\n\n- **Make one trio:** the extra person joins the last pair. Best for classroom partner work, where nobody should be left out.\n- **One sits out:** the extra person is listed separately. Best for games and rotations.\n\nIn a round-robin schedule, an odd number means one person has a **bye** each round (a round off). Over the whole schedule, everyone gets exactly one bye."},
+  {"h2":"How many rounds and matches?","body":"In a round robin, every pair of people meets once, so the numbers grow quickly:\n\n| People | Rounds | Matches |\n|---|---|---|\n| 4 | 3 | 6 |\n| 6 | 5 | 15 |\n| 8 | 7 | 28 |\n| 10 | 9 | 45 |\n| 12 | 11 | 66 |\n| 16 | 15 | 120 |\n\nWith an even number of people, there are (people − 1) rounds; with an odd number there are as many rounds as people, because of the byes. The total number of matches is people × (people − 1) ÷ 2. For large groups, a full round robin takes a long time: consider random pairs for each session instead."},
+  {"h2":"Ideas","body":"- **Classrooms:** partner reading, peer feedback, lab partners, or think-pair-share. Generate fresh pairs each week so students work with everyone.\n- **Tournaments:** chess, table tennis, video games or board-game nights, with a fair round-robin schedule.\n- **Work and events:** one-to-one coffee chats, mentoring pairs, or speed-networking rounds.\n- **Secret gift exchanges:** pairs for who buys for whom. For a classic chain where everyone gives and receives once, shuffle the list with the [Name Picker Wheel](/name-picker-wheel) and give each person a gift for the next name in the list."},
+  {"h2":"Pairs vs teams","body":"Need bigger groups? The [Random Team Generator](/random-team-generator) splits a list into any number of teams or teams of a set size. To pick one person at a time, use the [Name Picker Wheel](/name-picker-wheel)."}
+ ],
+ "faq":[
+  {"q":"How do I make random pairs from a list?","a":"Paste the names one per line, keep \"Random pairs\" selected and press Generate. Each press gives a new random set of pairs."},
+  {"q":"What if I have an odd number of people?","a":"Choose \"Make one trio\" to add the extra person to a pair, or \"One sits out\" to list them separately. In a round robin, one person has a bye each round."},
+  {"q":"What is a round-robin schedule?","a":"A set of rounds in which every participant meets every other participant exactly once. It's the fairest format for small tournaments."},
+  {"q":"How many names can I use?","a":"Up to 500 for random pairs and up to 40 for a round-robin schedule, which already makes 39 rounds."},
+  {"q":"Can I stop the same people being paired twice?","a":"Use the round-robin schedule: across its rounds, nobody meets the same person twice."},
+  {"q":"Are my names saved?","a":"Only in your own browser, so they're there next time. Nothing is uploaded."}
+ ],
+ "sources":[],
+ "related":["random-team-generator","name-picker-wheel","random-name-generator","decision-wheel"],
+}]
