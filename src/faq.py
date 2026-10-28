@@ -53,7 +53,7 @@ FAQ_PAGE = {
     "Usually because the browser's site data was cleared, or you used a private window, which forgets everything when closed. To keep a list safe, save its share link somewhere."),
    ("Is my data private?",
     "Your entries never leave your device unless you create a share link, and even then the entries travel inside the link, not to our database. "
-    "Read the [privacy policy](/privacy) for the details, including our cookie-free visit counting."),
+    "The wheel and your entries are masked from our analytics tools. Read the [privacy policy](/privacy) for the details."),
   ]),
   ("Sharing and embedding", "share", [
    ("How do I share a wheel?",

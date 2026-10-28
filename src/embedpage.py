@@ -5,7 +5,7 @@ H1 = "Embed a spinning wheel on your website"
 SUB = "Type your entries, copy the code, paste it into your site. Free, no sign-up, no ads in the wheel."
 
 TOOL = """
-<div class="embgen">
+<div class="embgen" data-clarity-mask="true">
 <div class="card">
 <label for="eentries" style="font-weight:600;color:var(--hi)">Entries <span id="ecount" style="color:var(--mu2);font-weight:500"></span></label>
 <div class="chips" id="epresets" style="margin:10px 0">

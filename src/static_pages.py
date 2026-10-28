@@ -26,9 +26,9 @@ Questions, ideas or corrections: [support@wheelova.com](mailto:support@wheelova.
 {
  "slug": "privacy",
  "title": "Privacy Policy – Wheelova",
- "desc": "How Wheelova handles your data: entries stay in your browser, cookie-free analytics, and shared links.",
+ "desc": "How Wheelova handles your data: entries stay in your browser, analytics, and shared links.",
  "h1": "Privacy Policy",
- "sub": "Last updated: October 21, 2026.",
+ "sub": "Last updated: October 28, 2026.",
  "body": """## Your wheel entries
 Entries you type are stored only in your own browser (local storage) so they are there when you return. They are not sent to our servers. You can remove them at any time with **Clear**, or by clearing your browser's site data.
 
@@ -36,13 +36,15 @@ Entries you type are stored only in your own browser (local storage) so they are
 When you create a share link or embed code, your entries are encoded inside the link. Anyone you give the link to can see those entries. We do not store shared wheels on our server.
 
 ## Analytics
-We may use Vercel Web Analytics to count page visits in aggregate. It does not use cookies and does not identify individual visitors.
+We use Vercel Web Analytics to count page visits in aggregate. It does not use cookies and does not identify individual visitors.
+
+We also use Microsoft Clarity to understand how visitors use the site, through usage statistics, heatmaps and session replays. Clarity collects information such as pages viewed, clicks, scrolling, device and browser type, and approximate location, and may set cookies. The wheel, your entries, results and share or embed boxes are masked, so their contents are not recorded. Microsoft processes this data under its own [privacy statement](https://www.microsoft.com/privacy/privacystatement). You can block Clarity with most content blockers, or by refusing cookies where you are asked.
 
 ## Hosting logs
 Our hosting provider may process standard technical data such as IP address and browser type to deliver and secure the site.
 
 ## Cookies and ads
-Wheelova does not currently use advertising or tracking cookies. If that changes, this policy will be updated and you will be asked for consent where the law requires it.
+Wheelova does not use advertising cookies. Microsoft Clarity may set analytics cookies, as described above. If we add advertising, this policy will be updated first and you will be asked for consent where the law requires it.
 
 ## Contact
 [support@wheelova.com](mailto:support@wheelova.com)

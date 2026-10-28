@@ -111,6 +111,7 @@ def head(title, desc, path, ld, ogtitle=None):
 <script>try{{var t=localStorage.getItem("wv_theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 <link rel="stylesheet" href="/app.css?v={V}">
 <script defer src="/_vercel/insights/script.js"></script>
+<script>(function(c,l,a,r,i,t,y){{c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)}})(window,document,"clarity","script","z4ruz9115a");</script>
 </head>
 <body>
 <header><div class="hd">
@@ -122,7 +123,7 @@ def head(title, desc, path, ld, ogtitle=None):
 """
 
 SHARE = """
-<div class="pop" id="sharepop" role="dialog" aria-modal="true" aria-labelledby="sharettl"><div class="popc sharec">
+<div class="pop" id="sharepop" data-clarity-mask="true" role="dialog" aria-modal="true" aria-labelledby="sharettl"><div class="popc sharec">
 <div class="lbl" id="sharettl">SHARE THIS WHEEL</div>
 <p class="sharehelp" id="sharehelp">Anyone with this link opens the wheel with your entries. Nothing is stored on our server — the entries are inside the link.</p>
 <label class="sharelbl" for="shareurl">Link</label>
@@ -135,7 +136,7 @@ SHARE = """
 """
 
 POP = """
-<div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popwin"><div class="popc">
+<div class="pop" id="pop" data-clarity-mask="true" role="dialog" aria-modal="true" aria-labelledby="popwin"><div class="popc">
 <div class="lbl" id="poplbl">WE HAVE A WINNER</div><div class="popswatch" id="popswatch" aria-hidden="true"></div><img class="popflag" id="popflag" hidden alt="" width="96" height="72"><div class="win" id="popwin"></div><div class="popprompt" id="popprompt"></div><div class="pophex" id="pophex"></div>
 <div class="acts"><button class="pbtn" id="popremove" type="button">Remove from wheel</button><button class="pbtn pri" id="popclose" type="button">Close</button></div>
 </div></div>
@@ -157,7 +158,7 @@ def footer():
 """
 
 def tool(controls="", default_label="Entries"):
-    return f"""<div class="tool" id="tool">
+    return f"""<div class="tool" id="tool" data-clarity-mask="true">
 <div class="stage">
 <button class="fsbtn" id="fsbtn" type="button" aria-label="Fullscreen" title="Fullscreen (F)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="fs-in" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><path class="fs-out" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
 <div class="wheelbox">
@@ -222,7 +223,7 @@ def gentool(p):
     else:
         ctr = """<div class="nrow"><label>Names<select id="ngender" style="width:130px"><option value="any">Any</option><option value="female">Female</option><option value="male">Male</option></select></label><label>How many<input id="ncount" type="number" inputmode="numeric" value="10" min="1" max="100"></label></div>
 <label class="ck"><input id="nfull" type="checkbox" checked> Add last name</label>"""
-    return f"""<div class="tool gtool" id="tool">
+    return f"""<div class="tool gtool" id="tool" data-clarity-mask="true">
 <div class="card gctl">{ctr}
 <button class="gbtn" id="ggo" type="button">{ {"coin": "Flip", "dice": "Roll"}.get(t, "Generate") }</button>
 <p class="err" id="gerr" role="alert"></p>
