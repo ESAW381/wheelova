@@ -1,3 +1,4 @@
+from data import COUNTRIES
 import json, re, html, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from pages import PAGES, MDN
@@ -8,12 +9,12 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "23"
+V = "24"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
-POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "truth-or-dare-wheel", "coin-flip", "dice-roller", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]
-CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "coin-flip"]), ("Games & parties", ["truth-or-dare-wheel", "dice-roller", "lucky-wheel", "mystery-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner", "dice-roller", "coin-flip"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Colors", ["color-wheel"])]
+POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "truth-or-dare-wheel", "coin-flip", "dice-roller", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator", "flag-quiz"]
+CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "coin-flip"]), ("Games & parties", ["truth-or-dare-wheel", "dice-roller", "lucky-wheel", "mystery-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner", "dice-roller", "coin-flip"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "flag-quiz", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Colors", ["color-wheel"])]
 DOTS = ["#6E56F0", "#E11D48", "#F59E0B", "#16A34A", "#2563EB", "#DB2777", "#0D9488", "#EA580C"]
 e = html.escape
 
@@ -199,6 +200,9 @@ def byline(p):
     return f'<p class="byline">Written by <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Last updated <time datetime="{UPDATED}">October 21, 2026</time></p>'
 
 def scripts(p, cfg):
+    if p.get("tool") == "flagquiz":
+        iso = json.load(open(os.path.join(ROOT, "src", "country_iso.json"), encoding="utf-8"))
+        return f'<script>window.WQ={json.dumps({"regions": COUNTRIES, "iso": iso}, ensure_ascii=False)}</script>\n<script src="/quiz.js?v={V}"></script>'
     if p.get("tool"):
         g = {"type": p["tool"]}
         if p["tool"] == "team": g["sample"] = p["sample"]
@@ -208,6 +212,25 @@ def scripts(p, cfg):
 
 def gentool(p):
     t = p["tool"]
+    if t == "flagquiz":
+        regs = "".join(f'<option value="{r}">{r} ({len(v)})</option>' for r, v in COUNTRIES.items())
+        return f"""<div class="tool qtool" id="tool">
+<div class="card qsetup"><div class="nrow"><label>Region<select id="qregion" style="width:190px"><option value="all">All countries (193)</option>{regs}</select></label><label>Flags<select id="qcount" style="width:140px"><option value="10">10 flags</option><option value="20">20 flags</option><option value="50">50 flags</option><option value="all">All in region</option></select></label></div>
+<button class="gbtn" id="qstart" type="button">Start quiz</button></div>
+<div class="stage qstage">
+<div id="qplay" hidden>
+<div class="qtop"><span id="qprog"></span><span>Score <b id="qscore">0</b> · Streak <b id="qstreak">0</b></span></div>
+<div class="qflagbox"><img id="qflag" alt="" width="320" height="240"></div>
+<div class="qopts" id="qopts"></div>
+<p class="qfb" id="qfeedback" aria-live="polite"></p>
+<button class="gbtn" id="qnext" type="button" hidden>Next flag</button>
+</div>
+<div id="qresult" hidden><div class="lbl">YOUR SCORE</div><div class="qbig" id="rscore"></div><p class="qsub"><span id="rpct"></span> correct · best streak <span id="rstreak"></span> · <span id="rbest"></span></p>
+<div class="qacts"><button class="gbtn" id="qagain" type="button">Play again</button><button class="btn" id="qretry" type="button">Retry missed flags</button></div>
+<div id="rmissedwrap"><div style="font-weight:600;color:var(--hi);margin:18px 0 8px">Flags you missed</div><ul class="qmissed" id="rmissed"></ul></div></div>
+<div class="qintro" id="qintro"><div class="qflagbox"><img src="/flags/un.svg" alt="" width="320" height="240" onerror="this.style.display='none'"></div><p>Choose a region and press <b>Start quiz</b>.</p></div>
+</div>
+</div>"""
     if t == "number":
         ctr = """<div class="gq">""" + "".join(f'<button class="chip" type="button" data-range="{r}">{r.replace("-", "–")}</button>' for r in ["1-10", "1-20", "1-50", "1-100", "1-1000", "1-6"]) + """</div>
 <div class="nrow"><label>From<input id="nmin" type="number" inputmode="numeric" value="1"></label><label>To<input id="nmax" type="number" inputmode="numeric" value="100"></label><label>How many<input id="ncount" type="number" inputmode="numeric" value="1" min="1" max="1000"></label></div>
@@ -546,7 +569,7 @@ os.makedirs(os.path.join(OUT, "es"), exist_ok=True)
 os.makedirs(os.path.join(OUT, "guides"), exist_ok=True)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
-for f in ["app.css", "app.js", "gen.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
+for f in ["app.css", "app.js", "gen.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(open(os.path.join(ROOT, f), encoding="utf-8").read())
 shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
 shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))

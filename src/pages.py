@@ -450,3 +450,30 @@ PAGES += [
  "sections":[],"faq":[],"related":["coin-flip","spinner","random-number-generator","number-wheel"]
 },
 ]
+
+# ---- Flag quiz
+from content_v2 import S_UNM49 as _UNM49
+PAGES += [{
+ "slug":"flag-quiz","key":"flagquiz","nav":"Flag Quiz","tool":"flagquiz","upgraded":True,
+ "title":"Flag Quiz – Guess the Flags of All 193 Countries | Wheelova",
+ "description":"Free flag quiz: guess the country from its flag. Play 10, 20 or all 193 UN member states, or one continent. Score, streaks and a review of the flags you missed.",
+ "h1":"Flag Quiz","subhead":"Guess the country from its flag. Pick a continent, choose how many flags, and go.",
+ "howTitle":"How to play the flag quiz",
+ "howTo":["Choose a continent (or all countries) and how many flags.","Pick the right country from four options. Press 1–4 on a keyboard for speed.","See your score and streak, then review or retry the flags you missed."],
+ "sections":[
+  {"h2":"Which flags are in the quiz?","body":"The quiz uses the flags of the 193 member states of the United Nations, grouped by the UN's M49 regions: Africa (54), the Americas (35), Asia (47), Europe (43) and Oceania (14). Wrong answers are usually taken from the same region, so you have to tell neighbours apart rather than guess by continent. Observer states and territories are not included."},
+  {"h2":"Flags people mix up most","body":"Some flags are nearly identical, and they trip up almost everyone:\n\n| Pair | How to tell them apart |\n|---|---|\n| Chad and Romania | Both are blue, yellow and red vertical stripes. Chad's blue is darker; in practice they are almost indistinguishable. |\n| Indonesia and Monaco | Both red over white. Monaco's flag is squarer (4:5) and Indonesia's is longer (2:3). Poland is the reverse: white over red. |\n| Ireland and Côte d'Ivoire | The same three colours in mirror order: Ireland starts with green at the flagpole, Côte d'Ivoire with orange. |\n| Netherlands and Luxembourg | Red, white and blue stripes. Luxembourg uses a lighter sky blue and its flag is longer. |\n| Australia and New Zealand | Both blue with the Union Jack and Southern Cross. Australia's stars are white (six of them); New Zealand's four stars are red with white edges. |\n| Senegal and Mali | Green, yellow and red vertical stripes. Senegal has a green star in the centre; Mali has none. |"},
+  {"h2":"Tips to get better fast","body":"- **Learn by region.** Play one continent at a time until you score 100%, then move on.\n- **Use the retry button.** Replaying only the flags you missed is the quickest way to fix weak spots.\n- **Look for one detail.** Most look-alikes differ in a single feature: a star, a shade, the order of colours.\n- **Use the flag wheel too.** The [Random Country Generator](/random-country-generator) can show flags only: spin, name the country, then check."},
+  {"h2":"For teachers","body":"Project the quiz for a whole-class warm-up: students write their answer before you click. Start with one continent to keep it short, or use 10 flags as an exit-ticket game. For geography lessons, the [Random Country Generator](/random-country-generator) picks a country for research, and the [teacher guide](/guides/random-name-picker-classroom) has more quick classroom games."}
+ ],
+ "faq":[
+  {"q":"How many flags are in the quiz?","a":"All 193 UN member states. You can play 10, 20, 50 or all of them, or limit it to one continent."},
+  {"q":"Is the quiz free?","a":"Yes. No sign-up, no ads, and your best scores are saved in your browser."},
+  {"q":"Why are the wrong answers from the same continent?","a":"It makes the quiz a real test of the flag, not of geography guesses. If a region has too few countries, some options come from elsewhere."},
+  {"q":"Which flags are the hardest?","a":"Near-identical pairs such as Chad and Romania, Indonesia and Monaco, and Ireland and Côte d'Ivoire. The table above explains how to tell them apart."},
+  {"q":"Are territories like Puerto Rico or Greenland included?","a":"No. The quiz covers the 193 UN member states only."},
+  {"q":"Where do the flag images come from?","a":"From flag-icons, an open-source collection of country flag images published under the MIT licence."}
+ ],
+ "sources":[_UNM49, {"title":"flag-icons (open-source flag images, MIT licence)","url":"https://github.com/lipis/flag-icons"}],
+ "related":["random-country-generator","random-state-generator","random-letter-generator","decision-wheel"],
+}]
