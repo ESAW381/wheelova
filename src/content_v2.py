@@ -787,3 +787,33 @@ UPGRADES.update({
  "sources": [S_MDN],
 },
 })
+
+# ---- Sports pages: league-specific sections (reduce template overlap), Oct 28 2026
+S_NBA_LOTTERY = {"title": "Hoops Rumors — Glossary: NBA draft lottery (odds since 2019)", "url": "https://hoopsrumors.com/2023/03/hoops-rumors-glossary-nba-draft-lottery-3.html"}
+S_MLB_LOTTERY = {"title": "NBC Sports — MLB draft lottery odds and how it works", "url": "https://www.nbcsportsbayarea.com/bayarea/giants/2023-mlb-draft-lottery-odds-how-it-works"}
+def _swap(slug, old_prefix, new):
+    secs = UPGRADES[slug]["sections"]
+    for i, s in enumerate(secs):
+        if s["h2"].startswith(old_prefix):
+            secs[i] = new; return
+    secs.append(new)
+
+_swap("random-nfl-team-generator", "Every", {"h2": "Set a fantasy football draft order", "body":
+ "Most fantasy leagues draft in **snake order**: the order runs 1 to 12 in round one, then reverses (12 to 1) in round two, and keeps alternating. A fair random order matters most at the top, where the first picks are worth the most.\n\n"
+ "1. Paste your managers' names into the [Name Picker Wheel](/name-picker-wheel) and leave **Remove winner** on.\n"
+ "2. Spin once per manager. The **Results** list is your draft order: first name out picks first.\n"
+ "3. Spin the whole order live on a video call or in the group chat, so nobody can say it was set in advance.\n\n"
+ "Unlike the NBA and MLB, the NFL itself has **no draft lottery**: its draft order is set by the previous season's results, with the worst non-playoff team picking first. If your league wants lottery-style suspense, spin only for the top picks among the non-playoff teams."})
+
+_swap("random-nba-team-generator", "Every", {"h2": "Simulate the NBA draft lottery", "body":
+ "Since 2019, the NBA has used a lottery among the 14 non-playoff teams to decide the **first four picks**. The three worst teams each have a **14%** chance at the No. 1 pick, and the odds fall to **0.5%** for the 14th team, so the worst record no longer guarantees the top pick.\n\n"
+ "| Lottery seed | Odds of No. 1 pick | Seed | Odds |\n|---|---|---|---|\n| 1 | 14.0% | 8 | 6.0% |\n| 2 | 14.0% | 9 | 4.5% |\n| 3 | 14.0% | 10 | 3.0% |\n| 4 | 12.5% | 11 | 2.0% |\n| 5 | 10.5% | 12 | 1.5% |\n| 6 | 9.0% | 13 | 1.0% |\n| 7 | 7.5% | 14 | 0.5% |\n\n"
+ "Pick the **Draft lottery (No. 1 pick)** preset above to load a weighted wheel: each seed appears as many times as its odds require (28 copies of Seed 1 down to 1 copy of Seed 14, 200 slices in total), so one spin matches the real No. 1 pick odds exactly. Rename the seeds to your league's teams for a 2K franchise or a fantasy keeper league. Ties between teams with the same record change the real odds slightly; the wheel uses the standard table."})
+
+_swap("random-mlb-team-generator", "Every", {"h2": "How the MLB draft lottery works", "body":
+ "MLB added a draft lottery starting with the 2023 draft. All **18 non-playoff teams** are entered, and the lottery decides the **first six picks**. The three worst teams share the best odds at **16.5%** each for the No. 1 pick, compared with 14% in the NBA. The odds then fall steeply, to below 1% for the non-playoff teams with the best records.\n\n"
+ "For a quick home version, put the 18 non-playoff teams on this wheel and spin six times with **Remove winner** on. That gives every team an equal chance, so it's simpler than MLB's weighted odds: to favour the worst teams, type their names more than once."})
+
+for _slug, _src in (("random-nba-team-generator", S_NBA_LOTTERY), ("random-mlb-team-generator", S_MLB_LOTTERY)):
+    UPGRADES[_slug].setdefault("sources", []).append(_src)
+UPGRADES["random-nfl-team-generator"]["sections"][-1]["body"] = "Team names on the wheel match NFL.com at the time of our last update. The league has had 32 teams since the Houston Texans joined in 2002; if a team relocates or rebrands, edit the entry or tell us at support@wheelova.com."

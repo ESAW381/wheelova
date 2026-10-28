@@ -56,8 +56,8 @@
 "h": "94b827513178"
 },
 "guides": {
-"d": "2026-10-21",
-"h": "35255ec36d53"
+"d": "2026-10-28",
+"h": "cf18c264a28f"
 },
 "guides/fair-giveaway": {
 "d": "2026-10-21",
@@ -105,7 +105,7 @@
 },
 "random-mlb-team-generator": {
 "d": "2026-10-28",
-"h": "5e5cb7264584"
+"h": "39a9899f4438"
 },
 "random-name-generator": {
 "d": "2026-10-28",
@@ -113,11 +113,11 @@
 },
 "random-nba-team-generator": {
 "d": "2026-10-28",
-"h": "4652c21e0097"
+"h": "d06eee62a4b5"
 },
 "random-nfl-team-generator": {
 "d": "2026-10-28",
-"h": "91b33567013a"
+"h": "f7d5ed547976"
 },
 "random-number-generator": {
 "d": "2026-10-28",
@@ -145,7 +145,7 @@
 },
 "wheels": {
 "d": "2026-10-28",
-"h": "0011da603f32"
+"h": "01dce57475b9"
 },
 "yes-or-no-wheel": {
 "d": "2026-10-28",

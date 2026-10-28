@@ -434,6 +434,9 @@ def guides_hub():
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <span aria-current="page">Guides</span></nav>
 <h1>Guides</h1>
 <p class="sub1">Practical help for classrooms, giveaways and fair random picks.</p>
+<div class="prose" style="margin-top:20px;max-width:760px"><p>These guides explain how to use random picking well: fairly, transparently and without wasting class or event time. Each one is written and checked by our editor, links to the tool it describes, and states its limits. For example, the giveaway guide is general guidance, not legal advice.</p>
+<ul><li><b>Teachers:</b> 25 practical classroom uses for a name picker, with a free printable.</li><li><b>Giveaway hosts:</b> a step-by-step process from rules to winner announcement, with a rules template.</li><li><b>Anyone who doubts the wheel:</b> our fairness study, with 1,000,000 spins per wheel and the raw data.</li></ul>
+<p>Want a wheel on your own site? See <a href="/embed-a-wheel">how to embed a wheel</a>. Questions about how Wheelova works are answered in the <a href="/faq">FAQ</a>.</p></div>
 <div class="grid" style="margin-top:28px">{cards}</div>
 </div></main>
 {footer()}
@@ -479,6 +482,8 @@ def hub():
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <span aria-current="page">Wheels</span></nav>
 <h1>All wheels &amp; generators</h1>
 <p class="sub1">Pick a ready-made wheel, or <a href="/">build your own on the homepage</a>.</p>
+<div class="prose" style="margin-top:20px;max-width:760px"><p>Every tool here is free, works in your browser without an account, and uses your browser's cryptographically secure random number source (we tested it with <a href="/is-the-wheel-random">1,000,000 spins per wheel</a>). Wheels let you watch the result land; generators give you a list you can copy.</p>
+<ul><li><b>Decisions:</b> yes or no answers, choosing between options, and coin flips.</li><li><b>Games &amp; parties:</b> truth or dare, dice, prize and mystery wheels.</li><li><b>Names &amp; groups:</b> pick a name, split a class into teams, or generate new names and letters.</li><li><b>Numbers &amp; chance:</b> random numbers as a list or a wheel, plus a spinner.</li><li><b>Giveaways:</b> draw winners live with the raffle wheel.</li><li><b>Geography:</b> random countries and states, and a flag quiz.</li><li><b>Sports:</b> random NFL, NBA and MLB teams, by conference or division.</li><li><b>Colors:</b> random colours with hex codes.</li></ul></div>
 {cards}
 </div></main>
 {footer()}

@@ -477,3 +477,10 @@ PAGES += [{
  "sources":[_UNM49, {"title":"flag-icons (open-source flag images, MIT licence)","url":"https://github.com/lipis/flag-icons"}],
  "related":["random-country-generator","random-state-generator","random-letter-generator","decision-wheel"],
 }]
+
+# NBA: weighted draft-lottery preset (No. 1 pick odds since 2019, per 200 slices)
+for _p in PAGES:
+    if _p["slug"] == "random-nba-team-generator":
+        _w = [28, 28, 28, 25, 21, 18, 15, 12, 9, 6, 4, 3, 2, 1]
+        assert sum(_w) == 200
+        _p["variants"] = _p.get("variants", []) + [{"label": "Draft lottery (No. 1 pick)", "entries": [f"Seed {i+1}" for i, n in enumerate(_w) for _ in range(n)]}]
