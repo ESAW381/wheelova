@@ -295,7 +295,7 @@ def page(p):
 
 {('<div class="wrap"><a class="guidecta" href="/' + GUIDE_FOR[p["slug"]]["slug"] + '"><b>Guide:</b> ' + e(GUIDE_FOR[p["slug"]]["h1"][0].upper() + GUIDE_FOR[p["slug"]]["h1"][1:]) + ' →</a></div>') if p["slug"] in GUIDE_FOR else ''}
 <section id="how"><div class="wrap">
-<h2 style="margin-bottom:24px">{e(p.get("howTitle") or "How to use the " + p["h1"].lower().replace("random ", "").replace("online ", ""))}</h2>
+<h2 style="margin-bottom:24px">{e(p.get("howTitle") or "How to use the " + re.sub(r"\b(nfl|nba|mlb)\b", lambda m: m.group(1).upper(), p["h1"].lower().replace("random ", "").replace("online ", "")))}</h2>
 <div class="steps3">{steps}</div>
 </div></section>
 
