@@ -1,0 +1,11 @@
+{
+  "name": "wheelova",
+  "private": true,
+  "description": "Static site; built by python3 src/build.py. Scripts below are for local testing only (not used by Vercel).",
+  "scripts": {
+    "build": "python3 src/build.py",
+    "test:unit": "node --test tests/rng.test.mjs",
+    "test:e2e": "node tests/e2e-trust.cjs",
+    "test:wheels": "cd dist && node ../tests/e2e-wheels.cjs"
+  }
+}

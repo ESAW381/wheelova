@@ -1,8 +1,6 @@
 (function(){
 var cfg=window.WQ||{},$=function(id){return document.getElementById(id)};
-function rand(){var a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]/4294967296}
-function ri(n){return Math.floor(rand()*n)}
-function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=ri(i+1),t=a[i];a[i]=a[j];a[j]=t}return a}
+var RNG=window.WVRNG,ri=RNG.randInt,shuffle=RNG.shuffle;
 function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
 var R=cfg.regions,ISO=cfg.iso,regionOf={};Object.keys(R).forEach(function(r){R[r].forEach(function(c){regionOf[c]=r})});
