@@ -52,12 +52,12 @@ FAQ_PAGE = {
    ("Why did my entries disappear?",
     "Usually because the browser's site data was cleared, or you used a private window, which forgets everything when closed. To keep a list safe, save its share link somewhere."),
    ("Is my data private?",
-    "Your entries never leave your device unless you create a share link, and even then the entries travel inside the link, not to our database. "
-    "The wheel and your entries are masked from our analytics tools. Read the [privacy policy](/privacy) for the details."),
+    "Your entries never leave your device unless you create a share link. A share link carries the entries inside it (encoded, not encrypted), so anyone with the link can read them; we never store them. "
+    "The wheel and your entries are masked from our analytics tool, and it is not loaded at all on shared-wheel links. Read the [privacy policy](/privacy) for the details."),
   ]),
   ("Sharing and embedding", "share", [
    ("How do I share a wheel?",
-    "Press **Share link** and copy the link. Anyone who opens it sees your wheel with the same entries. Their changes do not affect your copy."),
+    "Press **Share link** and copy the link. Anyone who opens it sees your wheel with the same entries, and their changes do not affect your copy. Because the entries are readable by anyone who has the link, avoid sharing lists with private information."),
    ("Why doesn't my shared link update when I change my wheel?",
     "The entries are stored inside the link itself, so a link is a snapshot. After you edit the wheel, create a new link."),
    ("Can I put the wheel on my website or blog?",

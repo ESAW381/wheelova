@@ -20,7 +20,7 @@ UI = {
  "shared_note": "Abriste una ruleta compartida.", "my_list": "Volver a mi lista",
  "pop_remove": "Quitar de la ruleta", "close": "Cerrar",
  "share_title": "COMPARTIR ESTA RULETA",
- "share_help": "Quien abra este enlace verá la ruleta con tus opciones. No guardamos nada en nuestro servidor: las opciones van dentro del enlace.",
+ "share_help": "Quien tenga este enlace podrá ver tus opciones: van codificadas dentro del enlace (no cifradas). No guardamos nada en nuestro servidor, pero el enlace queda en el historial del navegador y donde lo pegues, así que evita compartir listas privadas.",
  "link": "Enlace", "copy": "Copiar",
  "embed_label": "Código para insertar: pégalo en tu web, blog o en OBS como fuente de navegador",
  "copy_embed": "Copiar código",

@@ -9,7 +9,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "24"
+V = "25"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -111,8 +111,7 @@ def head(title, desc, path, ld, ogtitle=None):
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <script>try{{var t=localStorage.getItem("wv_theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 <link rel="stylesheet" href="/app.css?v={V}">
-<script defer src="/_vercel/insights/script.js"></script>
-<script>(function(c,l,a,r,i,t,y){{c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)}})(window,document,"clarity","script","z4ruz9115a");</script>
+<script>if(!/[#&]w=/.test(location.hash)&&location.pathname.indexOf("/embed-a-wheel")!==0)(function(c,l,a,r,i,t,y){{c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)}})(window,document,"clarity","script","z4ruz9115a");</script>
 </head>
 <body>
 <header><div class="hd">
@@ -126,7 +125,7 @@ def head(title, desc, path, ld, ogtitle=None):
 SHARE = """
 <div class="pop" id="sharepop" data-clarity-mask="true" role="dialog" aria-modal="true" aria-labelledby="sharettl"><div class="popc sharec">
 <div class="lbl" id="sharettl">SHARE THIS WHEEL</div>
-<p class="sharehelp" id="sharehelp">Anyone with this link opens the wheel with your entries. Nothing is stored on our server — the entries are inside the link.</p>
+<p class="sharehelp" id="sharehelp">Anyone with this link can see your entries: they are encoded inside the link (not encrypted). Nothing is stored on our server, but the link stays in browser history and wherever you paste it, so avoid sharing private lists.</p>
 <label class="sharelbl" for="shareurl">Link</label>
 <div class="sharefield"><input id="shareurl" readonly><button class="pbtn pri" id="sharecopy" type="button">Copy</button></div>
 <div id="embedwrap"><label class="sharelbl" for="embedcode">Embed code — paste into your website, blog or OBS browser source</label>
@@ -202,13 +201,13 @@ def byline(p):
 def scripts(p, cfg):
     if p.get("tool") == "flagquiz":
         iso = json.load(open(os.path.join(ROOT, "src", "country_iso.json"), encoding="utf-8"))
-        return f'<script>window.WQ={json.dumps({"regions": COUNTRIES, "iso": iso}, ensure_ascii=False)}</script>\n<script src="/quiz.js?v={V}"></script>'
+        return f'<script>window.WQ={json.dumps({"regions": COUNTRIES, "iso": iso}, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}"></script>\n<script src="/quiz.js?v={V}"></script>'
     if p.get("tool"):
         g = {"type": p["tool"]}
         if p["tool"] in ("team", "pair"): g["sample"] = p["sample"]
         if p["tool"] == "name": g["data"] = p["data"]
-        return f'<script>window.WG={json.dumps(g, ensure_ascii=False)}</script>\n<script src="/gen.js?v={V}"></script>'
-    return f'<script>window.WV={json.dumps(cfg, ensure_ascii=False)}</script>\n<script src="/app.js?v={V}"></script>'
+        return f'<script>window.WG={json.dumps(g, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}"></script>\n<script src="/gen.js?v={V}"></script>'
+    return f'<script>window.WV={json.dumps(cfg, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}"></script>\n<script src="/app.js?v={V}"></script>'
 
 def gentool(p):
     t = p["tool"]
@@ -515,7 +514,7 @@ def home():
     main = re.sub(r'<section id="wheels">[\s\S]*?</section>\s*', '', main, count=1)
     t = re.search(r"<title>(.*?)</title>", src).group(1)
     d = re.search(r'<meta name="description" content="(.*?)">', src).group(1)
-    return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + FEATURED + POP + SHARE + footer() + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/app.js?v={V}"></script>\n</body>\n</html>\n'
+    return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + FEATURED + POP + SHARE + footer() + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/rng.js?v={V}"></script>\n<script src="/app.js?v={V}"></script>\n</body>\n</html>\n'
 
 BY.update({x["slug"]: x for x in ES})
 
@@ -550,7 +549,7 @@ def es_page(p):
          ('>Results <span id="rcount"', '>' + U["results"] + ' <span id="rcount"'),
          ('WE HAVE A WINNER', ES_JS["pop"]), ('>Remove from wheel<', '>' + U["pop_remove"] + '<'), ('>Close<', '>' + U["close"] + '<'),
          ('SHARE THIS WHEEL', U["share_title"]),
-         ('Anyone with this link opens the wheel with your entries. Nothing is stored on our server — the entries are inside the link.', U["share_help"]),
+         ('Anyone with this link can see your entries: they are encoded inside the link (not encrypted). Nothing is stored on our server, but the link stays in browser history and wherever you paste it, so avoid sharing private lists.', U["share_help"]),
          ('for="shareurl">Link<', 'for="shareurl">' + U["link"] + '<'), ('id="sharecopy" type="button">Copy<', 'id="sharecopy" type="button">' + U["copy"] + '<'),
          ('Embed code — paste into your website, blog or OBS browser source', U["embed_label"]), ('>Copy embed code<', '>' + U["copy_embed"] + '<'),
          ('margin-bottom:12px">Questions<', 'margin-bottom:12px">' + U["faq"] + '<'), ('margin-bottom:20px">Related wheels<', 'margin-bottom:20px">' + U["related"] + '<'),
@@ -578,7 +577,7 @@ os.makedirs(os.path.join(OUT, "es"), exist_ok=True)
 os.makedirs(os.path.join(OUT, "guides"), exist_ok=True)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
-for f in ["app.css", "app.js", "gen.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
+for f in ["app.css", "rng.js", "app.js", "gen.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(open(os.path.join(ROOT, f), encoding="utf-8").read())
 shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
 shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))
@@ -597,7 +596,7 @@ for u in urls:
     m = re.search(r"<main>[\s\S]*?</main>", body)
     hsh = hashlib.sha1((m.group(0) if m else body).encode()).hexdigest()[:12]
     if LM.get(u, {}).get("h") != hsh:
-        LM[u] = {"h": hsh, "d": TODAY if u in LM else LM.get(u, {}).get("d", "2026-10-21")}
+        LM[u] = {"h": hsh, "d": TODAY}
 json.dump(LM, open(LM_PATH, "w"), indent=0, sort_keys=True)
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>{SITE}/{u}</loc><lastmod>{LM[u]['d']}</lastmod></url>" for u in urls) + "</urlset>\n"
 open(os.path.join(OUT, "sitemap.xml"), "w").write(sm)

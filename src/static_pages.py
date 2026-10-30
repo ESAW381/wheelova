@@ -26,19 +26,17 @@ Questions, ideas or corrections: [support@wheelova.com](mailto:support@wheelova.
 {
  "slug": "privacy",
  "title": "Privacy Policy – Wheelova",
- "desc": "How Wheelova handles your data: entries stay in your browser, analytics, and shared links.",
+ "desc": "How Wheelova handles your data: entries stay in your browser, how share links work, and the analytics we use.",
  "h1": "Privacy Policy",
- "sub": "Last updated: October 28, 2026.",
+ "sub": "Last updated: October 30, 2026.",
  "body": """## Your wheel entries
 Entries you type are stored only in your own browser (local storage) so they are there when you return. They are not sent to our servers. You can remove them at any time with **Clear**, or by clearing your browser's site data.
 
 ## Share links and embeds
-When you create a share link or embed code, your entries are encoded inside the link. Anyone you give the link to can see those entries. We do not store shared wheels on our server.
+When you create a share link or embed code, your entries are encoded inside the link. Encoded is not encrypted: anyone who has the link can read the entries. We do not store shared wheels on our server, and the entries sit in the part of the link after the # sign, which browsers do not send to our server. The link does stay in your browser history and anywhere you paste it, such as a chat or email, so avoid sharing lists that contain private information.
 
 ## Analytics
-We use Vercel Web Analytics to count page visits in aggregate. It does not use cookies and does not identify individual visitors.
-
-We also use Microsoft Clarity to understand how visitors use the site, through usage statistics, heatmaps and session replays. Clarity collects information such as pages viewed, clicks, scrolling, device and browser type, and approximate location, and may set cookies. The wheel, your entries, results and share or embed boxes are masked, so their contents are not recorded. Microsoft processes this data under its own [privacy statement](https://www.microsoft.com/privacy/privacystatement). You can block Clarity with most content blockers, or by refusing cookies where you are asked.
+We also use Microsoft Clarity to understand how visitors use the site, through usage statistics, heatmaps and session replays. Clarity collects information such as pages viewed, clicks, scrolling, device and browser type, and approximate location, and may set cookies. The wheel, your entries, results and share or embed boxes are masked, so their contents are not recorded. Clarity is not loaded at all when you open a shared-wheel link or use the embed generator, so entries inside links are not sent to it. Microsoft processes this data under its own [privacy statement](https://www.microsoft.com/privacy/privacystatement). You can block Clarity with most content blockers, or by refusing cookies where you are asked.
 
 ## Hosting logs
 Our hosting provider may process standard technical data such as IP address and browser type to deliver and secure the site.
