@@ -59,18 +59,21 @@
 <label for="entries" style="font-weight:600;color:var(--hi)">Entries <span id="count" style="color:var(--mu2);font-weight:500"></span></label>
 <div style="display:flex;gap:6px"><button class="btn" id="shuffle" type="button">Shuffle</button><button class="btn" id="sort" type="button">Sort</button><button class="btn" id="clear" type="button">Clear</button></div>
 </div>
+<div class="sharenote" id="sharenote" hidden><span>You're viewing a shared wheel. Your own saved list is untouched.</span><span class="snacts"><button class="linkbtn" id="savesh" type="button">Keep this as my list</button><button class="linkbtn" id="mylist" type="button">Back to my list</button></span></div>
 <textarea id="entries" spellcheck="false" aria-describedby="entries-help"></textarea>
 <p class="small" id="entries-help">One entry per line. Saved in your browser automatically.</p>
 <button class="toggle" id="remove" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Remove winner after each spin</button>
 <button class="toggle" id="sound" type="button" aria-pressed="true"><span class="sw" aria-hidden="true"></span>Sound</button>
 <details class="wset"><summary>Settings</summary><div class="wsetb"><label>Spin speed<select id="wspeed"><option value="fast">Fast</option><option value="normal">Normal</option><option value="slow">Slow</option></select></label><label>Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"></label><label class="ck"><input id="wspeak" type="checkbox"> Read the result aloud</label></div></details>
 <div class="sharerow"><button class="btn" id="sharebtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Share link</button><button class="btn" id="embedbtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>Embed</button></div>
+<details class="wset" id="wsaves"><summary>My saved wheels</summary><div class="wsetb"><div class="wsrow"><input id="wsname" maxlength="40" placeholder="Name, e.g. Period 3" aria-label="Name for this wheel"><button class="btn" id="wssave" type="button">Save list</button></div><ul class="wslist" id="wslist"></ul><p class="small" id="wsempty">Save this list under a name to switch between classes or groups. Stored only in this browser.</p></div></details>
 </div>
 <div class="card">
-<div style="font-weight:600;color:var(--hi)">Results <span id="rcount" style="color:var(--mu2);font-weight:500">· 0</span></div>
+<div class="row"><div style="font-weight:600;color:var(--hi)">Results <span id="rcount" style="color:var(--mu2);font-weight:500">· 0</span></div><div class="resacts" id="resacts" hidden><button class="btn" id="rcopy" type="button">Copy</button><button class="btn" id="rcsv" type="button">CSV</button></div></div>
 <ol id="history" style="margin:10px 0 0;padding-left:20px;color:var(--mu);max-height:160px;overflow:auto"></ol>
 </div>
 </aside>
+<div class="wtoast" id="wtoast" role="status" aria-live="polite" hidden><span id="wtmsg"></span><button class="linkbtn" id="wtundo" type="button">Undo</button></div>
 </div>
 </div>
 

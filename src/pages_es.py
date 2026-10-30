@@ -38,6 +38,9 @@ JS = {  # strings used by app.js
  "iframe_title": "Gira la ruleta – Wheelova", "credit_pre": "Ruleta de",
  "fs": "Pantalla completa", "exitfs": "Salir de pantalla completa", "openmenu": "Abrir menú", "closemenu": "Cerrar menú",
  "todark": "Cambiar a modo oscuro", "tolight": "Cambiar a modo claro",
+ "cleared": "Lista borrada.", "replaced": "Lista reemplazada.", "kept": "Ruleta compartida guardada como tu lista.",
+ "csv_spin": "Giro", "csv_winner": "Ganador", "csv_time": "Hora", "load": "Cargar", "loaded": "Cargada", "del": "Eliminar", "deleted": "Eliminada",
+ "needname": "Escribe primero un nombre para esta ruleta.", "updated": "Actualizada", "saved": "Guardada", "full": "Puedes guardar hasta 50 ruletas. Elimina una primero.",
 }
 
 NAV_ES = [("es/ruleta-de-nombres", "Ruleta de nombres"), ("es/ruleta-si-o-no", "Sí o no"), ("es/ruleta-de-sorteo", "Sorteos"), ("es/ruleta-de-decisiones", "Decisiones"), ("", "English")]

@@ -215,3 +215,10 @@ blockquote.quote{margin:16px 0;padding:18px 22px;border:1px solid var(--line);bo
 .qmissed{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}.qmissed li{display:flex;align-items:center;gap:10px;font-size:14px}.qmissed img{border-radius:3px;box-shadow:0 0 0 1px var(--line2);object-fit:cover}
 .qintro{text-align:center;color:var(--mu)}
 @media(max-width:900px){.qtool{grid-template-columns:1fr}}@media(max-width:480px){.qopts{grid-template-columns:1fr}}
+.snacts{display:flex;gap:12px;flex-wrap:wrap}.sharenote{flex-wrap:wrap;gap:6px 12px}
+.resacts{display:flex;gap:6px}.resacts .btn{height:32px;padding:0 10px;font-size:13px}.rtime{color:var(--mu2);font-size:12px;font-variant-numeric:tabular-nums}
+.wsrow{display:flex;gap:8px}.wsrow input{flex:1;min-width:0}.wsrow .btn{height:40px;white-space:nowrap}
+.wslist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;max-height:220px;overflow:auto}
+.wslist li{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--tx)}.wslist .wsn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.wslist .wsc{color:var(--mu2)}.wslist .btn{height:30px;padding:0 10px;font-size:13px}
+.wtoast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:14px;max-width:calc(100% - 32px);padding:12px 16px;border-radius:12px;background:var(--inv);color:var(--invtx);box-shadow:0 10px 30px var(--sh);font-size:14px}
+.wtoast .linkbtn{color:var(--invtx);font-weight:700;text-decoration:underline}.wtoast[hidden]{display:none}
