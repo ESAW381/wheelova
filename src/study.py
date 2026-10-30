@@ -77,6 +77,15 @@ def body():
 </tbody></table></div>
 <p>So if your yes or no wheel says "Yes" five times running, that is not a glitch. It happens about once every 16 attempts at a fresh streak.</p>
 
+<h2>What a passing result means</h2>
+<p>A chi-square pass means the data shows <b>no evidence of bias</b>: the counts are as close to equal as chance predicts. It does not prove a generator is perfect, because a very small bias could hide inside normal random variation. That is why the sample is large (1,000,000 spins per wheel) and why the raw data is published, so anyone can run their own tests. For background, see <a href="/guides/how-random-number-generators-work">how random number generators work</a>.</p>
+
+<h2>Version history</h2>
+<ul>
+<li><b>October 22, 2026:</b> first published (3,000,000 spins across 2, 6 and 10-entry wheels).</li>
+<li><b>October 30, 2026:</b> Wheelova's number tools (Random Number Generator, dice, coin, shuffle, quiz) moved to rejection sampling, which removes a tiny bias in how random bits become whole numbers. The wheels tested here already chose winners from a continuous random angle, so their spin code and these results are unchanged.</li>
+</ul>
+
 <h2>What this test does not show</h2>
 <ul>
 <li><b>It tests the spin logic, not your screen.</b> We ran the same code and random source the wheel uses, without drawing the animation. The animation only displays a result that has already been decided by the random number.</li>

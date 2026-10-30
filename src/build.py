@@ -404,20 +404,20 @@ def study_page():
 </html>
 """
 
-from guides import TEACHER, GIVEAWAY
-GUIDES = [TEACHER, GIVEAWAY]
-GUIDE_FOR = {"name-picker-wheel": TEACHER, "random-team-generator": TEACHER, "raffle-wheel": GIVEAWAY}
+from guides import TEACHER, GIVEAWAY, RNG_GUIDE
+GUIDES = [TEACHER, GIVEAWAY, RNG_GUIDE]
+GUIDE_FOR = {"name-picker-wheel": TEACHER, "random-team-generator": TEACHER, "raffle-wheel": GIVEAWAY, "random-number-generator": RNG_GUIDE, "number-wheel": RNG_GUIDE, "dice-roller": RNG_GUIDE}
 def guide_page(G):
     path = "/" + G["slug"]
     ld = {"@context": "https://schema.org", "@graph": [
-        {"@type": "Article", "headline": G["h1"], "description": G["desc"], "url": SITE + path, "datePublished": "2026-10-23", "dateModified": "2026-10-23", "image": SITE + "/icons/og-image.png", "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/icons/icon-512.png"}}},
+        {"@type": "Article", "headline": G["h1"], "description": G["desc"], "url": SITE + path, "datePublished": G.get("date", "2026-10-23"), "dateModified": G.get("date", "2026-10-23"), "image": SITE + "/icons/og-image.png", "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/icons/icon-512.png"}}},
         {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Wheelova", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": SITE + "/guides"}, {"@type": "ListItem", "position": 3, "name": G["h1"], "item": SITE + path}]}]}
     return head(G["title"], G["desc"], path, ld) + f"""
 <main><div class="wrap hero">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <a href="/guides">Guides</a> / <span aria-current="page">{e(G["h1"])}</span></nav>
 <h1>{e(G["h1"])}</h1>
 <p class="sub1">{e(G["sub"])}</p>
-<p class="byline" style="margin-top:14px">By <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Published <time datetime="2026-10-23">October 23, 2026</time></p>
+<p class="byline" style="margin-top:14px">By <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Published <time datetime="{G.get('date', '2026-10-23')}">{G.get('date_txt', 'October 23, 2026')}</time></p>
 </div>
 <section style="padding-top:24px"><div class="wrap prose study">
 {md(G["body"])}
@@ -440,7 +440,7 @@ def guides_hub():
 <h1>Guides</h1>
 <p class="sub1">Practical help for classrooms, giveaways and fair random picks.</p>
 <div class="prose" style="margin-top:20px;max-width:760px"><p>These guides explain how to use random picking well: fairly, transparently and without wasting class or event time. Each one is written and checked by our editor, links to the tool it describes, and states its limits. For example, the giveaway guide is general guidance, not legal advice.</p>
-<ul><li><b>Teachers:</b> 25 practical classroom uses for a name picker, with a free printable.</li><li><b>Giveaway hosts:</b> a step-by-step process from rules to winner announcement, with a rules template.</li><li><b>Anyone who doubts the wheel:</b> our fairness study, with 1,000,000 spins per wheel and the raw data.</li></ul>
+<ul><li><b>Teachers:</b> 25 practical classroom uses for a name picker, with a free printable.</li><li><b>Giveaway hosts:</b> a step-by-step process from rules to winner announcement, with a rules template.</li><li><b>Curious how randomness works:</b> a plain-English guide to random number generators, seeds and the modulo-bias mistake.</li><li><b>Anyone who doubts the wheel:</b> our fairness study, with 1,000,000 spins per wheel and the raw data.</li></ul>
 <p>Want a wheel on your own site? See <a href="/embed-a-wheel">how to embed a wheel</a>. Questions about how Wheelova works are answered in the <a href="/faq">FAQ</a>.</p></div>
 <div class="grid" style="margin-top:28px">{cards}</div>
 </div></main>

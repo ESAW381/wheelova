@@ -817,3 +817,21 @@ _swap("random-mlb-team-generator", "Every", {"h2": "How the MLB draft lottery wo
 for _slug, _src in (("random-nba-team-generator", S_NBA_LOTTERY), ("random-mlb-team-generator", S_MLB_LOTTERY)):
     UPGRADES[_slug].setdefault("sources", []).append(_src)
 UPGRADES["random-nfl-team-generator"]["sections"][-1]["body"] = "Team names on the wheel match NFL.com at the time of our last update. The league has had 32 teams since the Houston Texans joined in 2002; if a team relocates or rebrands, edit the entry or tell us at support@wheelova.com."
+
+# ---- Phase 3 (Oct 30 2026): metadata tuned to Search Console queries (28-day export)
+_P3 = {
+ "random-number-generator": {
+  "title": "Random Number Generator – Get a Random Number (1–100 or Any Range) | Wheelova",
+  "description": "Get a random number instantly: 1–10, 1–100 or any range you choose. Generate one or many numbers, with or without repeats, every number equally likely.",
+  "subhead": "Get a random number in one click, or a whole list, in any range, with or without repeats.",
+ },
+ "random-name-generator": {
+  "title": "Random Name Generator – Random Full Names & First Names | Wheelova",
+  "description": "Get random full names or first names in one click: female, male or any, up to 100 at once. Free random name generator for characters, games and test data.",
+ },
+ "lucky-wheel": {
+  "subhead": "Add your prizes, spin and win: see what luck brings.",
+ },
+}
+for _k, _v in _P3.items():
+    UPGRADES.setdefault(_k, {}).update(_v)

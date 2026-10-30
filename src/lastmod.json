@@ -1,15 +1,15 @@
 {
 "": {
 "d": "2026-10-30",
-"h": "cfdacb954862"
+"h": "63aeaf047a47"
 },
 "about": {
 "d": "2026-10-21",
 "h": "4ff243d6b28f"
 },
 "coin-flip": {
-"d": "2026-10-28",
-"h": "8f0818f70cab"
+"d": "2026-10-30",
+"h": "92a10be9a4c9"
 },
 "color-wheel": {
 "d": "2026-10-30",
@@ -17,11 +17,11 @@
 },
 "decision-wheel": {
 "d": "2026-10-30",
-"h": "edb96af12f9f"
+"h": "264958458964"
 },
 "dice-roller": {
-"d": "2026-10-28",
-"h": "842c66388967"
+"d": "2026-10-30",
+"h": "b9d9c6043aea"
 },
 "embed-a-wheel": {
 "d": "2026-10-28",
@@ -56,28 +56,32 @@
 "h": "94b827513178"
 },
 "guides": {
-"d": "2026-10-28",
-"h": "cf18c264a28f"
+"d": "2026-10-30",
+"h": "072cbfa31b32"
 },
 "guides/fair-giveaway": {
 "d": "2026-10-21",
 "h": "f48b69b08742"
+},
+"guides/how-random-number-generators-work": {
+"d": "2026-10-30",
+"h": "815961d3605b"
 },
 "guides/random-name-picker-classroom": {
 "d": "2026-10-21",
 "h": "b7c9331457d1"
 },
 "is-the-wheel-random": {
-"d": "2026-10-22",
-"h": "0eb443aabef4"
+"d": "2026-10-30",
+"h": "dc7653f5a59f"
 },
 "lucky-wheel": {
 "d": "2026-10-30",
-"h": "5e4f5134cfd6"
+"h": "d9d3ee6789d9"
 },
 "mystery-wheel": {
 "d": "2026-10-30",
-"h": "529e46d56946"
+"h": "ec3eb13b932c"
 },
 "name-picker-wheel": {
 "d": "2026-10-30",
@@ -85,7 +89,7 @@
 },
 "number-wheel": {
 "d": "2026-10-30",
-"h": "be51baa02f78"
+"h": "891d9174b93c"
 },
 "privacy": {
 "d": "2026-10-30",
@@ -93,7 +97,7 @@
 },
 "raffle-wheel": {
 "d": "2026-10-30",
-"h": "2d786740b272"
+"h": "45ff52dbae6f"
 },
 "random-country-generator": {
 "d": "2026-10-30",
@@ -120,8 +124,8 @@
 "h": "ce5d957a2aa8"
 },
 "random-number-generator": {
-"d": "2026-10-28",
-"h": "83cf3c6e94b7"
+"d": "2026-10-30",
+"h": "68abe3ea40de"
 },
 "random-pair-generator": {
 "d": "2026-10-29",
@@ -129,11 +133,11 @@
 },
 "random-state-generator": {
 "d": "2026-10-30",
-"h": "f5d07d7c7e0f"
+"h": "707de9f29fe9"
 },
 "random-team-generator": {
-"d": "2026-10-28",
-"h": "56cecd3e486a"
+"d": "2026-10-30",
+"h": "44c03f69c807"
 },
 "spinner": {
 "d": "2026-10-30",
@@ -148,8 +152,8 @@
 "h": "820f05981630"
 },
 "wheels": {
-"d": "2026-10-29",
-"h": "b07d4c7ab913"
+"d": "2026-10-30",
+"h": "6751541b6bee"
 },
 "yes-or-no-wheel": {
 "d": "2026-10-30",

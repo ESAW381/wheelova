@@ -147,3 +147,70 @@ Copy, fill in the brackets and adapt it to your situation. Have it checked local
 **Is a random wheel fair enough for a giveaway?** The draw is fair: Wheelova uses a cryptographically secure random source, and we tested it with 1,000,000 spins per wheel in our [fairness study](/is-the-wheel-random). What makes a giveaway fair overall is clean entries and transparent rules, which is what this guide covers.
 """,
 }
+
+
+RNG_GUIDE = {
+ "slug": "guides/how-random-number-generators-work", "date": "2026-10-30", "date_txt": "October 30, 2026",
+ "title": "How Random Number Generators Work (and How to Get a Fair Number) | Wheelova",
+ "desc": "A plain-English guide to random number generators: pseudo-random vs cryptographically secure vs true random, seeds, modulo bias, and how to test fairness.",
+ "h1": "How random number generators work",
+ "sub": "Pseudo-random, cryptographically secure and true random explained, plus the small maths mistake that makes many generators slightly unfair.",
+ "body": """A random number generator turns some source of unpredictability into numbers. The quality of a generator depends on two things: **where the randomness comes from**, and **how it is turned into the number you asked for**. Most people only think about the first. The second is where many generators quietly go wrong.
+
+If you just need a number now, use the [Random Number Generator](/random-number-generator). This guide explains what happens behind the button.
+
+## Three kinds of random number generator
+
+| Type | Where the randomness comes from | Predictable? | Typical use |
+|---|---|---|---|
+| Pseudo-random (PRNG) | A formula that starts from a "seed" number | Yes, if you know the seed and the formula | Games, simulations, shuffling music |
+| Cryptographically secure (CSPRNG) | A formula seeded and refreshed with hard-to-guess system data | Designed to be infeasible to predict | Passwords, security keys, fair draws |
+| True random (TRNG) | A physical process, such as electronic noise | No, by nature | Hardware security modules, research |
+
+**Pseudo-random** generators are fast and repeatable: the same seed always gives the same sequence, which is useful for testing and games. The trade-off is that anyone who learns the seed can predict every number. In browsers, `Math.random()` is this kind of generator, and MDN warns that it does not provide cryptographically secure numbers and should not be used for anything security-related ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)).
+
+**Cryptographically secure** generators are built so that, even after seeing many outputs, nobody can feasibly predict the next one. Browsers provide one through `crypto.getRandomValues()` ([MDN](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues)). Standards such as NIST's [SP 800-90A](https://csrc.nist.gov/pubs/sp/800/90/a/r1/final) describe how these deterministic random bit generators should be built. Every Wheelova tool uses this source.
+
+**True random** generators measure something physical. They are not automatically "better" for everyday use: a well-built cryptographically secure generator is unpredictable in practice, and true random sources still need careful processing to remove bias.
+
+## What is a seed?
+
+A seed is the starting value for a pseudo-random formula. Video games often show it so players can replay the same world. Secure generators also start from seeds, but they are drawn from unpredictable system data and refreshed, and they are never shown to you.
+
+## The hidden problem: turning random bits into your number
+
+Generators produce random **bits**, usually 32 at a time, giving a whole number from 0 to 4,294,967,295. To get a number from 1 to 6 for a die, that big number has to be squeezed into six outcomes. The obvious way is the remainder after dividing by 6 (the "modulo" method). It is slightly unfair whenever the range doesn't divide evenly into the generator's range.
+
+Here is the effect with a tiny 3-bit generator, which produces 0 to 7, squeezed into six outcomes:
+
+| Generator output | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|---|
+| Remainder after ÷ 6 | 0 | 1 | 2 | 3 | 4 | 5 | 0 | 1 |
+
+Outcomes 0 and 1 each appear twice in eight possibilities (25% each), while 2 to 5 appear once (12.5% each). That is **modulo bias**. With 32-bit generators the bias for small ranges is tiny, but it never fully disappears, and with very large ranges a different problem appears: a 32-bit generator can only produce about 4.3 billion different results, so for a range of a trillion numbers most values can never come up at all.
+
+## The fix: rejection sampling
+
+The standard fix is simple: **throw away the outputs that cause the imbalance and draw again**. In the 3-bit example, discard 6 and 7; the remaining outputs 0 to 5 map to the six outcomes exactly once each. Real generators do the same with 32-bit or larger numbers, and for huge ranges they combine two draws into a 53-bit number first.
+
+MDN notes the same thing: the remainder method can introduce slight bias, and rejection sampling gives a uniform distribution. Wheelova's generators use rejection sampling, so every number in your range has exactly the same chance, from 1–6 up to ranges of about 9 quadrillion.
+
+## How can you tell whether a generator is fair?
+
+You can't prove fairness by looking at a few results: streaks and uneven counts are normal in small samples. Statisticians instead run large tests, such as a **chi-square test**, which checks whether counts across many draws differ from equal by more than chance would explain.
+
+Two things are worth knowing about these tests:
+
+- **A pass means "no evidence of bias", not "proven perfect".** A fair generator passes most of the time; a slightly biased one can also pass if the sample is too small to detect it.
+- **They test outputs, not intentions.** A generator can pass every statistical test and still be unsuitable if someone can predict or choose its seed.
+
+We published one such test of Wheelova's spin code: [1,000,000 spins per wheel](/is-the-wheel-random), with the raw data and test script.
+
+## Choosing the right generator
+
+- **Games, classroom picks, giveaways:** use a cryptographically secure source with unbiased mapping, which is what the [Random Number Generator](/random-number-generator), the [Name Picker Wheel](/name-picker-wheel) and the [Raffle Wheel](/raffle-wheel) do.
+- **Passwords and security keys:** use a dedicated password manager or security tool rather than a general random-number website.
+- **Official lotteries and regulated gambling:** these need certified, audited systems. A free web tool is not a substitute.
+- **Simulations you need to repeat:** a seeded pseudo-random generator, so you can reproduce the same run.
+""",
+}

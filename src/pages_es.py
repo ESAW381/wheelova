@@ -49,7 +49,7 @@ ES = [
 # ------------------------------------------------------------------ HOME
 {
  "slug": "es", "en": "", "key": "es_home", "nav": "Ruleta aleatoria", "palette": PALETA,
- "title": "Ruleta aleatoria – Gira la ruleta online gratis | Wheelova",
+ "title": "Ruleta aleatoria y virtual – Gira la ruleta online gratis | Wheelova",
  "description": "Ruleta aleatoria online y gratis: escribe nombres u opciones, gira la ruleta y obtén un resultado justo al azar. Sin registro, funciona en el móvil.",
  "h1": "Ruleta aleatoria", "subhead": "Escribe tus opciones, gira la ruleta y deja que el azar decida.",
  "entries": NOMBRES,
@@ -160,7 +160,7 @@ ES = [
 # ------------------------------------------------------------------ SORTEO
 {
  "slug": "es/ruleta-de-sorteo", "en": "raffle-wheel", "key": "es_sorteo", "nav": "Sorteos", "removeWinner": True,
- "title": "Ruleta de sorteo online – Elige ganadores al azar | Wheelova",
+ "title": "Ruleta de sorteo y rifas online – Elige ganadores al azar | Wheelova",
  "description": "Ruleta de sorteo online y gratis: pega participantes o números de boleto, gira en directo y quita a cada ganador. Ideal para sorteos en redes y rifas.",
  "h1": "Ruleta de sorteo", "subhead": "Elige a los ganadores de tu sorteo o rifa en directo, delante de todos.",
  "entries": [f"Boleto {i:03d}" for i in range(1, 9)],
