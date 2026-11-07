@@ -6,8 +6,8 @@ COLOR_MAP = {"red":"#E53935","orange":"#FB8C00","yellow":"#FDD835","green":"#43A
 PAGES = [
 {
  "slug":"yes-or-no-wheel","key":"yesno","nav":"Yes or No",
- "title":"Yes or No Wheel – Spin for a Random Answer | Wheelova",
- "description":"Spin the Yes or No wheel for an instant random answer. Add Maybe, weight your odds with extra slices, or ask again. Free, no sign-up.",
+ "title":"Yes or No Wheel – Spin the Wheel for a Yes or No Answer | Wheelova",
+ "description":"Spin the yes or no wheel for an instant 50/50 answer. Add Maybe, change the odds with extra slices, or play best of three. Tested over 1,000,000 spins. Free.",
  "h1":"Yes or No Wheel","subhead":"Ask a question, spin, and let the wheel answer yes or no.",
  "entries":["Yes","No"],
  "variants":[{"label":"Yes / No","entries":["Yes","No"]},{"label":"Yes / No / Maybe","entries":["Yes","No","Maybe"]},{"label":"Yes / No / Ask again","entries":["Yes","No","Ask again"]},{"label":"Definitely / Probably / Probably not / No way","entries":["Definitely","Probably","Probably not","No way"]}],
@@ -23,7 +23,7 @@ PAGES = [
   {"q":"Is the yes or no wheel 50/50?","a":"Yes, with the default two entries each answer has an equal 50% chance. Adding or repeating entries changes the odds."},
   {"q":"Can I add a Maybe option?","a":"Yes. Tap the \"Yes / No / Maybe\" preset above the entry box, or type Maybe on a new line."},
   {"q":"Should I use a wheel for important decisions?","a":"Use it to break ties between options you are already happy with. For serious decisions — health, money, legal matters — get proper information or advice first."},
-  {"q":"Does it save my entries?","a":"Yes, entries are saved in your own browser so they are there when you come back. Nothing is sent to a server."}
+  {"q":"Does it save my entries?","a":"Yes, entries are saved in your own browser so they are there when you come back. They are not sent to our servers. If you create a share link, the entries travel inside that link."}
  ],
  "related":["decision-wheel","spinner","mystery-wheel","number-wheel"]
 },

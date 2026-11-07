@@ -18,7 +18,7 @@ UPGRADES = {
  "sections": [
   {"h2": "How this random number generator works", "body":
    "Pick a range, choose how many numbers you need, and press **Generate**. Every whole number from *From* to *To* has the same chance of being chosen.\n\n" + RANDOM_NOTE +
-   "\n\nTo turn a random value into a number in your range, the tool scales it to the size of the range and rounds down. With ranges below a few million, any bias from this step is far too small to matter for games, classrooms or draws."},
+   "\n\nTurning random bits into a number in your range is where many generators slip: scaling or using the remainder (modulo) makes some numbers very slightly more likely than others. Wheelova avoids this with **rejection sampling**: it draws a random value, throws it away if it falls in the small leftover zone that would cause bias, and draws again. Every whole number in your range therefore has exactly the same chance. For the details, see [how random number generators work](/guides/how-random-number-generators-work)."},
   {"h2": "Pseudo-random vs. true random — what's the difference?", "body":
    "There are two broad kinds of random number generator:\n\n"
    "| | Pseudo-random (PRNG) | True random (TRNG) |\n|---|---|---|\n"
@@ -45,6 +45,8 @@ UPGRADES = {
    "- **Games** — replace a lost die (1–6) or a 20-sided die (1–20), pick a level, set a score target.\n"
    "- **Giveaways** — draw ticket numbers live on screen. For named entrants, the [Raffle Wheel](/raffle-wheel) shows the draw visually.\n"
    "- **Everyday picks** — which restaurant on a numbered list, which chore, which movie from a ranked watchlist."},
+  {"h2": "Number generator or number wheel?", "body":
+   "Use this generator when you want the answer fast, or need many numbers at once (up to 1,000 per click) that you can copy or sort. Use the [Random Number Wheel](/number-wheel) when people should watch the pick happen, for example a classroom draw on a projector or a live stream. Both give every number in the range the same chance."},
   {"h2": "When not to use it", "body":
    "This generator is right for games, teaching, raffles and everyday decisions. It is **not** a certified gaming or lottery system, and it should not replace audited draw software where the law requires it. It also isn't meant for generating passwords or encryption keys — use a password manager or your platform's key-generation tools for that."}
  ],
@@ -82,8 +84,10 @@ UPGRADES = {
    "**Party and classroom games:** Does this team get a bonus point? Do we play another round? Does the next person sing or dance?\n\n"
    "**Group tie-breaks:** When a vote is split exactly in half, agree before spinning that everyone accepts the result.\n\n"
    "Keep the wheel for choices where both answers are acceptable. For decisions about health, money, safety or law, get real information or advice first."},
+  {"h2": "We tested it: 1,000,000 yes or no spins", "body":
+   "We ran Wheelova's real spin code 1,000,000 times on a two-entry wheel. **Yes and No each landed within 0.08% of the expected 500,000**, and the chi-square test found no sign of bias (p = 0.458). The same answer came up twice in a row 49.96% of the time, against the 50% you would expect, and the longest streak was 19 in a row. Long streaks are part of randomness, not a fault. Methods, statistics and raw data are in the [fairness study](/is-the-wheel-random)."},
   {"h2": "Yes or no wheel vs. coin flip", "body":
-   "Both give a 50/50 answer. A wheel is easier to share on screen (classrooms, streams, video calls), can add a third option like Maybe, and can change the odds by adding slices — which a coin can't do. A physical coin is quicker when you're away from a screen."},
+   "Both give a 50/50 answer. A wheel is easier to share on screen (classrooms, streams, video calls), can add a third option like Maybe, and can change the odds by adding slices — which a coin can't do. A physical coin is quicker when you're away from a screen, and the [Coin Flip](/coin-flip) gives you a coin on screen when you want heads or tails."},
   {"h2": "Other ways to decide", "body":
    "For more than two options, use the [Decision Wheel](/decision-wheel). For a surprise answer hidden behind question marks, try the [Mystery Wheel](/mystery-wheel). To pick a number instead, use the [Random Number Generator](/random-number-generator)."}
  ],
