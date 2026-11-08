@@ -39,7 +39,7 @@ JS = {  # strings used by app.js
  "fs": "Pantalla completa", "exitfs": "Salir de pantalla completa", "openmenu": "Abrir menú", "closemenu": "Cerrar menú",
  "todark": "Cambiar a modo oscuro", "tolight": "Cambiar a modo claro",
  "cleared": "Lista borrada.", "imported": "Se importaron {n} entradas.", "impcut": "Solo se conservaron las primeras 2000.", "impempty": "No se encontraron entradas en ese archivo.", "impbig": "El archivo es demasiado grande (máximo 5 MB).", "impxls": "Guarda la hoja como CSV primero, o copia la columna y pégala.", "col": "Columna", "replaced": "Lista reemplazada.", "kept": "Ruleta compartida guardada como tu lista.",
- "csv_spin": "Giro", "csv_winner": "Ganador", "csv_time": "Hora", "load": "Cargar", "loaded": "Cargada", "del": "Eliminar", "deleted": "Eliminada",
+ "nrange": "Indica un rango en el que «Hasta» sea mayor que «Desde».", "nmax": "Hasta 500 números por ruleta.", "csv_spin": "Giro", "csv_winner": "Ganador", "csv_time": "Hora", "load": "Cargar", "loaded": "Cargada", "del": "Eliminar", "deleted": "Eliminada",
  "needname": "Escribe primero un nombre para esta ruleta.", "updated": "Actualizada", "saved": "Guardada", "full": "Puedes guardar hasta 50 ruletas. Elimina una primero.",
 }
 
@@ -239,5 +239,84 @@ ES = [
  ],
  "related": ["es/ruleta-si-o-no", "es", "es/ruleta-de-nombres", "es/ruleta-de-sorteo"],
  "sources": [S_NBER, S_MDN],
+},
+# ------------------------------------------------------------------ COLORES
+{
+ "slug": "es/ruleta-de-colores", "updated": "2026-11-08", "en": "color-wheel", "key": "es_colors", "nav": "Ruleta de colores",
+ "title": "Ruleta de colores – Rueda de colores aleatoria con código HEX | Wheelova",
+ "description": "Gira la ruleta de colores y obtén un color al azar con su código HEX. Arcoíris, colores básicos, primarios o pastel, o tu propia lista. Gratis y sin registro.",
+ "h1": "Ruleta de colores", "subhead": "Gira la rueda de colores y obtén un color al azar, con su código HEX.",
+ "mode": "color",
+ "colorMap": {"rojo": "#E53935", "naranja": "#FB8C00", "amarillo": "#FDD835", "verde": "#43A047", "azul": "#1E88E5", "añil": "#3949AB", "índigo": "#3949AB", "violeta": "#8E24AA", "morado": "#7B1FA2", "rosa": "#EC407A", "marrón": "#6D4C41", "café": "#6D4C41", "negro": "#212121", "blanco": "#FAFAFA", "gris": "#9E9E9E", "celeste": "#87CEEB", "cian": "#00ACC1", "turquesa": "#26C6DA", "verde azulado": "#00897B", "lima": "#C0CA33", "dorado": "#D4AF37", "plateado": "#BDBDBD", "azul marino": "#1A237E", "granate": "#800000", "beige": "#D7C4A3", "magenta": "#D81B60", "oliva": "#808000", "melocotón": "#FFB38A", "durazno": "#FFB38A", "lavanda": "#B39DDB", "menta": "#98E2C6", "coral": "#FF7F6B"},
+ "entries": ["Rojo", "Naranja", "Amarillo", "Verde", "Azul", "Añil", "Violeta"],
+ "variants": [{"label": "Arcoíris (7)", "entries": ["Rojo", "Naranja", "Amarillo", "Verde", "Azul", "Añil", "Violeta"]},
+   {"label": "Colores básicos (12)", "entries": ["Rojo", "Naranja", "Amarillo", "Verde", "Azul", "Morado", "Rosa", "Marrón", "Negro", "Blanco", "Gris", "Turquesa"]},
+   {"label": "Primarios (3)", "entries": ["Rojo", "Amarillo", "Azul"]},
+   {"label": "Pastel", "entries": ["Melocotón", "Lavanda", "Menta", "Celeste", "Coral", "Beige"]}],
+ "resultLabel": "TU COLOR", "popLabel": "TU COLOR ES",
+ "howTo": ["Elige un conjunto de colores o escribe nombres de colores, uno por línea.", "Pulsa GIRAR.", "Mira el nombre del color, la muestra y su código HEX en la ventana."],
+ "sections": [
+  {"h2": "Cómo funciona la ruleta de colores", "body":
+   "Cada color de la lista ocupa una parte igual de la rueda y se pinta con su propio color. Al girar, la ruleta se detiene en uno al azar y te muestra el nombre, una muestra y el **código HEX**, el código de seis caracteres que usan programas como Canva, Figma, PowerPoint o CSS.\n\n" + NOTA_AZAR},
+  {"h2": "Qué colores reconoce y con qué códigos", "body":
+   "La ruleta pinta cada parte cuando el nombre coincide con un color conocido, sin importar mayúsculas:\n\n"
+   "| Color | HEX | Color | HEX |\n|---|---|---|---|\n"
+   "| Rojo | #E53935 | Morado | #7B1FA2 |\n| Naranja | #FB8C00 | Rosa | #EC407A |\n| Amarillo | #FDD835 | Marrón (o café) | #6D4C41 |\n| Verde | #43A047 | Negro | #212121 |\n| Azul | #1E88E5 | Blanco | #FAFAFA |\n| Añil (o índigo) | #3949AB | Gris | #9E9E9E |\n| Violeta | #8E24AA | Turquesa | #26C6DA |\n\n"
+   "También reconoce celeste, cian, verde azulado, lima, dorado, plateado, azul marino, granate, beige, magenta, oliva, melocotón (o durazno), lavanda, menta y coral. Si escribes un color que no está en la lista, la parte usa un color normal de la ruleta y la ventana muestra solo el nombre."},
+  {"h2": "¿Qué es un código HEX?", "body":
+   "Un código HEX describe un color con tres pares de dígitos hexadecimales: rojo, verde y azul. #FF0000 es rojo puro, #00FF00 verde puro y #0000FF azul puro. Copia el código de la ventana y pégalo en tu programa de diseño para obtener exactamente el mismo tono."},
+  {"h2": "Ideas para usar un color al azar", "body":
+   "- **Clase de arte:** cada alumno gira y dibuja algo de ese color, o mezcla pinturas hasta conseguirlo.\n"
+   "- **Juegos para niños:** «busca algo de este color en la habitación» es un juego rápido para aprender los colores.\n"
+   "- **Retos creativos:** diseña un logo o una ilustración usando solo el color que salga.\n"
+   "- **Equipos y fiestas:** asigna un color a cada equipo o un código de vestimenta."},
+  {"h2": "¿Es una rueda cromática de teoría del color?", "body":
+   "No. Una rueda cromática de teoría del color organiza los colores para explicar combinaciones como complementarios o análogos. Esta ruleta sirve para **elegir un color al azar**. Si buscas teoría del color, consulta un libro de arte o diseño; si quieres que el azar elija por ti, estás en el lugar correcto."}
+ ],
+ "faq": [
+  {"q": "¿Cómo obtengo un color al azar?", "a": "Elige un conjunto (arcoíris, básicos, primarios o pastel) o escribe tus colores, y pulsa GIRAR. La ventana muestra el nombre, la muestra y el código HEX."},
+  {"q": "¿Puedo usar mis propios colores?", "a": "Sí. Escribe los nombres, uno por línea. Los que la ruleta reconoce se pintan con su color; los demás usan un color normal de la ruleta."},
+  {"q": "¿Todos los colores tienen la misma probabilidad?", "a": "Sí. Cada color es una parte igual. Si escribes un color dos veces, tendrá el doble de probabilidad."},
+  {"q": "¿Por qué no salen los colores que escribo en inglés?", "a": "Esta página reconoce nombres en español. Para nombres en inglés, usa la versión en inglés de la ruleta de colores."},
+  {"q": "¿Es gratis?", "a": "Sí, sin registro y sin instalar nada."}
+ ],
+ "related": ["es", "es/ruleta-de-decisiones", "es/ruleta-de-nombres", "es/ruleta-de-numeros"],
+ "sources": [S_MDN],
+},
+# ------------------------------------------------------------------ NUMEROS
+{
+ "slug": "es/ruleta-de-numeros", "updated": "2026-11-08", "en": "number-wheel", "key": "es_numbers", "nav": "Ruleta de números", "numberRange": True,
+ "title": "Ruleta de números aleatorios – Del 1 al 100 o el rango que quieras | Wheelova",
+ "description": "Ruleta de números aleatorios gratis: elige un rango (1–10, 1–100 o el que quieras), gira y obtén un número al azar. Ideal para sorteos, bingo y clase.",
+ "h1": "Ruleta de números", "subhead": "Elige un rango, gira y obtén un número al azar.",
+ "entries": [str(i) for i in range(1, 11)],
+ "variants": [{"label": "1–10", "entries": [str(i) for i in range(1, 11)]}, {"label": "1–20", "entries": [str(i) for i in range(1, 21)]}, {"label": "1–50", "entries": [str(i) for i in range(1, 51)]}, {"label": "1–100", "entries": [str(i) for i in range(1, 101)]}],
+ "resultLabel": "TU NÚMERO", "popLabel": "EL NÚMERO ES",
+ "howTo": ["Elige un rango rápido o escribe «Desde» y «Hasta» y pulsa «Crear ruleta».", "Gira la ruleta.", "Activa «Quitar al ganador» si no quieres que un número se repita."],
+ "sections": [
+  {"h2": "Cómo funciona la ruleta de números", "body":
+   "Cada número del rango es una parte igual de la ruleta. Al girar, se detiene en uno al azar. Es la versión visual de un generador de números aleatorios: mejor cuando la gente está mirando, como en un sorteo, un bingo o un juego en clase.\n\n" + NOTA_AZAR},
+  {"h2": "Probabilidades y repeticiones", "body":
+   "Cada número tiene una probabilidad de **1 ÷ cantidad de números**: un 10 % en 1–10 y un 1 % en 1–100.\n\n"
+   "| Rango | Probabilidad por giro | Probabilidad de que un número salga al menos una vez en 10 giros (con repeticiones) |\n|---|---|---|\n"
+   "| 1–6 | 16,7 % | 83,8 % |\n| 1–10 | 10 % | 65,1 % |\n| 1–20 | 5 % | 40,1 % |\n| 1–50 | 2 % | 18,3 % |\n| 1–100 | 1 % | 9,6 % |\n\n"
+   "- **Sin «Quitar al ganador»:** los números pueden repetirse, como al lanzar un dado.\n"
+   "- **Con «Quitar al ganador»:** cada número sale una sola vez, como sacar papeletas de una bolsa. Es lo correcto para sorteos y bingo."},
+  {"h2": "Ideas para usarla", "body":
+   "- **Sorteos con papeletas numeradas:** crea la ruleta con el rango de tus papeletas y gira en directo.\n"
+   "- **Bingo:** del 1 al 75 o del 1 al 90, con «Quitar al ganador» activado.\n"
+   "- **Clase de matemáticas:** gira dos números y multiplícalos, o usa el número como pregunta del examen.\n"
+   "- **Juegos:** sustituye un dado perdido con 1–6, o elige quién empieza."},
+  {"h2": "Tus propias listas de números", "body":
+   "La caja de opciones acepta cualquier número, uno por línea: solo pares, negativos o una lista de asientos. Con «Desde» y «Hasta» puedes crear hasta 500 números por ruleta."}
+ ],
+ "faq": [
+  {"q": "¿Cómo saco un número al azar del 1 al 100?", "a": "Pulsa el botón 1–100 y gira. Cada número tiene un 1 % de probabilidad."},
+  {"q": "¿Puedo evitar que se repitan los números?", "a": "Sí. Activa «Quitar al ganador después de cada giro»."},
+  {"q": "¿Cuántos números caben?", "a": "Hasta 500 con «Desde» y «Hasta». Más de 100 se ven pequeños; para muchos números, un generador en lista es más cómodo."},
+  {"q": "¿Sirve para un sorteo?", "a": "Sí, para sorteos informales. Los sorteos oficiales pueden tener normas propias según el país."}
+ ],
+ "related": ["es/ruleta-de-sorteo", "es", "es/ruleta-de-colores", "es/ruleta-si-o-no"],
+ "sources": [S_MDN],
 },
 ]

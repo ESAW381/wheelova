@@ -125,8 +125,8 @@ b.querySelector('b').textContent=t.n;b.querySelector('span span').textContent=t.
 b.onclick=function(){setEntries(t.e,T.replaced||'List replaced.');$('tool').scrollIntoView({block:'start'})};g.appendChild(b)})}
 var vz=$('variants');if(vz&&cfg.variants){cfg.variants.forEach(function(v){var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=v.label;b.onclick=function(){setEntries(v.entries,T.replaced||'List replaced.')};vz.appendChild(b)})}
 var ng=$('ngo');if(ng){ng.onclick=function(){var a=parseInt($('nmin').value,10),b=parseInt($('nmax').value,10);var err=$('nerr');
-if(isNaN(a)||isNaN(b)||b<=a){err.textContent='Enter a range where "To" is bigger than "From".';return}
-if(b-a+1>500){err.textContent='Up to 500 numbers per wheel.';return}err.textContent='';var arr=[];for(var x=a;x<=b;x++)arr.push(String(x));setEntries(arr,T.replaced||'List replaced.')}}
+if(isNaN(a)||isNaN(b)||b<=a){err.textContent=T.nrange||'Enter a range where "To" is bigger than "From".';return}
+if(b-a+1>500){err.textContent=T.nmax||'Up to 500 numbers per wheel.';return}err.textContent='';var arr=[];for(var x=a;x<=b;x++)arr.push(String(x));setEntries(arr,T.replaced||'List replaced.')}}
 var sc=$('scount');if(sc){sc.onchange=function(){var n=parseInt(sc.value,10),arr=[];for(var x=1;x<=n;x++)arr.push(String(x));setEntries(arr,T.replaced||'List replaced.')}}
 function enc(arr){var u=new TextEncoder().encode(arr.join('\n')),s='';for(var i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
 function dec(t){try{t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';var s=atob(t),u=new Uint8Array(s.length);for(var i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return new TextDecoder().decode(u).split('\n').map(function(x){return x.trim()}).filter(Boolean).slice(0,1000)}catch(e){return null}}

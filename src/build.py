@@ -2,6 +2,10 @@ from data import COUNTRIES
 import json, re, html, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from pages import PAGES, MDN
+from pages_new import NEW_PAGES
+PAGES += NEW_PAGES
+for _slug, _new in (("decision-wheel", "food-wheel"), ("random-letter-generator", "random-word-wheel"), ("color-wheel", "drawing-prompt-wheel")):
+    _pg = next(x for x in PAGES if x["slug"] == _slug); _pg["related"] = [_new] + [r for r in _pg["related"] if r != _new][:3]
 from content_v2 import UPGRADES, AUTHOR, UPDATED
 for _p in PAGES:
     if _p['slug'] in UPGRADES:
@@ -14,7 +18,7 @@ SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
 POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "truth-or-dare-wheel", "coin-flip", "dice-roller", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator", "flag-quiz", "random-pair-generator"]
-CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "coin-flip"]), ("Games & parties", ["truth-or-dare-wheel", "dice-roller", "lucky-wheel", "mystery-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-pair-generator", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner", "dice-roller", "coin-flip"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "flag-quiz", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Colors", ["color-wheel"])]
+CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "food-wheel", "coin-flip"]), ("Games & parties", ["truth-or-dare-wheel", "dice-roller", "lucky-wheel", "mystery-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-pair-generator", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner", "dice-roller", "coin-flip"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "flag-quiz", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Words & creativity", ["random-word-wheel", "drawing-prompt-wheel", "random-letter-generator"]), ("Colors", ["color-wheel"])]
 DOTS = ["#6E56F0", "#E11D48", "#F59E0B", "#16A34A", "#2563EB", "#DB2777", "#0D9488", "#EA580C"]
 e = html.escape
 
@@ -70,15 +74,19 @@ def navhtml(path):
     return ''.join('<a href="/%s"%s>%s</a>' % (s, cur if '/'+s==path else '', n) for s, n in NAV)
 
 from pages_es import ES, UI as ES_UI, JS as ES_JS, NAV_ES
+from pages_fr import FR, JS as FR_JS, NAV_FR
 ALT = {}
-for _p in ES:
-    _en = "/" + _p["en"] if _p["en"] else "/"
-    ALT[_en] = ALT["/" + _p["slug"]] = {"en": _en, "es": "/" + _p["slug"]}
+for _lang, _list in (("es", ES), ("fr", FR)):
+    for _p in _list:
+        _en = "/" + _p["en"] if _p["en"] else "/"
+        grp = ALT.get(_en) or {"en": _en}
+        grp[_lang] = "/" + _p["slug"]
+        for _k in grp.values(): ALT[_k] = grp
 def hreflang(path):
     a = ALT.get(path)
     if not a: return ""
     u = lambda x: SITE + (x if x != "/" else "/")
-    return "".join(f'\n<link rel="alternate" hreflang="{k}" href="{u(v)}">' for k, v in (("en", a["en"]), ("es", a["es"]), ("x-default", a["en"])))
+    return "".join(f'\n<link rel="alternate" hreflang="{k}" href="{u(v)}">' for k, v in [(l, a[l]) for l in ("en", "es", "fr") if l in a] + [("x-default", a["en"])])
 
 def head(title, desc, path, ld, ogtitle=None):
     url = SITE + path
@@ -154,6 +162,7 @@ def footer():
 <div><span class="h">Popular wheels</span>{pop}</div>
 <div><span class="h">More wheels</span>{more}<a href="/wheels">All wheels</a></div>
 <div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/guides">Guides</a><a href="/embed-a-wheel">Embed a wheel</a><a href="/is-the-wheel-random">Fairness study</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="#cookies" data-wvcookies>Cookie settings</a></div>
+<div><span class="h">Languages</span><a href="/es" hreflang="es" lang="es">Español</a><a href="/fr" hreflang="fr" lang="fr">Français</a></div>
 </div></footer>
 """
 
@@ -196,9 +205,12 @@ def card(slug, i):
     p = BY[slug]; c = DOTS[i % len(DOTS)]
     return f'<a class="tpl" href="/{slug}"><span class="dot" style="background:conic-gradient({c} 0 25%,#2A2A36 0 50%,{c} 0 75%,#2A2A36 0)"></span><span><b>{e(p["h1"])}</b><span>{e(p["subhead"])}</span></span></a>'
 
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+def endate(d): y, m, dd = map(int, d.split("-")); return f"{MONTHS[m-1]} {dd}, {y}"
 def byline(p):
     if not p.get("upgraded"): return ""
-    return f'<p class="byline">Written by <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Last updated <time datetime="{UPDATED}">October 21, 2026</time></p>'
+    d = p.get("updated", UPDATED)
+    return f'<p class="byline">Written by <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Last updated <time datetime="{d}">{endate(d)}</time></p>'
 
 def scripts(p, cfg):
     if p.get("tool") == "flagquiz":
@@ -282,7 +294,7 @@ def page(p):
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebApplication", "name": p["h1"], "url": SITE + path, "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": p["description"], "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/"}},
         {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Wheelova", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": "Wheels", "item": SITE + "/wheels"}, {"@type": "ListItem", "position": 3, "name": p["h1"], "item": SITE + path}]},
-        faq_ld] + ([{"@type": "WebPage", "@id": SITE + path + "#page", "url": SITE + path, "name": p["h1"], "dateModified": UPDATED, "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/"}}] if p.get("upgraded") else [])}
+        faq_ld] + ([{"@type": "WebPage", "@id": SITE + path + "#page", "url": SITE + path, "name": p["h1"], "dateModified": p.get("updated", UPDATED), "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/"}}] if p.get("upgraded") else [])}
     steps = "".join(f'<div><span class="n">{i+1:02d}</span><p>{md(s)[3:-4]}</p></div>' for i, s in enumerate(p["howTo"]))
     secs = "".join(f'<h2>{e(s["h2"])}</h2>\n{md(s["body"])}\n' for s in p["sections"])
     faqs = "".join(f'<details><summary>{e(f["q"])}</summary><p>{e(f["a"])}</p></details>' for f in p["faq"])
@@ -488,7 +500,7 @@ def hub():
 <h1>All wheels &amp; generators</h1>
 <p class="sub1">Pick a ready-made wheel, or <a href="/">build your own on the homepage</a>.</p>
 <div class="prose" style="margin-top:20px;max-width:760px"><p>Every tool here is free, works in your browser without an account, and uses your browser's cryptographically secure random number source (we tested it with <a href="/is-the-wheel-random">1,000,000 spins per wheel</a>). Wheels let you watch the result land; generators give you a list you can copy.</p>
-<ul><li><b>Decisions:</b> yes or no answers, choosing between options, and coin flips.</li><li><b>Games &amp; parties:</b> truth or dare, dice, prize and mystery wheels.</li><li><b>Names &amp; groups:</b> pick a name, split a class into teams, or generate new names and letters.</li><li><b>Numbers &amp; chance:</b> random numbers as a list or a wheel, plus a spinner.</li><li><b>Giveaways:</b> draw winners live with the raffle wheel.</li><li><b>Geography:</b> random countries and states, and a flag quiz.</li><li><b>Sports:</b> random NFL, NBA and MLB teams, by conference or division.</li><li><b>Colors:</b> random colours with hex codes.</li></ul></div>
+<ul><li><b>Decisions:</b> yes or no answers, choosing between options, what to eat, and coin flips.</li><li><b>Games &amp; parties:</b> truth or dare, dice, prize and mystery wheels.</li><li><b>Names &amp; groups:</b> pick a name, split a class into teams, or generate new names and letters.</li><li><b>Numbers &amp; chance:</b> random numbers as a list or a wheel, plus a spinner.</li><li><b>Giveaways:</b> draw winners live with the raffle wheel.</li><li><b>Geography:</b> random countries and states, and a flag quiz.</li><li><b>Sports:</b> random NFL, NBA and MLB teams, by conference or division.</li><li><b>Words &amp; creativity:</b> random words, drawing prompts and letters.</li><li><b>Colors:</b> random colours with hex codes.</li></ul></div>
 {cards}
 </div></main>
 {footer()}
@@ -527,7 +539,7 @@ def es_page(p):
     path = "/" + p["slug"]
     h = page(q)
     h = h.replace("window.WV=" + json.dumps({k: q[k] for k in ("entries", "variants", "mode", "colorMap", "removeWinner", "resultLabel", "popLabel", "key", "prompts") if k in q}, ensure_ascii=False),
-                  "window.WV=" + json.dumps(dict({k: q[k] for k in ("entries", "variants", "removeWinner", "resultLabel", "popLabel", "key", "palette") if k in q}, t=ES_JS), ensure_ascii=False), 1)
+                  "window.WV=" + json.dumps(dict({k: q[k] for k in ("entries", "variants", "removeWinner", "resultLabel", "popLabel", "key", "palette", "mode", "colorMap") if k in q}, t=ES_JS), ensure_ascii=False), 1)
     nav = "".join('<a href="/%s"%s%s>%s</a>' % (sl, ' aria-current="page"' if "/" + sl == path else "", ' hreflang="en" lang="en"' if sl == "" else "", n) for sl, n in NAV_ES)
     h = re.sub(r'<nav id="mnav" aria-label="Main">[\s\S]*?</nav>', f'<nav id="mnav" aria-label="Principal">{nav}</nav>', h, count=1)
     crumbs = f'<a href="/es">Wheelova</a> / <span aria-current="page">{e(p["h1"])}</span>' if p["slug"] != "es" else '<span aria-current="page">Wheelova</span>'
@@ -535,7 +547,7 @@ def es_page(p):
     h = h.replace('"name": "Wheels", "item": "' + SITE + '/wheels"', '"name": "Ruleta aleatoria", "item": "' + SITE + '/es"')
     if p["slug"] == "es":
         h = h.replace(', {"@type": "ListItem", "position": 3, "name": "Ruleta aleatoria", "item": "' + SITE + '/es"}', '')
-    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand("/es", "Gira la ruleta. Confía en el resultado.", "© 2026 Wheelova. Ruleta aleatoria gratis.") + '<div><span class="h">Ruletas</span>' + "".join(f'<a href="/{x["slug"]}">{e(x["nav"])}</a>' for x in ES) + '</div><div><span class="h">Wheelova</span><a href="/" hreflang="en" lang="en">English</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="#cookies" data-wvcookies>Cookies</a></div></div></footer>', h, count=1)
+    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand("/es", "Gira la ruleta. Confía en el resultado.", "© 2026 Wheelova. Ruleta aleatoria gratis.") + '<div><span class="h">Ruletas</span>' + "".join(f'<a href="/{x["slug"]}">{e(x["nav"])}</a>' for x in ES) + '</div><div><span class="h">Wheelova</span><a href="/" hreflang="en" lang="en">English</a><a href="/fr" hreflang="fr" lang="fr">Français</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="#cookies" data-wvcookies>Cookies</a></div></div></footer>', h, count=1)
     R = [('<html lang="en">', '<html lang="es">'),
          ('aria-label="Switch to light mode"', 'aria-label="' + ES_JS["tolight"] + '"'), ('aria-label="Open menu"', 'aria-label="Abrir menú"'),
          ('aria-label="Fullscreen" title="Fullscreen (F)"', 'aria-label="Pantalla completa" title="Pantalla completa (F)"'),
@@ -550,7 +562,7 @@ def es_page(p):
          ('One entry per line. Saved in your browser automatically.', U["help"]),
          ('Remove winner after each spin', U["remove"]),
          ('<summary>Settings</summary>', '<summary>Ajustes</summary>'), ('<label>Spin speed<', '<label>Velocidad de giro<'), ('<label>Wheel colors<', '<label>Colores de la ruleta<'), ('id="impbtn" type="button">Import<', 'id="impbtn" type="button">Importar<'), ('<label>Column<', '<label>Columna<'), ('> First row is a header<', '> La primera fila es un encabezado<'), ('type="button">Use column<', 'type="button">Usar columna<'), ('id="impno" type="button">Cancel<', 'id="impno" type="button">Cancelar<'), ('>Grayscale<', '>Escala de grises<'), ('>Color-blind friendly<', '>Apta para daltónicos<'), ('>Custom…<', '>Personalizados…<'), ('>Ocean<', '>Océano<'), ('>Sunset<', '>Atardecer<'), ('>Forest<', '>Bosque<'), ('aria-label="Color ', 'aria-label="Color '), ('> Read the result aloud<', '> Leer el resultado en voz alta<'), ('>Fast<', '>Rápida<'), ('>Slow<', '>Lenta<'), ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Título de la ventana del ganador<input id="wmsg" maxlength="60" placeholder="¡TENEMOS GANADOR!"'), ('</span>Sound<', '</span>' + U["sound"] + '<'),
-         ('Share link</button>', U["share"] + '</button>'), ('Embed</button>', U["embed"] + '</button>'),
+         ('Share link</button>', U["share"] + '</button>'), ('<label>From<input id="nmin"', '<label>Desde<input id="nmin"'), ('<label>To<input id="nmax"', '<label>Hasta<input id="nmax"'), ('style="height:40px">Make wheel<', 'style="height:40px">Crear ruleta<'), ('Embed</button>', U["embed"] + '</button>'),
          ('>Results <span id="rcount"', '>' + U["results"] + ' <span id="rcount"'),
          ('WE HAVE A WINNER', ES_JS["pop"]), ('>Remove from wheel<', '>' + U["pop_remove"] + '<'), ('>Close<', '>' + U["close"] + '<'),
          ('SHARE THIS WHEEL', U["share_title"]),
@@ -558,7 +570,7 @@ def es_page(p):
          ('for="shareurl">Link<', 'for="shareurl">' + U["link"] + '<'), ('id="sharecopy" type="button">Copy<', 'id="sharecopy" type="button">' + U["copy"] + '<'),
          ('Embed code — paste into your website, blog or OBS browser source', U["embed_label"]), ('>Copy embed code<', '>' + U["copy_embed"] + '<'),
          ('margin-bottom:12px">Questions<', 'margin-bottom:12px">' + U["faq"] + '<'), ('margin-bottom:20px">Related wheels<', 'margin-bottom:20px">' + U["related"] + '<'),
-         ('Written by <span>', 'Escrito por <span>'), ('Editor, Wheelova', 'editor de Wheelova'), ('Last updated <time', 'Actualizado el <time'), ('>October 21, 2026<', '>21 de octubre de 2026<'),
+         ('Written by <span>', 'Escrito por <span>'), ('Editor, Wheelova', 'editor de Wheelova'), ('Last updated <time', 'Actualizado el <time'), ('>October 21, 2026<', '>21 de octubre de 2026<'), ('>November 8, 2026<', '>8 de noviembre de 2026<'),
          ("Wheelova – Spin the wheel, trust the result", "Wheelova – Gira la ruleta, confía en el resultado"),
          ('content="Wheelova — spin the wheel, trust the result"', 'content="Wheelova — gira la ruleta"'),
          ]
@@ -567,6 +579,60 @@ def es_page(p):
         h = h.replace(a, b)
     h = re.sub(r'<p class="src">Randomness:.*?(?= Sources:|</p>)', '<p class="src">' + U["rand_src"], h, count=1).replace(" Sources: ", " " + U["sources"] + " ")
     h = h.replace('<meta property="og:type"', '<meta property="og:locale" content="es_ES">\n<meta property="og:type"', 1)
+    return h
+
+
+def fr_page(p):
+    q = dict(p); q["upgraded"] = True
+    q["howTitle"] = "Comment utiliser la roue aléatoire"
+    path = "/" + p["slug"]
+    h = page(q)
+    h = h.replace("window.WV=" + json.dumps({k: q[k] for k in ("entries", "variants", "mode", "colorMap", "removeWinner", "resultLabel", "popLabel", "key", "prompts") if k in q}, ensure_ascii=False),
+                  "window.WV=" + json.dumps(dict({k: q[k] for k in ("entries", "variants", "removeWinner", "resultLabel", "popLabel", "key", "palette") if k in q}, t=FR_JS), ensure_ascii=False), 1)
+    nav = "".join('<a href="/%s"%s%s>%s</a>' % (sl, ' aria-current="page"' if "/" + sl == path else "", (' hreflang="en" lang="en"' if sl == "" else ' hreflang="es" lang="es"' if sl == "es" else ""), n) for sl, n in NAV_FR)
+    h = re.sub(r'<nav id="mnav" aria-label="Main">[\s\S]*?</nav>', f'<nav id="mnav" aria-label="Principal">{nav}</nav>', h, count=1)
+    h = re.sub(r'(<nav class="crumbs" aria-label=")Breadcrumb(">)[\s\S]*?(</nav>)', lambda m: m.group(1) + "Fil d'Ariane" + m.group(2) + '<span aria-current="page">Wheelova</span>' + m.group(3), h, count=1)
+    h = re.sub(r', \{"@type": "ListItem", "position": 2, "name": "Wheels"[^}]*\}', '', h)
+    h = re.sub(r', \{"@type": "ListItem", "position": 3[^}]*\}', '', h)
+    h = re.sub(r'<section><div class="wrap">\n<h2 style="margin-bottom:20px">Related wheels</h2>\n<div class="grid">[\s\S]*?</div>\n', '<section><div class="wrap">\n', h, count=1)
+    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand("/fr", "Faites tourner la roue. Faites confiance au résultat.", "© 2026 Wheelova. Roue aléatoire gratuite.") + '<div><span class="h">Langues</span><a href="/" hreflang="en" lang="en">English</a><a href="/es" hreflang="es" lang="es">Español</a></div><div><span class="h">Wheelova</span><a href="/is-the-wheel-random">Étude d\'équité (EN)</a><a href="/about">About</a><a href="/privacy">Confidentialité (EN)</a><a href="/terms">Conditions (EN)</a><a href="#cookies" data-wvcookies>Cookies</a></div></div></footer>', h, count=1)
+    J = FR_JS
+    R = [('<html lang="en">', '<html lang="fr">'),
+         ('aria-label="Switch to light mode"', 'aria-label="' + J["tolight"] + '"'), ('aria-label="Open menu"', 'aria-label="Ouvrir le menu"'),
+         ('aria-label="Fullscreen" title="Fullscreen (F)"', 'aria-label="Plein écran" title="Plein écran (F)"'),
+         ('aria-label="Spinning wheel"', 'aria-label="Roue"'), ('aria-label="Spin the wheel">SPIN<', 'aria-label="Faire tourner la roue">TOURNER<'),
+         ('Press SPIN or the Space bar', "Appuyez sur TOURNER ou sur la barre d'espace"), ('>Entries <span id="count"', '>Choix <span id="count"'),
+         ('>Shuffle<', '>Mélanger<'), ('>Sort<', '>Trier<'), ('>Clear<', '>Effacer<'),
+         ('aria-label="Presets"', 'aria-label="Modèles"'),
+         ("You're viewing a shared wheel. Your own saved list is untouched.", "Vous regardez une roue partagée. Votre propre liste n'a pas été modifiée."), ('Back to my list', 'Revenir à ma liste'), ('>Keep this as my list<', '>Garder comme ma liste<'),
+         ('<summary>My saved wheels</summary>', '<summary>Mes roues enregistrées</summary>'), ('placeholder="Name, e.g. Period 3" aria-label="Name for this wheel"', 'placeholder="Nom, ex. CM2 B" aria-label="Nom de cette roue"'),
+         ('>Save list<', '>Enregistrer<'), ('Save this list under a name to switch between classes or groups. Stored only in this browser.', 'Enregistrez cette liste sous un nom pour passer d\'une classe ou d\'un groupe à l\'autre. Stockée uniquement dans ce navigateur.'),
+         ('id="rcopy" type="button">Copy<', 'id="rcopy" type="button">Copier<'), ('>Undo<', '>Annuler<'),
+         ('One entry per line. Saved in your browser automatically.', 'Un choix par ligne. Enregistré automatiquement dans votre navigateur.'),
+         ('Remove winner after each spin', 'Retirer le gagnant après chaque tour'),
+         ('<summary>Settings</summary>', '<summary>Réglages</summary>'), ('<label>Spin speed<', '<label>Vitesse<'), ('<label>Wheel colors<', '<label>Couleurs de la roue<'),
+         ('id="impbtn" type="button">Import<', 'id="impbtn" type="button">Importer<'), ('<label>Column<', '<label>Colonne<'), ('> First row is a header<', '> La première ligne est un en-tête<'), ('type="button">Use column<', 'type="button">Utiliser la colonne<'), ('id="impno" type="button">Cancel<', 'id="impno" type="button">Annuler<'),
+         ('>Grayscale<', '>Niveaux de gris<'), ('>Color-blind friendly<', '>Adaptée aux daltoniens<'), ('>Custom…<', '>Personnalisées…<'), ('>Ocean<', '>Océan<'), ('>Sunset<', '>Coucher de soleil<'), ('>Forest<', '>Forêt<'), ('aria-label="Color ', 'aria-label="Couleur '),
+         ('> Read the result aloud<', '> Lire le résultat à voix haute<'), ('>Fast<', '>Rapide<'), ('>Normal<', '>Normale<'), ('>Slow<', '>Lente<'),
+         ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Titre de la fenêtre du gagnant<input id="wmsg" maxlength="60" placeholder="' + J["pop"] + '"'),
+         ('</span>Sound<', '</span>Son<'),
+         ('Share link</button>', 'Partager le lien</button>'), ('Embed</button>', 'Intégrer</button>'),
+         ('>Results <span id="rcount"', '>Résultats <span id="rcount"'),
+         ('WE HAVE A WINNER', J["pop"]), ('>Remove from wheel<', '>Retirer de la roue<'), ('>Close<', '>Fermer<'),
+         ('SHARE THIS WHEEL', J["share_title"]),
+         ('Anyone with this link can see your entries: they are encoded inside the link (not encrypted). Nothing is stored on our server, but the link stays in browser history and wherever you paste it, so avoid sharing private lists.', "Toute personne qui a ce lien peut voir vos choix : ils sont encodés dans le lien (pas chiffrés). Rien n'est stocké sur notre serveur, mais le lien reste dans l'historique du navigateur et partout où vous le collez : évitez de partager des listes privées."),
+         ('for="shareurl">Link<', 'for="shareurl">Lien<'), ('id="sharecopy" type="button">Copy<', 'id="sharecopy" type="button">Copier<'),
+         ('Embed code — paste into your website, blog or OBS browser source', "Code d'intégration : collez-le dans votre site, votre blog ou une source navigateur OBS"), ('>Copy embed code<', '>Copier le code<'),
+         ('margin-bottom:12px">Questions<', 'margin-bottom:12px">Questions fréquentes<'),
+         ('Written by <span>', 'Écrit par <span>'), ('Editor, Wheelova', 'rédacteur de Wheelova'), ('Last updated <time', 'Mis à jour le <time'), ('>October 21, 2026<', '>21 octobre 2026<'), ('>November 8, 2026<', '>8 novembre 2026<'),
+         ("Wheelova – Spin the wheel, trust the result", "Wheelova – Faites tourner la roue"),
+         ('content="Wheelova — spin the wheel, trust the result"', 'content="Wheelova — faites tourner la roue"'),
+         ]
+    h = h.replace('\n<p style="margin-top:18px"><a class="more" href="/faq">More questions? Read the full FAQ →</a></p>', '')
+    for a, b in R:
+        h = h.replace(a, b)
+    h = re.sub(r'<p class="src">Randomness:.*?(?= Sources:|</p>)', '<p class="src">Hasard : Wheelova utilise <a href="https://developer.mozilla.org/fr/docs/Web/API/Crypto/getRandomValues" rel="noopener">crypto.getRandomValues()</a> du navigateur (MDN Web Docs).', h, count=1).replace(" Sources: ", " Sources : ")
+    h = h.replace('<meta property="og:type"', '<meta property="og:locale" content="fr_FR">\n<meta property="og:type"', 1)
     return h
 
 import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
@@ -578,6 +644,8 @@ for p in PAGES:
     files[p["slug"] + ".html"] = page(p)
 for p in ES:
     files[p["slug"] + ".html"] = es_page(p)
+for p in FR:
+    files[p["slug"] + ".html"] = fr_page(p)
 os.makedirs(os.path.join(OUT, "es"), exist_ok=True)
 os.makedirs(os.path.join(OUT, "guides"), exist_ok=True)
 for name, body in files.items():
@@ -595,7 +663,7 @@ LM_PATH = os.path.join(ROOT, "src", "lastmod.json")
 try: LM = json.load(open(LM_PATH))
 except Exception: LM = {}
 TODAY = datetime.date.today().isoformat()
-urls = ["", "wheels", "faq", study.SLUG, "guides", EP.SLUG] + [G["slug"] for G in GUIDES] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [s["slug"] for s in STATIC if s["slug"] != "404"]
+urls = ["", "wheels", "faq", study.SLUG, "guides", EP.SLUG] + [G["slug"] for G in GUIDES] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [p["slug"] for p in FR] + [s["slug"] for s in STATIC if s["slug"] != "404"]
 for u in urls:
     body = files["index.html" if u == "" else u + ".html"]
     m = re.search(r"<main>[\s\S]*?</main>", body)

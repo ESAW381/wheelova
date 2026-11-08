@@ -1,7 +1,7 @@
 {
 "": {
 "d": "2026-11-08",
-"h": "939ff0dc291b"
+"h": "6f4c60591844"
 },
 "about": {
 "d": "2026-10-21",
@@ -13,15 +13,19 @@
 },
 "color-wheel": {
 "d": "2026-11-08",
-"h": "b094ba330e7c"
+"h": "76730202da62"
 },
 "decision-wheel": {
 "d": "2026-11-08",
-"h": "eba3674c7039"
+"h": "48d86f38a1f0"
 },
 "dice-roller": {
 "d": "2026-10-30",
 "h": "b9d9c6043aea"
+},
+"drawing-prompt-wheel": {
+"d": "2026-11-08",
+"h": "545a0aa9c31f"
 },
 "embed-a-wheel": {
 "d": "2026-10-28",
@@ -31,6 +35,10 @@
 "d": "2026-11-08",
 "h": "228979df40b5"
 },
+"es/ruleta-de-colores": {
+"d": "2026-11-08",
+"h": "170eeccfadb8"
+},
 "es/ruleta-de-decisiones": {
 "d": "2026-11-08",
 "h": "2077f3371054"
@@ -38,6 +46,10 @@
 "es/ruleta-de-nombres": {
 "d": "2026-11-08",
 "h": "5f7b2bdf855e"
+},
+"es/ruleta-de-numeros": {
+"d": "2026-11-08",
+"h": "154eb3889d76"
 },
 "es/ruleta-de-sorteo": {
 "d": "2026-11-08",
@@ -54,6 +66,14 @@
 "flag-quiz": {
 "d": "2026-10-28",
 "h": "94b827513178"
+},
+"food-wheel": {
+"d": "2026-11-08",
+"h": "88b47733a8d6"
+},
+"fr": {
+"d": "2026-11-08",
+"h": "b76d040b668b"
 },
 "guides": {
 "d": "2026-10-30",
@@ -85,11 +105,11 @@
 },
 "name-picker-wheel": {
 "d": "2026-11-08",
-"h": "0d972821f7ea"
+"h": "cd1f71e34a3a"
 },
 "number-wheel": {
 "d": "2026-11-08",
-"h": "6e0dfaaacd1f"
+"h": "23af42edfcae"
 },
 "privacy": {
 "d": "2026-11-08",
@@ -97,7 +117,7 @@
 },
 "raffle-wheel": {
 "d": "2026-11-08",
-"h": "ef6c31a2c27f"
+"h": "16b3d7e1472d"
 },
 "random-country-generator": {
 "d": "2026-11-08",
@@ -105,7 +125,7 @@
 },
 "random-letter-generator": {
 "d": "2026-11-08",
-"h": "a00cf29944f9"
+"h": "10c25338dbea"
 },
 "random-mlb-team-generator": {
 "d": "2026-11-08",
@@ -125,7 +145,7 @@
 },
 "random-number-generator": {
 "d": "2026-11-08",
-"h": "a22098a7513c"
+"h": "b00899e5b924"
 },
 "random-pair-generator": {
 "d": "2026-10-29",
@@ -138,6 +158,10 @@
 "random-team-generator": {
 "d": "2026-10-30",
 "h": "44c03f69c807"
+},
+"random-word-wheel": {
+"d": "2026-11-08",
+"h": "a2d4fcc0e963"
 },
 "spinner": {
 "d": "2026-11-08",
@@ -152,11 +176,11 @@
 "h": "f9bc5ec16f50"
 },
 "wheels": {
-"d": "2026-10-30",
-"h": "6751541b6bee"
+"d": "2026-11-08",
+"h": "187e0e52341b"
 },
 "yes-or-no-wheel": {
 "d": "2026-11-08",
-"h": "f9ed185ba402"
+"h": "529673b4b887"
 }
 }

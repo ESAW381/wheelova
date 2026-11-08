@@ -869,3 +869,7 @@ for _k, _v in {
 }.items():
     UPGRADES.setdefault(_k, {}).update(_v)
 
+
+# Pages whose body content changed on Nov 8 2026 (Batches 1-3) carry that date in their byline.
+for _k in ("random-number-generator", "yes-or-no-wheel", "name-picker-wheel", "number-wheel", "raffle-wheel"):
+    UPGRADES.setdefault(_k, {})["updated"] = "2026-11-08"
