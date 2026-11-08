@@ -363,7 +363,7 @@ UPGRADES.update({
    "3. **Say the numbers out loud.** \"We have 214 valid entries and 3 prizes.\"\n"
    "4. **Announce the prize order** before the first spin — smallest prize first, or grand prize first.\n"
    "5. **Spin live** on screen, in a stream, or on a recorded video, with Remove winner on.\n"
-   "6. **Keep a record.** Screenshot the entry count and the Results list, and keep it until prizes are delivered.\n\n"
+   "6. **Keep a record.** Screenshot the entry count, then press **CSV** under Results to save the winners in the order they were drawn. Keep both until prizes are delivered.\n\n"
    "If a winner doesn't respond within the time in your rules, spin again for a replacement and record that too."},
   {"h2": "Tickets or names?", "body":
    "- **One entry each:** paste names, one per line.\n"
@@ -530,7 +530,7 @@ UPGRADES.update({
   {"h2": "Odds and repeats", "body":
    "Each number has a chance of **1 ÷ (size of the range)**: 10% on 1–10, 1% on 1–100.\n\n"
    "- **Remove winner off:** numbers can repeat, like rolling a die. Repeats come sooner than people expect.\n"
-   "- **Remove winner on:** each number appears once, like drawing tickets from a hat — the right choice for raffles and bingo."},
+   "- **Remove winner on:** each number appears once, like drawing tickets from a hat — the right choice for raffles and bingo.\n\n| Range | Slices | Chance per spin | Chance a given number comes up at least once in 10 spins (repeats allowed) |\n|---|---|---|---|\n| 1–6 | 6 | 16.7% | 83.8% |\n| 1–10 | 10 | 10% | 65.1% |\n| 1–20 | 20 | 5% | 40.1% |\n| 1–50 | 50 | 2% | 18.3% |\n| 1–100 | 100 | 1% | 9.6% |\n\nThe last column is 1 − (1 − 1/n)¹⁰. Every slice is the same size, and the winner is chosen by a random stopping angle; we tested that spin code over 1,000,000 spins per wheel in the [fairness study](/is-the-wheel-random)."},
   {"h2": "Bingo caller", "body":
    "- **US-style bingo** uses 75 numbers: set From 1, To 75.\n"
    "- **UK-style bingo** uses 90 numbers: set From 1, To 90.\n\n"
@@ -847,3 +847,14 @@ UPGRADES.setdefault("name-picker-wheel", {}).update({
  "title": "Random Name Picker – Spin the Name Wheel to Pick a Name | Wheelova",
  "description": "Paste a list of names and spin the name wheel to pick one at random. Remove winners for fair turns, save a list per class, and copy the order. Free, no sign-up.",
 })
+
+# ---- Batch 3 (Nov 8 2026): metadata aligned with each tool's owned intent (master plan cluster map)
+for _k, _v in {
+ "number-wheel": {"title": "Random Number Wheel – Spin a Number Generator Wheel (1–100 or Any Range) | Wheelova"},
+ "raffle-wheel": {"title": "Raffle Wheel – Random Raffle Generator & Giveaway Winner Picker | Wheelova",
+   "description": "Free raffle generator wheel: paste entrants or ticket numbers, spin live, remove each winner and export the draw order as CSV. No sign-up."},
+ "lucky-wheel": {"title": "Lucky Wheel – Spin the Prize Wheel to Win | Wheelova",
+   "description": "Make a lucky prize wheel with your own prizes, set the odds with extra slices, and spin to win. For parties, shop events, classrooms and games. Free."},
+ "color-wheel": {"title": "Color Wheel Spinner – Random Color Generator with Hex Codes | Wheelova"},
+}.items():
+    UPGRADES.setdefault(_k, {}).update(_v)
