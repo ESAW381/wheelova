@@ -9,7 +9,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "26"
+V = "27"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -180,7 +180,7 @@ def tool(controls="", default_label="Entries"):
 <p class="small" id="entries-help">One entry per line. Saved in your browser automatically.</p>
 <button class="toggle" id="remove" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Remove winner after each spin</button>
 <button class="toggle" id="sound" type="button" aria-pressed="true"><span class="sw" aria-hidden="true"></span>Sound</button>
-<details class="wset"><summary>Settings</summary><div class="wsetb"><label>Spin speed<select id="wspeed"><option value="fast">Fast</option><option value="normal">Normal</option><option value="slow">Slow</option></select></label><label>Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"></label><label class="ck"><input id="wspeak" type="checkbox"> Read the result aloud</label></div></details>
+<details class="wset"><summary>Settings</summary><div class="wsetb"><label>Spin speed<select id="wspeed"><option value="fast">Fast</option><option value="normal">Normal</option><option value="slow">Slow</option></select></label><label>Wheel colors<select id="wcolors"><option value="default">Wheelova</option><option value="pastel">Pastel</option><option value="ocean">Ocean</option><option value="sunset">Sunset</option><option value="forest">Forest</option><option value="mono">Grayscale</option><option value="safe">Color-blind friendly</option><option value="custom">Custom…</option></select></label><div class="wcust" id="wcust" hidden><input type="color" aria-label="Color 1"><input type="color" aria-label="Color 2"><input type="color" aria-label="Color 3"><input type="color" aria-label="Color 4"><input type="color" aria-label="Color 5"><input type="color" aria-label="Color 6"></div><label>Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"></label><label class="ck"><input id="wspeak" type="checkbox"> Read the result aloud</label></div></details>
 <div class="sharerow"><button class="btn" id="sharebtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Share link</button><button class="btn" id="embedbtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>Embed</button></div>
 <details class="wset" id="wsaves"><summary>My saved wheels</summary><div class="wsetb"><div class="wsrow"><input id="wsname" maxlength="40" placeholder="Name, e.g. Period 3" aria-label="Name for this wheel"><button class="btn" id="wssave" type="button">Save list</button></div><ul class="wslist" id="wslist"></ul><p class="small" id="wsempty">Save this list under a name to switch between classes or groups. Stored only in this browser.</p></div></details>
 </div>
@@ -549,7 +549,7 @@ def es_page(p):
          ('id="rcopy" type="button">Copy<', 'id="rcopy" type="button">Copiar<'), ('>Undo<', '>Deshacer<'),
          ('One entry per line. Saved in your browser automatically.', U["help"]),
          ('Remove winner after each spin', U["remove"]),
-         ('<summary>Settings</summary>', '<summary>Ajustes</summary>'), ('<label>Spin speed<', '<label>Velocidad de giro<'), ('> Read the result aloud<', '> Leer el resultado en voz alta<'), ('>Fast<', '>Rápida<'), ('>Slow<', '>Lenta<'), ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Título de la ventana del ganador<input id="wmsg" maxlength="60" placeholder="¡TENEMOS GANADOR!"'), ('</span>Sound<', '</span>' + U["sound"] + '<'),
+         ('<summary>Settings</summary>', '<summary>Ajustes</summary>'), ('<label>Spin speed<', '<label>Velocidad de giro<'), ('<label>Wheel colors<', '<label>Colores de la ruleta<'), ('>Grayscale<', '>Escala de grises<'), ('>Color-blind friendly<', '>Apta para daltónicos<'), ('>Custom…<', '>Personalizados…<'), ('>Ocean<', '>Océano<'), ('>Sunset<', '>Atardecer<'), ('>Forest<', '>Bosque<'), ('aria-label="Color ', 'aria-label="Color '), ('> Read the result aloud<', '> Leer el resultado en voz alta<'), ('>Fast<', '>Rápida<'), ('>Slow<', '>Lenta<'), ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Título de la ventana del ganador<input id="wmsg" maxlength="60" placeholder="¡TENEMOS GANADOR!"'), ('</span>Sound<', '</span>' + U["sound"] + '<'),
          ('Share link</button>', U["share"] + '</button>'), ('Embed</button>', U["embed"] + '</button>'),
          ('>Results <span id="rcount"', '>' + U["results"] + ' <span id="rcount"'),
          ('WE HAVE A WINNER', ES_JS["pop"]), ('>Remove from wheel<', '>' + U["pop_remove"] + '<'), ('>Close<', '>' + U["close"] + '<'),

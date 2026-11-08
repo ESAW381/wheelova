@@ -36,6 +36,8 @@ FAQ_PAGE = {
     "Yes. Open **Settings** under the entries box and choose Fast, Normal or Slow. Your choice is saved in your browser. If your device is set to reduce motion, the wheel stops almost instantly whatever you choose."),
    ("Can I change the text in the winner pop-up?",
     "Yes. In **Settings**, type your own heading, for example \"Today's presenter\" or \"Congratulations!\". Leave it empty to use the default."),
+   ("Can I change the wheel's colors?",
+    "Yes. Open **Settings** and choose a color set under **Wheel colors**: Pastel, Ocean, Sunset, Forest, Grayscale or a color-blind friendly set, or pick **Custom** and choose six colors yourself. Your choice is saved in your browser, and share links and embeds keep the colors you picked."),
    ("Can I turn off the sound?",
     "Yes. Use the **Sound** switch under the entries. Custom sounds and music are not available."),
    ("Can I use more than one wheel at a time?",

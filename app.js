@@ -1,5 +1,8 @@
 (function(){
 var cfg=window.WV||{},T=cfg.t||{};
+var PALS={pastel:['#A5B4FC','#FDA4AF','#FCD34D','#86EFAC','#93C5FD','#F9A8D4','#5EEAD4','#FDBA74'],ocean:['#0C4A6E','#0284C7','#38BDF8','#0E7490','#22D3EE','#1E3A8A','#7DD3FC','#155E75'],sunset:['#7C2D12','#EA580C','#FB923C','#F59E0B','#DC2626','#BE185D','#FDE047','#9A3412'],forest:['#14532D','#16A34A','#4ADE80','#65A30D','#A3E635','#3F6212','#86EFAC','#166534'],mono:['#18181B','#52525B','#A1A1AA','#3F3F46','#D4D4D8','#71717A'],safe:['#E69F00','#56B4E9','#009E73','#F0E442','#0072B2','#D55E00','#CC79A7','#000000']};
+function parsePal(v){if(!v||v==='default')return null;if(PALS[v])return PALS[v];var m=/^custom:((?:[0-9a-fA-F]{6}\.?){2,8})$/.exec(v);if(!m)return null;return m[1].split('.').filter(Boolean).map(function(h){return '#'+h.toUpperCase()})}
+var palSel=(function(){var h=/[#&]c=([a-z0-9:.]+)/i.exec(location.hash);if(h&&/[#&]w=/.test(location.hash))return h[1];try{return localStorage.getItem('wv_colors')||'default'}catch(e){return 'default'}})();
 var COLORS=['#6E56F0','#E11D48','#F59E0B','#16A34A','#2563EB','#DB2777','#0D9488','#EA580C'];
 var DARK={2:1,6:1};
 var DEFAULT=cfg.entries||['Ayesha','Bilal','Chloe','Daniyal','Emma','Faisal','Grace','Hamza'];
@@ -26,6 +29,7 @@ function leaveShared(){if(!sharedMode)return;sharedMode=false;var n=$('sharenote
 function lum(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c}).join('');var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);return (0.299*r+0.587*g+0.114*b)/255}
 function fillFor(i,n,name){
 if(cfg.mode==='color'&&cfg.colorMap){var c=cfg.colorMap[name.toLowerCase()];if(c)return {f:c,t:lum(c)>0.6?'#141418':'#FFFFFF'}}
+var UP=parsePal(palSel);if(UP){var k2=(n%UP.length===1&&i===n-1&&n>1)?1:i%UP.length;return {f:UP[k2],t:lum(UP[k2])>0.62?'#141418':'#FFFFFF'}}
 if(cfg.palette){var P=cfg.palette,k=(n%P.length===1&&i===n-1&&n>1)?1:i%P.length;return {f:P[k],t:lum(P[k])>0.62?'#141418':'#FFFFFF'}}
 var ci=(n%8===1&&i===n-1&&n>1)?1:i%8;return {f:COLORS[ci],t:lum(COLORS[ci])>0.62?'#141418':'#FFFFFF'}}
 var FL=cfg.flags||null,flagMode='name',FIMG={};
@@ -84,6 +88,14 @@ $('clear').onclick=function(){setEntries([],T.cleared||'List cleared.');ta.focus
 var rb=$('remove');rb.setAttribute('aria-pressed',removeW);rb.onclick=function(){removeW=!removeW;this.setAttribute('aria-pressed',removeW)};
 $('sound').onclick=function(){sound=!sound;this.setAttribute('aria-pressed',sound)};
 var wf=$('wflag');if(FL){flagMode=load(KEY+'_flag')||'both';if(wf){wf.value=flagMode;wf.onchange=function(){flagMode=wf.value;store(KEY+'_flag',flagMode);draw()}}}
+(function(){var sel=$('wcolors'),cu=$('wcust');if(!sel)return;if(cfg.mode==='color'){sel.parentNode.hidden=true;return}
+var ins=cu?cu.querySelectorAll('input'):[],base=parsePal(palSel)||cfg.palette||COLORS;
+function setIns(p){for(var i=0;i<ins.length;i++)ins[i].value=(p[i%p.length]||'#6E56F0').toLowerCase()}
+var cur=/^custom:/.test(palSel)?'custom':(PALS[palSel]?palSel:'default');sel.value=cur;setIns(base);if(cu)cu.hidden=cur!=='custom';
+function custom(){var a=[];for(var i=0;i<ins.length;i++)a.push(ins[i].value.replace('#','').toUpperCase());return 'custom:'+a.join('.')}
+function apply(v){palSel=v;if(!sharedMode)store('wv_colors',v);draw()}
+sel.onchange=function(){if(cu)cu.hidden=sel.value!=='custom';apply(sel.value==='custom'?custom():sel.value)};
+for(var i=0;i<ins.length;i++)ins[i].oninput=function(){if(sel.value==='custom')apply(custom())}})();
 var speed=load('wv_speed')||'normal',wsp=$('wspeed'),wmsg=$('wmsg');if(wsp){wsp.value=speed;wsp.onchange=function(){speed=wsp.value;store('wv_speed',speed)}}
 var wspk=$('wspeak');if(wspk){if(!('speechSynthesis' in window))wspk.parentNode.style.display='none';wspk.checked=load('wv_speak')==='1';wspk.onchange=function(){store('wv_speak',wspk.checked?'1':'0')}}
 if(wmsg){wmsg.value=load(KEY+'_msg')||'';wmsg.addEventListener('input',function(){store(KEY+'_msg',wmsg.value)})}
@@ -102,12 +114,12 @@ function dec(t){try{t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+=
 var saved=load(KEY),hm=/[#&]w=([^&]+)/.exec(location.hash),shared=hm?dec(hm[1]):null;
 if(shared&&shared.length){sharedMode=true;ta.value=shared.join('\n');var sn=$('sharenote');if(sn)sn.hidden=false}else{ta.value=saved!=null&&saved.trim()?saved:DEFAULT.join('\n')}
 parse();
-var ml=$('mylist');if(ml)ml.onclick=function(){leaveShared();ta.value=saved!=null&&saved.trim()?saved:DEFAULT.join('\n');parse()};
-var ks=$('savesh');if(ks)ks.onclick=function(){var old=saved;leaveShared();parse();saved=ta.value;if(old&&old.trim()&&old!==ta.value)offerUndo(T.kept||'Shared wheel saved as your list.',old);else showToast(T.kept||'Shared wheel saved as your list.')};
+var ml=$('mylist');if(ml)ml.onclick=function(){leaveShared();palSel=load('wv_colors')||'default';var wc=$('wcolors');if(wc){wc.value=/^custom:/.test(palSel)?'custom':(PALS[palSel]?palSel:'default');var wq=$('wcust');if(wq)wq.hidden=wc.value!=='custom'}ta.value=saved!=null&&saved.trim()?saved:DEFAULT.join('\n');parse()};
+var ks=$('savesh');if(ks)ks.onclick=function(){var old=saved;leaveShared();store('wv_colors',palSel);parse();saved=ta.value;if(old&&old.trim()&&old!==ta.value)offerUndo(T.kept||'Shared wheel saved as your list.',old);else showToast(T.kept||'Shared wheel saved as your list.')};
 var SITE='https://wheelova.com',PATH=location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'');
 function openShare(withEmbed){if(entries.length<2){res.innerHTML='<div class="hint">'+(T.add2share||'Add at least two entries to share')+'</div>';return}
-var code=enc(entries),url=SITE+PATH+'#w='+code;$('shareurl').value=url;
-var emb=SITE+'/embed#w='+code+(cfg.mode&&cfg.mode!=='color'?'&m='+cfg.mode:'');
+var code=enc(entries),cp=parsePal(palSel)?'&c='+palSel:'',url=SITE+PATH+'#w='+code+cp;$('shareurl').value=url;
+var emb=SITE+'/embed#w='+code+(cfg.mode&&cfg.mode!=='color'?'&m='+cfg.mode:'')+cp;
 $('embedcode').value='<iframe src="'+emb+'" title="'+(T.iframe_title||'Spin the wheel – Wheelova')+'" width="100%" height="560" style="max-width:560px;border:0" loading="lazy"></iframe>\n<p style="font:14px sans-serif">'+(T.credit_pre||'Spin wheel by')+' <a href="'+SITE+PATH+'">Wheelova</a></p>';
 $('embedwrap').hidden=!withEmbed;$('sharettl').textContent=withEmbed?(T.embed_title||'EMBED THIS WHEEL'):(T.share_title||'SHARE THIS WHEEL');
 var w=$('sharewarn');w.hidden=url.length<=3000;w.textContent=(T.long?T.long.replace('{n}',url.length):'This list is long, so the link is long ('+url.length+' characters). It still works, but some chat apps may cut it off.');
