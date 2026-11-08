@@ -111,7 +111,7 @@ def head(title, desc, path, ld, ogtitle=None):
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <script>try{{var t=localStorage.getItem("wv_theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 <link rel="stylesheet" href="/app.css?v={V}">
-<script>if(!/[#&]w=/.test(location.hash)&&location.pathname.indexOf("/embed-a-wheel")!==0)(function(c,l,a,r,i,t,y){{c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)}})(window,document,"clarity","script","z4ruz9115a");</script>
+<script src="/consent.js?v={V}" defer></script>
 </head>
 <body>
 <header><div class="hd">
@@ -153,7 +153,7 @@ def footer():
 {fbrand("/", "Spin the wheel. Trust the result.", "© 2026 Wheelova. Free random wheel spinner.")}
 <div><span class="h">Popular wheels</span>{pop}</div>
 <div><span class="h">More wheels</span>{more}<a href="/wheels">All wheels</a></div>
-<div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/guides">Guides</a><a href="/embed-a-wheel">Embed a wheel</a><a href="/is-the-wheel-random">Fairness study</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+<div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/guides">Guides</a><a href="/embed-a-wheel">Embed a wheel</a><a href="/is-the-wheel-random">Fairness study</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="#cookies" data-wvcookies>Cookie settings</a></div>
 </div></footer>
 """
 
@@ -535,7 +535,7 @@ def es_page(p):
     h = h.replace('"name": "Wheels", "item": "' + SITE + '/wheels"', '"name": "Ruleta aleatoria", "item": "' + SITE + '/es"')
     if p["slug"] == "es":
         h = h.replace(', {"@type": "ListItem", "position": 3, "name": "Ruleta aleatoria", "item": "' + SITE + '/es"}', '')
-    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand("/es", "Gira la ruleta. Confía en el resultado.", "© 2026 Wheelova. Ruleta aleatoria gratis.") + '<div><span class="h">Ruletas</span>' + "".join(f'<a href="/{x["slug"]}">{e(x["nav"])}</a>' for x in ES) + '</div><div><span class="h">Wheelova</span><a href="/" hreflang="en" lang="en">English</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div></footer>', h, count=1)
+    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand("/es", "Gira la ruleta. Confía en el resultado.", "© 2026 Wheelova. Ruleta aleatoria gratis.") + '<div><span class="h">Ruletas</span>' + "".join(f'<a href="/{x["slug"]}">{e(x["nav"])}</a>' for x in ES) + '</div><div><span class="h">Wheelova</span><a href="/" hreflang="en" lang="en">English</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="#cookies" data-wvcookies>Cookies</a></div></div></footer>', h, count=1)
     R = [('<html lang="en">', '<html lang="es">'),
          ('aria-label="Switch to light mode"', 'aria-label="' + ES_JS["tolight"] + '"'), ('aria-label="Open menu"', 'aria-label="Abrir menú"'),
          ('aria-label="Fullscreen" title="Fullscreen (F)"', 'aria-label="Pantalla completa" title="Pantalla completa (F)"'),
@@ -582,7 +582,7 @@ os.makedirs(os.path.join(OUT, "es"), exist_ok=True)
 os.makedirs(os.path.join(OUT, "guides"), exist_ok=True)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
-for f in ["app.css", "rng.js", "app.js", "gen.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
+for f in ["app.css", "rng.js", "consent.js", "app.js", "gen.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(open(os.path.join(ROOT, f), encoding="utf-8").read())
 shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
 shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))
