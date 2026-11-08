@@ -125,19 +125,21 @@ UPGRADES = {
    "**Office and meetings:** who speaks first in stand-up, who takes notes, who picks the next team lunch spot, secret-gift partners.\n\n"
    "**Events and streams:** door-prize winners, audience volunteers, viewer shout-outs. For prize draws with many entrants, the [Raffle Wheel](/raffle-wheel) explains how to run a fair, recorded draw."},
   {"h2": "Presentation order in one minute", "body":
-   "Paste the class list, turn on **Remove winner**, and spin until the wheel is empty. The **Results** list keeps the order each name came up — that's your running order. Screenshot it or copy it into your plan."},
+   "Paste the class list, turn on **Remove winner**, and spin until the wheel is empty. The **Results** list keeps the order each name came up: that's your running order. Press **Copy** to paste it into your plan, or **CSV** to open it in a spreadsheet."},
+  {"h2": "Save a list for each class", "body":
+   "Teaching several classes? Type a name such as *Period 3* under **My saved wheels** and press **Save list**. You can keep up to 50 named lists and switch between them in one click. They are stored only in this browser, so on a new device, use a share link or paste the list again."},
   {"h2": "Picking groups instead of one person", "body":
    "To split the whole list into teams at once, use the [Random Team Generator](/random-team-generator). To create new names (for stories, games or examples) rather than pick from your own list, use the [Random Name Generator](/random-name-generator)."},
   {"h2": "Privacy", "body":
-   "Names stay in your own browser's storage on this device. They are not uploaded or shared. To clear them, press **Clear**, or clear your browser's site data."}
+   "Names are saved in your own browser's storage on this device, not on our servers, and the wheel is masked from our analytics. They only leave your device if you create a **Share link**: the names travel inside that link, so anyone who has it can read them. For a class list, keep it on your device rather than posting the link publicly. To clear the names, press **Clear**, or clear your browser's site data."}
  ],
  "faq": [
   {"q": "How many names can I add?", "a": "As many as you like. Labels shrink as the list grows; up to about 50 names stay easy to read on a projector."},
-  {"q": "Can I stop the same name being picked twice?", "a": "Yes. Keep \"Remove winner after each spin\" on, or press \"Remove from wheel\" in the winner popup."},
+  {"q": "Can I stop the same name being picked twice?", "a": "Yes. Keep \"Remove winner after each spin\" on, or press \"Remove from wheel\" in the winner popup. If you remove someone by mistake, press **Undo**."},
   {"q": "Can I paste names from Excel or Google Sheets?", "a": "Yes. Copy a single column and paste it into the entry box — each cell becomes one line and one slice."},
   {"q": "Is random calling stressful for students?", "a": "It can be if it's done abruptly. Research suggests \"warm\" random calling — with think time, pair answers and the option to pass — increases participation without raising disruptive anxiety for most students."},
   {"q": "Can I use this as a wheel of names for a giveaway?", "a": "Yes. Enter each eligible person once, spin live, and keep Remove winner on for multiple prizes."},
-  {"q": "Are the names I enter private?", "a": "Yes. Names are stored only in your own browser on this device. Nothing is uploaded."}
+  {"q": "Are the names I enter private?", "a": "Names are stored in your own browser on this device and are not sent to our servers. If you create a share link, the names are carried inside that link, so share it only with people who should see the list."}
  ],
  "sources": [S_CBE, S_MDN],
 },
@@ -839,3 +841,9 @@ _P3 = {
 }
 for _k, _v in _P3.items():
     UPGRADES.setdefault(_k, {}).update(_v)
+
+# ---- Batch 2 (Nov 8 2026): name picker owns "random name picker"/"name wheel"; generator owns creating new names
+UPGRADES.setdefault("name-picker-wheel", {}).update({
+ "title": "Random Name Picker – Spin the Name Wheel to Pick a Name | Wheelova",
+ "description": "Paste a list of names and spin the name wheel to pick one at random. Remove winners for fair turns, save a list per class, and copy the order. Free, no sign-up.",
+})
