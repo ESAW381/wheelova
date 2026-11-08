@@ -858,3 +858,14 @@ for _k, _v in {
  "color-wheel": {"title": "Color Wheel Spinner – Random Color Generator with Hex Codes | Wheelova"},
 }.items():
     UPGRADES.setdefault(_k, {}).update(_v)
+
+# ---- Batch 5 (Nov 8 2026): keyword gaps found vs competitor blog (custom, giveaway wheel, decision maker, classroom spinner)
+for _k, _v in {
+ "raffle-wheel": {"title": "Raffle Wheel – Giveaway Wheel & Random Raffle Generator | Wheelova",
+   "description": "Free giveaway wheel and raffle generator: paste or import entrants, spin live, remove each winner and export the draw order as CSV. No sign-up."},
+ "decision-wheel": {"title": "Decision Wheel – Random Decision Maker Wheel | Wheelova",
+   "description": "Can't decide? Put your options on the decision maker wheel and spin. Free random decision maker for food, plans, movies and tie-breaks. No sign-up."},
+ "name-picker-wheel": {"description": "Paste a list of names and spin the name wheel to pick one at random. A classroom spinner with fair turns, a saved list per class and copyable order. Free, no sign-up."},
+}.items():
+    UPGRADES.setdefault(_k, {}).update(_v)
+
