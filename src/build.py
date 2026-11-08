@@ -203,13 +203,13 @@ def byline(p):
 def scripts(p, cfg):
     if p.get("tool") == "flagquiz":
         iso = json.load(open(os.path.join(ROOT, "src", "country_iso.json"), encoding="utf-8"))
-        return f'<script>window.WQ={json.dumps({"regions": COUNTRIES, "iso": iso}, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}"></script>\n<script src="/quiz.js?v={V}"></script>'
+        return f'<script>window.WQ={json.dumps({"regions": COUNTRIES, "iso": iso}, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/quiz.js?v={V}" defer></script>'
     if p.get("tool"):
         g = {"type": p["tool"]}
         if p["tool"] in ("team", "pair"): g["sample"] = p["sample"]
         if p["tool"] == "name": g["data"] = p["data"]
-        return f'<script>window.WG={json.dumps(g, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}"></script>\n<script src="/gen.js?v={V}"></script>'
-    return f'<script>window.WV={json.dumps(cfg, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}"></script>\n<script src="/app.js?v={V}"></script>'
+        return f'<script>window.WG={json.dumps(g, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/gen.js?v={V}" defer></script>'
+    return f'<script>window.WV={json.dumps(cfg, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/app.js?v={V}" defer></script>'
 
 def gentool(p):
     t = p["tool"]
@@ -516,7 +516,7 @@ def home():
     main = re.sub(r'<section id="wheels">[\s\S]*?</section>\s*', '', main, count=1)
     t = re.search(r"<title>(.*?)</title>", src).group(1)
     d = re.search(r'<meta name="description" content="(.*?)">', src).group(1)
-    return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + FEATURED + POP + SHARE + footer() + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/rng.js?v={V}"></script>\n<script src="/app.js?v={V}"></script>\n</body>\n</html>\n'
+    return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + FEATURED + POP + SHARE + footer() + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/rng.js?v={V}" defer></script>\n<script src="/app.js?v={V}" defer></script>\n</body>\n</html>\n'
 
 BY.update({x["slug"]: x for x in ES})
 
