@@ -109,12 +109,38 @@ When the giveaway closes, build your entry list:
 
 ## 4. Draw the winner live
 
-1. Paste the final list into the [Raffle Wheel](/raffle-wheel), one entry per line.
+1. Paste the final list into the [Raffle Wheel](/raffle-wheel), one entry per line, or press **Import** and choose your exported CSV file. If it has several columns, pick the one with the names or usernames.
 2. Keep **Remove winner after each spin** on, so nobody wins twice.
 3. Announce the numbers before you spin: "212 valid entries, 3 prizes, drawn in order: third, second, first."
 4. **Spin on camera,** live or recorded with screen recording. Press **F** for full-screen so viewers can read the names.
-5. Spin once per prize. The **Results** list keeps the order of winners.
+5. Spin once per prize. The **Results** list keeps the order of winners; press **CSV** to save it with the time of each draw.
 6. Draw one or two **reserve winners** in case a winner doesn't reply or turns out to be ineligible.
+
+## Picking several winners without repeats
+
+Most multi-prize giveaways go wrong in one of three ways: the same person wins twice, nobody agreed which prize the first winner gets, or a re-draw looks like the organiser trying again for a better result. This routine avoids all three.
+
+1. **Fix the prize order before the first spin** and say it out loud, for example "third prize first, grand prize last".
+2. **Turn on Remove winner,** so each person can win once. If your rules allow someone to win more than one prize, leave it off and say so.
+3. **Spin once per prize, in that order,** and read each name aloud as it lands.
+4. **Draw reserves straight after,** with the same wheel, and label them "reserve 1", "reserve 2" in the order drawn. A reserve is only used if a winner turns out to be ineligible or doesn't reply in time.
+5. **Never re-spin because you don't like a result.** The only reasons to draw again are the ones written in your rules.
+
+**Does the order of prizes change anyone's chances?** No. With N valid entries and K prizes drawn without repeats, every entry has a K in N chance of winning something and a 1 in N chance of winning any particular prize, whether that prize is drawn first or last. With 200 entries and 3 prizes, each entry has a 1.5% chance of winning a prize, and a 0.5% chance of the grand prize.
+
+**Very large draws.** For thousands of entries, give each one a ticket number in your spreadsheet and draw numbers with the [Random Number Generator](/random-number-generator) set to **No repeats**. It draws several winners in one click; look the numbers up in your sheet.
+
+## Draw record checklist
+
+Keep this with your screen recording until every prize is delivered. Copy it into a note or a spreadsheet:
+
+> **Giveaway:** [name] · **Draw date and time:** [date, time, time zone]
+> **Entries closed:** [date, time] · **Valid entries:** [number] · **Removed:** [number and reason, e.g. duplicates, outside allowed countries]
+> **Tool:** Wheelova Raffle Wheel, Remove winner [on/off]
+> **Prize order announced:** [e.g. 3rd, 2nd, 1st]
+> **Winners in draw order:** [1. name — prize] [2. …] **Reserves:** [1. …]
+> **Recording:** [link or file name] · **Results CSV saved:** [yes/no]
+> **Winners contacted:** [date, method] · **Replies / replacements:** [notes]
 
 ## 5. Contact and announce
 
