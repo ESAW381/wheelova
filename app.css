@@ -224,3 +224,8 @@ blockquote.quote{margin:16px 0;padding:18px 22px;border:1px solid var(--line);bo
 .wtoast .linkbtn{color:var(--invtx);font-weight:700;text-decoration:underline}.wtoast[hidden]{display:none}
 
 .wcust{display:flex;gap:6px;flex-wrap:wrap}.wcust[hidden]{display:none}.wcust input{width:36px;height:30px;padding:0;border:1px solid var(--line,#333);border-radius:8px;background:none;cursor:pointer}
+
+.impcol{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0;padding:10px;border:1px solid var(--line,#333);border-radius:10px}.impcol[hidden]{display:none}.impcol select{margin-left:6px}
+
+.entacts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:420px){.card>.row:first-child{flex-wrap:wrap}.entacts{justify-content:flex-start}.entacts .btn{padding-left:10px;padding-right:10px}}

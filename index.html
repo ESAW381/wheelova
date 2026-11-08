@@ -57,10 +57,10 @@
 <div class="card">
 <div class="row">
 <label for="entries" style="font-weight:600;color:var(--hi)">Entries <span id="count" style="color:var(--mu2);font-weight:500"></span></label>
-<div style="display:flex;gap:6px"><button class="btn" id="shuffle" type="button">Shuffle</button><button class="btn" id="sort" type="button">Sort</button><button class="btn" id="clear" type="button">Clear</button></div>
+<div class="entacts"><button class="btn" id="shuffle" type="button">Shuffle</button><button class="btn" id="sort" type="button">Sort</button><button class="btn" id="clear" type="button">Clear</button><button class="btn" id="impbtn" type="button">Import</button><input type="file" id="impfile" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden></div>
 </div>
 <div class="sharenote" id="sharenote" hidden><span>You're viewing a shared wheel. Your own saved list is untouched.</span><span class="snacts"><button class="linkbtn" id="savesh" type="button">Keep this as my list</button><button class="linkbtn" id="mylist" type="button">Back to my list</button></span></div>
-<textarea id="entries" spellcheck="false" aria-describedby="entries-help"></textarea>
+<div class="impcol" id="impcol" hidden><label>Column<select id="impsel"></select></label><label class="ck"><input type="checkbox" id="imphdr" checked> First row is a header</label><button class="btn" id="impok" type="button">Use column</button><button class="linkbtn" id="impno" type="button">Cancel</button></div><textarea id="entries" spellcheck="false" aria-describedby="entries-help"></textarea>
 <p class="small" id="entries-help">One entry per line. Saved in your browser automatically.</p>
 <button class="toggle" id="remove" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Remove winner after each spin</button>
 <button class="toggle" id="sound" type="button" aria-pressed="true"><span class="sw" aria-hidden="true"></span>Sound</button>

@@ -1,7 +1,7 @@
 {
 "": {
 "d": "2026-11-08",
-"h": "8913b3e5852c"
+"h": "6c355f489e53"
 },
 "about": {
 "d": "2026-10-21",
@@ -13,11 +13,11 @@
 },
 "color-wheel": {
 "d": "2026-11-08",
-"h": "aeaa0d83e0a6"
+"h": "b094ba330e7c"
 },
 "decision-wheel": {
 "d": "2026-11-08",
-"h": "8f19550a9490"
+"h": "eba3674c7039"
 },
 "dice-roller": {
 "d": "2026-10-30",
@@ -29,27 +29,27 @@
 },
 "es": {
 "d": "2026-11-08",
-"h": "f92cc5f776bb"
+"h": "228979df40b5"
 },
 "es/ruleta-de-decisiones": {
 "d": "2026-11-08",
-"h": "fac7c2f0b06d"
+"h": "2077f3371054"
 },
 "es/ruleta-de-nombres": {
 "d": "2026-11-08",
-"h": "7e4ec140b62f"
+"h": "5f7b2bdf855e"
 },
 "es/ruleta-de-sorteo": {
 "d": "2026-11-08",
-"h": "e4306cb0276e"
+"h": "011adaeb98ac"
 },
 "es/ruleta-si-o-no": {
 "d": "2026-11-08",
-"h": "404f0fe2b19b"
+"h": "a8ae7df34525"
 },
 "faq": {
 "d": "2026-11-08",
-"h": "1b408e0e5232"
+"h": "716d19afc2be"
 },
 "flag-quiz": {
 "d": "2026-10-28",
@@ -77,19 +77,19 @@
 },
 "lucky-wheel": {
 "d": "2026-11-08",
-"h": "51a8fb27e123"
+"h": "ef1bdde408db"
 },
 "mystery-wheel": {
 "d": "2026-11-08",
-"h": "cf0d50c02d04"
+"h": "2132afa1b830"
 },
 "name-picker-wheel": {
 "d": "2026-11-08",
-"h": "0ec137e819c9"
+"h": "0d972821f7ea"
 },
 "number-wheel": {
 "d": "2026-11-08",
-"h": "866528a7a2ad"
+"h": "6e0dfaaacd1f"
 },
 "privacy": {
 "d": "2026-10-30",
@@ -97,19 +97,19 @@
 },
 "raffle-wheel": {
 "d": "2026-11-08",
-"h": "c8120a474c91"
+"h": "ef6c31a2c27f"
 },
 "random-country-generator": {
 "d": "2026-11-08",
-"h": "64a6470d50ee"
+"h": "c72df8c7b763"
 },
 "random-letter-generator": {
 "d": "2026-11-08",
-"h": "01c1a2f549e0"
+"h": "a00cf29944f9"
 },
 "random-mlb-team-generator": {
 "d": "2026-11-08",
-"h": "26e30cf2c37d"
+"h": "94fc8b61860c"
 },
 "random-name-generator": {
 "d": "2026-10-28",
@@ -117,11 +117,11 @@
 },
 "random-nba-team-generator": {
 "d": "2026-11-08",
-"h": "6ab38ae81a36"
+"h": "94661612bdfb"
 },
 "random-nfl-team-generator": {
 "d": "2026-11-08",
-"h": "9ea28cd607c5"
+"h": "dd5e6a48b79b"
 },
 "random-number-generator": {
 "d": "2026-11-08",
@@ -133,7 +133,7 @@
 },
 "random-state-generator": {
 "d": "2026-11-08",
-"h": "b7ea5e26e81b"
+"h": "6abc69c901d8"
 },
 "random-team-generator": {
 "d": "2026-10-30",
@@ -141,7 +141,7 @@
 },
 "spinner": {
 "d": "2026-11-08",
-"h": "02025fd0a03f"
+"h": "d0eeded424d3"
 },
 "terms": {
 "d": "2026-10-21",
@@ -149,7 +149,7 @@
 },
 "truth-or-dare-wheel": {
 "d": "2026-11-08",
-"h": "2f4573983b7c"
+"h": "f9bc5ec16f50"
 },
 "wheels": {
 "d": "2026-10-30",
@@ -157,6 +157,6 @@
 },
 "yes-or-no-wheel": {
 "d": "2026-11-08",
-"h": "31ca610a9495"
+"h": "f9ed185ba402"
 }
 }

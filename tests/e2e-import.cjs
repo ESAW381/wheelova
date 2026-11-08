@@ -1,0 +1,20 @@
+// Import from file: run with dist served on :8830. Args: path to multi.csv and one.txt fixtures.
+const {chromium}=require('playwright');const [,,multi,one]=process.argv;
+(async()=>{const b=await chromium.launch();let bad=0;const errs=[];const t=(c,m)=>{if(!c)bad++;console.log((c?'PASS ':'FAIL ')+m)};
+const p=await b.newPage();p.on('pageerror',e=>errs.push(e.message));await p.goto('http://localhost:8830/raffle-wheel.html');
+const ent=()=>p.inputValue('#entries');
+const [fc]=await Promise.all([p.waitForEvent('filechooser'),p.click('#impbtn')]);await fc.setFiles(one);await p.waitForTimeout(300);
+t(await ent()==='Ali\nBea\nCal','single-column text file imported, blanks dropped');
+t(await p.isVisible('#wtundo'),'undo offered after replacing list');
+const [fc2]=await Promise.all([p.waitForEvent('filechooser'),p.click('#impbtn')]);await fc2.setFiles(multi);await p.waitForTimeout(300);
+t(await p.isVisible('#impcol'),'column picker shown for multi-column CSV');
+const opts=await p.$$eval('#impsel option',o=>o.map(x=>x.textContent));t(opts.join('|')==='Name|Email|Team','header names used as column labels');
+await p.click('#impok');await p.waitForTimeout(200);
+t(await ent()==='Smith, Ann\nBob\nChloé "CJ"','quoted commas, escaped quotes and UTF-8 parsed');
+await p.click('#wtundo');await p.waitForTimeout(200);t(await ent()==='Ali\nBea\nCal','undo restores previous list');
+const [fc3]=await Promise.all([p.waitForEvent('filechooser'),p.click('#impbtn')]);await fc3.setFiles(multi);await p.waitForTimeout(300);
+await p.selectOption('#impsel','2');await p.uncheck('#imphdr');await p.click('#impok');await p.waitForTimeout(200);
+t(await ent()==='Team\nRed\nBlue\nRed','other column without header row');
+await p.goto('http://localhost:8830/es.html');const [fc4]=await Promise.all([p.waitForEvent('filechooser'),p.click('#impbtn')]);await fc4.setFiles(one);await p.waitForTimeout(300);
+t(/Se importaron 3 entradas/.test(await p.textContent('#wtmsg')),'Spanish toast');
+t(errs.length===0,'no page errors '+errs.join(';'));console.log(bad?'FAILED '+bad:'ALL PASSED');await b.close()})();

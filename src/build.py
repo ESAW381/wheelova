@@ -172,11 +172,11 @@ def tool(controls="", default_label="Entries"):
 <div class="card">
 <div class="row">
 <label for="entries" style="font-weight:600;color:var(--hi)">{default_label} <span id="count" style="color:var(--mu2);font-weight:500"></span></label>
-<div style="display:flex;gap:6px"><button class="btn" id="shuffle" type="button">Shuffle</button><button class="btn" id="sort" type="button">Sort</button><button class="btn" id="clear" type="button">Clear</button></div>
+<div class="entacts"><button class="btn" id="shuffle" type="button">Shuffle</button><button class="btn" id="sort" type="button">Sort</button><button class="btn" id="clear" type="button">Clear</button><button class="btn" id="impbtn" type="button">Import</button><input type="file" id="impfile" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden></div>
 </div>
 {controls}
 <div class="sharenote" id="sharenote" hidden><span>You're viewing a shared wheel. Your own saved list is untouched.</span><span class="snacts"><button class="linkbtn" id="savesh" type="button">Keep this as my list</button><button class="linkbtn" id="mylist" type="button">Back to my list</button></span></div>
-<textarea id="entries" spellcheck="false" aria-describedby="entries-help"></textarea>
+<div class="impcol" id="impcol" hidden><label>Column<select id="impsel"></select></label><label class="ck"><input type="checkbox" id="imphdr" checked> First row is a header</label><button class="btn" id="impok" type="button">Use column</button><button class="linkbtn" id="impno" type="button">Cancel</button></div><textarea id="entries" spellcheck="false" aria-describedby="entries-help"></textarea>
 <p class="small" id="entries-help">One entry per line. Saved in your browser automatically.</p>
 <button class="toggle" id="remove" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Remove winner after each spin</button>
 <button class="toggle" id="sound" type="button" aria-pressed="true"><span class="sw" aria-hidden="true"></span>Sound</button>
@@ -549,7 +549,7 @@ def es_page(p):
          ('id="rcopy" type="button">Copy<', 'id="rcopy" type="button">Copiar<'), ('>Undo<', '>Deshacer<'),
          ('One entry per line. Saved in your browser automatically.', U["help"]),
          ('Remove winner after each spin', U["remove"]),
-         ('<summary>Settings</summary>', '<summary>Ajustes</summary>'), ('<label>Spin speed<', '<label>Velocidad de giro<'), ('<label>Wheel colors<', '<label>Colores de la ruleta<'), ('>Grayscale<', '>Escala de grises<'), ('>Color-blind friendly<', '>Apta para daltónicos<'), ('>Custom…<', '>Personalizados…<'), ('>Ocean<', '>Océano<'), ('>Sunset<', '>Atardecer<'), ('>Forest<', '>Bosque<'), ('aria-label="Color ', 'aria-label="Color '), ('> Read the result aloud<', '> Leer el resultado en voz alta<'), ('>Fast<', '>Rápida<'), ('>Slow<', '>Lenta<'), ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Título de la ventana del ganador<input id="wmsg" maxlength="60" placeholder="¡TENEMOS GANADOR!"'), ('</span>Sound<', '</span>' + U["sound"] + '<'),
+         ('<summary>Settings</summary>', '<summary>Ajustes</summary>'), ('<label>Spin speed<', '<label>Velocidad de giro<'), ('<label>Wheel colors<', '<label>Colores de la ruleta<'), ('id="impbtn" type="button">Import<', 'id="impbtn" type="button">Importar<'), ('<label>Column<', '<label>Columna<'), ('> First row is a header<', '> La primera fila es un encabezado<'), ('type="button">Use column<', 'type="button">Usar columna<'), ('id="impno" type="button">Cancel<', 'id="impno" type="button">Cancelar<'), ('>Grayscale<', '>Escala de grises<'), ('>Color-blind friendly<', '>Apta para daltónicos<'), ('>Custom…<', '>Personalizados…<'), ('>Ocean<', '>Océano<'), ('>Sunset<', '>Atardecer<'), ('>Forest<', '>Bosque<'), ('aria-label="Color ', 'aria-label="Color '), ('> Read the result aloud<', '> Leer el resultado en voz alta<'), ('>Fast<', '>Rápida<'), ('>Slow<', '>Lenta<'), ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Título de la ventana del ganador<input id="wmsg" maxlength="60" placeholder="¡TENEMOS GANADOR!"'), ('</span>Sound<', '</span>' + U["sound"] + '<'),
          ('Share link</button>', U["share"] + '</button>'), ('Embed</button>', U["embed"] + '</button>'),
          ('>Results <span id="rcount"', '>' + U["results"] + ' <span id="rcount"'),
          ('WE HAVE A WINNER', ES_JS["pop"]), ('>Remove from wheel<', '>' + U["pop_remove"] + '<'), ('>Close<', '>' + U["close"] + '<'),

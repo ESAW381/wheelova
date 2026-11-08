@@ -38,7 +38,7 @@ JS = {  # strings used by app.js
  "iframe_title": "Gira la ruleta – Wheelova", "credit_pre": "Ruleta de",
  "fs": "Pantalla completa", "exitfs": "Salir de pantalla completa", "openmenu": "Abrir menú", "closemenu": "Cerrar menú",
  "todark": "Cambiar a modo oscuro", "tolight": "Cambiar a modo claro",
- "cleared": "Lista borrada.", "replaced": "Lista reemplazada.", "kept": "Ruleta compartida guardada como tu lista.",
+ "cleared": "Lista borrada.", "imported": "Se importaron {n} entradas.", "impcut": "Solo se conservaron las primeras 2000.", "impempty": "No se encontraron entradas en ese archivo.", "impbig": "El archivo es demasiado grande (máximo 5 MB).", "impxls": "Guarda la hoja como CSV primero, o copia la columna y pégala.", "col": "Columna", "replaced": "Lista reemplazada.", "kept": "Ruleta compartida guardada como tu lista.",
  "csv_spin": "Giro", "csv_winner": "Ganador", "csv_time": "Hora", "load": "Cargar", "loaded": "Cargada", "del": "Eliminar", "deleted": "Eliminada",
  "needname": "Escribe primero un nombre para esta ruleta.", "updated": "Actualizada", "saved": "Guardada", "full": "Puedes guardar hasta 50 ruletas. Elimina una primero.",
 }
