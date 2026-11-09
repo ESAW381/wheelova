@@ -179,8 +179,8 @@ def tool(controls="", default_label="Entries"):
 </div>
 <aside>
 <div class="card">
-<div class="row">
-<label for="entries" style="font-weight:600;color:var(--hi)">{default_label} <span id="count" style="color:var(--mu2);font-weight:500"></span></label>
+<div class="row enthead">
+<label for="entries" class="entttl" style="font-weight:600;color:var(--hi)">{default_label} <span id="count" style="color:var(--mu2);font-weight:500"></span></label>
 <div class="entacts"><button class="btn" id="shuffle" type="button">Shuffle</button><button class="btn" id="sort" type="button">Sort</button><button class="btn" id="clear" type="button">Clear</button><button class="btn" id="impbtn" type="button">Import</button><input type="file" id="impfile" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden></div>
 </div>
 {controls}
