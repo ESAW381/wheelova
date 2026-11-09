@@ -320,3 +320,70 @@ ES = [
  "sources": [S_MDN],
 },
 ]
+
+# ---- Spanish homepage rewrite (Nov 9 2026): keyword map from competitor export; SEO/AEO/E-E-A-T.
+ES_HOME = {
+ "updated": "2026-11-09",
+ "title": "Ruleta aleatoria online – Ruleta personalizada gratis | Wheelova",
+ "description": "Ruleta aleatoria online y gratis: escribe nombres u opciones, gira y obtén un resultado justo. Ruleta personalizada para sorteos, clase y decisiones. Sin registro.",
+ "h1": "Ruleta aleatoria online",
+ "subhead": "Escribe tus opciones, gira la ruleta y deja que el azar decida. Gratis, sin registro y probada con 1 millón de giros.",
+ "howTo": ["Escribe o pega tus opciones, una por línea (o pulsa Importar para cargar un CSV).", "Pulsa GIRAR o la barra espaciadora.", "Lee el resultado en la ventana. Activa «Quitar al ganador» si no quieres repeticiones."],
+ "sections": [
+  {"h2": "¿Qué es una ruleta aleatoria?", "body":
+   "**Una ruleta aleatoria es una rueda virtual dividida en partes iguales, una por cada opción que escribes, que se detiene en una de ellas al azar.** Sirve para elegir un nombre, un ganador, una respuesta de sí o no o cualquier opción sin que nadie influya en el resultado. Como todos ven girar la rueda, la elección se percibe como justa.\n\n"
+   "También se la conoce como **ruleta virtual**, **ruleta online**, **ruleta digital** o **rueda aleatoria**. En Wheelova la ruleta es **personalizable**: tú decides las opciones, los colores, la velocidad y el mensaje del ganador."},
+  {"h2": "Cómo hacer una ruleta personalizada", "body":
+   "1. **Escribe tus opciones,** una por línea: nombres, premios, números o tareas. Puedes pegar una columna de Excel o Google Sheets, o pulsar **Importar** para cargar un archivo CSV.\n"
+   "2. **Ajusta la ruleta** en **Ajustes**: colores (pastel, océano, atardecer, bosque, escala de grises, apta para daltónicos o tus propios colores), velocidad de giro y texto de la ventana del ganador.\n"
+   "3. **Gira** con el botón GIRAR o la barra espaciadora. Pulsa **F** para pantalla completa en un proyector.\n"
+   "4. **Guarda o comparte:** guarda la lista con un nombre en **Mis ruletas guardadas**, copia un enlace para compartirla o inserta la ruleta en tu web o en OBS.\n\n"
+   "No necesitas cuenta ni instalar nada: funciona en el navegador del móvil, la tableta o el ordenador."},
+  {"h2": "¿La ruleta es realmente aleatoria? Lo comprobamos con 1.000.000 de giros", "body":
+   "Sí. Cada giro usa la función `crypto.getRandomValues()` de tu navegador. Según MDN Web Docs, los navegadores la implementan como un **generador pseudoaleatorio criptográficamente seguro** alimentado con entropía del sistema, el mismo tipo de fuente que se usa en funciones de seguridad. El número aleatorio decide cuánto gira la rueda, y gana la parte que queda bajo el indicador.\n\n"
+   "Para comprobarlo, ejecutamos el código real de la ruleta **1.000.000 de veces** en ruletas de 2, 6 y 10 opciones:\n\n"
+   "| Ruleta | Giros | Esperado por opción | Resultado real | Prueba chi-cuadrado |\n|---|---|---|---|---|\n"
+   "| 2 opciones (sí o no) | 1.000.000 | 500.000 | 499.629 – 500.371 | p = 0,458 · sin sesgo |\n"
+   "| 6 opciones (como un dado) | 1.000.000 | 166.667 | 165.897 – 167.442 | p = 0,107 · sin sesgo |\n"
+   "| 10 opciones (lista de clase) | 1.000.000 | 100.000 | 99.417 – 100.657 | p = 0,066 · sin sesgo |\n\n"
+   "En las tres ruletas, ninguna opción se alejó más de un 0,7 % de lo esperado, y la prueba chi-cuadrado no encontró ningún sesgo (un valor p mayor que 0,05 significa que no hay evidencia de sesgo). Tampoco encontramos relación entre un giro y el siguiente. El método, los datos brutos y el script están en el [estudio completo](/is-the-wheel-random) (en inglés), para que cualquiera pueda repetirlo."},
+  {"h2": "Probabilidades de la ruleta", "body":
+   "Todas las partes tienen el mismo tamaño, así que la probabilidad de cada opción es **1 ÷ número de opciones**:\n\n"
+   "| Opciones | Probabilidad de cada una por giro | Probabilidad de que una opción concreta salga al menos una vez en 10 giros |\n|---|---|---|\n"
+   "| 2 | 50 % | 99,9 % |\n| 3 | 33,3 % | 98,3 % |\n| 4 | 25 % | 94,4 % |\n| 6 | 16,7 % | 83,8 % |\n| 10 | 10 % | 65,1 % |\n| 20 | 5 % | 40,1 % |\n| 50 | 2 % | 18,3 % |\n\n"
+   "La última columna se calcula como 1 − (1 − 1/n)¹⁰ y supone que los ganadores no se quitan de la ruleta. Puedes usar estas tablas en tus clases o artículos con un enlace a esta página."},
+  {"h2": "¿Por qué sale la misma opción varias veces seguidas?", "body":
+   "Porque cada giro es **independiente**: la ruleta no recuerda el resultado anterior. Con 2 opciones, la misma sale dos veces seguidas la mitad de las veces. En nuestro millón de giros de una ruleta de sí o no ocurrió esto:\n\n"
+   "| Racha del mismo resultado | Veces que pasó | Esperado por probabilidad |\n|---|---|---|\n"
+   "| 5 o más seguidas | 31.199 | unas 31.250 |\n| 10 o más seguidas | 944 | unas 977 |\n| 15 o más seguidas | 27 | unas 31 |\n| Racha más larga | 19 | normalmente 19–20 en un millón de giros |\n\n"
+   "Creer que «ya le toca» a otra opción es la **falacia del jugador**. Si quieres que cada opción salga una sola vez, activa **Quitar al ganador después de cada giro**."},
+  {"h2": "¿Se puede trucar la ruleta?", "body":
+   "Wheelova no tiene ningún ajuste oculto para elegir un ganador por adelantado, y el resultado nunca depende de la posición ni del nombre de la opción. Lo que sí se puede hacer, **a la vista de todos**, es dar más peso a una opción escribiéndola varias veces: con «Sí, Sí, No», el Sí tiene 2 de 3 probabilidades (un 67 %).\n\n"
+   "Por eso, en un sorteo público: muestra la lista completa antes de girar, elimina los duplicados que no estén permitidos y gira en directo o graba la pantalla. Quien controla la lista controla las probabilidades, así que la lista debe ser visible."},
+  {"h2": "Para qué sirve una ruleta aleatoria", "body":
+   "| Uso | Ruleta recomendada | Consejo |\n|---|---|---|\n"
+   "| Elegir alumnos en clase | [Ruleta de nombres](/es/ruleta-de-nombres) | Activa «Quitar al ganador» para que todos tengan su turno |\n"
+   "| Sorteos y concursos | [Ruleta de sorteo](/es/ruleta-de-sorteo) | Muestra la lista y exporta los ganadores en CSV |\n"
+   "| Preguntas de sí o no | [Ruleta sí o no](/es/ruleta-si-o-no) | Añade «Tal vez» o haz al mejor de tres |\n"
+   "| Decidir entre opciones | [Ruleta de decisiones](/es/ruleta-de-decisiones) | Pon solo opciones que aceptarías |\n"
+   "| Números al azar, bingo | [Ruleta de números](/es/ruleta-de-numeros) | Elige el rango con «Desde» y «Hasta» |\n"
+   "| Un color al azar | [Ruleta de colores](/es/ruleta-de-colores) | Muestra el código HEX de cada color |"},
+  {"h2": "Una alternativa a la ruleta de Google", "body":
+   "Mucha gente busca la «ruleta de Google». Wheelova es una herramienta independiente, sin relación con Google, que añade lo que una búsqueda rápida no tiene: **tus propias opciones**, quitar ganadores, historial de resultados con exportación a CSV, listas guardadas, colores personalizados, pantalla completa para el proyector, enlace para compartir y código para insertar la ruleta en tu web o en un directo de OBS."},
+  {"h2": "Privacidad: tus opciones se quedan en tu dispositivo", "body":
+   "Lo que escribes se guarda en tu navegador, no en nuestros servidores, y la ruleta está oculta para nuestra herramienta de estadísticas. Si creas un enlace para compartir, las opciones viajan dentro del enlace (codificadas, no cifradas), así que cualquiera que lo tenga puede leerlas: no compartas listas con datos privados."},
+  {"h2": "Quién está detrás de Wheelova", "body":
+   "Wheelova es un sitio independiente de herramientas aleatorias gratuitas. Su contenido lo escribe y revisa Sajid Ali, editor de Wheelova, y las afirmaciones sobre el azar se basan en la documentación de MDN y en nuestro propio estudio publicado con datos abiertos. Si encuentras un error, escríbenos a [support@wheelova.com](mailto:support@wheelova.com)."}
+ ],
+ "faq": [
+  {"q": "¿La ruleta aleatoria es realmente al azar?", "a": "Sí. Usa el generador criptográficamente seguro del navegador (crypto.getRandomValues), y en una prueba de 1.000.000 de giros por ruleta no mostró ningún sesgo."},
+  {"q": "¿Cómo hago una ruleta personalizada?", "a": "Escribe tus opciones, una por línea, o importa un CSV. En Ajustes eliges colores, velocidad y el mensaje del ganador. Guárdala con un nombre o compártela con un enlace."},
+  {"q": "¿Es gratis? ¿Tengo que registrarme?", "a": "Es gratis y no necesitas cuenta ni descargar ninguna aplicación."},
+  {"q": "¿Cómo evito que salga dos veces la misma opción?", "a": "Activa «Quitar al ganador después de cada giro» o pulsa «Quitar de la ruleta» en la ventana del resultado."},
+  {"q": "¿Se puede trucar la ruleta?", "a": "No hay ningún ajuste oculto. Solo se puede cambiar la probabilidad escribiendo una opción varias veces, algo que todos ven en la lista."},
+  {"q": "¿Cuántas opciones puedo poner?", "a": "No hay un límite fijo. Hasta unas 50 se leen bien en un proyector; los enlaces para compartir admiten hasta 1.000."},
+  {"q": "¿Puedo usarla para un sorteo en Instagram o en directo?", "a": "Sí. Pega o importa la lista de participantes y gira en directo. Las normas de los sorteos cambian según el país y la red social, así que revisa las que te apliquen."},
+  {"q": "¿Funciona en el móvil?", "a": "Sí, en cualquier navegador moderno. En iPhone puedes añadirla a la pantalla de inicio desde Compartir → Añadir a pantalla de inicio."}
+ ],
+}
+ES[0].update(ES_HOME)

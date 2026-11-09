@@ -579,8 +579,17 @@ def es_page(p):
         h = h.replace(a, b)
     h = re.sub(r'<p class="src">Randomness:.*?(?= Sources:|</p>)', '<p class="src">' + U["rand_src"], h, count=1).replace(" Sources: ", " " + U["sources"] + " ")
     h = h.replace('<meta property="og:type"', '<meta property="og:locale" content="es_ES">\n<meta property="og:type"', 1)
+    h = locdate(h, "es")
     return h
 
+
+
+def locdate(h, lang):
+    M = {"es": ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"], "fr": ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]}[lang]
+    def f(m):
+        mo, d, y = MONTHS.index(m.group(2)), int(m.group(3)), m.group(4)
+        return m.group(1) + (f"{d} de {M[mo]} de {y}" if lang == "es" else f"{d} {M[mo]} {y}") + "</time>"
+    return re.sub(r'(<time datetime="[^"]+">)([A-Z][a-z]+) (\d+), (\d{4})</time>', f, h)
 
 def fr_page(p):
     q = dict(p); q["upgraded"] = True
@@ -633,6 +642,7 @@ def fr_page(p):
         h = h.replace(a, b)
     h = re.sub(r'<p class="src">Randomness:.*?(?= Sources:|</p>)', '<p class="src">Hasard : Wheelova utilise <a href="https://developer.mozilla.org/fr/docs/Web/API/Crypto/getRandomValues" rel="noopener">crypto.getRandomValues()</a> du navigateur (MDN Web Docs).', h, count=1).replace(" Sources: ", " Sources : ")
     h = h.replace('<meta property="og:type"', '<meta property="og:locale" content="fr_FR">\n<meta property="og:type"', 1)
+    h = locdate(h, "fr")
     return h
 
 import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
