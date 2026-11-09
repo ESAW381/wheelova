@@ -78,7 +78,7 @@ var f=Array.prototype.filter.call(d.querySelectorAll('button,input,textarea,a[hr
 var first=f[0],lastEl=f[f.length-1];if(!d.contains(document.activeElement)){e.preventDefault();first.focus()}else if(e.shiftKey&&document.activeElement===first){e.preventDefault();lastEl.focus()}else if(!e.shiftKey&&document.activeElement===lastEl){e.preventDefault();first.focus()}}
 document.addEventListener('keydown',trap);
 $('popclose').onclick=closePop;$('pop').onclick=function(e){if(e.target===this)closePop()};
-$('popremove').onclick=function(){if(lastIdx>-1&&lastIdx<entries.length){entries.splice(lastIdx,1);ta.value=entries.join('\n');parse()}lastIdx=-1;closePop()};
+$('popremove').onclick=function(){var i=lastIdx;lastIdx=-1;closePop();if(i>-1&&i<entries.length){var arr=entries.slice(),nm=arr.splice(i,1)[0];setEntries(arr,(T.removedw||'Removed "{w}" from the wheel.').replace('{w}',nm))}};
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('pop').classList.contains('on'))closePop()});
 $('spin').onclick=spin;cv.onclick=spin;
 ta.addEventListener('input',parse);

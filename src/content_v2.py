@@ -135,7 +135,7 @@ UPGRADES = {
  ],
  "faq": [
   {"q": "How many names can I add?", "a": "As many as you like. Labels shrink as the list grows; up to about 50 names stay easy to read on a projector."},
-  {"q": "Can I stop the same name being picked twice?", "a": "Yes. Keep \"Remove winner after each spin\" on, or press \"Remove from wheel\" in the winner popup. If you remove someone by mistake, press **Undo**."},
+  {"q": "Can I stop the same name being picked twice?", "a": "Yes. Keep \"Remove winner after each spin\" on, or press \"Remove from wheel\" in the winner popup. If you remove someone by mistake, press Undo in the message that appears."},
   {"q": "Can I paste names from Excel or Google Sheets?", "a": "Yes. Copy a single column and paste it into the entry box — each cell becomes one line and one slice."},
   {"q": "Is random calling stressful for students?", "a": "It can be if it's done abruptly. Research suggests \"warm\" random calling — with think time, pair answers and the option to pass — increases participation without raising disruptive anxiety for most students."},
   {"q": "Can I use this as a wheel of names for a giveaway?", "a": "Yes. Enter each eligible person once, spin live, and keep Remove winner on for multiple prizes."},
