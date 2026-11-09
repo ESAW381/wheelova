@@ -10,7 +10,7 @@ for(const [u,chip,expect] of [['random-word-wheel','Verbs','jump'],['drawing-pro
  await p.click('#spin');await p.waitForSelector('#pop.on',{timeout:15000});
  const w=(await p.textContent('#popwin')).trim();t((await p.inputValue('#entries')).split('\n').includes(w),u+': spin picks an entry ('+w+')');
  if(u==='es/ruleta-de-colores'){const bg=await p.$eval('#popswatch',e=>getComputedStyle(e).display);t(bg==='block','colores: swatch shown');t(/#[0-9A-F]{6}/i.test(await p.textContent('#pophex')),'colores: hex shown')}
- await p.keyboard.press('Escape');await p.click('#popclose').catch(()=>{});
+ await p.keyboard.press('Escape');await p.click('#popclose',{timeout:1000}).catch(()=>{});
  if(u==='es/ruleta-de-numeros'){await p.fill('#nmin','5');await p.fill('#nmax','3');await p.click('#ngo');t(/Hasta/.test(await p.textContent('#nerr')),'numeros: Spanish range error');await p.fill('#nmax','15');await p.click('#ngo');t((await p.inputValue('#entries')).split('\n').length===11,'numeros: range 5–15 builds 11 slices')}
  t(await p.evaluate(()=>document.documentElement.scrollWidth<=390),u+': no horizontal overflow');
  await p.evaluate(()=>window.scrollTo(0,0));await p.screenshot({path:dir+'/np-'+u.replace('/','_')+'.png'});
