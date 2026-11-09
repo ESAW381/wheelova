@@ -873,3 +873,13 @@ for _k, _v in {
 # Pages whose body content changed on Nov 8 2026 (Batches 1-3) carry that date in their byline.
 for _k in ("random-number-generator", "yes-or-no-wheel", "name-picker-wheel", "number-wheel", "raffle-wheel"):
     UPGRADES.setdefault(_k, {})["updated"] = "2026-11-08"
+
+# ---- Multiple wheels mode (Nov 10 2026)
+_np = UPGRADES["name-picker-wheel"]
+_np["sections"].insert(1, {"h2": "Spin several wheels at once", "body":
+ "Switch to **Multiple wheels** above the wheel to put up to six wheels side by side, each with its own list and name: for example *Student*, *Question* and *Group*. "
+ "Press **Spin all** (or the Space bar) to spin every wheel together, or press **SPIN** in the middle of one wheel to spin just that one. "
+ "Each spin adds a line to the results list, such as *Student: Noah · Question: Question 4*, which you can copy into your notes.\n\n"
+ "Each wheel has its own **Remove winner** setting, so names can leave their wheel while questions stay. Every wheel picks its winner from a random stopping angle, the same way as the single wheel, and the lists are saved only in this browser."})
+_np["faq"].insert(0, {"q": "Can I spin more than one wheel at the same time?", "a": "Yes. Choose Multiple wheels above the wheel to show up to six wheels, each with its own list. Spin all spins them together, or spin each wheel on its own."})
+_np["updated"] = "2026-11-10"

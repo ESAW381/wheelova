@@ -275,6 +275,21 @@ def gentool(p):
 </div>
 </div>"""
 
+def multi_wrap(p, toolhtml):
+    """Name Picker only: 'One wheel / Multiple wheels' tabs; the multiple-wheels mode is handled by multi.js."""
+    if p["slug"] != "name-picker-wheel":
+        return toolhtml
+    return ('<div class="nptabs" role="tablist" aria-label="Wheel mode"><button type="button" role="tab" data-npmode="one" aria-selected="true">One wheel</button>'
+            '<button type="button" role="tab" data-npmode="multi" aria-selected="false" tabindex="-1">Multiple wheels</button></div>\n'
+            '<div id="npone">' + toolhtml + '</div>\n'
+            '<section id="multi" class="multi" hidden data-clarity-mask="true" aria-label="Multiple wheels">'
+            '<div class="mbar"><button type="button" class="btn pri" id="mall">Spin all</button><button type="button" class="btn" id="madd">+ Add wheel</button>'
+            '<span class="mhint">Up to 6 wheels, each with its own list. Space spins all.</span></div>'
+            '<div class="mgrid" id="mgrid"></div>'
+            '<div class="mlogwrap" id="mlogwrap" hidden><div class="mloghead"><b>Results</b><span><button type="button" class="linkbtn" id="mcopy">Copy</button> <button type="button" class="linkbtn" id="mclear">Clear</button></span></div><ol class="mlog" id="mlog"></ol></div>'
+            '<p class="mnote">Lists are saved only in this browser. Each wheel picks its winner from a random stopping angle, the same way as the single wheel.</p>'
+            '</section>\n<script src="/multi.js?v=' + V + '" defer></script>')
+
 def page(p):
     path = "/" + p["slug"]
     controls = ""
@@ -307,7 +322,7 @@ def page(p):
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <a href="/wheels">Wheels</a> / <span aria-current="page">{e(p["h1"])}</span></nav>
 <h1>{e(p["h1"])}</h1>
 <p class="sub1">{e(p["subhead"])}</p>
-{gentool(p) if p.get("tool") else tool(controls)}
+{multi_wrap(p, gentool(p) if p.get("tool") else tool(controls))}
 </div>
 
 {('<div class="wrap"><a class="guidecta" href="/' + GUIDE_FOR[p["slug"]]["slug"] + '"><b>Guide:</b> ' + e(GUIDE_FOR[p["slug"]]["h1"][0].upper() + GUIDE_FOR[p["slug"]]["h1"][1:]) + ' →</a></div>') if p["slug"] in GUIDE_FOR else ''}
@@ -660,7 +675,7 @@ os.makedirs(os.path.join(OUT, "es"), exist_ok=True)
 os.makedirs(os.path.join(OUT, "guides"), exist_ok=True)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
-for f in ["app.css", "rng.js", "consent.js", "app.js", "gen.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
+for f in ["app.css", "rng.js", "consent.js", "multi.js", "app.js", "gen.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(open(os.path.join(ROOT, f), encoding="utf-8").read())
 shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
 shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))
