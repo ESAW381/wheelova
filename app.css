@@ -270,3 +270,14 @@ blockquote.quote{margin:16px 0;padding:18px 22px;border:1px solid var(--line);bo
 .stage{padding:32px 16px}
 @media (max-width:640px){.wheelbox{width:100%}.stage{padding:24px 10px 20px}.spinbtn{width:84px;height:84px;font-size:15px}}
 .tool[hidden]{display:none}
+
+/* Multiple wheels: fullscreen */
+.mfsbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:8px}.mfsbtn{position:static}.mfsall{display:none;width:auto;margin:0;padding:0 24px;height:46px;align-items:center;justify-content:center;font-size:16px}
+body.is-mfs{overflow:hidden}
+body.is-mfs #multi{position:fixed;inset:0;z-index:45;background:var(--bg);padding:16px 24px;overflow:auto;margin:0;display:flex;flex-direction:column}
+body.is-mfs .mfsall{display:inline-flex}body.is-mfs .mfsbar{justify-content:center;align-items:center}body.is-mfs .mfsbtn{position:absolute;right:20px;top:16px}
+body.is-mfs .mpanel{display:none}body.is-mfs .mlayout{flex:1;display:flex;align-items:center;justify-content:center}
+body.is-mfs .mgrid{display:grid;justify-content:center;gap:16px;flex:none}
+body.is-mfs .mwheel{width:var(--mw,360px);margin:0 auto}body.is-mfs .mcard{padding:4px}body.is-mfs .mres{font-size:22px}
+.mfsbtn .fs-out{display:none}body.is-mfs .mfsbtn .fs-in{display:none}body.is-mfs .mfsbtn .fs-out{display:inline}
+@media (max-width:600px){body.is-mfs #multi{padding:12px}}

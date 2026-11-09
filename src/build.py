@@ -13,7 +13,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "33"
+V = "34"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -277,13 +277,13 @@ def gentool(p):
 </div>"""
 
 MULTI_TXT = {
- "en": dict(add="+ Add wheel", region="Multiple wheels", tabs="Wheels", name="Wheel name", entries="Entries", rem="Remove winner after each spin", all="Spin all wheels", delw="Remove this wheel",
+ "en": dict(fs="Fullscreen", exitfs="Exit fullscreen", add="+ Add wheel", region="Multiple wheels", tabs="Wheels", name="Wheel name", entries="Entries", rem="Remove winner after each spin", all="Spin all wheels", delw="Remove this wheel",
             hint="Click a wheel to spin just that one, or press Space to spin all. Saved only in this browser.", res="Results", copy="Copy", clear="Clear"),
- "es": dict(add="+ Añadir ruleta", region="Varias ruletas", tabs="Ruletas", name="Nombre de la ruleta", entries="Opciones", rem="Quitar al ganador después de cada giro", all="Girar todas las ruletas", delw="Quitar esta ruleta",
+ "es": dict(fs="Pantalla completa", exitfs="Salir de pantalla completa", add="+ Añadir ruleta", region="Varias ruletas", tabs="Ruletas", name="Nombre de la ruleta", entries="Opciones", rem="Quitar al ganador después de cada giro", all="Girar todas las ruletas", delw="Quitar esta ruleta",
             hint="Haz clic en una ruleta para girar solo esa, o pulsa la barra espaciadora para girar todas. Se guarda solo en este navegador.", res="Resultados", copy="Copiar", clear="Borrar"),
- "fr": dict(add="+ Ajouter une roue", region="Plusieurs roues", tabs="Roues", name="Nom de la roue", entries="Choix", rem="Retirer le gagnant après chaque tour", all="Faire tourner toutes les roues", delw="Supprimer cette roue",
+ "fr": dict(fs="Plein écran", exitfs="Quitter le plein écran", add="+ Ajouter une roue", region="Plusieurs roues", tabs="Roues", name="Nom de la roue", entries="Choix", rem="Retirer le gagnant après chaque tour", all="Faire tourner toutes les roues", delw="Supprimer cette roue",
             hint="Cliquez sur une roue pour ne faire tourner qu'elle, ou appuyez sur Espace pour toutes les faire tourner. Enregistré uniquement dans ce navigateur.", res="Résultats", copy="Copier", clear="Effacer"),
- "vi": dict(add="+ Thêm vòng quay", region="Nhiều vòng quay", tabs="Các vòng quay", name="Tên vòng quay", entries="Lựa chọn", rem="Loại kết quả sau mỗi lượt quay", all="Quay tất cả", delw="Xóa vòng quay này",
+ "vi": dict(fs="Toàn màn hình", exitfs="Thoát toàn màn hình", add="+ Thêm vòng quay", region="Nhiều vòng quay", tabs="Các vòng quay", name="Tên vòng quay", entries="Lựa chọn", rem="Loại kết quả sau mỗi lượt quay", all="Quay tất cả", delw="Xóa vòng quay này",
             hint="Bấm vào một vòng quay để chỉ quay vòng đó, hoặc nhấn phím cách để quay tất cả. Chỉ lưu trong trình duyệt này.", res="Kết quả", copy="Sao chép", clear="Xóa"),
 }
 MULTI_PAGES = {"name-picker-wheel": "en", "es": "es", "fr": "fr", "vi": "vi"}
@@ -291,7 +291,10 @@ HELP_P = '<p class="small" id="entries-help">One entry per line. Saved in your b
 
 def multi_section(lang):
     M = MULTI_TXT[lang]
-    return ('<section id="multi" class="multi" hidden data-clarity-mask="true" aria-label="' + M["region"] + '"><div class="mlayout">'
+    return ('<section id="multi" class="multi" hidden data-clarity-mask="true" aria-label="' + M["region"] + '">'
+            '<div class="mfsbar"><button type="button" class="btn mallbtn mfsall" id="mfsall">' + M["all"] + '</button>'
+            '<button type="button" class="fsbtn mfsbtn" id="mfs" aria-label="' + M["fs"] + '" title="' + M["fs"] + ' (F)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="fs-in" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><path class="fs-out" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button></div>'
+            '<div class="mlayout">'
             '<div class="mgrid" id="mgrid"></div>'
             '<div class="card mpanel">'
             '<div class="mtabs" id="mtabs" role="tablist" aria-label="' + M["tabs"] + '"></div>'
