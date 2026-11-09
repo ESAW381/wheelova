@@ -16,7 +16,7 @@ JS = {  # strings used by app.js
  "iframe_title": "Faites tourner la roue – Wheelova", "credit_pre": "Roue par",
  "fs": "Plein écran", "exitfs": "Quitter le plein écran", "openmenu": "Ouvrir le menu", "closemenu": "Fermer le menu",
  "todark": "Passer en mode sombre", "tolight": "Passer en mode clair",
- "cleared": "Liste effacée.", "removedw": "« {w} » a été retiré de la roue.", "imported": "{n} entrées importées.", "impcut": "Seules les 2 000 premières ont été conservées.", "impempty": "Aucune entrée trouvée dans ce fichier.", "impbig": "Ce fichier est trop volumineux (5 Mo maximum).", "impxls": "Enregistrez d'abord la feuille au format CSV, ou copiez la colonne et collez-la.", "col": "Colonne",
+ "cleared": "Liste effacée.", "m_wheel": "Roue", "m_option": "Choix", "m_max": "6 roues maximum", "m_add": "+ Ajouter une roue", "m_spin": "Faire tourner", "m_spinbtn": "TOURNER", "removedw": "« {w} » a été retiré de la roue.", "imported": "{n} entrées importées.", "impcut": "Seules les 2 000 premières ont été conservées.", "impempty": "Aucune entrée trouvée dans ce fichier.", "impbig": "Ce fichier est trop volumineux (5 Mo maximum).", "impxls": "Enregistrez d'abord la feuille au format CSV, ou copiez la colonne et collez-la.", "col": "Colonne",
  "nrange": "Indiquez une plage où « À » est plus grand que « De ».", "nmax": "500 nombres maximum par roue.",
  "replaced": "Liste remplacée.", "kept": "Roue partagée enregistrée comme votre liste.",
  "csv_spin": "Tour", "csv_winner": "Gagnant", "csv_time": "Heure", "load": "Ouvrir", "loaded": "Ouverte", "del": "Supprimer", "deleted": "Supprimée",

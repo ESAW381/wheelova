@@ -13,7 +13,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "32"
+V = "33"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -276,26 +276,44 @@ def gentool(p):
 </div>
 </div>"""
 
-def multi_wrap(p, toolhtml):
-    """Name Picker only: '+ Add wheel' under the entries box switches to 2-6 wheels side by side (multi.js)."""
-    if p["slug"] != "name-picker-wheel":
-        return toolhtml
-    help_p = '<p class="small" id="entries-help">One entry per line. Saved in your browser automatically.</p>'
-    toolhtml = toolhtml.replace(help_p, help_p + '<button type="button" class="btn addwheel" id="npadd">+ Add wheel</button>', 1)
-    return ('<div id="npone">' + toolhtml + '</div>\n'
-            '<section id="multi" class="multi" hidden data-clarity-mask="true" aria-label="Multiple wheels"><div class="mlayout">'
+MULTI_TXT = {
+ "en": dict(add="+ Add wheel", region="Multiple wheels", tabs="Wheels", name="Wheel name", entries="Entries", rem="Remove winner after each spin", all="Spin all wheels", delw="Remove this wheel",
+            hint="Click a wheel to spin just that one, or press Space to spin all. Saved only in this browser.", res="Results", copy="Copy", clear="Clear"),
+ "es": dict(add="+ Añadir ruleta", region="Varias ruletas", tabs="Ruletas", name="Nombre de la ruleta", entries="Opciones", rem="Quitar al ganador después de cada giro", all="Girar todas las ruletas", delw="Quitar esta ruleta",
+            hint="Haz clic en una ruleta para girar solo esa, o pulsa la barra espaciadora para girar todas. Se guarda solo en este navegador.", res="Resultados", copy="Copiar", clear="Borrar"),
+ "fr": dict(add="+ Ajouter une roue", region="Plusieurs roues", tabs="Roues", name="Nom de la roue", entries="Choix", rem="Retirer le gagnant après chaque tour", all="Faire tourner toutes les roues", delw="Supprimer cette roue",
+            hint="Cliquez sur une roue pour ne faire tourner qu'elle, ou appuyez sur Espace pour toutes les faire tourner. Enregistré uniquement dans ce navigateur.", res="Résultats", copy="Copier", clear="Effacer"),
+ "vi": dict(add="+ Thêm vòng quay", region="Nhiều vòng quay", tabs="Các vòng quay", name="Tên vòng quay", entries="Lựa chọn", rem="Loại kết quả sau mỗi lượt quay", all="Quay tất cả", delw="Xóa vòng quay này",
+            hint="Bấm vào một vòng quay để chỉ quay vòng đó, hoặc nhấn phím cách để quay tất cả. Chỉ lưu trong trình duyệt này.", res="Kết quả", copy="Sao chép", clear="Xóa"),
+}
+MULTI_PAGES = {"name-picker-wheel": "en", "es": "es", "fr": "fr", "vi": "vi"}
+HELP_P = '<p class="small" id="entries-help">One entry per line. Saved in your browser automatically.</p>'
+
+def multi_section(lang):
+    M = MULTI_TXT[lang]
+    return ('<section id="multi" class="multi" hidden data-clarity-mask="true" aria-label="' + M["region"] + '"><div class="mlayout">'
             '<div class="mgrid" id="mgrid"></div>'
             '<div class="card mpanel">'
-            '<div class="mtabs" id="mtabs" role="tablist" aria-label="Wheels"></div>'
-            '<label class="mtl">Wheel name<input id="mtitle" maxlength="40"></label>'
-            '<label for="mta" class="mtl">Entries <span id="mcnt" class="mcnt"></span></label>'
+            '<div class="mtabs" id="mtabs" role="tablist" aria-label="' + M["tabs"] + '"></div>'
+            '<label class="mtl">' + M["name"] + '<input id="mtitle" maxlength="40"></label>'
+            '<label for="mta" class="mtl">' + M["entries"] + ' <span id="mcnt" class="mcnt"></span></label>'
             '<textarea id="mta" rows="8" spellcheck="false"></textarea>'
-            '<label class="ck"><input type="checkbox" id="mrem"> Remove winner after each spin</label>'
-            '<button type="button" class="btn mallbtn" id="mall">Spin all wheels</button>'
-            '<div class="mrow"><button type="button" class="btn" id="madd">+ Add wheel</button><button type="button" class="linkbtn" id="mdel">Remove this wheel</button></div>'
-            '<p class="small">Click a wheel to spin just that one, or press Space to spin all. Saved only in this browser.</p>'
-            '<div class="mlogwrap" id="mlogwrap" hidden><div class="mloghead"><b>Results</b><span><button type="button" class="linkbtn" id="mcopy">Copy</button> <button type="button" class="linkbtn" id="mclear">Clear</button></span></div><ol class="mlog" id="mlog"></ol></div>'
+            '<label class="ck"><input type="checkbox" id="mrem"> ' + M["rem"] + '</label>'
+            '<button type="button" class="btn mallbtn" id="mall">' + M["all"] + '</button>'
+            '<div class="mrow"><button type="button" class="btn" id="madd">' + M["add"] + '</button><button type="button" class="linkbtn" id="mdel">' + M["delw"] + '</button></div>'
+            '<p class="small">' + M["hint"] + '</p>'
+            '<div class="mlogwrap" id="mlogwrap" hidden><div class="mloghead"><b>' + M["res"] + '</b><span><button type="button" class="linkbtn" id="mcopy">' + M["copy"] + '</button> <button type="button" class="linkbtn" id="mclear">' + M["clear"] + '</button></span></div><ol class="mlog" id="mlog"></ol></div>'
             '</div></div></section>\n<script src="/multi.js?v=' + V + '" defer></script>')
+
+def add_wheel_btn(html_, lang):
+    return html_.replace(HELP_P, HELP_P + '<button type="button" class="btn addwheel" id="npadd">' + MULTI_TXT[lang]["add"] + '</button>', 1)
+
+def multi_wrap(p, toolhtml):
+    """'+ Add wheel' under the entries box turns the page into 2-6 wheels side by side (multi.js). Name Picker + language homepages."""
+    lang = MULTI_PAGES.get(p["slug"])
+    if not lang:
+        return toolhtml
+    return '<div id="npone">' + add_wheel_btn(toolhtml, lang) + '</div>\n' + multi_section(lang)
 
 def page(p):
     path = "/" + p["slug"]
@@ -548,6 +566,9 @@ def home():
     popular = "".join(card(s, i) for i, s in enumerate(POPULAR[:8]))
     main = main.replace('<section id="features">', f'<section id="popular"><div class="wrap">\n<h2>Popular wheels</h2>\n<p style="margin:0 0 28px;color:var(--mu)">Ready-made wheels with their own presets and guides.</p>\n<div class="grid">{popular}</div>\n<p style="margin-top:24px"><a class="more" href="/wheels">See all {len(PAGES)} tools →</a></p>\n</div></section>\n\n<section id="features">', 1)
     main = re.sub(r'<section id="wheels">[\s\S]*?</section>\s*', '', main, count=1)
+    main = add_wheel_btn(main, "en")
+    _toast = re.search(r'<div class="wtoast" id="wtoast"[^\n]*</div>\n</div>', main).group(0)
+    main = main.replace(_toast, _toast + '\n' + multi_section("en"), 1)
     t = re.search(r"<title>(.*?)</title>", src).group(1)
     d = re.search(r'<meta name="description" content="(.*?)">', src).group(1)
     return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + FEATURED + POP + SHARE + footer() + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/rng.js?v={V}" defer></script>\n<script src="/app.js?v={V}" defer></script>\n</body>\n</html>\n'

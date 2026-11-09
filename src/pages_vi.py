@@ -12,7 +12,7 @@ JS = {
  "iframe_title": "Vòng quay may mắn – Wheelova", "credit_pre": "Vòng quay của",
  "fs": "Toàn màn hình", "exitfs": "Thoát toàn màn hình", "openmenu": "Mở menu", "closemenu": "Đóng menu",
  "todark": "Chuyển sang chế độ tối", "tolight": "Chuyển sang chế độ sáng",
- "cleared": "Đã xóa danh sách.", "removedw": "Đã loại «{w}» khỏi vòng quay.", "imported": "Đã nhập {n} lựa chọn.", "impcut": "Chỉ giữ lại 2.000 dòng đầu tiên.", "impempty": "Không tìm thấy lựa chọn nào trong tệp này.", "impbig": "Tệp quá lớn (tối đa 5 MB).", "impxls": "Hãy lưu bảng tính dưới dạng CSV trước, hoặc sao chép cột rồi dán vào.", "col": "Cột",
+ "cleared": "Đã xóa danh sách.", "m_wheel": "Vòng", "m_option": "Lựa chọn", "m_max": "Tối đa 6 vòng quay", "m_add": "+ Thêm vòng quay", "m_spin": "Quay", "m_spinbtn": "QUAY", "removedw": "Đã loại «{w}» khỏi vòng quay.", "imported": "Đã nhập {n} lựa chọn.", "impcut": "Chỉ giữ lại 2.000 dòng đầu tiên.", "impempty": "Không tìm thấy lựa chọn nào trong tệp này.", "impbig": "Tệp quá lớn (tối đa 5 MB).", "impxls": "Hãy lưu bảng tính dưới dạng CSV trước, hoặc sao chép cột rồi dán vào.", "col": "Cột",
  "nrange": "Hãy nhập khoảng có số «Đến» lớn hơn số «Từ».", "nmax": "Tối đa 500 số mỗi vòng quay.",
  "replaced": "Đã thay danh sách.", "kept": "Đã lưu vòng quay được chia sẻ thành danh sách của bạn.",
  "csv_spin": "Lượt", "csv_winner": "Kết quả", "csv_time": "Thời gian", "load": "Mở", "loaded": "Đã mở", "del": "Xóa", "deleted": "Đã xóa",

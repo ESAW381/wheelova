@@ -269,3 +269,4 @@ blockquote.quote{margin:16px 0;padding:18px 22px;border:1px solid var(--line);bo
 .spinbtn{width:104px;height:104px;font-size:18px}
 .stage{padding:32px 16px}
 @media (max-width:640px){.wheelbox{width:100%}.stage{padding:24px 10px 20px}.spinbtn{width:84px;height:84px;font-size:15px}}
+.tool[hidden]{display:none}
