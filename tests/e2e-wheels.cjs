@@ -1,7 +1,7 @@
 // jsdom smoke test for every wheel/generator page. Run from dist/: cd dist && NODE_PATH=$(npm root -g) node ../tests/e2e-wheels.cjs
 const {JSDOM,VirtualConsole}=require('jsdom');const fs=require('fs');
 const pages=fs.readdirSync('.').filter(f=>f.endsWith('.html')&&!['about.html','privacy.html','terms.html','wheels.html','404.html','embed.html','faq.html','es.html','is-the-wheel-random.html','guides.html','embed-a-wheel.html','flag-quiz.html','random-pair-generator.html'].includes(f));
-function mk(f){let html=fs.readFileSync(f,'utf8').replace(/<script src="\/(app|gen|rng)\.js\?v=\d+"><\/script>/g,(m,n)=>'<script>'+fs.readFileSync(n+'.js','utf8')+'</script>').replace(/<script defer src="\/_vercel[^>]*><\/script>/,'');
+function mk(f){let html=fs.readFileSync(f,'utf8').replace(/<script src="\/(app|gen|rng|multi)\.js\?v=\d+"( defer)?><\/script>/g,(m,n)=>'<script>'+fs.readFileSync(n+'.js','utf8')+'</script>').replace(/<script defer src="\/_vercel[^>]*><\/script>/,'');
 let errs=[];const vc=new VirtualConsole();vc.on('jsdomError',e=>errs.push(e.message));
 const d=new JSDOM(html,{url:'https://wheelova.com/'+f,runScripts:'dangerously',pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:(t,k)=>k in t?t[k]:(k==='measureText'?()=>({width:100}):()=>{}),set:(t,k,v)=>(t[k]=v,true)});w.matchMedia=()=>({matches:false});w.crypto=require('crypto').webcrypto;w.navigator.clipboard={writeText:()=>{}}}});return [d,errs]}
 (async()=>{for(const f of pages){const [d,errs]=mk(f);const D=d.window.document,$=id=>D.getElementById(id);let r='';
