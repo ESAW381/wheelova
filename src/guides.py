@@ -110,7 +110,7 @@ When the giveaway closes, build your entry list:
 ## 4. Draw the winner live
 
 1. Paste the final list into the [Raffle Wheel](/raffle-wheel), one entry per line, or press **Import** and choose your exported CSV file. If it has several columns, pick the one with the names or usernames.
-2. Keep **Remove winner after each spin** on, so nobody wins twice.
+2. Turn on **Remove winner after each spin**, so nobody wins twice.
 3. Announce the numbers before you spin: "212 valid entries, 3 prizes, drawn in order: third, second, first."
 4. **Spin on camera,** live or recorded with screen recording. Press **F** for full-screen so viewers can read the names.
 5. Spin once per prize. The **Results** list keeps the order of winners; press **CSV** to save it with the time of each draw.

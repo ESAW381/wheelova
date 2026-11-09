@@ -76,7 +76,7 @@ FAQ_PAGE = {
   ]),
   ("Classroom and giveaways", "class", [
    ("How can I use the wheel in class?",
-    "Paste your class list into the [Name Picker Wheel](/name-picker-wheel) and leave **Remove winner** on so every student gets a turn. Press F for fullscreen on the projector. "
+    "Paste your class list into the [Name Picker Wheel](/name-picker-wheel) and turn on **Remove winner** so every student gets a turn. Press F for fullscreen on the projector. "
     "Teachers also use it for presentation order, groups (try the [Random Team Generator](/random-team-generator)) and quick quiz games."),
    ("How do I pick a winner from survey or form responses?",
     "Export the responses to a spreadsheet (Google Forms can send them to Google Sheets), copy the column of names or emails, and paste it into the [Raffle Wheel](/raffle-wheel). Remove duplicates first if each person should have one chance."),

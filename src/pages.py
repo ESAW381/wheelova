@@ -33,9 +33,9 @@ PAGES = [
  "description":"Paste a list of names and spin the wheel to pick one at random. Remove each winner automatically for fair turns. Free for classrooms and teams.",
  "h1":"Random Name Picker Wheel","subhead":"Paste your list of names, spin, and pick someone at random — fairly.",
  "entries":["Ayesha","Ben","Chloe","Daniyal","Emma","Faisal","Grace","Hamza","Isabella","Jack"],
- "removeWinner":True,
+ "removeWinner":False,
  "variants":[{"label":"10 sample names","entries":["Ayesha","Ben","Chloe","Daniyal","Emma","Faisal","Grace","Hamza","Isabella","Jack"]},{"label":"Team A / Team B","entries":["Team A","Team B"]},{"label":"Group 1–6","entries":["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6"]}],
- "howTo":["Paste or type names, one per line (copy a column straight from a spreadsheet).","Leave \"Remove winner after each spin\" on so nobody is picked twice.","Spin. The picked name disappears from the wheel for the next turn."],
+ "howTo":["Paste or type names, one per line (copy a column straight from a spreadsheet).","Turn on \"Remove winner after each spin\" if nobody should be picked twice.","Spin. With Remove winner on, the picked name disappears from the wheel for the next turn."],
  "sections":[
   {"h2":"A wheel of names for any group","body":"A name picker wheel turns a list of people into slices of a wheel and picks one at random when you spin. Because everyone can see the wheel turn, the choice feels fair — nobody can say the teacher or host played favourites."},
   {"h2":"Classroom ideas","body":"- **Cold calling without the stress** — spin to choose who answers next, and remove each student so everyone gets a turn.\n- **Presentation order** — spin repeatedly and write the names down in the order they come up.\n- **Classroom jobs** — use one wheel for names and spin once per job each week.\n- **Reading partners** — spin two names at a time to form pairs."},
@@ -44,7 +44,7 @@ PAGES = [
  ],
  "faq":[
   {"q":"How many names can I add?","a":"As many as you like. Labels get smaller as the list grows; up to about 50 names stay easy to read."},
-  {"q":"Can I stop the same name being picked twice?","a":"Yes. Keep \"Remove winner after each spin\" switched on, or press \"Remove from wheel\" in the winner popup."},
+  {"q":"Can I stop the same name being picked twice?","a":"Yes. Turn on \"Remove winner after each spin\", or press \"Remove from wheel\" in the winner popup."},
   {"q":"Can I paste names from Excel or Google Sheets?","a":"Yes. Copy a single column and paste it into the entry box — each cell becomes one line and one slice."},
   {"q":"Are the names I enter private?","a":"Yes. Names are stored only in your own browser. Nothing is uploaded."}
  ],
@@ -143,9 +143,9 @@ PAGES = [
  "description":"Run a raffle or giveaway draw with a spinning wheel. Paste entrants or ticket numbers, remove each winner, and spin live. Free, no sign-up.",
  "h1":"Raffle Wheel","subhead":"Draw raffle and giveaway winners live, in front of everyone.",
  "entries":["Ticket 001","Ticket 002","Ticket 003","Ticket 004","Ticket 005","Ticket 006","Ticket 007","Ticket 008"],
- "removeWinner":True,
+ "removeWinner":False,
  "variants":[{"label":"Tickets 1–50","entries":[f"Ticket {i:03d}" for i in range(1,51)]},{"label":"Tickets 1–100","entries":[f"Ticket {i:03d}" for i in range(1,101)]},{"label":"Prize tiers","entries":["Grand prize","Second prize","Third prize"]}],
- "howTo":["Paste entrants' names or ticket numbers, one per line.","Keep \"Remove winner\" on so nobody wins twice.","Spin once for each prize, starting with the smallest prize or the grand prize — announce your order first."],
+ "howTo":["Paste entrants' names or ticket numbers, one per line.","Turn on \"Remove winner\" so nobody wins twice.","Spin once for each prize, starting with the smallest prize or the grand prize — announce your order first."],
  "sections":[
   {"h2":"How to run a fair draw","body":"1. **Close entries** before you spin, and say how many entries there are.\n2. **Check for duplicates** — one line per valid entry (or per ticket bought).\n3. **Announce the order** of prizes before the first spin.\n4. **Spin live** on screen or stream so everyone can see.\n5. **Record the results** — the Results list keeps every winner of the session; take a screenshot for your records."},
   {"h2":"Tickets vs. names","body":"If people can buy several tickets, enter **ticket numbers**, not names — someone with three tickets then has three slices, which is fair. If everyone has one entry, names are simpler."},

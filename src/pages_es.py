@@ -85,13 +85,13 @@ ES = [
 },
 # ------------------------------------------------------------------ NOMBRES
 {
- "slug": "es/ruleta-de-nombres", "en": "name-picker-wheel", "key": "es_names", "nav": "Ruleta de nombres", "removeWinner": True,
+ "slug": "es/ruleta-de-nombres", "en": "name-picker-wheel", "key": "es_names", "nav": "Ruleta de nombres", "removeWinner": False,
  "title": "Ruleta de nombres – Elige un nombre al azar | Wheelova",
  "description": "Ruleta de nombres online y gratis: pega tu lista, gira y elige a alguien al azar. Quita a cada ganador para que todos tengan su turno. Ideal para clase.",
  "h1": "Ruleta de nombres", "subhead": "Pega tu lista de nombres, gira y elige a alguien al azar, de forma justa.",
  "entries": NOMBRES,
  "variants": [{"label": "10 nombres", "entries": NOMBRES}, {"label": "Equipo A / Equipo B", "entries": ["Equipo A", "Equipo B"]}, {"label": "Grupos 1–6", "entries": [f"Grupo {i}" for i in range(1, 7)]}],
- "howTo": ["Pega o escribe los nombres, uno por línea (puedes copiar una columna de Excel o Google Sheets).", "Deja activado «Quitar al ganador» para que nadie salga dos veces.", "Gira. El nombre elegido desaparece de la ruleta para el siguiente turno."],
+ "howTo": ["Pega o escribe los nombres, uno por línea (puedes copiar una columna de Excel o Google Sheets).", "Activa «Quitar al ganador» si nadie debe salir dos veces.", "Gira. El nombre elegido desaparece de la ruleta para el siguiente turno."],
  "sections": [
   {"h2": "Una ruleta de nombres para clase, equipos y eventos", "body":
    "Pega la lista, gira y la ruleta elige un nombre al azar. Como todos ven girar la rueda, la elección es transparente: nadie puede decir que el profesor o el anfitrión tuvo favoritos.\n\n" + NOTA_AZAR},
@@ -113,7 +113,7 @@ ES = [
  ],
  "faq": [
   {"q": "¿Cuántos nombres puedo poner?", "a": "Todos los que quieras. Hasta unos 50 se leen bien en un proyector."},
-  {"q": "¿Cómo evito que salga dos veces el mismo nombre?", "a": "Deja activado «Quitar al ganador después de cada giro»."},
+  {"q": "¿Cómo evito que salga dos veces el mismo nombre?", "a": "Activa «Quitar al ganador después de cada giro»."},
   {"q": "¿Puedo pegar nombres desde Excel o Google Sheets?", "a": "Sí. Copia una columna y pégala: cada celda se convierte en una línea."},
   {"q": "¿Los nombres son privados?", "a": "Sí. Se guardan solo en tu navegador, en este dispositivo."},
   {"q": "¿Sirve como ruleta para un sorteo?", "a": "Sí. Escribe cada participante una sola vez y gira en directo."}
@@ -159,13 +159,13 @@ ES = [
 },
 # ------------------------------------------------------------------ SORTEO
 {
- "slug": "es/ruleta-de-sorteo", "en": "raffle-wheel", "key": "es_sorteo", "nav": "Sorteos", "removeWinner": True,
+ "slug": "es/ruleta-de-sorteo", "en": "raffle-wheel", "key": "es_sorteo", "nav": "Sorteos", "removeWinner": False,
  "title": "Ruleta de sorteo y rifas online – Elige ganadores al azar | Wheelova",
  "description": "Ruleta de sorteo online y gratis: pega participantes o números de boleto, gira en directo y quita a cada ganador. Ideal para sorteos en redes y rifas.",
  "h1": "Ruleta de sorteo", "subhead": "Elige a los ganadores de tu sorteo o rifa en directo, delante de todos.",
  "entries": [f"Boleto {i:03d}" for i in range(1, 9)],
  "variants": [{"label": "Boletos 1–50", "entries": [f"Boleto {i:03d}" for i in range(1, 51)]}, {"label": "Boletos 1–100", "entries": [f"Boleto {i:03d}" for i in range(1, 101)]}, {"label": "Premios", "entries": ["Primer premio", "Segundo premio", "Tercer premio"]}],
- "howTo": ["Pega los nombres de los participantes o los números de boleto, uno por línea.", "Deja activado «Quitar al ganador» para que nadie gane dos veces.", "Gira una vez por cada premio, en el orden que anunciaste."],
+ "howTo": ["Pega los nombres de los participantes o los números de boleto, uno por línea.", "Activa «Quitar al ganador» para que nadie gane dos veces.", "Gira una vez por cada premio, en el orden que anunciaste."],
  "sections": [
   {"h2": "Cómo funciona la ruleta de sorteo", "body":
    "Cada línea es una participación y una parte igual de la ruleta. Gira para sacar un ganador; con **Quitar al ganador** activado, esa participación sale de la ruleta y no puede volver a ganar. La lista de **Resultados** guarda a todos los ganadores en orden.\n\n" + NOTA_AZAR},
@@ -193,7 +193,7 @@ ES = [
  ],
  "faq": [
   {"q": "¿Cuántos participantes admite la ruleta?", "a": "Cientos funcionan bien. El texto se hace más pequeño, pero el sorteo sigue siendo al azar."},
-  {"q": "¿Cómo saco varios ganadores?", "a": "Deja activado «Quitar al ganador» y gira una vez por premio."},
+  {"q": "¿Cómo saco varios ganadores?", "a": "Activa «Quitar al ganador» y gira una vez por premio."},
   {"q": "¿Pongo nombres o números?", "a": "Nombres si cada persona tiene una participación; números de boleto si alguien puede tener varias."},
   {"q": "¿Cómo demuestro que el sorteo fue limpio?", "a": "Gira en directo o graba la pantalla, y guarda una captura de la lista y de los Resultados."},
   {"q": "¿Usar una ruleta hace legal mi sorteo?", "a": "No. Hace justa la elección, pero las normas dependen de tu país y de la red social. Revísalas antes."}

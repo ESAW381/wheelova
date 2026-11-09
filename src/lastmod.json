@@ -44,24 +44,24 @@
 "h": "6630a7a07467"
 },
 "es/ruleta-de-nombres": {
-"d": "2026-11-09",
-"h": "5fb474c9954d"
+"d": "2026-11-10",
+"h": "4ffb86616e4d"
 },
 "es/ruleta-de-numeros": {
 "d": "2026-11-09",
 "h": "0e2e5ba50a94"
 },
 "es/ruleta-de-sorteo": {
-"d": "2026-11-09",
-"h": "e3852fcca22d"
+"d": "2026-11-10",
+"h": "6a698dcb971a"
 },
 "es/ruleta-si-o-no": {
 "d": "2026-11-09",
 "h": "81f55ccec387"
 },
 "faq": {
-"d": "2026-11-08",
-"h": "716d19afc2be"
+"d": "2026-11-10",
+"h": "bd09d25955bd"
 },
 "flag-quiz": {
 "d": "2026-10-28",
@@ -80,8 +80,8 @@
 "h": "072cbfa31b32"
 },
 "guides/fair-giveaway": {
-"d": "2026-11-08",
-"h": "db47aa0e2c2d"
+"d": "2026-11-10",
+"h": "886c4554de2d"
 },
 "guides/how-random-number-generators-work": {
 "d": "2026-10-30",
@@ -105,7 +105,7 @@
 },
 "name-picker-wheel": {
 "d": "2026-11-10",
-"h": "691c12c18539"
+"h": "560c11de1a36"
 },
 "number-wheel": {
 "d": "2026-11-09",
@@ -116,8 +116,8 @@
 "h": "e110bfc7e44c"
 },
 "raffle-wheel": {
-"d": "2026-11-09",
-"h": "58cb87da2e25"
+"d": "2026-11-10",
+"h": "f822da4838e1"
 },
 "random-country-generator": {
 "d": "2026-11-09",
@@ -140,8 +140,8 @@
 "h": "b9d692d1e99d"
 },
 "random-nfl-team-generator": {
-"d": "2026-11-09",
-"h": "70dceea0c711"
+"d": "2026-11-10",
+"h": "f7cbc1f9ed6e"
 },
 "random-number-generator": {
 "d": "2026-11-08",

@@ -135,10 +135,10 @@ UPGRADES = {
  ],
  "faq": [
   {"q": "How many names can I add?", "a": "As many as you like. Labels shrink as the list grows; up to about 50 names stay easy to read on a projector."},
-  {"q": "Can I stop the same name being picked twice?", "a": "Yes. Keep \"Remove winner after each spin\" on, or press \"Remove from wheel\" in the winner popup. If you remove someone by mistake, press Undo in the message that appears."},
+  {"q": "Can I stop the same name being picked twice?", "a": "Yes. Turn on \"Remove winner after each spin\", or press \"Remove from wheel\" in the winner popup. If you remove someone by mistake, press Undo in the message that appears."},
   {"q": "Can I paste names from Excel or Google Sheets?", "a": "Yes. Copy a single column and paste it into the entry box — each cell becomes one line and one slice."},
   {"q": "Is random calling stressful for students?", "a": "It can be if it's done abruptly. Research suggests \"warm\" random calling — with think time, pair answers and the option to pass — increases participation without raising disruptive anxiety for most students."},
-  {"q": "Can I use this as a wheel of names for a giveaway?", "a": "Yes. Enter each eligible person once, spin live, and keep Remove winner on for multiple prizes."},
+  {"q": "Can I use this as a wheel of names for a giveaway?", "a": "Yes. Enter each eligible person once, spin live, and turn on Remove winner for multiple prizes."},
   {"q": "Are the names I enter private?", "a": "Names are stored in your own browser on this device and are not sent to our servers. If you create a share link, the names are carried inside that link, so share it only with people who should see the list."}
  ],
  "sources": [S_CBE, S_MDN],
@@ -389,7 +389,7 @@ UPGRADES.update({
  ],
  "faq": [
   {"q": "How many entries can the raffle wheel handle?", "a": "Hundreds work well. Labels shrink as the list grows; for thousands of tickets, the Random Number Generator is easier."},
-  {"q": "How do I draw several winners?", "a": "Keep \"Remove winner\" on and spin once per prize, in the order you announced."},
+  {"q": "How do I draw several winners?", "a": "Turn on \"Remove winner\" and spin once per prize, in the order you announced."},
   {"q": "Should I enter names or ticket numbers?", "a": "Names when everyone has one entry; ticket numbers when people can have more than one, so each ticket gets its own slice."},
   {"q": "Can people verify the result?", "a": "Spin live or record your screen, and keep a screenshot of the entry count and the Results list. Verifiable draw receipts are planned but not available yet."},
   {"q": "What if a winner doesn't reply?", "a": "Follow your published rules: after the deadline, spin again for a replacement and keep a record of it."},
@@ -806,7 +806,7 @@ def _swap(slug, old_prefix, new):
 
 _swap("random-nfl-team-generator", "Every", {"h2": "Set a fantasy football draft order", "body":
  "Most fantasy leagues draft in **snake order**: the order runs 1 to 12 in round one, then reverses (12 to 1) in round two, and keeps alternating. A fair random order matters most at the top, where the first picks are worth the most.\n\n"
- "1. Paste your managers' names into the [Name Picker Wheel](/name-picker-wheel) and leave **Remove winner** on.\n"
+ "1. Paste your managers' names into the [Name Picker Wheel](/name-picker-wheel) and turn on **Remove winner**.\n"
  "2. Spin once per manager. The **Results** list is your draft order: first name out picks first.\n"
  "3. Spin the whole order live on a video call or in the group chat, so nobody can say it was set in advance.\n\n"
  "Unlike the NBA and MLB, the NFL itself has **no draft lottery**: its draft order is set by the previous season's results, with the worst non-playoff team picking first. If your league wants lottery-style suspense, spin only for the top picks among the non-playoff teams."})
