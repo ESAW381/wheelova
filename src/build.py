@@ -276,19 +276,25 @@ def gentool(p):
 </div>"""
 
 def multi_wrap(p, toolhtml):
-    """Name Picker only: 'One wheel / Multiple wheels' tabs; the multiple-wheels mode is handled by multi.js."""
+    """Name Picker only: '+ Add wheel' under the entries box switches to 2-6 wheels side by side (multi.js)."""
     if p["slug"] != "name-picker-wheel":
         return toolhtml
-    return ('<div class="nptabs" role="tablist" aria-label="Wheel mode"><button type="button" role="tab" data-npmode="one" aria-selected="true">One wheel</button>'
-            '<button type="button" role="tab" data-npmode="multi" aria-selected="false" tabindex="-1">Multiple wheels</button></div>\n'
-            '<div id="npone">' + toolhtml + '</div>\n'
-            '<section id="multi" class="multi" hidden data-clarity-mask="true" aria-label="Multiple wheels">'
-            '<div class="mbar"><button type="button" class="btn pri" id="mall">Spin all</button><button type="button" class="btn" id="madd">+ Add wheel</button>'
-            '<span class="mhint">Up to 6 wheels, each with its own list. Space spins all.</span></div>'
+    help_p = '<p class="small" id="entries-help">One entry per line. Saved in your browser automatically.</p>'
+    toolhtml = toolhtml.replace(help_p, help_p + '<button type="button" class="btn addwheel" id="npadd">+ Add wheel</button>', 1)
+    return ('<div id="npone">' + toolhtml + '</div>\n'
+            '<section id="multi" class="multi" hidden data-clarity-mask="true" aria-label="Multiple wheels"><div class="mlayout">'
             '<div class="mgrid" id="mgrid"></div>'
+            '<div class="card mpanel">'
+            '<div class="mtabs" id="mtabs" role="tablist" aria-label="Wheels"></div>'
+            '<label class="mtl">Wheel name<input id="mtitle" maxlength="40"></label>'
+            '<label for="mta" class="mtl">Entries <span id="mcnt" class="mcnt"></span></label>'
+            '<textarea id="mta" rows="8" spellcheck="false"></textarea>'
+            '<label class="ck"><input type="checkbox" id="mrem"> Remove winner after each spin</label>'
+            '<button type="button" class="btn mallbtn" id="mall">Spin all wheels</button>'
+            '<div class="mrow"><button type="button" class="btn" id="madd">+ Add wheel</button><button type="button" class="linkbtn" id="mdel">Remove this wheel</button></div>'
+            '<p class="small">Click a wheel to spin just that one, or press Space to spin all. Saved only in this browser.</p>'
             '<div class="mlogwrap" id="mlogwrap" hidden><div class="mloghead"><b>Results</b><span><button type="button" class="linkbtn" id="mcopy">Copy</button> <button type="button" class="linkbtn" id="mclear">Clear</button></span></div><ol class="mlog" id="mlog"></ol></div>'
-            '<p class="mnote">Lists are saved only in this browser. Each wheel picks its winner from a random stopping angle, the same way as the single wheel.</p>'
-            '</section>\n<script src="/multi.js?v=' + V + '" defer></script>')
+            '</div></div></section>\n<script src="/multi.js?v=' + V + '" defer></script>')
 
 def page(p):
     path = "/" + p["slug"]

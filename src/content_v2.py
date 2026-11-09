@@ -877,9 +877,10 @@ for _k in ("random-number-generator", "yes-or-no-wheel", "name-picker-wheel", "n
 # ---- Multiple wheels mode (Nov 10 2026)
 _np = UPGRADES["name-picker-wheel"]
 _np["sections"].insert(1, {"h2": "Spin several wheels at once", "body":
- "Switch to **Multiple wheels** above the wheel to put up to six wheels side by side, each with its own list and name: for example *Student*, *Question* and *Group*. "
- "Press **Spin all** (or the Space bar) to spin every wheel together, or press **SPIN** in the middle of one wheel to spin just that one. "
+ "Press **+ Add wheel** under the entries box to put up to six wheels side by side, each with its own list: for example *Student*, *Question* and *Group*. "
+ "Each wheel gets a tab above the entries box, so you edit one list at a time and can give each wheel a name. "
+ "Press **Spin all wheels** (or the Space bar) to spin every wheel together, or click one wheel to spin just that one. "
  "Each spin adds a line to the results list, such as *Student: Noah · Question: Question 4*, which you can copy into your notes.\n\n"
  "Each wheel has its own **Remove winner** setting, so names can leave their wheel while questions stay. Every wheel picks its winner from a random stopping angle, the same way as the single wheel, and the lists are saved only in this browser."})
-_np["faq"].insert(0, {"q": "Can I spin more than one wheel at the same time?", "a": "Yes. Choose Multiple wheels above the wheel to show up to six wheels, each with its own list. Spin all spins them together, or spin each wheel on its own."})
+_np["faq"].insert(0, {"q": "Can I spin more than one wheel at the same time?", "a": "Yes. Press + Add wheel under the entries box to show up to six wheels, each with its own list and tab. Spin all wheels spins them together, or click a wheel to spin just that one. Remove wheels until one is left to go back to a single wheel."})
 _np["updated"] = "2026-11-10"
