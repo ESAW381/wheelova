@@ -75,8 +75,9 @@ def navhtml(path):
 
 from pages_es import ES, UI as ES_UI, JS as ES_JS, NAV_ES
 from pages_fr import FR, JS as FR_JS, NAV_FR
+from pages_vi import VI, JS as VI_JS, NAV_VI, R as VI_R
 ALT = {}
-for _lang, _list in (("es", ES), ("fr", FR)):
+for _lang, _list in (("es", ES), ("fr", FR), ("vi", VI)):
     for _p in _list:
         _en = "/" + _p["en"] if _p["en"] else "/"
         grp = ALT.get(_en) or {"en": _en}
@@ -86,7 +87,7 @@ def hreflang(path):
     a = ALT.get(path)
     if not a: return ""
     u = lambda x: SITE + (x if x != "/" else "/")
-    return "".join(f'\n<link rel="alternate" hreflang="{k}" href="{u(v)}">' for k, v in [(l, a[l]) for l in ("en", "es", "fr") if l in a] + [("x-default", a["en"])])
+    return "".join(f'\n<link rel="alternate" hreflang="{k}" href="{u(v)}">' for k, v in [(l, a[l]) for l in ("en", "es", "fr", "vi") if l in a] + [("x-default", a["en"])])
 
 def head(title, desc, path, ld, ogtitle=None):
     url = SITE + path
@@ -162,7 +163,7 @@ def footer():
 <div><span class="h">Popular wheels</span>{pop}</div>
 <div><span class="h">More wheels</span>{more}<a href="/wheels">All wheels</a></div>
 <div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/guides">Guides</a><a href="/embed-a-wheel">Embed a wheel</a><a href="/is-the-wheel-random">Fairness study</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="#cookies" data-wvcookies>Cookie settings</a></div>
-<div><span class="h">Languages</span><a href="/es" hreflang="es" lang="es">Español</a><a href="/fr" hreflang="fr" lang="fr">Français</a></div>
+<div><span class="h">Languages</span><a href="/es" hreflang="es" lang="es">Español</a><a href="/fr" hreflang="fr" lang="fr">Français</a><a href="/vi" hreflang="vi" lang="vi">Tiếng Việt</a></div>
 </div></footer>
 """
 
@@ -568,7 +569,7 @@ def es_page(p):
     h = h.replace('"name": "Wheels", "item": "' + SITE + '/wheels"', '"name": "Ruleta aleatoria", "item": "' + SITE + '/es"')
     if p["slug"] == "es":
         h = h.replace(', {"@type": "ListItem", "position": 3, "name": "Ruleta aleatoria", "item": "' + SITE + '/es"}', '')
-    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand("/es", "Gira la ruleta. Confía en el resultado.", "© 2026 Wheelova. Ruleta aleatoria gratis.") + '<div><span class="h">Ruletas</span>' + "".join(f'<a href="/{x["slug"]}">{e(x["nav"])}</a>' for x in ES) + '</div><div><span class="h">Wheelova</span><a href="/" hreflang="en" lang="en">English</a><a href="/fr" hreflang="fr" lang="fr">Français</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="#cookies" data-wvcookies>Cookies</a></div></div></footer>', h, count=1)
+    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand("/es", "Gira la ruleta. Confía en el resultado.", "© 2026 Wheelova. Ruleta aleatoria gratis.") + '<div><span class="h">Ruletas</span>' + "".join(f'<a href="/{x["slug"]}">{e(x["nav"])}</a>' for x in ES) + '</div><div><span class="h">Wheelova</span><a href="/" hreflang="en" lang="en">English</a><a href="/fr" hreflang="fr" lang="fr">Français</a><a href="/vi" hreflang="vi" lang="vi">Tiếng Việt</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="#cookies" data-wvcookies>Cookies</a></div></div></footer>', h, count=1)
     R = [('<html lang="en">', '<html lang="es">'),
          ('aria-label="Switch to light mode"', 'aria-label="' + ES_JS["tolight"] + '"'), ('aria-label="Open menu"', 'aria-label="Abrir menú"'),
          ('aria-label="Fullscreen" title="Fullscreen (F)"', 'aria-label="Pantalla completa" title="Pantalla completa (F)"'),
@@ -606,29 +607,45 @@ def es_page(p):
 
 
 def locdate(h, lang):
-    M = {"es": ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"], "fr": ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]}[lang]
+    M = {"es": ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"], "fr": ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]}.get(lang)
     def f(m):
         mo, d, y = MONTHS.index(m.group(2)), int(m.group(3)), m.group(4)
-        return m.group(1) + (f"{d} de {M[mo]} de {y}" if lang == "es" else f"{d} {M[mo]} {y}") + "</time>"
+        txt = f"{d} de {M[mo]} de {y}" if lang == "es" else f"{d} {M[mo]} {y}" if lang == "fr" else f"ngày {d} tháng {mo + 1} năm {y}"
+        return m.group(1) + txt + "</time>"
     return re.sub(r'(<time datetime="[^"]+">)([A-Z][a-z]+) (\d+), (\d{4})</time>', f, h)
 
-def fr_page(p):
+LANG_OF = {"": "en", "es": "es", "fr": "fr", "vi": "vi"}
+
+def loc_page(p, L):
+    """Single-page language homepages (fr, vi): render the English template, then localise it with the pack L."""
     q = dict(p); q["upgraded"] = True
-    q["howTitle"] = "Comment utiliser la roue aléatoire"
+    q["howTitle"] = L["howTitle"]
     path = "/" + p["slug"]
     h = page(q)
     h = h.replace("window.WV=" + json.dumps({k: q[k] for k in ("entries", "variants", "mode", "colorMap", "removeWinner", "resultLabel", "popLabel", "key", "prompts") if k in q}, ensure_ascii=False),
-                  "window.WV=" + json.dumps(dict({k: q[k] for k in ("entries", "variants", "removeWinner", "resultLabel", "popLabel", "key", "palette") if k in q}, t=FR_JS), ensure_ascii=False), 1)
-    nav = "".join('<a href="/%s"%s%s>%s</a>' % (sl, ' aria-current="page"' if "/" + sl == path else "", (' hreflang="en" lang="en"' if sl == "" else ' hreflang="es" lang="es"' if sl == "es" else ""), n) for sl, n in NAV_FR)
-    h = re.sub(r'<nav id="mnav" aria-label="Main">[\s\S]*?</nav>', f'<nav id="mnav" aria-label="Principal">{nav}</nav>', h, count=1)
-    h = re.sub(r'(<nav class="crumbs" aria-label=")Breadcrumb(">)[\s\S]*?(</nav>)', lambda m: m.group(1) + "Fil d'Ariane" + m.group(2) + '<span aria-current="page">Wheelova</span>' + m.group(3), h, count=1)
+                  "window.WV=" + json.dumps(dict({k: q[k] for k in ("entries", "variants", "removeWinner", "resultLabel", "popLabel", "key", "palette") if k in q}, t=L["JS"]), ensure_ascii=False), 1)
+    nav = "".join('<a href="/%s"%s%s>%s</a>' % (sl, ' aria-current="page"' if "/" + sl == path else "", "" if LANG_OF.get(sl) == L["lang"] else ' hreflang="%s" lang="%s"' % (LANG_OF.get(sl, "en"), LANG_OF.get(sl, "en")), n) for sl, n in L["NAV"])
+    h = re.sub(r'<nav id="mnav" aria-label="Main">[\s\S]*?</nav>', f'<nav id="mnav" aria-label="{L["navLabel"]}">{nav}</nav>', h, count=1)
+    h = re.sub(r'(<nav class="crumbs" aria-label=")Breadcrumb(">)[\s\S]*?(</nav>)', lambda m: m.group(1) + L["crumbs"] + m.group(2) + '<span aria-current="page">Wheelova</span>' + m.group(3), h, count=1)
     h = re.sub(r', \{"@type": "ListItem", "position": 2, "name": "Wheels"[^}]*\}', '', h)
     h = re.sub(r', \{"@type": "ListItem", "position": 3[^}]*\}', '', h)
     h = re.sub(r'<section><div class="wrap">\n<h2 style="margin-bottom:20px">Related wheels</h2>\n<div class="grid">[\s\S]*?</div>\n', '<section><div class="wrap">\n', h, count=1)
-    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand("/fr", "Faites tourner la roue. Faites confiance au résultat.", "© 2026 Wheelova. Roue aléatoire gratuite.") + '<div><span class="h">Langues</span><a href="/" hreflang="en" lang="en">English</a><a href="/es" hreflang="es" lang="es">Español</a></div><div><span class="h">Wheelova</span><a href="/is-the-wheel-random">Étude d\'équité (EN)</a><a href="/about">About</a><a href="/privacy">Confidentialité (EN)</a><a href="/terms">Conditions (EN)</a><a href="#cookies" data-wvcookies>Cookies</a></div></div></footer>', h, count=1)
-    J = FR_JS
-    R = [('<html lang="en">', '<html lang="fr">'),
-         ('aria-label="Switch to light mode"', 'aria-label="' + J["tolight"] + '"'), ('aria-label="Open menu"', 'aria-label="Ouvrir le menu"'),
+    h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand(path, L["tagline"], L["copy"]) + L["footer"] + '</div></footer>', h, count=1)
+    h = h.replace('\n<p style="margin-top:18px"><a class="more" href="/faq">More questions? Read the full FAQ →</a></p>', '')
+    for a, b in L["R"]:
+        h = h.replace(a, b)
+    h = re.sub(r'<p class="src">Randomness:.*?(?= Sources:|</p>)', L["src"], h, count=1).replace(" Sources: ", L["sourcesSep"])
+    h = h.replace('<meta property="og:type"', '<meta property="og:locale" content="%s">\n<meta property="og:type"' % L["ogLocale"], 1)
+    return locdate(h, L["lang"])
+
+_J = FR_JS
+FR_L = {"lang": "fr", "JS": FR_JS, "NAV": NAV_FR, "navLabel": "Principal", "crumbs": "Fil d'Ariane", "howTitle": "Comment utiliser la roue aléatoire",
+  "tagline": "Faites tourner la roue. Faites confiance au résultat.", "copy": "© 2026 Wheelova. Roue aléatoire gratuite.",
+  "footer": '<div><span class="h">Langues</span><a href="/" hreflang="en" lang="en">English</a><a href="/es" hreflang="es" lang="es">Español</a><a href="/vi" hreflang="vi" lang="vi">Tiếng Việt</a></div><div><span class="h">Wheelova</span><a href="/is-the-wheel-random">Étude d\'équité (EN)</a><a href="/about">About</a><a href="/privacy">Confidentialité (EN)</a><a href="/terms">Conditions (EN)</a><a href="#cookies" data-wvcookies>Cookies</a></div>',
+  "src": '<p class="src">Hasard : Wheelova utilise <a href="https://developer.mozilla.org/fr/docs/Web/API/Crypto/getRandomValues" rel="noopener">crypto.getRandomValues()</a> du navigateur (MDN Web Docs).',
+  "sourcesSep": " Sources : ", "ogLocale": "fr_FR",
+  "R": [('<html lang="en">', '<html lang="fr">'),
+         ('aria-label="Switch to light mode"', 'aria-label="' + _J["tolight"] + '"'), ('aria-label="Open menu"', 'aria-label="Ouvrir le menu"'),
          ('aria-label="Fullscreen" title="Fullscreen (F)"', 'aria-label="Plein écran" title="Plein écran (F)"'),
          ('aria-label="Spinning wheel"', 'aria-label="Roue"'), ('aria-label="Spin the wheel">SPIN<', 'aria-label="Faire tourner la roue">TOURNER<'),
          ('Press SPIN or the Space bar', "Appuyez sur TOURNER ou sur la barre d'espace"), ('>Entries <span id="count"', '>Choix <span id="count"'),
@@ -644,12 +661,12 @@ def fr_page(p):
          ('id="impbtn" type="button">Import<', 'id="impbtn" type="button">Importer<'), ('<label>Column<', '<label>Colonne<'), ('> First row is a header<', '> La première ligne est un en-tête<'), ('type="button">Use column<', 'type="button">Utiliser la colonne<'), ('id="impno" type="button">Cancel<', 'id="impno" type="button">Annuler<'),
          ('>Grayscale<', '>Niveaux de gris<'), ('>Color-blind friendly<', '>Adaptée aux daltoniens<'), ('>Custom…<', '>Personnalisées…<'), ('>Ocean<', '>Océan<'), ('>Sunset<', '>Coucher de soleil<'), ('>Forest<', '>Forêt<'), ('aria-label="Color ', 'aria-label="Couleur '),
          ('> Read the result aloud<', '> Lire le résultat à voix haute<'), ('>Fast<', '>Rapide<'), ('>Normal<', '>Normale<'), ('>Slow<', '>Lente<'),
-         ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Titre de la fenêtre du gagnant<input id="wmsg" maxlength="60" placeholder="' + J["pop"] + '"'),
+         ('Winner pop-up heading<input id="wmsg" maxlength="60" placeholder="WE HAVE A WINNER"', 'Titre de la fenêtre du gagnant<input id="wmsg" maxlength="60" placeholder="' + _J["pop"] + '"'),
          ('</span>Sound<', '</span>Son<'),
          ('Share link</button>', 'Partager le lien</button>'), ('Embed</button>', 'Intégrer</button>'),
          ('>Results <span id="rcount"', '>Résultats <span id="rcount"'),
-         ('WE HAVE A WINNER', J["pop"]), ('>Remove from wheel<', '>Retirer de la roue<'), ('>Close<', '>Fermer<'),
-         ('SHARE THIS WHEEL', J["share_title"]),
+         ('WE HAVE A WINNER', _J["pop"]), ('>Remove from wheel<', '>Retirer de la roue<'), ('>Close<', '>Fermer<'),
+         ('SHARE THIS WHEEL', _J["share_title"]),
          ('Anyone with this link can see your entries: they are encoded inside the link (not encrypted). Nothing is stored on our server, but the link stays in browser history and wherever you paste it, so avoid sharing private lists.', "Toute personne qui a ce lien peut voir vos choix : ils sont encodés dans le lien (pas chiffrés). Rien n'est stocké sur notre serveur, mais le lien reste dans l'historique du navigateur et partout où vous le collez : évitez de partager des listes privées."),
          ('for="shareurl">Link<', 'for="shareurl">Lien<'), ('id="sharecopy" type="button">Copy<', 'id="sharecopy" type="button">Copier<'),
          ('Embed code — paste into your website, blog or OBS browser source', "Code d'intégration : collez-le dans votre site, votre blog ou une source navigateur OBS"), ('>Copy embed code<', '>Copier le code<'),
@@ -657,14 +674,16 @@ def fr_page(p):
          ('Written by <span>', 'Écrit par <span>'), ('Editor, Wheelova', 'rédacteur de Wheelova'), ('Last updated <time', 'Mis à jour le <time'), ('>October 21, 2026<', '>21 octobre 2026<'), ('>November 8, 2026<', '>8 novembre 2026<'),
          ("Wheelova – Spin the wheel, trust the result", "Wheelova – Faites tourner la roue"),
          ('content="Wheelova — spin the wheel, trust the result"', 'content="Wheelova — faites tourner la roue"'),
-         ]
-    h = h.replace('\n<p style="margin-top:18px"><a class="more" href="/faq">More questions? Read the full FAQ →</a></p>', '')
-    for a, b in R:
-        h = h.replace(a, b)
-    h = re.sub(r'<p class="src">Randomness:.*?(?= Sources:|</p>)', '<p class="src">Hasard : Wheelova utilise <a href="https://developer.mozilla.org/fr/docs/Web/API/Crypto/getRandomValues" rel="noopener">crypto.getRandomValues()</a> du navigateur (MDN Web Docs).', h, count=1).replace(" Sources: ", " Sources : ")
-    h = h.replace('<meta property="og:type"', '<meta property="og:locale" content="fr_FR">\n<meta property="og:type"', 1)
-    h = locdate(h, "fr")
-    return h
+]}
+
+VI_L = {"lang": "vi", "JS": VI_JS, "NAV": NAV_VI, "navLabel": "Chính", "crumbs": "Điều hướng", "howTitle": "Cách dùng vòng quay may mắn",
+  "tagline": "Quay vòng quay. Tin vào kết quả.", "copy": "© 2026 Wheelova. Vòng quay may mắn miễn phí.",
+  "footer": '<div><span class="h">Ngôn ngữ</span><a href="/" hreflang="en" lang="en">English</a><a href="/es" hreflang="es" lang="es">Español</a><a href="/fr" hreflang="fr" lang="fr">Français</a></div><div><span class="h">Wheelova</span><a href="/is-the-wheel-random">Nghiên cứu tính công bằng (EN)</a><a href="/about">About</a><a href="/privacy">Quyền riêng tư (EN)</a><a href="/terms">Điều khoản (EN)</a><a href="#cookies" data-wvcookies>Cookie</a></div>',
+  "src": '<p class="src">Ngẫu nhiên: Wheelova dùng hàm <a href="https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues" rel="noopener">crypto.getRandomValues()</a> của trình duyệt (MDN Web Docs).',
+  "sourcesSep": " Nguồn: ", "ogLocale": "vi_VN", "R": VI_R(VI_JS)}
+
+def fr_page(p): return loc_page(p, FR_L)
+def vi_page(p): return loc_page(p, VI_L)
 
 import shutil; shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 from static_pages import STATIC
@@ -677,6 +696,8 @@ for p in ES:
     files[p["slug"] + ".html"] = es_page(p)
 for p in FR:
     files[p["slug"] + ".html"] = fr_page(p)
+for p in VI:
+    files[p["slug"] + ".html"] = vi_page(p)
 os.makedirs(os.path.join(OUT, "es"), exist_ok=True)
 os.makedirs(os.path.join(OUT, "guides"), exist_ok=True)
 for name, body in files.items():
@@ -694,7 +715,7 @@ LM_PATH = os.path.join(ROOT, "src", "lastmod.json")
 try: LM = json.load(open(LM_PATH))
 except Exception: LM = {}
 TODAY = datetime.date.today().isoformat()
-urls = ["", "wheels", "faq", study.SLUG, "guides", EP.SLUG] + [G["slug"] for G in GUIDES] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [p["slug"] for p in FR] + [s["slug"] for s in STATIC if s["slug"] != "404"]
+urls = ["", "wheels", "faq", study.SLUG, "guides", EP.SLUG] + [G["slug"] for G in GUIDES] + [p["slug"] for p in PAGES] + [p["slug"] for p in ES] + [p["slug"] for p in FR] + [p["slug"] for p in VI] + [s["slug"] for s in STATIC if s["slug"] != "404"]
 for u in urls:
     body = files["index.html" if u == "" else u + ".html"]
     m = re.search(r"<main>[\s\S]*?</main>", body)
