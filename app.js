@@ -141,7 +141,7 @@ var SITE='https://wheelova.com',PATH=location.pathname.replace(/index\.html$/,''
 function openShare(withEmbed){if(entries.length<2){res.innerHTML='<div class="hint">'+(T.add2share||'Add at least two entries to share')+'</div>';return}
 var code=enc(entries),cp=parsePal(palSel)?'&c='+palSel:'',url=SITE+PATH+'#w='+code+cp;$('shareurl').value=url;
 var emb=SITE+'/embed#w='+code+(cfg.mode&&cfg.mode!=='color'?'&m='+cfg.mode:'')+cp;
-$('embedcode').value='<iframe src="'+emb+'" title="'+(T.iframe_title||'Spin the wheel – Wheelova')+'" width="100%" height="560" style="max-width:560px;border:0" loading="lazy"></iframe>\n<p style="font:14px sans-serif">'+(T.credit_pre||'Spin wheel by')+' <a href="'+SITE+PATH+'">Wheelova</a></p>';
+var A=window.WVA||{a:'Spin the wheel',p:PATH,by:'by Wheelova'},esc=function(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')};$('embedcode').value='<iframe src="'+emb+'" title="'+(T.iframe_title||'Spin the wheel – Wheelova')+'" width="100%" height="560" style="max-width:560px;border:0" loading="lazy"></iframe>\n<p style="font:12px/1.4 system-ui,sans-serif;margin:4px 0 0"><a href="'+SITE+(A.p==='/'?'/':A.p)+'">'+esc(A.a)+'</a> '+esc(A.by)+'</p>';
 $('embedwrap').hidden=!withEmbed;$('sharettl').textContent=withEmbed?(T.embed_title||'EMBED THIS WHEEL'):(T.share_title||'SHARE THIS WHEEL');
 var w=$('sharewarn');w.hidden=url.length<=3000;w.textContent=(T.long?T.long.replace('{n}',url.length):'This list is long, so the link is long ('+url.length+' characters). It still works, but some chat apps may cut it off.');
 $('sharepop').classList.add('on');(withEmbed?$('embedcopy'):$('sharecopy')).focus()}

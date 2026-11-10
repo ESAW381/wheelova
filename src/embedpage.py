@@ -26,16 +26,17 @@ James</textarea>
 <label for="ecode" style="display:block;font-weight:600;color:var(--hi);margin-top:16px">Your embed code</label>
 <textarea id="ecode" readonly rows="6" style="font:13px/1.5 ui-monospace,Menlo,monospace;margin-top:8px"></textarea>
 <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="gbtn" id="ecopy" type="button" style="margin:0">Copy embed code</button><button class="btn" id="ecopyurl" type="button">Copy URL only (for OBS / Notion)</button></div>
+<p class="ekeep">Keep the credit link so others can find the wheel.</p>
 <p class="err" id="eerr" role="alert"></p>
 </div>
-<div class="card epreview"><div style="font-weight:600;color:var(--hi);margin-bottom:10px">Live preview</div><iframe id="eframe" title="Spin the wheel – Wheelova" style="width:100%;max-width:560px;height:560px;border:0;display:block;margin:0 auto" loading="lazy"></iframe></div>
+<div class="card epreview"><div style="font-weight:600;color:var(--hi);margin-bottom:10px">Live preview</div><iframe id="eframe" title="Spin the wheel – Wheelova" style="width:100%;max-width:560px;height:560px;border:0;display:block;margin:0 auto" loading="lazy"></iframe><p class="ecredit" style="font:12px/1.4 system-ui,sans-serif;margin:4px auto 0;max-width:560px"><a href="https://wheelova.com/" tabindex="-1">Spin the wheel</a> by Wheelova</p></div>
 </div>
 <script>(function(){var $=function(i){return document.getElementById(i)},ta=$('eentries'),SITE='https://wheelova.com',last='',n=0;
 function enc(arr){var u=new TextEncoder().encode(arr.join('\\n')),s='';for(var i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s).replace(/\\+/g,'-').replace(/\\//g,'_').replace(/=+$/,'')}
 function list(){return ta.value.split('\\n').map(function(s){return s.trim()}).filter(Boolean).slice(0,1000)}
 function url(){var e=list();return SITE+'/embed#w='+enc(e)+($('emyst').checked?'&m=mystery':'')}
 function upd(){var e=list(),sz=$('esize').value;$('ecount').textContent='\\u00b7 '+e.length;if(e.length<2){$('eerr').textContent='Add at least two entries.';$('ecode').value='';return}$('eerr').textContent='';var u=url();
-$('ecode').value='<iframe src="'+u+'" title="Spin the wheel \\u2013 Wheelova" width="100%" height="'+sz+'" style="max-width:'+sz+'px;border:0" loading="lazy"></iframe>\\n<p style="font:14px sans-serif">Spin wheel by <a href="https://wheelova.com/">Wheelova</a></p>';
+$('ecode').value='<iframe src="'+u+'" title="Spin the wheel \\u2013 Wheelova" width="100%" height="'+sz+'" style="max-width:'+sz+'px;border:0" loading="lazy"></iframe>\\n<p style="font:12px/1.4 system-ui,sans-serif;margin:4px 0 0"><a href="https://wheelova.com/">Spin the wheel</a> by Wheelova</p>';
 var local=u.replace(SITE,'');if(local!==last){last=local;var pv=(/^(localhost|127\\.)/.test(location.hostname)?'/embed.html':'/embed')+'?p='+(++n)+local.slice(6);$('eframe').src=pv;$('eframe').style.height=Math.min(+sz,560)+'px'}}
 var t;ta.addEventListener('input',function(){clearTimeout(t);t=setTimeout(upd,350)});$('esize').onchange=upd;$('emyst').onchange=upd;
 Array.prototype.forEach.call(document.querySelectorAll('#epresets .chip'),function(b){b.onclick=function(){ta.value=b.dataset.e.split('|').join('\\n');upd()}});

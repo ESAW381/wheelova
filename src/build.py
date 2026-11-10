@@ -13,7 +13,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "36"
+V = "37"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -138,7 +138,7 @@ SHARE = """
 <label class="sharelbl" for="shareurl">Link</label>
 <div class="sharefield"><input id="shareurl" readonly><button class="pbtn pri" id="sharecopy" type="button">Copy</button></div>
 <div id="embedwrap"><label class="sharelbl" for="embedcode">Embed code — paste into your website, blog or OBS browser source</label>
-<textarea id="embedcode" readonly rows="5"></textarea><button class="pbtn" id="embedcopy" type="button">Copy embed code</button></div>
+<textarea id="embedcode" readonly rows="5"></textarea><button class="pbtn" id="embedcopy" type="button">Copy embed code</button><p class="ekeep">Keep the credit link so others can find the wheel.</p></div>
 <p class="sharewarn" id="sharewarn" hidden></p>
 <div class="acts"><button class="pbtn" id="shareclose" type="button">Close</button></div>
 </div></div>
@@ -213,6 +213,26 @@ def byline(p):
     d = p.get("updated", UPDATED)
     return f'<p class="byline">Written by <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Last updated <time datetime="{d}">{endate(d)}</time></p>'
 
+# Embed credit link: plain <a> outside the iframe in the copied snippet, pointing at the tool the wheel came from.
+EMBED_ANCHOR = {
+ "": "Spin the wheel", "name-picker-wheel": "Random name picker", "yes-or-no-wheel": "Yes or no wheel", "number-wheel": "Random number wheel",
+ "color-wheel": "Random color wheel", "spinner": "Online spinner", "decision-wheel": "Decision wheel", "raffle-wheel": "Raffle wheel",
+ "lucky-wheel": "Lucky prize wheel", "mystery-wheel": "Mystery wheel", "random-letter-generator": "Random letter wheel",
+ "random-country-generator": "Random country wheel", "random-state-generator": "Random US state wheel",
+ "random-nfl-team-generator": "Random NFL team wheel", "random-nba-team-generator": "Random NBA team wheel", "random-mlb-team-generator": "Random MLB team wheel",
+ "truth-or-dare-wheel": "Truth or dare wheel", "random-word-wheel": "Random word wheel", "drawing-prompt-wheel": "Drawing prompt wheel", "food-wheel": "Food wheel",
+ "es": "Ruleta aleatoria", "es/ruleta-de-nombres": "Ruleta de nombres", "es/ruleta-si-o-no": "Ruleta sí o no", "es/ruleta-de-sorteo": "Ruleta de sorteo",
+ "es/ruleta-de-decisiones": "Ruleta de decisiones", "es/ruleta-de-colores": "Ruleta de colores", "es/ruleta-de-numeros": "Ruleta de números",
+ "fr": "Roue aléatoire", "vi": "Vòng quay may mắn",
+}
+EMBED_BY = {"en": "by Wheelova", "es": "de Wheelova", "fr": "par Wheelova", "vi": "của Wheelova"}
+EMBED_KEEP = {"en": "Keep the credit link so others can find the wheel.", "es": "Mantén el enlace de crédito para que otros puedan encontrar la ruleta.",
+              "fr": "Gardez le lien de crédit pour que d'autres puissent trouver la roue.", "vi": "Hãy giữ liên kết ghi công để người khác cũng tìm được vòng quay."}
+def lang_of(slug): return "es" if slug == "es" or slug.startswith("es/") else "fr" if slug == "fr" else "vi" if slug == "vi" else "en"
+def embed_meta(slug):
+    l = lang_of(slug)
+    return '<script>window.WVA=' + json.dumps({"a": EMBED_ANCHOR.get(slug, EMBED_ANCHOR[""]), "p": "/" + slug, "by": EMBED_BY[l]}, ensure_ascii=False) + '</script>\n'
+
 def scripts(p, cfg):
     if p.get("tool") == "flagquiz":
         iso = json.load(open(os.path.join(ROOT, "src", "country_iso.json"), encoding="utf-8"))
@@ -222,7 +242,7 @@ def scripts(p, cfg):
         if p["tool"] in ("team", "pair"): g["sample"] = p["sample"]
         if p["tool"] == "name": g["data"] = p["data"]
         return f'<script>window.WG={json.dumps(g, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/gen.js?v={V}" defer></script>'
-    return f'<script>window.WV={json.dumps(cfg, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/app.js?v={V}" defer></script>'
+    return embed_meta(p["slug"]) + f'<script>window.WV={json.dumps(cfg, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/app.js?v={V}" defer></script>'
 
 def gentool(p):
     t = p["tool"]
@@ -574,7 +594,7 @@ def home():
     main = main.replace(_toast, _toast + '\n' + multi_section("en"), 1)
     t = re.search(r"<title>(.*?)</title>", src).group(1)
     d = re.search(r'<meta name="description" content="(.*?)">', src).group(1)
-    return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + FEATURED + POP + SHARE + footer() + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/rng.js?v={V}" defer></script>\n<script src="/app.js?v={V}" defer></script>\n</body>\n</html>\n'
+    return head(html.unescape(t), html.unescape(d), "/", ld, "Wheelova – Spin the Wheel. Trust the result.") + main + FEATURED + POP + SHARE + footer() + embed_meta("") + '<script>window.WV=' + json.dumps(HOME_CFG) + '</script>\n' + f'<script src="/rng.js?v={V}" defer></script>\n<script src="/app.js?v={V}" defer></script>\n</body>\n</html>\n'
 
 BY.update({x["slug"]: x for x in ES})
 
@@ -614,7 +634,7 @@ def es_page(p):
          ('SHARE THIS WHEEL', U["share_title"]),
          ('Anyone with this link can see your entries: they are encoded inside the link (not encrypted). Nothing is stored on our server, but the link stays in browser history and wherever you paste it, so avoid sharing private lists.', U["share_help"]),
          ('for="shareurl">Link<', 'for="shareurl">' + U["link"] + '<'), ('id="sharecopy" type="button">Copy<', 'id="sharecopy" type="button">' + U["copy"] + '<'),
-         ('Embed code — paste into your website, blog or OBS browser source', U["embed_label"]), ('>Copy embed code<', '>' + U["copy_embed"] + '<'),
+         ('Embed code — paste into your website, blog or OBS browser source', U["embed_label"]), ('>Copy embed code<', '>' + U["copy_embed"] + '<'), ('Keep the credit link so others can find the wheel.', EMBED_KEEP["es"]),
          ('margin-bottom:12px">Questions<', 'margin-bottom:12px">' + U["faq"] + '<'), ('margin-bottom:20px">Related wheels<', 'margin-bottom:20px">' + U["related"] + '<'),
          ('Written by <span>', 'Escrito por <span>'), ('Editor, Wheelova', 'editor de Wheelova'), ('Last updated <time', 'Actualizado el <time'), ('>October 21, 2026<', '>21 de octubre de 2026<'), ('>November 8, 2026<', '>8 de noviembre de 2026<'),
          ("Wheelova – Spin the wheel, trust the result", "Wheelova – Gira la ruleta, confía en el resultado"),
@@ -693,7 +713,7 @@ FR_L = {"lang": "fr", "JS": FR_JS, "NAV": NAV_FR, "navLabel": "Principal", "crum
          ('SHARE THIS WHEEL', _J["share_title"]),
          ('Anyone with this link can see your entries: they are encoded inside the link (not encrypted). Nothing is stored on our server, but the link stays in browser history and wherever you paste it, so avoid sharing private lists.', "Toute personne qui a ce lien peut voir vos choix : ils sont encodés dans le lien (pas chiffrés). Rien n'est stocké sur notre serveur, mais le lien reste dans l'historique du navigateur et partout où vous le collez : évitez de partager des listes privées."),
          ('for="shareurl">Link<', 'for="shareurl">Lien<'), ('id="sharecopy" type="button">Copy<', 'id="sharecopy" type="button">Copier<'),
-         ('Embed code — paste into your website, blog or OBS browser source', "Code d'intégration : collez-le dans votre site, votre blog ou une source navigateur OBS"), ('>Copy embed code<', '>Copier le code<'),
+         ('Embed code — paste into your website, blog or OBS browser source', "Code d'intégration : collez-le dans votre site, votre blog ou une source navigateur OBS"), ('>Copy embed code<', '>Copier le code<'), ('Keep the credit link so others can find the wheel.', EMBED_KEEP["fr"]),
          ('margin-bottom:12px">Questions<', 'margin-bottom:12px">Questions fréquentes<'),
          ('Written by <span>', 'Écrit par <span>'), ('Editor, Wheelova', 'rédacteur de Wheelova'), ('Last updated <time', 'Mis à jour le <time'), ('>October 21, 2026<', '>21 octobre 2026<'), ('>November 8, 2026<', '>8 novembre 2026<'),
          ("Wheelova – Spin the wheel, trust the result", "Wheelova – Faites tourner la roue"),

@@ -281,3 +281,5 @@ body.is-mfs .mgrid{display:grid;justify-content:center;gap:16px;flex:none}
 body.is-mfs .mwheel{width:var(--mw,360px);margin:0 auto}body.is-mfs .mcard{padding:4px}body.is-mfs .mres{font-size:22px}
 .mfsbtn .fs-out{display:none}body.is-mfs .mfsbtn .fs-in{display:none}body.is-mfs .mfsbtn .fs-out{display:inline}
 @media (max-width:600px){body.is-mfs #multi{padding:12px}}
+.ekeep{font-size:13px;color:var(--mu2);margin:8px 0 0}
+.ecredit a{color:inherit}

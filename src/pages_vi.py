@@ -47,7 +47,7 @@ R = lambda J: [
  ('SHARE THIS WHEEL', J["share_title"]),
  ('Anyone with this link can see your entries: they are encoded inside the link (not encrypted). Nothing is stored on our server, but the link stays in browser history and wherever you paste it, so avoid sharing private lists.', 'Ai có liên kết này đều xem được các lựa chọn của bạn: chúng được mã hóa trong liên kết (không phải mã hóa bảo mật). Chúng tôi không lưu gì trên máy chủ, nhưng liên kết vẫn nằm trong lịch sử trình duyệt và ở nơi bạn dán, vì vậy đừng chia sẻ danh sách riêng tư.'),
  ('for="shareurl">Link<', 'for="shareurl">Liên kết<'), ('id="sharecopy" type="button">Copy<', 'id="sharecopy" type="button">Sao chép<'),
- ('Embed code — paste into your website, blog or OBS browser source', 'Mã nhúng: dán vào website, blog hoặc nguồn trình duyệt (Browser source) trong OBS'), ('>Copy embed code<', '>Sao chép mã nhúng<'),
+ ('Embed code — paste into your website, blog or OBS browser source', 'Mã nhúng: dán vào website, blog hoặc nguồn trình duyệt (Browser source) trong OBS'), ('>Copy embed code<', '>Sao chép mã nhúng<'), ('Keep the credit link so others can find the wheel.', 'Hãy giữ liên kết ghi công để người khác cũng tìm được vòng quay.'),
  ('margin-bottom:12px">Questions<', 'margin-bottom:12px">Câu hỏi thường gặp<'),
  ('Written by <span>', 'Tác giả: <span>'), ('Editor, Wheelova', 'biên tập viên Wheelova'), ('Last updated <time', 'Cập nhật <time'),
  ("Wheelova – Spin the wheel, trust the result", "Wheelova – Vòng quay may mắn"),
