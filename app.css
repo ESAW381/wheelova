@@ -283,3 +283,4 @@ body.is-mfs .mwheel{width:var(--mw,360px);margin:0 auto}body.is-mfs .mcard{paddi
 @media (max-width:600px){body.is-mfs #multi{padding:12px}}
 .ekeep{font-size:13px;color:var(--mu2);margin:8px 0 0}
 .ecredit a{color:inherit}
+.embedline{margin:18px 0 0;color:var(--mu)}

@@ -67,6 +67,8 @@ Yes. The wheel uses your browser's cryptographically secure random number source
 
 ## Free printable
 
+**Try it in your next lesson:** open the [Name Picker Wheel](/name-picker-wheel), paste your class list, and press F to put it on the projector.
+
 [Download the one-page printable (PDF)](/guides/random-name-picker-classroom.pdf) of all 25 ideas to keep on your desk or share with colleagues.
 """,
 }
@@ -77,7 +79,7 @@ GIVEAWAY = {
  "desc": "Plan, run and announce a fair giveaway on Instagram, TikTok or anywhere: rules template, entry clean-up, a live random draw and how to contact winners.",
  "h1": "How to run a fair giveaway",
  "sub": "A step-by-step guide from writing the rules to announcing the winner, with a free rules template.",
- "body": """A fair giveaway comes down to three things: clear rules written before you start, a clean list of valid entries, and a draw people can see. This guide walks through each step. It is general guidance, not legal advice: rules for prize promotions differ by country and by platform, so check the ones that apply to you.
+ "body": """A fair giveaway comes down to three things: clear rules written before you start, a clean list of valid entries, and a draw people can see, for example on a [raffle wheel](/raffle-wheel) spun live. This guide walks through each step. It is general guidance, not legal advice: rules for prize promotions differ by country and by platform, so check the ones that apply to you.
 
 ## 1. Write the rules before you post
 
@@ -171,6 +173,8 @@ Copy, fill in the brackets and adapt it to your situation. Have it checked local
 **What if the winner doesn't reply?** Follow your rules: after the deadline, draw a reserve winner and say so publicly.
 
 **Is a random wheel fair enough for a giveaway?** The draw is fair: Wheelova uses a cryptographically secure random source, and we tested it with 1,000,000 spins per wheel in our [fairness study](/is-the-wheel-random). What makes a giveaway fair overall is clean entries and transparent rules, which is what this guide covers.
+
+**Ready to draw?** Open the [Raffle Wheel](/raffle-wheel), paste or import your entries, turn on Remove winner, and spin once per prize while you record the screen.
 """,
 }
 
@@ -181,7 +185,7 @@ RNG_GUIDE = {
  "desc": "A plain-English guide to random number generators: pseudo-random vs cryptographically secure vs true random, seeds, modulo bias, and how to test fairness.",
  "h1": "How random number generators work",
  "sub": "Pseudo-random, cryptographically secure and true random explained, plus the small maths mistake that makes many generators slightly unfair.",
- "body": """A random number generator turns some source of unpredictability into numbers. The quality of a generator depends on two things: **where the randomness comes from**, and **how it is turned into the number you asked for**. Most people only think about the first. The second is where many generators quietly go wrong.
+ "body": """A random number generator turns some source of unpredictability into numbers. The quality of a generator depends on two things: **where the randomness comes from**, and **how it is turned into the number you asked for**. Most people only think about the first. The second is where many generators quietly go wrong. If you just need a number now, use the [Random Number Generator](/random-number-generator); this guide explains what happens behind it.
 
 If you just need a number now, use the [Random Number Generator](/random-number-generator). This guide explains what happens behind the button.
 

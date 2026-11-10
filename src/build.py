@@ -4,6 +4,17 @@ sys.path.insert(0, os.path.dirname(__file__))
 from pages import PAGES, MDN
 from pages_new import NEW_PAGES
 PAGES += NEW_PAGES
+# Phase 2 (Nov 10 2026): contextual Related blocks. names <-> teams <-> raffle; number <-> decision <-> yes/no.
+for _slug, _rel in {
+    "name-picker-wheel": ["random-team-generator", "raffle-wheel", "random-number-generator", "decision-wheel"],
+    "random-team-generator": ["name-picker-wheel", "raffle-wheel", "random-number-generator", "decision-wheel"],
+    "raffle-wheel": ["name-picker-wheel", "random-team-generator", "lucky-wheel", "random-number-generator"],
+    "random-number-generator": ["decision-wheel", "yes-or-no-wheel", "number-wheel", "name-picker-wheel"],
+    "decision-wheel": ["yes-or-no-wheel", "random-number-generator", "lucky-wheel", "food-wheel"],
+    "yes-or-no-wheel": ["decision-wheel", "random-number-generator", "coin-flip", "lucky-wheel"],
+    "lucky-wheel": ["raffle-wheel", "decision-wheel", "yes-or-no-wheel", "name-picker-wheel"],
+}.items():
+    next(x for x in PAGES if x["slug"] == _slug)["related"] = _rel
 for _slug, _new in (("decision-wheel", "food-wheel"), ("random-letter-generator", "random-word-wheel"), ("color-wheel", "drawing-prompt-wheel")):
     _pg = next(x for x in PAGES if x["slug"] == _slug); _pg["related"] = [_new] + [r for r in _pg["related"] if r != _new][:3]
 from content_v2 import UPGRADES, AUTHOR, UPDATED
@@ -13,10 +24,11 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "37"
+V = "38"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
+CORE = ["name-picker-wheel", "yes-or-no-wheel", "random-number-generator", "random-team-generator", "decision-wheel", "raffle-wheel", "lucky-wheel"]
 POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "truth-or-dare-wheel", "coin-flip", "dice-roller", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator", "flag-quiz", "random-pair-generator"]
 CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "food-wheel", "coin-flip"]), ("Games & parties", ["truth-or-dare-wheel", "dice-roller", "lucky-wheel", "mystery-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-pair-generator", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner", "dice-roller", "coin-flip"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "flag-quiz", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Words & creativity", ["random-word-wheel", "drawing-prompt-wheel", "random-letter-generator"]), ("Colors", ["color-wheel"])]
 DOTS = ["#6E56F0", "#E11D48", "#F59E0B", "#16A34A", "#2563EB", "#DB2777", "#0D9488", "#EA580C"]
@@ -156,12 +168,12 @@ def fbrand(home, tag, copy):
     return f'<div class="fbrand"><a class="flogo" href="{home}">{LOGO_SVG}Wheelova</a><p class="ftag">{tag}</p><p class="fcopy">{copy}</p></div>'
 
 def footer():
-    pop = "".join(f'<a href="/{s}">{e(BY[s]["nav"])}</a>' for s in POPULAR[:6])
-    more = "".join(f'<a href="/{s}">{e(BY[s]["nav"])}</a>' for s in POPULAR[6:12])
+    pop = "".join(f'<a href="/{s}">{e(BY[s]["nav"])}</a>' for s in CORE)
+    more = "".join(f'<a href="/{s}">{e(BY[s]["nav"])}</a>' for s in [x["slug"] for x in PAGES if x["slug"] not in CORE])
     return f"""<footer><div class="ft">
 {fbrand("/", "Spin the wheel. Trust the result.", "© 2026 Wheelova. Free random wheel spinner.")}
-<div><span class="h">Popular wheels</span>{pop}</div>
-<div><span class="h">More wheels</span>{more}<a href="/wheels">All wheels</a></div>
+<div><span class="h">Popular tools</span>{pop}<a href="/wheels">All tools</a></div>
+<div class="fmore"><span class="h">More tools</span>{more}</div>
 <div><span class="h">Wheelova</span><a href="/">Spin the Wheel</a><a href="/faq">FAQ</a><a href="/guides">Guides</a><a href="/embed-a-wheel">Embed a wheel</a><a href="/is-the-wheel-random">Fairness study</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="#cookies" data-wvcookies>Cookie settings</a></div>
 <div><span class="h">Languages</span><a href="/es" hreflang="es" lang="es">Español</a><a href="/fr" hreflang="fr" lang="fr">Français</a><a href="/vi" hreflang="vi" lang="vi">Tiếng Việt</a></div>
 </div></footer>
@@ -201,6 +213,12 @@ def tool(controls="", default_label="Entries"):
 </aside>
 <div class="wtoast" id="wtoast" role="status" aria-live="polite" hidden><span id="wtmsg"></span><button class="linkbtn" id="wtundo" type="button">Undo</button></div>
 </div>"""
+
+def embed_line(p):
+    """English wheel pages only: a plain link to the embed generator under Related tools."""
+    if lang_of(p["slug"]) != "en" or p.get("tool"):
+        return ""
+    return '<p class="embedline">Want this wheel on your own site, blog or stream? <a href="/embed-a-wheel">Embed a wheel</a> in a minute, free.</p>\n'
 
 def card(slug, i):
     p = BY[slug]; c = DOTS[i % len(DOTS)]
@@ -390,9 +408,9 @@ def page(p):
 </div></section>
 
 <section><div class="wrap">
-<h2 style="margin-bottom:20px">Related wheels</h2>
+<h2 style="margin-bottom:20px">Related tools</h2>
 <div class="grid">{rel}</div>
-<p class="src">Randomness: Wheelova uses the browser's <a href="{MDN["url"]}" rel="noopener">crypto.getRandomValues()</a> (MDN Web Docs).{srcs}</p>
+{embed_line(p)}<p class="src">Randomness: Wheelova uses the browser's <a href="{MDN["url"]}" rel="noopener">crypto.getRandomValues()</a> (MDN Web Docs).{srcs}</p>
 {byline(p)}
 </div></section>
 </main>
@@ -481,7 +499,7 @@ def study_page():
 
 from guides import TEACHER, GIVEAWAY, RNG_GUIDE
 GUIDES = [TEACHER, GIVEAWAY, RNG_GUIDE]
-GUIDE_FOR = {"name-picker-wheel": TEACHER, "random-team-generator": TEACHER, "raffle-wheel": GIVEAWAY, "random-number-generator": RNG_GUIDE, "number-wheel": RNG_GUIDE, "dice-roller": RNG_GUIDE}
+GUIDE_FOR = {"lucky-wheel": GIVEAWAY, "name-picker-wheel": TEACHER, "random-team-generator": TEACHER, "raffle-wheel": GIVEAWAY, "random-number-generator": RNG_GUIDE, "number-wheel": RNG_GUIDE, "dice-roller": RNG_GUIDE}
 def guide_page(G):
     path = "/" + G["slug"]
     ld = {"@context": "https://schema.org", "@graph": [
@@ -586,8 +604,8 @@ def home():
     main = re.search(r"<main>[\s\S]*?</main>", src).group(0)
     ld = json.loads(re.search(r'<script type="application/ld\+json">\s*([\s\S]*?)\s*</script>', src).group(1))
     ld["@graph"].insert(0, {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": SITE + "/icons/icon-512.png"})
-    popular = "".join(card(s, i) for i, s in enumerate(POPULAR[:8]))
-    main = main.replace('<section id="features">', f'<section id="popular"><div class="wrap">\n<h2>Popular wheels</h2>\n<p style="margin:0 0 28px;color:var(--mu)">Ready-made wheels with their own presets and guides.</p>\n<div class="grid">{popular}</div>\n<p style="margin-top:24px"><a class="more" href="/wheels">See all {len(PAGES)} tools →</a></p>\n</div></section>\n\n<section id="features">', 1)
+    popular = "".join(card(s, i) for i, s in enumerate(CORE + ["spinner"]))
+    main = main.replace('<section id="features">', f'<section id="popular"><div class="wrap">\n<h2>Popular tools</h2>\n<p style="margin:0 0 28px;color:var(--mu)">Ready-made wheels and generators with their own presets and guides.</p>\n<div class="grid">{popular}</div>\n<p style="margin-top:24px"><a class="more" href="/wheels">See all {len(PAGES)} tools →</a></p>\n</div></section>\n\n<section id="features">', 1)
     main = re.sub(r'<section id="wheels">[\s\S]*?</section>\s*', '', main, count=1)
     main = add_wheel_btn(main, "en")
     _toast = re.search(r'<div class="wtoast" id="wtoast"[^\n]*</div>\n</div>', main).group(0)
@@ -635,7 +653,7 @@ def es_page(p):
          ('Anyone with this link can see your entries: they are encoded inside the link (not encrypted). Nothing is stored on our server, but the link stays in browser history and wherever you paste it, so avoid sharing private lists.', U["share_help"]),
          ('for="shareurl">Link<', 'for="shareurl">' + U["link"] + '<'), ('id="sharecopy" type="button">Copy<', 'id="sharecopy" type="button">' + U["copy"] + '<'),
          ('Embed code — paste into your website, blog or OBS browser source', U["embed_label"]), ('>Copy embed code<', '>' + U["copy_embed"] + '<'), ('Keep the credit link so others can find the wheel.', EMBED_KEEP["es"]),
-         ('margin-bottom:12px">Questions<', 'margin-bottom:12px">' + U["faq"] + '<'), ('margin-bottom:20px">Related wheels<', 'margin-bottom:20px">' + U["related"] + '<'),
+         ('margin-bottom:12px">Questions<', 'margin-bottom:12px">' + U["faq"] + '<'), ('margin-bottom:20px">Related tools<', 'margin-bottom:20px">' + U["related"] + '<'),
          ('Written by <span>', 'Escrito por <span>'), ('Editor, Wheelova', 'editor de Wheelova'), ('Last updated <time', 'Actualizado el <time'), ('>October 21, 2026<', '>21 de octubre de 2026<'), ('>November 8, 2026<', '>8 de noviembre de 2026<'),
          ("Wheelova – Spin the wheel, trust the result", "Wheelova – Gira la ruleta, confía en el resultado"),
          ('content="Wheelova — spin the wheel, trust the result"', 'content="Wheelova — gira la ruleta"'),
@@ -673,7 +691,7 @@ def loc_page(p, L):
     h = re.sub(r'(<nav class="crumbs" aria-label=")Breadcrumb(">)[\s\S]*?(</nav>)', lambda m: m.group(1) + L["crumbs"] + m.group(2) + '<span aria-current="page">Wheelova</span>' + m.group(3), h, count=1)
     h = re.sub(r', \{"@type": "ListItem", "position": 2, "name": "Wheels"[^}]*\}', '', h)
     h = re.sub(r', \{"@type": "ListItem", "position": 3[^}]*\}', '', h)
-    h = re.sub(r'<section><div class="wrap">\n<h2 style="margin-bottom:20px">Related wheels</h2>\n<div class="grid">[\s\S]*?</div>\n', '<section><div class="wrap">\n', h, count=1)
+    h = re.sub(r'<section><div class="wrap">\n<h2 style="margin-bottom:20px">Related tools</h2>\n<div class="grid">[\s\S]*?</div>\n', '<section><div class="wrap">\n', h, count=1)
     h = re.sub(r'<footer>[\s\S]*?</footer>', '<footer><div class="ft">' + fbrand(path, L["tagline"], L["copy"]) + L["footer"] + '</div></footer>', h, count=1)
     h = h.replace('\n<p style="margin-top:18px"><a class="more" href="/faq">More questions? Read the full FAQ →</a></p>', '')
     for a, b in L["R"]:

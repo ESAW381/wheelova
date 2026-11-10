@@ -77,11 +77,11 @@ FAQ_PAGE = {
   ("Classroom and giveaways", "class", [
    ("How can I use the wheel in class?",
     "Paste your class list into the [Name Picker Wheel](/name-picker-wheel) and turn on **Remove winner** so every student gets a turn. Press F for fullscreen on the projector. "
-    "Teachers also use it for presentation order, groups (try the [Random Team Generator](/random-team-generator)) and quick quiz games."),
+    "Teachers also use it for presentation order, groups (try the [Random Team Generator](/random-team-generator)) and quick quiz games. Our [classroom guide](/guides/random-name-picker-classroom) has 25 more ideas."),
    ("How do I pick a winner from survey or form responses?",
     "Export the responses to a spreadsheet (Google Forms can send them to Google Sheets), copy the column of names or emails, and paste it into the [Raffle Wheel](/raffle-wheel). Remove duplicates first if each person should have one chance."),
    ("Can I use Wheelova for an official giveaway?",
-    "You can use it to pick the winner fairly and visibly. Whether your giveaway is legal is a separate question: rules for prize draws differ by country and by social platform, so check them before you launch. The [Raffle Wheel](/raffle-wheel) guide covers running a fair draw."),
+    "You can use it to pick the winner fairly and visibly. Whether your giveaway is legal is a separate question: rules for prize draws differ by country and by social platform, so check them before you launch. The [Raffle Wheel](/raffle-wheel) and our [fair giveaway guide](/guides/fair-giveaway) cover running a fair, recorded draw."),
   ]),
   ("Devices and browsers", "devices", [
    ("Which devices and browsers work?",
