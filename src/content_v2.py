@@ -850,7 +850,7 @@ UPGRADES.setdefault("name-picker-wheel", {}).update({
 
 # ---- Batch 3 (Nov 8 2026): metadata aligned with each tool's owned intent (master plan cluster map)
 for _k, _v in {
- "number-wheel": {"title": "Random Number Wheel – Spin a Number Generator Wheel (1–100 or Any Range) | Wheelova"},
+ "number-wheel": {"title": "Random Number Generator Wheel – Spin 1–100 or Any Range | Wheelova"},
  "raffle-wheel": {"title": "Raffle Wheel – Random Raffle Generator & Giveaway Winner Picker | Wheelova",
    "description": "Free raffle generator wheel: paste entrants or ticket numbers, spin live, remove each winner and export the draw order as CSV. No sign-up."},
  "lucky-wheel": {"title": "Lucky Wheel – Spin the Prize Wheel to Win | Wheelova",
@@ -884,3 +884,10 @@ _np["sections"].insert(1, {"h2": "Spin several wheels at once", "body":
  "Each wheel has its own **Remove winner** setting, so names can leave their wheel while questions stay. Every wheel picks its winner from a random stopping angle, the same way as the single wheel, and the lists are saved only in this browser."})
 _np["faq"].insert(0, {"q": "Can I spin more than one wheel at the same time?", "a": "Yes. Press + Add wheel under the entries box to show up to six wheels, each with its own list and tab. Spin all wheels spins them together, or click a wheel to spin just that one. Remove wheels until one is left to go back to a single wheel."})
 _np["updated"] = "2026-11-10"
+
+# ---- SEO Phase 1 batch 1 (Nov 11 2026): /spinner owns "spinner" / game-spinner intent; homepage keeps "spin the wheel" / "wheel spinner"
+UPGRADES.setdefault("spinner", {}).update({
+ "title": "Spinner – Free Online Game Spinner (2 to 20 Slices) | Wheelova",
+ "description": "Free online spinner for board games, classrooms and turns: pick 2 to 20 numbered slices, or type your own words, and spin. Results history and fullscreen.",
+ "subhead": "A game spinner for board games, turns and lessons. Choose 2 to 20 slices and spin.",
+})

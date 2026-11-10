@@ -28,8 +28,8 @@ NAV_FR = [("fr", "Roue aléatoire"), ("", "English"), ("es", "Español")]
 FR = [
 {
  "slug": "fr", "updated": "2026-11-08", "en": "", "key": "fr_home", "nav": "Roue aléatoire", "palette": PALETTE,
- "title": "Roue aléatoire – Roue du hasard en ligne gratuite | Wheelova",
- "description": "Roue aléatoire en ligne et gratuite : écrivez des prénoms ou des choix, faites tourner la roue du hasard et obtenez un résultat équitable. Sans inscription.",
+ "title": "Roue aléatoire – Roue de la chance et du hasard en ligne | Wheelova",
+ "description": "Roue aléatoire gratuite : créez votre roue de la chance avec des prénoms ou des choix, faites tourner la roue du hasard et obtenez un résultat équitable. Sans inscription.",
  "h1": "Roue aléatoire", "subhead": "Écrivez vos choix, faites tourner la roue et laissez le hasard décider.",
  "entries": PRENOMS,
  "variants": [{"label": "10 prénoms", "entries": PRENOMS}, {"label": "Oui / Non", "entries": ["Oui", "Non"]}, {"label": "Nombres 1–10", "entries": [str(i) for i in range(1, 11)]},
@@ -37,7 +37,7 @@ FR = [
  "howTo": ["Écrivez ou collez vos choix, un par ligne.", "Appuyez sur TOURNER (ou sur la barre d'espace).", "Lisez le résultat dans la fenêtre. Activez « Retirer le gagnant » pour éviter les répétitions."],
  "sections": [
   {"h2": "Qu'est-ce qu'une roue aléatoire ?", "body":
-   "Une roue aléatoire, ou roue du hasard, est une roue divisée en parts égales, une pour chaque choix que vous écrivez. Quand elle tourne, elle s'arrête au hasard sur l'une d'elles. Comme tout le monde voit la roue tourner, le résultat paraît juste : personne ne peut dire que le choix était arrangé.\n\n" + NOTE_HASARD},
+   "Une roue aléatoire, aussi appelée roue du hasard ou roue de la chance, est une roue divisée en parts égales, une pour chaque choix que vous écrivez. Quand elle tourne, elle s'arrête au hasard sur l'une d'elles. Comme tout le monde voit la roue tourner, le résultat paraît juste : personne ne peut dire que le choix était arrangé.\n\n" + NOTE_HASARD},
   {"h2": "À quoi sert-elle ?", "body":
    "**En classe :** choisir qui répond, l'ordre des exposés ou les groupes. Activez « Retirer le gagnant » pour que chaque élève passe une fois.\n\n"
    "**Tirages au sort et concours :** collez la liste des participants (ou importez un fichier CSV) et faites tourner la roue en direct. Exportez ensuite l'ordre des gagnants en CSV pour garder une trace.\n\n"

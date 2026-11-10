@@ -325,7 +325,7 @@ ES = [
 ES_HOME = {
  "updated": "2026-11-09",
  "title": "Ruleta aleatoria online – Ruleta personalizada gratis | Wheelova",
- "description": "Ruleta aleatoria online y gratis: escribe nombres u opciones, gira y obtén un resultado justo. Ruleta personalizada para sorteos, clase y decisiones. Sin registro.",
+ "description": "Ruleta aleatoria online y gratis: tu ruleta virtual y personalizada. Escribe nombres u opciones, gira la ruleta de la suerte y obtén un resultado justo. Sin registro.",
  "h1": "Ruleta aleatoria online",
  "subhead": "Escribe tus opciones, gira la ruleta y deja que el azar decida. Gratis, sin registro y probada con 1 millón de giros.",
  "howTo": ["Escribe o pega tus opciones, una por línea (o pulsa Importar para cargar un CSV).", "Pulsa GIRAR o la barra espaciadora.", "Lee el resultado en la ventana. Activa «Quitar al ganador» si no quieres repeticiones."],
