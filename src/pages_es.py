@@ -387,3 +387,86 @@ ES_HOME = {
  ],
 }
 ES[0].update(ES_HOME)
+
+# ---- Phase 3 (Nov 10 2026): richer native-Spanish content for the two Spanish pages that already get impressions.
+_by = {p["slug"]: p for p in ES}
+_n = _by["es/ruleta-de-nombres"]
+_n["updated"] = "2026-11-10"; _n["upgraded"] = True
+_n["title"] = "Ruleta de nombres – Elige un nombre al azar online y gratis | Wheelova"
+_n["description"] = "Ruleta de nombres gratis: pega tu lista, gira y elige un nombre al azar. Quita a quien ya salió, guarda una lista por clase y proyéctala en pantalla completa."
+_n["sections"] = [
+ _n["sections"][0],
+ {"h2": "Cómo usar la ruleta de nombres, paso a paso", "body":
+  "1. **Escribe o pega los nombres,** uno por línea. Puedes copiar una columna entera de Excel o Google Sheets, o pulsar **Importar** para cargar un archivo CSV (por ejemplo, la lista exportada de un formulario).\n"
+  "2. **Decide si se repiten.** Si cada persona debe salir una sola vez, activa **«Quitar al ganador después de cada giro»**. Si te equivocas al quitar a alguien desde la ventana del resultado, pulsa **Deshacer**.\n"
+  "3. **Gira** con el botón GIRAR o la barra espaciadora. Para clase, pulsa **F** y la ruleta ocupa toda la pantalla del proyector.\n"
+  "4. **Guarda la lista** con un nombre en **Mis ruletas guardadas** («3.º B», «Turno de tarde») y cambia de grupo con un clic. La lista de **Resultados** guarda el orden en que salió cada nombre y puedes copiarla o descargarla en CSV."},
+ {"h2": "Para profes: preguntar al azar sin poner nervioso a nadie", "body":
+  "Elegir al alumno con la ruleta reparte la participación más allá de los de siempre, y como todos ven girar la rueda, nadie siente que el profe le tiene manía. Funciona mejor si lo haces con cuidado:\n\n"
+  "- **Da tiempo para pensar** antes de girar: lanza la pregunta, espera unos segundos y deja que lo comenten en parejas.\n"
+  "- **Gira por parejas o por mesas** en lugar de por alumno, sobre todo al principio del curso.\n"
+  "- **Permite pasar una vez** y vuelve a esa persona más tarde.\n"
+  "- **Responde con amabilidad** a los errores: agradece el intento y construye a partir de él.\n\n"
+  "Con «Quitar al ganador» activado, en una clase de 25 todos habrán participado en 25 giros, sin repetir a nadie."},
+ _n["sections"][2],
+ {"h2": "¿Es justa la ruleta? La pusimos a prueba con 1.000.000 de giros", "body":
+  "Sí. Ejecutamos el código real de la ruleta **1.000.000 de veces** con 10 nombres. Cada nombre debería salir unas 100.000 veces, y todos salieron entre **99.417 y 100.657** veces: ninguno se alejó más de un 0,7 % de lo esperado. La prueba chi-cuadrado no encontró sesgo (p = 0,066; por encima de 0,05 significa que no hay evidencia de sesgo) y el mismo nombre salió dos veces seguidas el 10,02 % de las veces, frente al 10 % esperado.\n\n"
+  "El método, los datos brutos y el script para repetir la prueba están en el [estudio completo](/is-the-wheel-random) (en inglés)."},
+ {"h2": "Juegos para fiestas, cumpleaños y reuniones", "body":
+  "- **¿Quién empieza?** Gira para decidir el orden de un juego de mesa o de un karaoke.\n"
+  "- **Amigo invisible:** gira un nombre por persona con «Quitar al ganador» activado; si sale el propio nombre, vuelve a girar.\n"
+  "- **Retos por turnos:** combina la ruleta de nombres con la [ruleta sí o no](/es/ruleta-si-o-no) para decidir si a quien salió le toca reto.\n"
+  "- **Premios en un evento:** para muchos participantes y premios, la [ruleta de sorteo](/es/ruleta-de-sorteo) explica cómo hacerlo con registro."},
+ {"h2": "Privacidad", "body":
+  "Los nombres se guardan en tu navegador, en este dispositivo, y no se envían a nuestros servidores. Solo salen de tu dispositivo si creas un **enlace para compartir**: los nombres viajan dentro del enlace, así que quien lo tenga puede leerlos. Para una lista de clase, mejor no publiques el enlace. Pulsa **Borrar** para eliminar los nombres."},
+]
+_n["faq"] = [
+ {"q": "¿La ruleta de nombres es realmente aleatoria?", "a": "Sí. Usa el generador criptográficamente seguro del navegador (crypto.getRandomValues) y, en una prueba de 1.000.000 de giros con 10 nombres, ningún nombre se alejó más de un 0,7 % de lo esperado."},
+ {"q": "¿Cómo evito que salga dos veces el mismo nombre?", "a": "Activa «Quitar al ganador después de cada giro». Si quitas a alguien por error desde la ventana del resultado, pulsa Deshacer."},
+ {"q": "¿Puedo pegar nombres desde Excel o Google Sheets?", "a": "Sí. Copia una columna y pégala: cada celda se convierte en una línea. También puedes pulsar Importar y cargar un archivo CSV."},
+ {"q": "¿Puedo guardar una lista para cada clase?", "a": "Sí. Escribe un nombre en «Mis ruletas guardadas», pulsa Guardar lista y cambia de grupo con un clic. Las listas se guardan solo en este navegador."},
+ {"q": "¿Cómo la pongo en el proyector?", "a": "Pulsa el botón de pantalla completa o la tecla F. En iPhone, la ruleta ocupa toda la ventana del navegador."},
+ {"q": "¿Cuántos nombres puedo poner?", "a": "Todos los que quieras. Hasta unos 50 se leen bien en un proyector."},
+ {"q": "¿Los nombres son privados?", "a": "Se guardan solo en tu navegador y no se envían a nuestros servidores. Si creas un enlace para compartir, los nombres van dentro del enlace."},
+ {"q": "¿Sirve como ruleta para un sorteo?", "a": "Sí. Escribe a cada participante una sola vez, activa «Quitar al ganador» y gira en directo."},
+]
+
+_y = _by["es/ruleta-si-o-no"]
+_y["updated"] = "2026-11-10"; _y["upgraded"] = True
+_y["title"] = "Ruleta sí o no – Gira y obtén una respuesta al azar online | Wheelova"
+_y["description"] = "Ruleta sí o no gratis: haz tu pregunta, gira y obtén un sí o un no al azar. Añade «Tal vez», cambia las probabilidades o juega al mejor de tres. Probada con 1 millón de giros."
+_y["sections"] = [
+ _y["sections"][0],
+ {"h2": "Cómo usar la ruleta sí o no", "body":
+  "1. **Piensa la pregunta** en voz alta o escríbela: «¿Pedimos pizza?», «¿Salgo a correr?».\n"
+  "2. **Elige las opciones.** Por defecto hay **Sí** y **No** al 50 %. Con el ajuste «Sí / No / Tal vez» tienes tres respuestas, y puedes escribir tus propias opciones en la caja, una por línea.\n"
+  "3. **Gira** con el botón GIRAR o la barra espaciadora. Pulsa **F** para verla en pantalla completa.\n"
+  "4. **¿No te convence?** Acordad antes de girar que vale el **mejor de tres**: la primera respuesta que salga dos veces gana."},
+ _y["sections"][1],
+ {"h2": "¿Es justa? La probamos con 1.000.000 de giros", "body":
+  "Ejecutamos el código real de la ruleta **1.000.000 de veces** con dos opciones, como esta ruleta. Sí y No debían salir 500.000 veces cada uno, y salieron entre **499.629 y 500.371**: menos de un 0,08 % de diferencia. La prueba chi-cuadrado no encontró sesgo (p = 0,458) y tampoco hubo relación entre un giro y el siguiente.\n\n"
+  "Las rachas aparecieron justo cuando la probabilidad lo predice:\n\n"
+  "| Misma respuesta seguida | Veces que pasó | Esperado |\n|---|---|---|\n"
+  "| 5 o más | 31.199 | unas 31.250 |\n| 10 o más | 944 | unas 977 |\n| 15 o más | 27 | unas 31 |\n| Racha más larga | 19 | 19–20 en un millón |\n\n"
+  "Así que si te sale «Sí» cinco veces seguidas, no es un fallo: es el azar. El método y los datos brutos están en el [estudio completo](/is-the-wheel-random) (en inglés)."},
+ _y["sections"][2],
+ {"h2": "En clase y en reuniones", "body":
+  "- **Verdadero o falso:** escribe «Verdadero» y «Falso» en lugar de Sí y No y úsala como pregunta sorpresa: el equipo tiene que justificar la respuesta que salga.\n"
+  "- **Punto extra:** al final de una actividad, gira para ver si el equipo ganador se lleva un punto extra.\n"
+  "- **Reuniones:** «¿hacemos descanso ahora?» deja de ser una discusión cuando todos aceptan el resultado antes de girar.\n\n"
+  "Para elegir a quién le toca, usa la [ruleta de nombres](/es/ruleta-de-nombres)."},
+ {"h2": "Juegos para fiestas", "body":
+  "- **¿Reto o pregunta?** Escribe «Reto» y «Pregunta» y que la ruleta decida qué le toca a cada uno.\n"
+  "- **La ruleta del sí:** pon «Sí, Sí, No» para que el Sí tenga 2 de 3 probabilidades (67 %) y anímate con planes que te apetecen pero te cuesta decidir.\n"
+  "- **Desempates en grupo:** cuando la mitad quiere una cosa y la otra mitad otra, la ruleta decide en segundos."},
+ _y["sections"][3],
+ _y["sections"][4],
+]
+_y["faq"] = [
+ {"q": "¿La ruleta sí o no es 50/50?", "a": "Sí. Con las dos opciones por defecto, cada una tiene un 50 %. En una prueba de 1.000.000 de giros, Sí y No se quedaron a menos de un 0,08 % de lo esperado."},
+ {"q": "¿Puedo añadir «Tal vez»?", "a": "Sí. Pulsa el ajuste «Sí / No / Tal vez». Cada opción tendrá entonces un 33,3 %."},
+ {"q": "¿Cómo hago que el Sí salga más?", "a": "Escribe Sí dos veces. Con «Sí, Sí, No», el Sí tiene un 67 %."},
+ {"q": "¿Por qué me sale siempre lo mismo?", "a": "Las rachas son normales en el azar: que salgan tres respuestas iguales seguidas pasa una de cada cuatro veces, y en un millón de giros hubo rachas de hasta 19."},
+ {"q": "¿Sirve como verdadero o falso?", "a": "Sí. Escribe «Verdadero» y «Falso» en la caja de opciones, una por línea, y gira."},
+ {"q": "¿Debo usarla para decisiones importantes?", "a": "Úsala para desempatar entre opciones que ya te parecen bien. Para decisiones serias, busca información o asesoría primero."},
+]

@@ -7,6 +7,7 @@ DESC = "We ran 1 million spins of Wheelova's real spin code on 2, 6 and 10-entry
 H1 = "Is the wheel random? We spun it 1,000,000 times"
 SUB = "A transparent test of Wheelova's spin code: the results, the statistics, and the raw data so you can check our work."
 DATE_ISO = "2026-10-22"; DATE_TXT = "October 22, 2026"
+MOD_ISO = "2026-10-30"; MOD_TXT = "October 30, 2026"  # version-history entry: number tools moved to rejection sampling
 
 def f(n): return f"{n:,}"
 def pct(x, d=2): return f"{x*100:.{d}f}%"
@@ -104,5 +105,5 @@ def body():
 <p>You may use the charts and figures on this page with a credit link to this page.</p>
 
 <h2>Try the wheels</h2>
-<p>Put the results to work: the <a href="/yes-or-no-wheel">Yes or No Wheel</a> (the 2-entry case), the <a href="/name-picker-wheel">Name Picker Wheel</a> for classrooms, or the <a href="/raffle-wheel">Raffle Wheel</a> for giveaways.</p>
+<p>The single wheel on these pages runs the spin code tested here. Put the results to work: <a href="/">spin the wheel</a> with your own list, the <a href="/yes-or-no-wheel">Yes or No Wheel</a> (the 2-entry case), the <a href="/name-picker-wheel">Name Picker Wheel</a> for classrooms, the <a href="/raffle-wheel">Raffle Wheel</a> for giveaways, or the <a href="/decision-wheel">Decision Wheel</a> for everyday choices.</p>
 """

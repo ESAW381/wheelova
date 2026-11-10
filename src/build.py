@@ -24,7 +24,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "38"
+V = "39"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -477,7 +477,7 @@ import study
 def study_page():
     path = "/" + study.SLUG
     ld = {"@context": "https://schema.org", "@graph": [
-        {"@type": "Article", "headline": study.H1, "description": study.DESC, "url": SITE + path, "datePublished": study.DATE_ISO, "dateModified": study.DATE_ISO, "image": SITE + "/icons/og-image.png", "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/icons/icon-512.png"}}},
+        {"@type": "Article", "headline": study.H1, "description": study.DESC, "url": SITE + path, "datePublished": study.DATE_ISO, "dateModified": study.MOD_ISO, "image": SITE + "/icons/og-image.png", "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/icons/icon-512.png"}}},
         {"@type": "Dataset", "name": "Wheelova spin fairness test: 1,000,000 spins per wheel", "description": "Raw results of 1,000,000 simulated spins of Wheelova's spin code on 2-entry and 10-entry wheels, one digit per spin.", "url": SITE + path, "creator": {"@type": "Organization", "name": "Wheelova"}, "license": "https://creativecommons.org/licenses/by/4.0/", "isAccessibleForFree": True, "distribution": [{"@type": "DataDownload", "encodingFormat": "text/plain", "contentUrl": SITE + "/data/fairness/ten-entries-1m-spins.txt"}, {"@type": "DataDownload", "encodingFormat": "text/plain", "contentUrl": SITE + "/data/fairness/two-entries-1m-spins.txt"}]},
         {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Wheelova", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": "Fairness study", "item": SITE + path}]}]}
     return head(study.TITLE, study.DESC, path, ld, "We spun an online wheel 1,000,000 times. Is it random?") + f"""
@@ -485,7 +485,7 @@ def study_page():
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <span aria-current="page">Fairness study</span></nav>
 <h1>{e(study.H1)}</h1>
 <p class="sub1">{e(study.SUB)}</p>
-<p class="byline" style="margin-top:14px">By <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Published <time datetime="{study.DATE_ISO}">{study.DATE_TXT}</time></p>
+<p class="byline" style="margin-top:14px">By <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Published <time datetime="{study.DATE_ISO}">{study.DATE_TXT}</time> · Updated <time datetime="{study.MOD_ISO}">{study.MOD_TXT}</time></p>
 </div>
 <section style="padding-top:24px"><div class="wrap prose study">
 {study.body()}
@@ -503,14 +503,14 @@ GUIDE_FOR = {"lucky-wheel": GIVEAWAY, "name-picker-wheel": TEACHER, "random-team
 def guide_page(G):
     path = "/" + G["slug"]
     ld = {"@context": "https://schema.org", "@graph": [
-        {"@type": "Article", "headline": G["h1"], "description": G["desc"], "url": SITE + path, "datePublished": G.get("date", "2026-10-23"), "dateModified": G.get("date", "2026-10-23"), "image": SITE + "/icons/og-image.png", "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/icons/icon-512.png"}}},
+        {"@type": "Article", "headline": G["h1"], "description": G["desc"], "url": SITE + path, "datePublished": G.get("date", "2026-10-23"), "dateModified": G.get("updated", G.get("date", "2026-10-23")), "image": SITE + "/icons/og-image.png", "author": {"@type": "Person", "name": AUTHOR["name"]}, "publisher": {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/icons/icon-512.png"}}},
         {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Wheelova", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": SITE + "/guides"}, {"@type": "ListItem", "position": 3, "name": G["h1"], "item": SITE + path}]}]}
     return head(G["title"], G["desc"], path, ld) + f"""
 <main><div class="wrap hero">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <a href="/guides">Guides</a> / <span aria-current="page">{e(G["h1"])}</span></nav>
 <h1>{e(G["h1"])}</h1>
 <p class="sub1">{e(G["sub"])}</p>
-<p class="byline" style="margin-top:14px">By <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Published <time datetime="{G.get('date', '2026-10-23')}">{G.get('date_txt', 'October 23, 2026')}</time></p>
+<p class="byline" style="margin-top:14px">By <span>{e(AUTHOR["name"])}</span>, {e(AUTHOR["role"])} · Published <time datetime="{G.get('date', '2026-10-23')}">{G.get('date_txt', 'October 23, 2026')}</time>{(' · Updated <time datetime="' + G['updated'] + '">' + endate(G['updated']) + '</time>') if G.get('updated') else ''}</p>
 </div>
 <section style="padding-top:24px"><div class="wrap prose study">
 {md(G["body"])}

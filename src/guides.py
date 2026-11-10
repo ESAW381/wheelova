@@ -1,14 +1,23 @@
 # Guides (articles). Practical how-tos; no invented statistics or research claims.
 TEACHER = {
- "slug": "guides/random-name-picker-classroom",
- "title": "25 Ways to Use a Random Name Picker in the Classroom | Wheelova",
- "desc": "25 practical ways teachers use a random name picker wheel: fair cold calling, groups, presentation order, review games and brain breaks. Free printable included.",
+ "slug": "guides/random-name-picker-classroom", "updated": "2026-11-10",
+ "title": "Random Name Picker for Teachers: 25 Classroom Ideas | Wheelova",
+ "desc": "A random name picker for teachers: 25 classroom ideas for fair cold calling, turns that never repeat, groups and review games, plus projector setup. Free printable.",
  "h1": "25 ways to use a random name picker in the classroom",
  "sub": "Practical, ready-to-use ideas for fair turns, groups, review games and classroom routines. Free printable included.",
  "pdf": "/guides/random-name-picker-classroom.pdf",
  "body": """A random name picker takes one decision off your plate and makes it visibly fair: students can see the wheel spin, so nobody can say the teacher picked favourites. Below are 25 ways to use one, grouped by what you need it for. Each takes under a minute to set up in the [Name Picker Wheel](/name-picker-wheel).
 
 **Before you start:** paste your class list once (one name per line). It saves in your browser, so it is there next lesson. Turn on **Remove winner after each spin** when everyone should get exactly one turn, and press **F** to show the wheel full-screen on the projector.
+
+## Set up your class in two minutes
+
+1. Open the [Name Picker Wheel](/name-picker-wheel) and paste your class list, one name per line, or press **Import** to load the CSV from your register or a form.
+2. Turn on **Remove winner after each spin** so nobody is picked twice until everyone has had a turn. If you remove someone by mistake from the winner pop-up, press **Undo**.
+3. Type the class name (for example *Period 3*) under **My saved wheels** and press **Save list**. Next lesson, open it in one click.
+4. Press **F** for fullscreen on the projector or interactive whiteboard.
+
+Teaching groups at the same time? Press **+ Add wheel** to put a second wheel (questions, topics or tables) next to the names and spin both at once.
 
 ## Fair participation
 
@@ -56,14 +65,14 @@ TEACHER = {
 ## Tips that make it work
 
 - **Ask the question before you spin.** If you spin first, only one student listens to the question.
-- **Allow a pass.** A "pass once, come back later" rule keeps cold calling supportive rather than stressful.
+- **Allow a pass.** A "pass once, come back later" rule keeps cold calling supportive rather than stressful. A 2023 study of community-college biology classes ([Alvares et al., *CBE—Life Sciences Education*](https://par.nsf.gov/servlets/purl/10482726)) found that students in classes using this kind of "warm" random calling reported participating more, without being more likely to report anxiety that got in the way of learning. It was one observational study at one college, so treat it as promising rather than proof.
 - **Use real names only.** Check spelling once: "Jose" and "José" count as two entries.
 - **Show the wheel.** The fairness only works if students can see it spin. Full-screen mode (press F) makes it readable from the back row.
 - **Keep lists private.** Names stay in your own browser and are never uploaded. If you share a wheel link, the names travel inside the link, so share class lists with care.
 
 ## Is the wheel really random?
 
-Yes. The wheel uses your browser's cryptographically secure random number source, and each spin is independent. We tested it with 1,000,000 spins per wheel: see the [fairness study](/is-the-wheel-random) for the results.
+Yes. The wheel uses your browser's cryptographically secure random number source, and each spin is independent. We ran the wheel's real spin code 1,000,000 times on a 10-name wheel: every name came up between 99,417 and 100,657 times against an expected 100,000, within 0.7%, and a chi-square test found no bias. The method, the raw data and the test script are in the [fairness study](/is-the-wheel-random).
 
 ## Free printable
 
@@ -74,11 +83,11 @@ Yes. The wheel uses your browser's cryptographically secure random number source
 }
 
 GIVEAWAY = {
- "slug": "guides/fair-giveaway",
- "title": "How to Run a Fair Giveaway: Step-by-Step Guide + Rules Template | Wheelova",
- "desc": "Plan, run and announce a fair giveaway on Instagram, TikTok or anywhere: rules template, entry clean-up, a live random draw and how to contact winners.",
+ "slug": "guides/fair-giveaway", "updated": "2026-11-10",
+ "title": "How to Run a Fair Giveaway With a Raffle Wheel (+ Rules Template) | Wheelova",
+ "desc": "How to run a fair giveaway or raffle: rules template, entry clean-up, a live draw on a raffle wheel, picking several winners and contacting them. With a draw-record checklist.",
  "h1": "How to run a fair giveaway",
- "sub": "A step-by-step guide from writing the rules to announcing the winner, with a free rules template.",
+ "sub": "A step-by-step guide from writing the rules to announcing the winner, with a free rules template and a live draw on the raffle wheel.",
  "body": """A fair giveaway comes down to three things: clear rules written before you start, a clean list of valid entries, and a draw people can see, for example on a [raffle wheel](/raffle-wheel) spun live. This guide walks through each step. It is general guidance, not legal advice: rules for prize promotions differ by country and by platform, so check the ones that apply to you.
 
 ## 1. Write the rules before you post
@@ -117,6 +126,16 @@ When the giveaway closes, build your entry list:
 4. **Spin on camera,** live or recorded with screen recording. Press **F** for full-screen so viewers can read the names.
 5. Spin once per prize. The **Results** list keeps the order of winners; press **CSV** to save it with the time of each draw.
 6. Draw one or two **reserve winners** in case a winner doesn't reply or turns out to be ineligible.
+
+## Why the draw on the raffle wheel is fair
+
+The [Raffle Wheel](/raffle-wheel) picks each winner from a random stopping angle produced by your browser's cryptographically secure random source (`crypto.getRandomValues()`). We checked that with a published test rather than asking you to trust it:
+
+- **Method:** we ran the wheel's real spin code 1,000,000 times each on wheels with 2, 6 and 10 entries, then tested whether any entry won more often than chance allows (chi-square goodness-of-fit) and whether one spin influenced the next.
+- **Result:** on the 10-entry wheel every entry won between 99,417 and 100,657 times against an expected 100,000, within 0.7%. All three wheels passed the chi-square test, with no link between consecutive spins.
+- **Check it yourself:** the [fairness study](/is-the-wheel-random) publishes the test script and the raw results (one digit per spin) so anyone can rerun or re-analyse them.
+
+What the test can't do is make your list fair. A name typed twice gets two slices, so the clean-up in step 3 matters as much as the random source.
 
 ## Picking several winners without repeats
 
@@ -180,7 +199,7 @@ Copy, fill in the brackets and adapt it to your situation. Have it checked local
 
 
 RNG_GUIDE = {
- "slug": "guides/how-random-number-generators-work", "date": "2026-10-30", "date_txt": "October 30, 2026",
+ "slug": "guides/how-random-number-generators-work", "updated": "2026-11-10", "date": "2026-10-30", "date_txt": "October 30, 2026",
  "title": "How Random Number Generators Work (and How to Get a Fair Number) | Wheelova",
  "desc": "A plain-English guide to random number generators: pseudo-random vs cryptographically secure vs true random, seeds, modulo bias, and how to test fairness.",
  "h1": "How random number generators work",
