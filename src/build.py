@@ -24,7 +24,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "40"
+V = "41"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -133,10 +133,12 @@ def head(title, desc, path, ld, ogtitle=None):
 <script>try{{var t=localStorage.getItem("wv_theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 <link rel="stylesheet" href="/app.css?v={V}">
 <script src="/consent.js?v={V}" defer></script>
+<script src="/search.js?v={V}" defer></script>
 </head>
 <body>
 <header><div class="hd">
 <a class="logo" href="/"><svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 35 L32 9 A26 26 0 0 1 58 35 Z" fill="#6E56F0"/><path d="M32 35 L58 35 A26 26 0 0 1 32 61 Z" fill="#E11D48"/><path d="M32 35 L32 61 A26 26 0 0 1 6 35 Z" fill="#F59E0B"/><path d="M32 35 L6 35 A26 26 0 0 1 32 9 Z" fill="#16A34A"/><circle cx="32" cy="35" r="6.5" fill="#FFFFFF"/><path d="M25 2 H39 L32 14 Z" fill="currentColor"/></svg>Wheelova</a>
+<button class="srch" id="srch" data-v="{V}" type="button" aria-label="Search tools" aria-haspopup="dialog" title="Search (Ctrl+K)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="srch-t">Search</span><kbd class="srch-k">Ctrl K</kbd></button>
 <button class="theme" id="theme" type="button" aria-label="Switch to light mode"><svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="b1" d="M4 7h16"/><path class="b2" d="M4 12h16"/><path class="b3" d="M4 17h16"/></svg></button>
 <nav id="mnav" aria-label="Main">{navhtml(path)}</nav>
@@ -780,7 +782,7 @@ os.makedirs(os.path.join(OUT, "es"), exist_ok=True)
 os.makedirs(os.path.join(OUT, "guides"), exist_ok=True)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
-for f in ["app.css", "rng.js", "consent.js", "multi.js", "app.js", "gen.js", "coin.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
+for f in ["app.css", "rng.js", "consent.js", "multi.js", "app.js", "gen.js", "coin.js", "search.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(open(os.path.join(ROOT, f), encoding="utf-8").read())
 shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
 shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))
@@ -803,4 +805,17 @@ for u in urls:
 json.dump(LM, open(LM_PATH, "w"), indent=0, sort_keys=True)
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>{SITE}/{u}</loc><lastmod>{LM[u]['d']}</lastmod></url>" for u in urls) + "</urlset>\n"
 open(os.path.join(OUT, "sitemap.xml"), "w").write(sm)
+import html as _h
+_IDX = []
+for _u in urls:
+    _f = os.path.join(OUT, (_u or "index") + ".html")
+    if not os.path.exists(_f): continue
+    _s = open(_f, encoding="utf-8").read()
+    _t = re.search(r"<title>(.*?)</title>", _s, re.S); _d = re.search(r'name="description" content="([^"]*)', _s); _h1 = re.search(r"<h1[^>]*>(.*?)</h1>", _s, re.S)
+    _lg = re.search(r'<html lang="([a-z]+)"', _s)
+    _k = _h.unescape(_t.group(1)).replace(" | Wheelova", "") if _t else ""
+    _IDX.append({"u": "/" + _u, "t": re.split(r" [–—-] ", _k)[0].strip() or (_h.unescape(re.sub("<.*?>", "", _h1.group(1)).strip()) if _h1 else ""), "d": _h.unescape(_d.group(1)) if _d else "",
+                 "k": _h.unescape(_t.group(1)).replace(" | Wheelova", "") if _t else "", "l": _lg.group(1) if _lg else "en",
+                 "g": 1 if _u.startswith("guides/") or _u in ("is-the-wheel-random", "faq", "embed-a-wheel") else 0})
+open(os.path.join(OUT, "search-index.json"), "w", encoding="utf-8").write(json.dumps(_IDX, ensure_ascii=False, separators=(",", ":")))
 print("built", len(files), "pages +", len(urls), "sitemap urls")
