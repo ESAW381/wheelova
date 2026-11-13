@@ -909,3 +909,60 @@ UPGRADES.setdefault("spinner", {}).update({
  "description": "Free online spinner for board games, classrooms and turns: pick 2 to 20 numbered slices, or type your own words, and spin. Results history and fullscreen.",
  "subhead": "A game spinner for board games, turns and lessons. Choose 2 to 20 slices and spin.",
 })
+
+# ---- Coin flip content expansion (Nov 14 2026): answer-first blocks, sourced facts, entity-rich sections ----
+_c = UPGRADES["coin-flip"]
+_c["updated"] = "2026-11-14"
+_S = {s["h2"]: s for s in _c["sections"]}
+_new = {
+ "short": {"h2": "Coin flip: the short answer", "body":
+   "- **Odds:** heads and tails are each exactly **50%** on every flip.\n"
+   "- **Memory:** none. Each flip is independent, so a run of heads doesn't make tails \"due\".\n"
+   "- **Several coins:** three heads in a row is **12.5%** (1 in 8); ten in a row is about **0.1%** (1 in 1,024).\n"
+   "- **Real coins:** a 2023 study of 350,757 flips found they land on the side they started about **50.8%** of the time.\n"
+   "- **Edge landings:** a physics model estimated about **1 in 6,000** for a US nickel. This online coin always lands heads or tails.\n"
+   "- **This tool:** free, no sign-up, 1 to 10 coins, custom faces, stats saved only in your browser."},
+ "call": {"h2": "Should you call heads or tails?", "body":
+   "With this online coin, it makes no difference: both calls win exactly half the time, and the result is drawn after you tap.\n\n"
+   "With a **real coin**, there is one small, measurable edge: call the side that is **facing up before the flip**. In the 2023 study of 350,757 flips, coins landed on their starting side about 50.8% of the time. That's too small to notice in a single toss, but it's why careful flippers hide the starting side."},
+ "edge": {"h2": "Can a coin land on its edge?", "body":
+   "A real coin can, but rarely. A 1993 study in *Physical Review E* modelled coin tosses and estimated that a US nickel lands on its edge about **once in 6,000 tosses**. Thicker coins land on edge more often, and soft or uneven ground changes the odds.\n\n"
+   "This online coin has no edge case: every flip ends on heads or tails. If a real coin lands on its edge or rolls away during a toss, the usual rule is simply to flip again. Agree on that before you start."},
+ "real": {"h2": "How to flip a real coin fairly", "body":
+   "1. **Agree the call first:** who calls, and what each side means.\n"
+   "2. **Hide the starting side:** real coins slightly favour the side that starts face up, so the caller shouldn't see it.\n"
+   "3. **Flip high with spin:** a thumb flick that sends the coin well above head height, turning many times.\n"
+   "4. **Catch it or let it land, as agreed:** don't switch between catching and letting it drop after seeing the flip.\n"
+   "5. **Re-flip on a bad toss:** if it barely spins, lands on edge or rolls out of sight.\n\n"
+   "No coin handy, or a group watching remotely? Use the online coin in fullscreen so everyone sees the same result."},
+ "famous": {"h2": "Famous coin tosses", "body":
+   "**The first powered flight (1903):** Wilbur and Orville Wright tossed a coin to decide who would pilot first. Wilbur won, but his attempt on December 14 stalled and nosed into the sand. Orville made the first successful flight three days later.\n\n"
+   "**Naming Portland, Oregon (1845):** Asa Lovejoy wanted to name the new town Boston; Francis Pettygrove wanted Portland. They settled it with a best-of-three coin toss, and Pettygrove won. The coin, known as the Portland Penny, is kept by the Oregon Historical Society.\n\n"
+   "**Sport:** most cricket matches and American football games start with a coin toss to decide who chooses first."},
+ "vs": {"h2": "Coin flip or another random tool?", "body":
+   "| You need | Best tool | Why |\n|---|---|---|\n"
+   "| A 50/50 choice between two options | Coin flip (this page) | Two equal outcomes, fast, easy to trust |\n"
+   "| Yes, no or maybe | [Yes or No Wheel](/yes-or-no-wheel) | Adds a third outcome and adjustable odds |\n"
+   "| 3 to 20 options | [Dice Roller](/dice-roller) | d4 to d20, several dice at once |\n"
+   "| Your own list of options | [Decision Wheel](/decision-wheel) | Any number of choices, weighted by repeats |\n"
+   "| A number in any range | [Random Number Generator](/random-number-generator) | Ranges, no repeats, lists |\n"
+   "| Picking a person | [Name Picker Wheel](/name-picker-wheel) | Removes each winner, saves class lists |"},
+}
+_order = [_new["short"], _S["How the coin flip works"], _S["Online coin toss for cricket and other sports"], _S["Flipping 2, 3 or more coins"],
+          _S["Yes or no coin and custom coins"], _new["call"], _S["Is an online coin flip fair?"], _new["edge"], _S["Streaks are normal"],
+          _new["real"], _new["famous"], _S["When to flip a coin"], _new["vs"]]
+assert len(_order) == len(_c["sections"]) + 6
+_c["sections"] = _order
+_c["faq"] += [
+ {"q": "What are the odds of getting heads three times in a row?", "a": "12.5%, or 1 in 8 (0.5 × 0.5 × 0.5). Five in a row is 1 in 32, and ten in a row is 1 in 1,024."},
+ {"q": "Should I call heads or tails?", "a": "With an online coin it doesn't matter: both win 50% of the time. With a real coin, the side facing up before the flip wins slightly more often, about 50.8% in a 2023 study of 350,757 flips."},
+ {"q": "Can a coin land on its side?", "a": "A real coin can, but rarely: one physics model estimated about 1 in 6,000 tosses for a US nickel. This online coin always lands on heads or tails."},
+ {"q": "Does heads or tails come up more often?", "a": "Neither, on a fair coin. Over many flips each side tends towards 50%, though short runs often look uneven. Your stats panel shows this as you flip."},
+ {"q": "Does it work on my phone?", "a": "Yes. It runs in any modern browser on phones, tablets and computers. Tap the coin to flip; nothing to install."},
+]
+_c["sources"] = _c["sources"] + [
+ {"title": "Diaconis, Holmes & Montgomery (2007) — Dynamical bias in the coin toss, SIAM Review", "url": "https://www.stat.berkeley.edu/~aldous/157/Papers/diaconis_coinbias.pdf"},
+ {"title": "Murray & Teare (1993) — Probability of a tossed coin landing on edge, Physical Review E 48, 2547", "url": "https://link.aps.org/doi/10.1103/PhysRevE.48.2547"},
+ {"title": "National Park Service — Wright Brothers National Memorial: The First Flight", "url": "https://www.nps.gov/wrbr/historyculture/thefirstflight.htm"},
+ {"title": "Oregon Encyclopedia — Portland Penny", "url": "https://oregonencyclopedia.org/articles/portland_penny/"},
+]
