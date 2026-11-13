@@ -3,11 +3,11 @@ import json, os, math
 R = json.load(open(os.path.join(os.path.dirname(__file__), "fairness.json")))
 SLUG = "is-the-wheel-random"
 TITLE = "Is the Wheel Random? We Spun It 1,000,000 Times | Wheelova"
-DESC = "We ran 1 million spins of Wheelova's real spin code on 2, 6 and 10-entry wheels. Results, chi-square tests, streaks and the raw data you can check yourself."
+DESC = "We ran 1 million spins of Wheelova's spin code per wheel and published the raw data. Plus: how spin wheels really get rigged, and how to check any draw."
 H1 = "Is the wheel random? We spun it 1,000,000 times"
 SUB = "A transparent test of Wheelova's spin code: the results, the statistics, and the raw data so you can check our work."
 DATE_ISO = "2026-10-22"; DATE_TXT = "October 22, 2026"
-MOD_ISO = "2026-10-30"; MOD_TXT = "October 30, 2026"  # version-history entry: number tools moved to rejection sampling
+MOD_ISO = "2026-11-14"; MOD_TXT = "November 14, 2026"  # version history: Oct 30 rejection sampling; Nov 14 rigging + checklist sections
 
 def f(n): return f"{n:,}"
 def pct(x, d=2): return f"{x*100:.{d}f}%"
@@ -85,6 +85,7 @@ def body():
 <ul>
 <li><b>October 22, 2026:</b> first published (3,000,000 spins across 2, 6 and 10-entry wheels).</li>
 <li><b>October 30, 2026:</b> Wheelova's number tools (Random Number Generator, dice, coin, shuffle, quiz) moved to rejection sampling, which removes a tiny bias in how random bits become whole numbers. The wheels tested here already chose winners from a continuous random angle, so their spin code and these results are unchanged.</li>
+<li><b>November 14, 2026:</b> added sections on how spin-wheel draws can be manipulated, why fair wheels look rigged, and a checklist for checking a draw. The test, its results and the raw data are unchanged.</li>
 </ul>
 
 <h2>What this test does not show</h2>
@@ -94,6 +95,39 @@ def body():
 <li><b>It is not a certification.</b> Wheelova is built for classrooms, games, giveaways and decisions. It is not a certified lottery or gambling system.</li>
 <li><b>Results vary run to run.</b> Running the test again gives slightly different counts and p-values. That is what randomness looks like.</li>
 </ul>
+
+<h2>Can a spin wheel be rigged?</h2>
+<p>Yes, a draw on a spinning wheel can be rigged, but almost never through the random number itself. In practice a draw is manipulated through things a viewer can check: what is on the list, how the slices are sized, and what happens off camera. The table below covers the common ways and how to spot each one. It applies to any wheel, on any site.</p>
+<div class="tw"><table><thead><tr><th>How a draw can be manipulated</th><th>What it looks like</th><th>How to spot or prevent it</th></tr></thead><tbody>
+<tr><td>Duplicate entries</td><td>One name typed twice gets two slices and twice the chance. Near-duplicates such as "Sam", "Sam." and "sam" do the same thing less obviously.</td><td>Ask to see the full list and the entry count before the spin. Sorting the list alphabetically puts duplicates next to each other.</td></tr>
+<tr><td>Hidden or unreadable entries</td><td>Extra entries on a wheel too crowded to read, or a wheel set to hide its slices.</td><td>The organiser announces the number of valid entries and shows the list on screen. Hidden-slice wheels, such as Wheelova's <a href="/mystery-wheel">Mystery Wheel</a>, are for games, not for prize draws.</td></tr>
+<tr><td>Unequal slices</td><td>Some wheel tools let the organiser change slice sizes or set win weights (for example, <a href="https://form.jotform.com/website-widgets/spinning-wheel/" rel="noopener">Jotform's spinning wheel widget</a> offers win weights for prize promotions), which is legitimate for a game or a shop promotion with published odds, but not for a draw described as equal.</td><td>Look at the wheel: equal-chance slices are all the same width. Wheelova has no weight setting; every slice is always the same size.</td></tr>
+<tr><td>Re-spinning until a preferred result</td><td>Several spins happen before recording starts, or a "test spin" is quietly discarded.</td><td>Spin live or record one unedited take that starts before the spin. Wheelova's Results list records every spin with its time, and can be saved as a CSV.</td></tr>
+<tr><td>Edited recordings or altered pages</td><td>A video cut between spins, or a page that someone has modified on their own device to show a chosen result.</td><td>Whoever controls the device controls what it shows, on any site. For high-value prizes, have someone independent run or witness the draw, and keep the unedited recording.</td></tr>
+<tr><td>No real draw at all</td><td>A winner is announced with no recording, no entry count and no way to check.</td><td>Publish the rules, the entry count and the draw method before the draw.</td></tr>
+</tbody></table></div>
+<p><b>Can Wheelova itself be rigged?</b> There is no setting that chooses a winner in advance, and the winner never depends on an entry's name or position: it is whichever slice stops under the pointer after a random stopping angle from <code>crypto.getRandomValues()</code>. <b>Shuffle</b> and <b>Sort</b> move entries around but don't change slice sizes, so they don't change anyone's chances. What Wheelova can't do is stop a person from putting an entry on the list twice, which is why the list is the thing to check.</p>
+
+<h2>Why fair wheels look rigged</h2>
+<p>Most "rigged" complaints are ordinary randomness. Results 3 and 4 above show the patterns that feel suspicious but are expected:</p>
+<ul>
+<li><b>Repeats:</b> on a 10-entry wheel, the same result comes up twice in a row about 1 spin in 10.</li>
+<li><b>Streaks:</b> on a 2-entry wheel, five of the same result in a row happened 31,199 times in 1,000,000 spins, which is what probability predicts.</li>
+<li><b>Uneven short runs:</b> over a few dozen spins, some entries come up several times and others not at all. With 25 names and 25 spins, about 9 names never come up. Our guide to <a href="/guides/spin-wheel-probability">spin wheel probability</a> works through the numbers.</li>
+</ul>
+<p>If you want every entry to win exactly once, that is a setting, not a question of fairness: turn on <b>Remove winner after each spin</b>.</p>
+
+<h2>How to check that a draw is fair: a checklist</h2>
+<p><b>If you are watching a draw</b>, a fair one lets you answer yes to most of these:</p>
+<ul>
+<li>Were the rules, the closing time and the prize published before the draw?</li>
+<li>Was the number of valid entries announced, and could you see the list?</li>
+<li>Are all the slices the same size, unless uneven odds were announced?</li>
+<li>Was the draw live, or one continuous recording that shows the list and the spin?</li>
+<li>If several prizes were drawn, was the order of prizes stated before the first spin?</li>
+<li>Were reserve winners drawn the same way, and is the reason for any re-draw one the rules allowed?</li>
+</ul>
+<p><b>If you are running a draw</b>, do the same things in advance: clean the list of duplicates and ineligible entries, save a copy, announce the count and the prize order, turn on Remove winner for multi-prize draws, record the screen from before the spin, and keep the recording and the Results CSV until every prize is delivered. The <a href="/guides/fair-giveaway">fair giveaway guide</a> has a step-by-step routine and a draw-record template.</p>
 
 <h2>Check it yourself</h2>
 <p>You don't have to take our word for it. Download the test script and run it with Node.js 18 or newer, or analyse our raw results in any spreadsheet or statistics tool.</p>

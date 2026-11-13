@@ -55,7 +55,13 @@ You can also open any Wheelova wheel and press **Embed** under the entries to ge
 
 ## WordPress and most blogs
 
-In the WordPress block editor, add a **Custom HTML** block and paste the code. Other blog platforms usually have an "HTML", "Embed" or "Code" block that works the same way. Preview the page to check the size.
+1. In the WordPress block editor, add a **Custom HTML** block (type `/html` in an empty paragraph to add one quickly) and paste the code.
+2. Use the block's preview to check the wheel appears, then preview the whole page on a phone-sized window too.
+3. Publish, and open the page in a private window to confirm visitors see it.
+
+**If the wheel disappears when you save,** your account or plan is filtering the iframe. On self-hosted WordPress, only some roles may post unfiltered HTML: WordPress's own [Custom HTML documentation](https://wordpress.org/support/article/custom-html/) notes that disallowed markup is removed when the post is saved, so ask an administrator to add the block. On WordPress.com, iframe embed codes are not available on the lower-tier plans; the [Data Visualization for All](https://handsondataviz.org/paste-code.html) handbook describes this limit and the paid plans that lift it. If you can't add HTML at all, link to the wheel instead.
+
+Other blog platforms usually have an "HTML", "Embed" or "Code" block that works the same way.
 
 ## Google Sites
 
@@ -71,7 +77,22 @@ Press **Copy URL only**, type `/embed` in a Notion page, and paste the URL.
 
 ## OBS and live streams
 
-Press **Copy URL only**. In OBS, add a **Browser** source, paste the URL, and set the width and height to about 560 × 560. Right-click the source and choose **Interact** to spin it during the stream. The background is plain, so it sits cleanly on most overlays.
+1. Press **Copy URL only**.
+2. In OBS, click **+** under Sources, choose **Browser**, paste the URL, and set the width and height to about 560 × 560.
+3. To spin during the stream, right-click the source in the Sources list and choose **Interact**, then click the wheel or press the Space bar in the window that opens. Viewers see the spin; they can't click it themselves.
+4. The background is plain, so it sits cleanly on most overlays.
+
+**Stream tips:** test the source before you go live, because OBS keeps its own copy of the page. If you change the entries, copy the new URL into the source's properties; if the old wheel still shows, use **Refresh cache of current page** in the source's properties (see the [OBS Browser Source guide](https://obsproject.com/kb/browser-source)). For giveaways on stream, show the full entry list on screen before the spin, and turn mystery mode off so viewers can see every name. The [fair giveaway guide](/guides/fair-giveaway) has a draw routine to follow.
+
+## If the embedded wheel doesn't work
+
+| What you see | Likely cause | Fix |
+|---|---|---|
+| Empty space where the wheel should be | The platform removed the iframe when saving | Check that your role or plan allows HTML embeds, or link to the wheel instead |
+| Wheel cut off at the bottom | The box is shorter than the wheel | Pick a smaller size above, or increase the height in your page editor |
+| Old entries still showing | You pasted an older code, or OBS cached the page | Copy the code again after editing; in OBS, refresh the source's cache |
+| The wheel won't spin in OBS | OBS sources don't take clicks directly | Right-click the source and choose **Interact** |
+| Nothing appears on a school site | The school blocks embedded content | Ask the administrator to allow embeds from wheelova.com, or link to the wheel |
 
 ## Changing the entries later
 

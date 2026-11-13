@@ -515,8 +515,8 @@ def study_page():
 </html>
 """
 
-from guides import TEACHER, GIVEAWAY, RNG_GUIDE
-GUIDES = [TEACHER, GIVEAWAY, RNG_GUIDE]
+from guides import TEACHER, GIVEAWAY, RNG_GUIDE, CUSTOM_WHEEL, PROBABILITY
+GUIDES = [CUSTOM_WHEEL, TEACHER, GIVEAWAY, PROBABILITY, RNG_GUIDE]
 GUIDE_FOR = {"lucky-wheel": GIVEAWAY, "name-picker-wheel": TEACHER, "random-team-generator": TEACHER, "raffle-wheel": GIVEAWAY, "random-number-generator": RNG_GUIDE, "number-wheel": RNG_GUIDE, "dice-roller": RNG_GUIDE}
 def guide_page(G):
     path = "/" + G["slug"]
@@ -545,13 +545,13 @@ def guides_hub():
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Wheelova guides", "url": SITE + path, "hasPart": [{"@type": "Article", "name": G["h1"], "url": SITE + "/" + G["slug"]} for G in GUIDES] + [{"@type": "Article", "name": study.H1, "url": SITE + "/" + study.SLUG}]}
     items = [(G["slug"], G["h1"], G["sub"]) for G in GUIDES] + [(study.SLUG, study.H1, study.SUB)]
     cards = "".join(f'<a class="tpl" href="/{sl}"><span class="dot" style="background:conic-gradient({DOTS[i]} 0 25%,#2A2A36 0 50%,{DOTS[i]} 0 75%,#2A2A36 0)"></span><span><b>{e(h)}</b><span>{e(sb)}</span></span></a>' for i, (sl, h, sb) in enumerate(items))
-    return head("Guides – Classroom, Giveaways & Fair Random Picks | Wheelova", "Practical guides for teachers and giveaway hosts, plus our 1,000,000-spin fairness study.", path, ld) + f"""
+    return head("Guides – Classroom, Giveaways & Fair Random Picks | Wheelova", "Practical guides to making a wheel, classroom picks, fair giveaways and spin odds, plus our 1,000,000-spin fairness study.", path, ld) + f"""
 <main><div class="wrap hero">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <span aria-current="page">Guides</span></nav>
 <h1>Guides</h1>
 <p class="sub1">Practical help for classrooms, giveaways and fair random picks.</p>
 <div class="prose" style="margin-top:20px;max-width:760px"><p>These guides explain how to use random picking well: fairly, transparently and without wasting class or event time. Each one is written and checked by our editor, links to the tool it describes, and states its limits. For example, the giveaway guide is general guidance, not legal advice.</p>
-<ul><li><b>Teachers:</b> 25 practical classroom uses for a name picker, with a free printable.</li><li><b>Giveaway hosts:</b> a step-by-step process from rules to winner announcement, with a rules template.</li><li><b>Curious how randomness works:</b> a plain-English guide to random number generators, seeds and the modulo-bias mistake.</li><li><b>Anyone who doubts the wheel:</b> our fairness study, with 1,000,000 spins per wheel and the raw data.</li></ul>
+<ul><li><b>Getting started:</b> how to make a custom wheel, weight it honestly, save, share or embed it, and make a paper spinner.</li><li><b>Teachers:</b> 25 practical classroom uses for a name picker, with a free printable.</li><li><b>Giveaway and raffle hosts:</b> a step-by-step process from rules to winner announcement, raffle vs free prize draw, and a rules template.</li><li><b>Curious about the odds:</b> spin wheel probability, from one spin to how many spins it takes before everyone is picked.</li><li><b>Curious how randomness works:</b> a plain-English guide to random number generators, seeds and the modulo-bias mistake.</li><li><b>Anyone who doubts the wheel:</b> our fairness study, with 1,000,000 spins per wheel, the raw data, and how to check any draw for rigging.</li></ul>
 <p>Want a wheel on your own site? See <a href="/embed-a-wheel">how to embed a wheel</a>. Questions about how Wheelova works are answered in the <a href="/faq">FAQ</a>.</p></div>
 <div class="grid" style="margin-top:28px">{cards}</div>
 </div></main>

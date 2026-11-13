@@ -1,0 +1,29 @@
+{
+ "6": {
+  "runs": 100000,
+  "mean": 14.69,
+  "median": 13,
+  "p90": 23,
+  "min": 6,
+  "max": 73,
+  "avgNeverPickedInNSpins": 2.01
+ },
+ "10": {
+  "runs": 100000,
+  "mean": 29.28,
+  "median": 27,
+  "p90": 44,
+  "min": 10,
+  "max": 136,
+  "avgNeverPickedInNSpins": 3.49
+ },
+ "25": {
+  "runs": 100000,
+  "mean": 95.4,
+  "median": 90,
+  "p90": 135,
+  "min": 35,
+  "max": 370,
+  "avgNeverPickedInNSpins": 9.01
+ }
+}

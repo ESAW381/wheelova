@@ -28,8 +28,8 @@
 "h": "d90c7fb9aa27"
 },
 "embed-a-wheel": {
-"d": "2026-11-10",
-"h": "ceb87f0a2602"
+"d": "2026-11-14",
+"h": "8a154b9b720e"
 },
 "es": {
 "d": "2026-11-14",
@@ -60,8 +60,8 @@
 "h": "218d5fd8618e"
 },
 "faq": {
-"d": "2026-11-10",
-"h": "e82d1873fe62"
+"d": "2026-11-14",
+"h": "5953ab9a2544"
 },
 "flag-quiz": {
 "d": "2026-11-10",
@@ -76,28 +76,36 @@
 "h": "b7f408f7d11c"
 },
 "guides": {
-"d": "2026-11-10",
-"h": "5e279879f8ec"
+"d": "2026-11-14",
+"h": "8ca7dc604514"
 },
 "guides/fair-giveaway": {
-"d": "2026-11-10",
-"h": "10e945fc32af"
+"d": "2026-11-14",
+"h": "b5eefc4f2010"
 },
 "guides/how-random-number-generators-work": {
-"d": "2026-11-10",
-"h": "99e0c0968483"
+"d": "2026-11-14",
+"h": "0adfa0aee35f"
+},
+"guides/make-custom-spinning-wheel": {
+"d": "2026-11-14",
+"h": "789ede415277"
 },
 "guides/random-name-picker-classroom": {
-"d": "2026-11-10",
-"h": "743b5cb1391e"
+"d": "2026-11-14",
+"h": "bebb0715d7f0"
+},
+"guides/spin-wheel-probability": {
+"d": "2026-11-14",
+"h": "8139d18906ae"
 },
 "is-the-wheel-random": {
-"d": "2026-11-10",
-"h": "1bd9462fb7b4"
+"d": "2026-11-14",
+"h": "7e7a132e47ef"
 },
 "lucky-wheel": {
-"d": "2026-11-10",
-"h": "24f49012509a"
+"d": "2026-11-14",
+"h": "dced2a1ea391"
 },
 "mystery-wheel": {
 "d": "2026-11-10",
@@ -116,8 +124,8 @@
 "h": "e110bfc7e44c"
 },
 "raffle-wheel": {
-"d": "2026-11-10",
-"h": "ccf77d758bfa"
+"d": "2026-11-14",
+"h": "3e9c9b81720d"
 },
 "random-country-generator": {
 "d": "2026-11-10",

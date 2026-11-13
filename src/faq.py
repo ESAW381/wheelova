@@ -16,7 +16,7 @@ FAQ_PAGE = {
     "If you type the same entry twice, it gets two slices and twice the chance. That is how you weight the wheel on purpose."),
    ("Why did I get the same result twice in a row?",
     "Because each spin is independent, repeats are normal. With 2 entries, the same result comes up twice in a row half the time. With 10 entries, it happens on 1 spin in 10. "
-    "If you want each entry to win only once, turn on **Remove winner after each spin**."),
+    "If you want each entry to win only once, turn on **Remove winner after each spin**. Our guide to [spin wheel probability](/guides/spin-wheel-probability) shows how often repeats happen on wheels of different sizes."),
    ("I spun several times and one entry came up more than the others. Is something wrong?",
     "Probably not. Over a handful of spins, uneven results are expected. Spin a 4-slice wheel 20 times and you will rarely see exactly 5 of each. "
     "The counts only even out over hundreds or thousands of spins."),
@@ -24,12 +24,12 @@ FAQ_PAGE = {
     "Yes. Shuffle reorders your list with the Fisher–Yates method, using the same secure random source. It changes where entries sit on the wheel, not their chances: equal slices stay equal."),
    ("Can the wheel be rigged?",
     "Wheelova has no hidden setting that chooses a winner in advance, and the result is never decided by entry position or name. "
-    "But whoever controls the device controls the list, so for public draws, show the full list on screen before you spin, keep duplicates out unless everyone agreed to them, and spin live or record the screen."),
+    "But whoever controls the device controls the list, so for public draws, show the full list on screen before you spin, keep duplicates out unless everyone agreed to them, and spin live or record the screen. The [fairness study](/is-the-wheel-random) lists the common ways draws are manipulated and a checklist for checking one."),
   ]),
   ("Using the wheel", "use", [
    ("How do I use Wheelova?",
     "Type or paste your entries into the box, one per line, then press **Spin** or the Space bar. The winner appears in a pop-up and in the Results list. "
-    "Ready-made wheels, such as the [Yes or No Wheel](/yes-or-no-wheel) or the [Name Picker Wheel](/name-picker-wheel), come with their own entries and presets."),
+    "Ready-made wheels, such as the [Yes or No Wheel](/yes-or-no-wheel) or the [Name Picker Wheel](/name-picker-wheel), come with their own entries and presets. For a full walkthrough, see [how to make a custom spinning wheel](/guides/make-custom-spinning-wheel)."),
    ("Can I import names from a CSV or Excel file?",
     "Yes. Press **Import** above the entries box and choose a CSV, TSV or text file. If the file has several columns, pick the one you want and say whether the first row is a header. For an Excel file, save it as CSV first, or copy the column and paste it into the box. The file is read in your browser and is not uploaded. Up to 2,000 entries are imported."),
    ("How many entries can I add?",
