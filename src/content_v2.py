@@ -743,7 +743,22 @@ UPGRADES.update({
 "coin-flip": {
  "sections": [
   {"h2": "How the coin flip works", "body":
-   "Press **Flip** and the coin lands on heads or tails, each with exactly a 50% chance. You can flip once, or flip up to 100 times in one go and see the tally and the longest streak.\n\n" + RANDOM_NOTE},
+   "Tap the coin (or press **Flip** or the Space bar) and it lands on heads or tails, each with exactly a 50% chance. Your heads and tails count, current streak and longest streak update after every flip and stay saved in this browser until you press **Reset stats**. Need a big sample? **Flip 100 times** runs a separate batch and shows the tally and longest streak.\n\n" + RANDOM_NOTE},
+  {"h2": "Online coin toss for cricket and other sports", "body":
+   "No coin in your pocket? Use this as an online toss before a match:\n\n"
+   "1. Agree who calls **before** the toss, and say the call out loud.\n"
+   "2. Press **F** (or the fullscreen button) so both sides can see the coin.\n"
+   "3. Tap the coin once. The first result counts, so no \"best of three\" unless you agreed it beforehand.\n\n"
+   "For a friendly game you can switch the faces to **Team A / B** so the coin shows the winner directly. For official competitions, follow your league's own toss rules."},
+  {"h2": "Flipping 2, 3 or more coins", "body":
+   "Choose 2, 3, 5 or 10 coins and they all flip at once. Each coin is independent, so the chance of a combination depends on how many ways it can happen:\n\n"
+   "| Coins | Result | Chance |\n|---|---|---|\n"
+   "| 2 | Both heads | 25% |\n| 2 | One heads, one tails | 50% |\n"
+   "| 3 | All three heads | 12.5% |\n| 3 | Exactly two heads | 37.5% |\n| 3 | At least one heads | 87.5% |\n"
+   "| 5 | All five the same | 6.25% |\n| 10 | All ten heads | about 0.1% (1 in 1,024) |\n\n"
+   "Flipping one coin three times gives exactly the same odds as flipping three coins once."},
+  {"h2": "Yes or no coin and custom coins", "body":
+   "Under **Faces**, change what the two sides say: **Yes / No**, **1 / 2**, **Team A / B**, or **Custom** with up to 14 characters per side (for example \"Pizza\" and \"Tacos\"). **Share link** copies a link that opens the coin with the same faces. For a yes/no answer with a \"maybe\" option, use the [Yes or No Wheel](/yes-or-no-wheel)."},
   {"h2": "Is an online coin flip fair?", "body":
    "Yes — and arguably fairer than a real coin. Statistician Persi Diaconis predicted that a flipped coin is slightly more likely to land the same way up it started, because of how coins wobble in the air. A 2023 study by František Bartoš and colleagues tested this with 350,757 real flips and found coins landed on their starting side about 50.8% of the time. An online flip has no starting side and no wobble: every flip is an independent 50/50 from the random generator."},
   {"h2": "Streaks are normal", "body":
@@ -758,7 +773,10 @@ UPGRADES.update({
  ],
  "faq": [
   {"q": "Is the coin flip 50/50?", "a": "Yes. Heads and tails each have exactly a 50% chance on every flip."},
-  {"q": "Can I flip more than one coin?", "a": "Yes. Choose up to 100 flips and the tool shows each result, the heads/tails tally and the longest streak."},
+  {"q": "Can I flip more than one coin?", "a": "Yes. Choose 2, 3, 5 or 10 coins to flip them together, or press Flip 100 times for a big batch with the tally and longest streak."},
+  {"q": "Can I change heads and tails to Yes and No?", "a": "Yes. Under Faces, pick Yes / No, 1 / 2, Team A / B, or Custom to type your own words. Share link opens the coin with the same faces."},
+  {"q": "Is an online coin toss fair for deciding a match?", "a": "Yes. Each flip is an independent 50/50 chosen by your browser's secure random generator. Agree who calls before you flip, and use fullscreen so everyone sees it."},
+  {"q": "Are my stats saved?", "a": "Your heads/tails count, streaks and settings are saved in this browser only. Nothing is sent to our servers. Press Reset stats to start again."},
   {"q": "Why did I get heads five times in a row?", "a": "Streaks are a normal part of randomness. Five in a row happens about once every 16 tries starting fresh."},
   {"q": "Is an online coin flip fairer than a real coin?", "a": "A 2023 study of 350,757 real flips found coins land on the side they started about 50.8% of the time. An online flip has no starting side, so it's an even 50/50."},
   {"q": "Can I use it for a tie-breaker in a game?", "a": "Yes. Agree which side means what before you flip."}

@@ -435,10 +435,10 @@ PAGES += [
 },
 {
  "slug":"coin-flip","key":"coin","nav":"Coin Flip","tool":"coin",
- "title":"Flip a Coin – Free Online Coin Flip, Heads or Tails | Wheelova",
- "description":"Flip a coin online for heads or tails. Flip once or up to 100 times, see the tally and longest streak. Fair, instant and free — no sign-up.",
- "h1":"Flip a Coin","howTitle":"How to flip a coin online","subhead":"Heads or tails? Flip once, or flip many times and see the tally.",
- "howTo":["Press Flip (or the Space bar).","Choose how many flips if you want more than one.","Read the result and the running heads/tails tally."],
+ "title":"Flip a Coin – Heads or Tails Coin Toss Online | Wheelova",
+ "description":"Flip a coin online: heads or tails in one tap. Toss 1 to 10 coins, see live stats and streaks, or set custom faces like Yes/No. Free, fair, no sign-up.",
+ "h1":"Flip a Coin","howTitle":"How to flip a coin online","subhead":"Heads or tails? Tap the coin for a fair online coin toss.",
+ "howTo":["Tap the coin, press Flip, or press the Space bar.","Pick 1, 2, 3, 5 or 10 coins, and Gold or Silver.","Watch your heads/tails stats and streaks, or switch the faces to Yes/No, 1/2 or your own words."],
  "sections":[],"faq":[],"related":["yes-or-no-wheel","dice-roller","random-number-generator","decision-wheel"]
 },
 {

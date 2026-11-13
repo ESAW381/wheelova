@@ -3,13 +3,13 @@ var cfg=window.WG||{},$=function(id){return document.getElementById(id)};
 var RNG=window.WVRNG,rand=RNG.rand,ri=RNG.randInt,shuffle=RNG.shuffle;
 function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
-var out=$('gout'),err=$('gerr'),last=[];
+var out=$('gout')||document.createElement('div'),err=$('gerr')||document.createElement('p'),last=[];
 function show(items,big){out.innerHTML='';out.className='gout'+(big?' big':'');
 items.forEach(function(t){var s=document.createElement('span');s.className='gitem';s.textContent=t;out.appendChild(s)});
 last=items;$('gcount').textContent=items.length+' result'+(items.length===1?'':'s');
 var h=$('ghist');if(h){var li=document.createElement('li');li.textContent=items.slice(0,20).join(', ')+(items.length>20?' …':'');h.prepend(li);while(h.children.length>10)h.removeChild(h.lastChild)}}
 function fail(m){err.textContent=m}
-$('gcopy').onclick=function(){var txt=cfg.type==='pair'?last.join('\n'):cfg.type==='team'?Array.prototype.map.call(out.querySelectorAll('.team'),function(t){return t.innerText}).join('\n\n'):last.join(cfg.type==='number'?', ':'\n');
+if($('gcopy'))$('gcopy').onclick=function(){var txt=cfg.type==='pair'?last.join('\n'):cfg.type==='team'?Array.prototype.map.call(out.querySelectorAll('.team'),function(t){return t.innerText}).join('\n\n'):last.join(cfg.type==='number'?', ':'\n');
 try{navigator.clipboard.writeText(txt);this.textContent='Copied';var b=this;setTimeout(function(){b.textContent='Copy'},1400)}catch(e){}};
 
 if(cfg.type==='number'){
@@ -68,18 +68,6 @@ if(cfg.type==='name'){
  $('ggo').onclick=run;
 }
 
-if(cfg.type==='coin'){
- var tot={h:0,t:0};
- function runc(){err.textContent='';var n=parseInt($('ccount').value,10)||1,r=[],best=0,cur=0,prev=null;
-  for(var i=0;i<n;i++){var s=ri(2)===0?'Heads':'Tails';r.push(s);if(s===prev)cur++;else cur=1;prev=s;if(cur>best)best=cur;s==='Heads'?tot.h++:tot.t++}
-  out.innerHTML='';out.className='gout'+(n===1?' big coinout':'');
-  if(n===1){var c=document.createElement('div');c.className='coin '+(r[0]==='Heads'?'heads':'tails');c.innerHTML='<span></span>';c.querySelector('span').textContent=r[0]==='Heads'?'H':'T';out.appendChild(c);var l=document.createElement('div');l.className='coinlbl';l.textContent=r[0];out.appendChild(l)}
-  else{r.forEach(function(s){var x=document.createElement('span');x.className='gitem '+(s==='Heads'?'ch':'ct');x.textContent=s==='Heads'?'H':'T';x.title=s;out.appendChild(x)})}
-  var h=r.filter(function(s){return s==='Heads'}).length;last=r;
-  $('gcount').textContent=n===1?('Session: '+tot.h+' heads · '+tot.t+' tails'):(h+' heads ('+Math.round(h/n*100)+'%) · '+(n-h)+' tails · longest streak '+best);
-  var hi=$('ghist');if(hi){var li=document.createElement('li');li.textContent=n===1?r[0]:(n+' flips: '+h+' H / '+(n-h)+' T');hi.prepend(li);while(hi.children.length>10)hi.removeChild(hi.lastChild)}}
- $('ggo').onclick=runc;
-}
 if(cfg.type==='dice'){
  var PIPS={1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
  function rund(){err.textContent='';var n=parseInt($('dcount').value,10)||1,s=parseInt($('dsides').value,10)||6,r=[];for(var i=0;i<n;i++)r.push(1+ri(s));
@@ -92,9 +80,9 @@ if(cfg.type==='dice'){
   var hi=$('ghist');if(hi){var li=document.createElement('li');li.textContent=n+'d'+s+': '+r.join(' + ')+(n>1?' = '+sum:'');hi.prepend(li);while(hi.children.length>10)hi.removeChild(hi.lastChild)}}
  $('ggo').onclick=rund;
 }
-document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();$('ggo').click()}
-if((cfg.type==='coin'||cfg.type==='dice')&&e.code==='Space'&&!/TEXTAREA|INPUT|SELECT|BUTTON|A/.test(document.activeElement.tagName)){e.preventDefault();$('ggo').click()}});
-if(cfg.type==='coin'||cfg.type==='dice'){out.innerHTML='<div class="gwait">'+(cfg.type==='coin'?'Press Flip':'Press Roll')+'</div>'}else{$('ggo').click()}
+document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT'&&$('ggo')){e.preventDefault();$('ggo').click()}
+if(cfg.type==='dice'&&e.code==='Space'&&!/TEXTAREA|INPUT|SELECT|BUTTON|A/.test(document.activeElement.tagName)){e.preventDefault();$('ggo').click()}});
+if(cfg.type==='dice'){out.innerHTML='<div class="gwait">Press Roll</div>'}else if(cfg.type!=='coin'){$('ggo').click()}
 var lg=document.querySelector('.logo');if(lg)lg.addEventListener('click',function(){try{localStorage.removeItem('wv_entries_home2')}catch(e){}});
 var bg=$('burger'),nv=$('mnav');bg.onclick=function(){var o=!nv.classList.contains('open');nv.classList.toggle('open',o);bg.setAttribute('aria-expanded',o);bg.setAttribute('aria-label',o?'Close menu':'Open menu')};
 nv.addEventListener('click',function(e){if(e.target.tagName==='A'){nv.classList.remove('open');bg.setAttribute('aria-expanded',false)}});

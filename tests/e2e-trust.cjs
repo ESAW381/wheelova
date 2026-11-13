@@ -29,7 +29,7 @@ const enc=s=>Buffer.from(s).toString('base64').replace(/\+/g,'-').replace(/\//g,
  [e1]=await gen('1','99999999999999999999','1');ok(/between/.test(e1),'over-safe-integer rejected');
  let [e2,vals]=await gen('1','1000000000000','50');ok(!e2&&vals.length===50&&vals.every(v=>+v>=1&&+v<=1e12),'1..1e12 generates in range');
  [e2,vals]=await gen('10','1','10');ok(!e2&&new Set(vals).size===10&&vals.every(v=>+v>=1&&+v<=10),'inverted range swapped, 10 unique');
- [p,errs]=await page('coin-flip.html');await p.selectOption('#ccount','100');await p.click('#ggo');ok(/heads/.test(await p.textContent('#gcount'))&&errs.length===0,'coin flip works');
+ [p,errs]=await page('coin-flip.html');await p.click('#cbatchgo');ok(/Heads/.test(await p.textContent('#cbatch'))&&errs.length===0,'coin flip works');
  [p,errs]=await page('dice-roller.html');await p.click('#ggo');ok(/Total/.test(await p.textContent('#gcount'))&&errs.length===0,'dice roller works');
  [p,errs]=await page('flag-quiz.html');await p.click('#qstart');ok((await p.$$('.qopt')).length===4&&errs.length===0,'flag quiz works');
  [p,errs]=await page('random-pair-generator.html');await p.click('#ggo');ok(/pairs/.test(await p.textContent('#gcount'))&&errs.length===0,'pair generator works');
