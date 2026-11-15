@@ -1,7 +1,7 @@
 # Wheelova tool pages — content as data. One dict per page.
 MDN = {"title": "Crypto.getRandomValues() — MDN Web Docs", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues"}
 
-COLOR_MAP = {"red":"#E53935","orange":"#FB8C00","yellow":"#FDD835","green":"#43A047","blue":"#1E88E5","indigo":"#3949AB","violet":"#8E24AA","purple":"#7B1FA2","pink":"#EC407A","brown":"#6D4C41","black":"#212121","white":"#FAFAFA","gray":"#9E9E9E","grey":"#9E9E9E","cyan":"#00ACC1","teal":"#00897B","lime":"#C0CA33","gold":"#D4AF37","silver":"#BDBDBD","navy":"#1A237E","maroon":"#800000","beige":"#D7C4A3","turquoise":"#26C6DA","magenta":"#D81B60","olive":"#808000","peach":"#FFB38A","lavender":"#B39DDB","mint":"#98E2C6","coral":"#FF7F6B","sky blue":"#87CEEB"}
+COLOR_MAP = {"platinum blonde":"#E6DCC3","golden blonde":"#D8B46A","strawberry blonde":"#D49A6A","light brown":"#A47551","chestnut":"#7B4A2D","dark brown":"#4A2F23","jet black":"#1B1B1B","auburn":"#8A3324","copper":"#B8562A","pastel pink":"#F4B6C2","electric blue":"#2E5BFF","red":"#E53935","orange":"#FB8C00","yellow":"#FDD835","green":"#43A047","blue":"#1E88E5","indigo":"#3949AB","violet":"#8E24AA","purple":"#7B1FA2","pink":"#EC407A","brown":"#6D4C41","black":"#212121","white":"#FAFAFA","gray":"#9E9E9E","grey":"#9E9E9E","cyan":"#00ACC1","teal":"#00897B","lime":"#C0CA33","gold":"#D4AF37","silver":"#BDBDBD","navy":"#1A237E","maroon":"#800000","beige":"#D7C4A3","turquoise":"#26C6DA","magenta":"#D81B60","olive":"#808000","peach":"#FFB38A","lavender":"#B39DDB","mint":"#98E2C6","coral":"#FF7F6B","sky blue":"#87CEEB"}
 
 PAGES = [
 {
@@ -81,9 +81,9 @@ PAGES = [
  "h1":"Color Wheel Spinner","subhead":"Spin to pick a random color — each slice shows the real color.",
  "entries":["Red","Orange","Yellow","Green","Blue","Indigo","Violet"],
  "mode":"color","colorMap":COLOR_MAP,
- "variants":[{"label":"Rainbow (7)","entries":["Red","Orange","Yellow","Green","Blue","Indigo","Violet"]},{"label":"Basic colors (12)","entries":["Red","Orange","Yellow","Green","Blue","Purple","Pink","Brown","Black","White","Gray","Teal"]},{"label":"Primary (3)","entries":["Red","Yellow","Blue"]},{"label":"Pastels","entries":["Peach","Lavender","Mint","Sky Blue","Coral","Beige"]}],
+ "variants":[{"label":"Rainbow (7)","entries":["Red","Orange","Yellow","Green","Blue","Indigo","Violet"]},{"label":"Basic colors (12)","entries":["Red","Orange","Yellow","Green","Blue","Purple","Pink","Brown","Black","White","Gray","Teal"]},{"label":"Primary (3)","entries":["Red","Yellow","Blue"]},{"label":"Pastels","entries":["Peach","Lavender","Mint","Sky Blue","Coral","Beige"]},{"label":"Hair colors (12)","entries":["Platinum Blonde","Golden Blonde","Strawberry Blonde","Light Brown","Chestnut","Dark Brown","Jet Black","Auburn","Copper","Silver","Pastel Pink","Electric Blue"]}],
  "resultLabel":"YOUR COLOR","popLabel":"YOUR COLOR IS",
- "howTo":["Pick a preset or type color names, one per line.","Press SPIN.","See the color name and swatch in the popup."],
+ "howTo":["Choose a preset (Rainbow, Basic, Primary, Pastels or Hair colors) or type your own color names, one per line.","Press SPIN, tap the wheel or press the Space bar.","Read the color name, swatch and hex code in the popup. Spin again with Remove winner on to build a palette with no repeats."],
  "sections":[
   {"h2":"Which colors are painted?","body":"Common color names are drawn in their real color: red, orange, yellow, green, blue, indigo, violet, purple, pink, brown, black, white, gray, cyan, teal, lime, gold, silver, navy, maroon, beige, turquoise, magenta, olive, peach, lavender, mint, coral and sky blue. Any other word you type still works — it just uses the standard wheel colors."},
   {"h2":"Ideas for a random color","body":"- **Art and drawing challenges** — spin a color you must use as the main one.\n- **Kids' games** — \"find something in the room that is this color\".\n- **Outfit or theme days** — let the wheel choose the color of the week.\n- **Party games** — color-themed teams or Twister-style moves."},

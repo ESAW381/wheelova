@@ -259,7 +259,8 @@ UPGRADES.update({
    "| Rainbow | 7 | 1 in 7 (14.3%) | Kids' games, art lessons, the classic ROYGBIV order |\n"
    "| Basic colors | 12 | 1 in 12 (8.3%) | Scavenger hunts, outfit or theme days |\n"
    "| Primary | 3 | 1 in 3 (33.3%) | Early-years colour learning, quick team colours |\n"
-   "| Pastels | 6 | 1 in 6 (16.7%) | Design prompts, party themes, nail or craft ideas |\n\n"
+   "| Pastels | 6 | 1 in 6 (16.7%) | Design prompts, party themes, nail or craft ideas |\n"
+   "| Hair colors | 12 | 1 in 12 (8.3%) | Characters, avatars, cosplay and drawing prompts |\n\n"
    "The rainbow's seven colors come from Isaac Newton, who named seven bands in the spectrum — partly to match the seven notes of a musical scale. The real spectrum is continuous, which is why some people struggle to see a separate indigo."},
   {"h2": "Ideas for a random color", "body":
    "**Art and design.** Spin a main color for a drawing challenge, or spin twice for a two-color palette. Designers can use the hex code as a starting point and build lighter and darker shades around it.\n\n"
@@ -873,7 +874,7 @@ for _k, _v in {
    "description": "Free raffle generator wheel: paste entrants or ticket numbers, spin live, remove each winner and export the draw order as CSV. No sign-up."},
  "lucky-wheel": {"title": "Lucky Wheel – Spin the Prize Wheel to Win | Wheelova",
    "description": "Make a lucky prize wheel with your own prizes, set the odds with extra slices, and spin to win. For parties, shop events, classrooms and games. Free."},
- "color-wheel": {"title": "Color Wheel Spinner – Random Color Generator with Hex Codes | Wheelova"},
+ "color-wheel": {"title": "Random Color Generator – Color Wheel Spinner with Hex Codes | Wheelova", "description": "Random color generator: spin the color wheel picker to pick a random color with its hex code. Rainbow, basic, pastel or hair colors, or your own list. Free.", "subhead": "Pick a random color: spin the wheel of colors and get the name, a swatch and its hex code."},
 }.items():
     UPGRADES.setdefault(_k, {}).update(_v)
 
@@ -965,4 +966,53 @@ _c["sources"] = _c["sources"] + [
  {"title": "Murray & Teare (1993) — Probability of a tossed coin landing on edge, Physical Review E 48, 2547", "url": "https://link.aps.org/doi/10.1103/PhysRevE.48.2547"},
  {"title": "National Park Service — Wright Brothers National Memorial: The First Flight", "url": "https://www.nps.gov/wrbr/historyculture/thefirstflight.htm"},
  {"title": "Oregon Encyclopedia — Portland Penny", "url": "https://oregonencyclopedia.org/articles/portland_penny/"},
+]
+
+# ---- Color wheel content expansion (Nov 15 2026): answer-first, color basics, games, hair colors ----
+_cw = UPGRADES["color-wheel"]
+_cw["updated"] = "2026-11-15"
+_CS = {s["h2"]: s for s in _cw["sections"]}
+_short = {"h2": "Random color generator: the short answer", "body":
+  "- **What it does:** picks a random color from a list by spinning a wheel. Every slice is painted its real color.\n"
+  "- **What you get:** the color name, a large swatch and its **hex code** (like `#1E88E5`), ready to paste into Canva, Figma, Slides or CSS.\n"
+  "- **Odds:** every color has the same chance. With the 7 rainbow colors that's 1 in 7 (14.3%) per spin.\n"
+  "- **Presets:** Rainbow (7), Basic colors (12), Primary (3), Pastels (6) and Hair colors (12), or type your own list.\n"
+  "- **No repeats:** turn on **Remove winner** to use each color once.\n"
+  "- **Free:** no sign-up, works on phones, your lists stay in your browser."}
+_pick = {"h2": "How to pick a random color", "body":
+  "1. **Choose a preset** above the list, or type your own color names, one per line.\n"
+  "2. **Press SPIN**, tap the wheel, or press the Space bar.\n"
+  "3. **Read the result:** the popup shows the color name, a swatch and its hex code. Click to copy the code.\n"
+  "4. **Spin again** for a second color, or turn on **Remove winner** to build a palette with no repeats.\n\n"
+  "Want a two- or three-color palette? Spin two or three times with Remove winner on, then copy each hex code."}
+_basics = {"h2": "Color wheel basics: primary, secondary and complementary colors", "body":
+  "This page is a random **color picker**, not a color-theory chart, but the classic artist's color wheel explains how its colors relate:\n\n"
+  "- **Primary colors** (traditional painting): red, yellow and blue. They can't be mixed from other paints.\n"
+  "- **Secondary colors:** orange (red + yellow), green (yellow + blue) and purple (blue + red).\n"
+  "- **Tertiary colors:** a primary mixed with a neighbouring secondary, such as red-orange or blue-green.\n"
+  "- **Complementary colors** sit opposite each other: **red–green**, **yellow–purple** and **blue–orange**. Side by side they look their most vivid.\n"
+  "- **Analogous colors** sit next to each other (for example yellow, yellow-green and green) and look calm together.\n\n"
+  "Screens work differently: they mix **light**, so their primaries are **red, green and blue** (RGB), which is what a hex code describes. Printers mix ink using **cyan, magenta and yellow** (plus black). That's why a color on screen can look a little different on paper.\n\n"
+  "Need a color-theory tool to build matching palettes? Use a dedicated palette tool. Use this wheel when you want chance to choose."}
+_games = {"h2": "Color wheel games for kids, classrooms and parties", "body":
+  "- **Color hunt:** spin, then everyone races to touch or bring something that color. Great for ages 3 to 7.\n"
+  "- **Color Twister:** spin a color and call a hand or foot. Use the Primary or Basic preset to match your mat.\n"
+  "- **Draw it in one color:** spin a color; everyone draws a picture using only shades of it.\n"
+  "- **Color word spelling:** spin, and the first student to spell the color name correctly wins a point.\n"
+  "- **Mix it:** spin two primaries and ask which secondary color they make (red + blue = purple).\n"
+  "- **Theme day:** spin the color of the week for outfits, snacks or decorations.\n\n"
+  "Use **fullscreen** (press **F**) to show the wheel on a projector or TV."}
+_hair = {"h2": "Random hair color generator", "body":
+  "Choose the **Hair colors (12)** preset to spin a random hair color: platinum blonde, golden blonde, strawberry blonde, light brown, chestnut, dark brown, jet black, auburn, copper, silver, pastel pink or electric blue.\n\n"
+  "It's built for **characters and creative prompts**: a new look for a game avatar, a drawing or cosplay character, or a fun \"what if\" before a salon visit. The swatches are approximate screen colors, not dye shades, so check the brand's own shade chart before you buy hair dye."}
+_order = [_short, _CS["How the random color generator works"], _CS["Which colors are painted, and with which codes"], _CS["What is a hex code?"],
+          _CS["Which preset should I use?"], _hair, _CS["Ideas for a random color"], _games, _basics, _CS["Playing with people who are color-blind"]]
+assert len(_order) == len(_cw["sections"]) + 4 - 1
+_cw["sections"] = _order
+_cw["faq"] += [
+ {"q": "What is a random color generator?", "a": "A tool that picks a color by chance. This one spins a wheel of real colors and shows the winning color's name, swatch and hex code."},
+ {"q": "How do I pick a random color?", "a": "Choose a preset (Rainbow, Basic, Primary, Pastels or Hair colors) or type your own list, then press SPIN. The popup shows the color and its hex code."},
+ {"q": "What are the three primary colors?", "a": "For traditional paint: red, yellow and blue. For screens and light: red, green and blue (RGB). For printing ink: cyan, magenta and yellow."},
+ {"q": "What color is opposite red on the color wheel?", "a": "Green, on the traditional artist's wheel. The other complementary pairs are yellow–purple and blue–orange."},
+ {"q": "Can I generate a random hair color?", "a": "Yes. Pick the Hair colors (12) preset and spin. The swatches are approximate screen colors, so check a dye brand's shade chart before buying."},
 ]
