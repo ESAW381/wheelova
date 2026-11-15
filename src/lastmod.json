@@ -76,24 +76,36 @@
 "h": "b7f408f7d11c"
 },
 "guides": {
-"d": "2026-11-14",
-"h": "8ca7dc604514"
+"d": "2026-11-16",
+"h": "6ee2b2cc1336"
 },
 "guides/fair-giveaway": {
 "d": "2026-11-14",
 "h": "b5eefc4f2010"
 },
 "guides/how-random-number-generators-work": {
-"d": "2026-11-14",
-"h": "0adfa0aee35f"
+"d": "2026-11-16",
+"h": "1f304cdce396"
 },
 "guides/make-custom-spinning-wheel": {
-"d": "2026-11-14",
-"h": "789ede415277"
+"d": "2026-11-16",
+"h": "3e975641d66e"
+},
+"guides/random-classroom-groups": {
+"d": "2026-11-16",
+"h": "a9875d544b66"
 },
 "guides/random-name-picker-classroom": {
-"d": "2026-11-14",
-"h": "bebb0715d7f0"
+"d": "2026-11-16",
+"h": "249244216fd3"
+},
+"guides/random-quiz-wheel": {
+"d": "2026-11-16",
+"h": "ed389127039a"
+},
+"guides/spin-the-wheel-party-games": {
+"d": "2026-11-16",
+"h": "002f8f675e97"
 },
 "guides/spin-wheel-probability": {
 "d": "2026-11-14",

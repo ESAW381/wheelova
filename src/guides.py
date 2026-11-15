@@ -1,6 +1,6 @@
 # Guides (articles). Practical how-tos; no invented statistics or research claims.
 TEACHER = {
- "slug": "guides/random-name-picker-classroom", "updated": "2026-11-10",
+ "slug": "guides/random-name-picker-classroom", "updated": "2026-11-16",
  "title": "Random Name Picker for Teachers: 25 Classroom Ideas | Wheelova",
  "desc": "A random name picker for teachers: 25 classroom ideas for fair cold calling, turns that never repeat, groups and review games, plus projector setup. Free printable.",
  "h1": "25 ways to use a random name picker in the classroom",
@@ -42,6 +42,8 @@ Teaching groups at the same time? Press **+ Add wheel** to put a second wheel (q
 13. **Group roles.** Inside each group, spin roles: reporter, scribe, timekeeper, materials manager.
 14. **Captains.** Spin captains, then let the [Random Team Generator](/random-team-generator) fill the teams so nobody is picked last.
 
+For group sizes that work with awkward class numbers, mixed-ability groups and how often partners repeat, see [how to randomly assign students to groups](/guides/random-classroom-groups).
+
 ## Review games
 
 15. **Quiz show.** Spin a student, then spin a question number from the [Number Generator](/random-number-generator).
@@ -49,6 +51,8 @@ Teaching groups at the same time? Press **+ Add wheel** to put a second wheel (q
 17. **Points wheel.** A wheel of point values (10, 20, 50, double, lose a turn) adds suspense to team review games.
 18. **Vocabulary spin.** Spin a student and a letter with the [Random Letter Generator](/random-letter-generator): they name a key word starting with it.
 19. **Mystery question.** Use the [Mystery Wheel](/mystery-wheel) so the class doesn't see which question is next.
+
+Five full quiz formats, with a points wheel and scoring, are in [random question wheels for quiz games](/guides/random-quiz-wheel).
 
 ## Brain breaks and rewards
 
@@ -69,6 +73,29 @@ Teaching groups at the same time? Press **+ Add wheel** to put a second wheel (q
 - **Use real names only.** Check spelling once: "Jose" and "José" count as two entries.
 - **Show the wheel.** The fairness only works if students can see it spin. Full-screen mode (press F) makes it readable from the back row.
 - **Keep lists private.** Names stay in your own browser and are never uploaded. If you share a wheel link, the names travel inside the link, so share class lists with care.
+
+## Make random calling fair and inclusive
+
+Random selection removes your own unconscious habits about who gets asked, but it doesn't make questioning fair on its own. A few things decide whether a wheel feels like an invitation or a trap.
+
+**Random isn't the same as equal.** With **Remove winner** off, the same student can come up twice in one lesson while others aren't picked at all: in a class of 25 spun 25 times, about 9 students are never called. If your aim is that everyone contributes, keep Remove winner on and keep the same saved wheel running across lessons, so the students who weren't reached on Monday are still on the wheel on Tuesday. Only clear the wheel and start a new round once every name has been picked.
+
+**Some teachers find cold calling stressful for students,** and the criticism is worth taking seriously. Jo Boaler, a Stanford mathematics education professor, has described random "equity sticks" as anxiety-inducing ([WeAreTeachers](https://www.weareteachers.com/fair-sticks/) covers the debate and how teachers responded). The practices below are how teachers keep random calling supportive:
+
+| Practice | What it looks like | Why it helps |
+|---|---|---|
+| Question, wait, then spin | Ask, give 5 to 10 seconds of silent thinking, then spin | Everyone prepares; nobody is put on the spot mid-thought |
+| Warm-up in pairs first | Partners discuss for a minute; the wheel picks who reports | The student shares a pair's idea, not just their own |
+| Pass and return | "Pass for now" is allowed; you come back later in the lesson | Keeps the student in the conversation without public pressure |
+| Low stakes | Answers are not graded; "I'm not sure, but I think…" counts | A wrong answer costs nothing, so trying is safe |
+| Answer options | Read from notes, choose from two options, or ask a friend | Gives different ways in for different confidence levels |
+| Private agreements | For a student with anxiety or a support plan, agree in advance, for example by giving them the question early | Protects the student without removing them from the class |
+
+The study mentioned under the tips above found that students in classes using this kind of warm random calling reported participating more, without being more likely to report anxiety that got in the way of learning.
+
+**Plan the order before the lesson if you prefer.** Some teachers generate the whole calling order in advance rather than spinning live, which keeps the pace up and still removes bias; a teaching-practice note from UNLV's Office of Faculty Affairs recommends this approach ([UNLV Office of Faculty Affairs](https://oasis.library.unlv.edu/btp_expo/165)). On Wheelova, spin with Remove winner on until the wheel is empty and copy the Results list, or use the [Random Number Generator](/random-number-generator) with **No repeats** against a numbered class list.
+
+**Teaching online?** Share your screen with the wheel visible so students see the spin, and say the name aloud as well, since video can lag. In large online classes, picking two or three names at once and taking answers in the chat keeps more students involved.
 
 ## Is the wheel really random?
 
@@ -241,14 +268,12 @@ Copy, fill in the brackets and adapt it to your situation. Have it checked local
 
 
 RNG_GUIDE = {
- "slug": "guides/how-random-number-generators-work", "updated": "2026-11-10", "date": "2026-10-30", "date_txt": "October 30, 2026",
+ "slug": "guides/how-random-number-generators-work", "updated": "2026-11-16", "date": "2026-10-30", "date_txt": "October 30, 2026",
  "title": "How Random Number Generators Work (and How to Get a Fair Number) | Wheelova",
  "desc": "A plain-English guide to random number generators: pseudo-random vs cryptographically secure vs true random, seeds, modulo bias, and how to test fairness.",
  "h1": "How random number generators work",
  "sub": "Pseudo-random, cryptographically secure and true random explained, plus the small maths mistake that makes many generators slightly unfair.",
- "body": """A random number generator turns some source of unpredictability into numbers. The quality of a generator depends on two things: **where the randomness comes from**, and **how it is turned into the number you asked for**. Most people only think about the first. The second is where many generators quietly go wrong. If you just need a number now, use the [Random Number Generator](/random-number-generator); this guide explains what happens behind it.
-
-If you just need a number now, use the [Random Number Generator](/random-number-generator). This guide explains what happens behind the button.
+ "body": """A random number generator turns some source of unpredictability into numbers. The quality of a generator depends on two things: **where the randomness comes from**, and **how it is turned into the number you asked for**. Most people only think about the first. The second is where many generators quietly go wrong. If you just need a number now, use the [Random Number Generator](/random-number-generator); this guide explains what happens behind the button.
 
 ## Three kinds of random number generator
 
@@ -264,9 +289,33 @@ If you just need a number now, use the [Random Number Generator](/random-number-
 
 **True random** generators measure something physical. They are not automatically "better" for everyday use: a well-built cryptographically secure generator is unpredictable in practice, and true random sources still need careful processing to remove bias.
 
+## A pseudo-random generator you can follow by hand
+
+The oldest common family of pseudo-random generators is the **linear congruential generator** (LCG). It uses one rule, over and over:
+
+**next = (a × current + c) mod m**
+
+Here *mod m* means "the remainder after dividing by m", and the first *current* value is the seed ([Wikipedia](https://en.wikipedia.org/wiki/Linear_congruential_generator)). Real LCGs use a huge m. Here is a toy one with m = 16, a = 5, c = 3 and seed 7, small enough to check with a pencil:
+
+| Step | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Output | 7 | 6 | 1 | 8 | 11 | 10 | 5 | 12 | 15 | 14 | 9 | 0 | 3 | 2 | 13 | 4 | **7** |
+
+For example, after 7 comes (5 × 7 + 3) mod 16 = 38 mod 16 = 6. The sequence looks jumbled, but it shows the three things to know about every pseudo-random generator:
+
+- **It is completely predictable.** Anyone who knows the rule and one output can write down every number that follows. That's why LCGs are not intended for cryptography, and must not be used for it.
+- **It repeats.** At step 17 the sequence is back to 7 and starts again. This generator visits all 16 values before repeating, which happens only when a, c and m are chosen carefully; real generators use enormous cycles, but every pseudo-random generator cycles eventually.
+- **Mapping it to your range can add bias.** Turn these 16 outputs into die rolls with "remainder after ÷ 6, plus 1" and, over one full cycle, faces 1 to 4 come up three times each while 5 and 6 come up only twice. That is the modulo bias explained below, visible in 16 numbers.
+
 ## What is a seed?
 
 A seed is the starting value for a pseudo-random formula. Video games often show it so players can replay the same world. Secure generators also start from seeds, but they are drawn from unpredictable system data and refreshed, and they are never shown to you.
+
+## Where does the unpredictability come from?
+
+A secure generator still runs a formula; what makes it unpredictable is a seed nobody can guess, refreshed over time. Browsers don't use a truly random generator for every number, for speed; MDN explains that they use a pseudo-random generator seeded with enough entropy, typically from the operating system's own random source such as `/dev/urandom` on Unix systems ([MDN](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues)). The operating system, in turn, gathers unpredictable data from the hardware, and many modern processors include a hardware random number source.
+
+So the practical chain behind a fair online draw is: **hardware and system noise → operating system random source → browser's secure generator → unbiased mapping to your range.** A weakness at any step can spoil the result, which is why a good tool needs both a secure source and the careful mapping below.
 
 ## The hidden problem: turning random bits into your number
 
@@ -296,6 +345,16 @@ Two things are worth knowing about these tests:
 - **They test outputs, not intentions.** A generator can pass every statistical test and still be unsuitable if someone can predict or choose its seed.
 
 We published one such test of Wheelova's spin code: [1,000,000 spins per wheel](/is-the-wheel-random), with the raw data and test script. For what fair randomness looks like in everyday use, such as how often repeats happen and how many spins it takes before everyone is picked, see [spin wheel probability](/guides/spin-wheel-probability).
+
+## Why fair random numbers don't look random
+
+People expect random results to look evenly spread, and they rarely do. A fair generator regularly produces:
+
+- **Repeats:** pick numbers from 1 to 10 and the same number comes up twice in a row about 1 time in 10.
+- **Clusters and gaps:** in 20 picks from 1 to 30, only about 15 different numbers appear on average; the rest are repeats.
+- **Streaks that seem "due" to end:** a generator has no memory, so a number that hasn't appeared for a while is no more likely to come up next. Expecting otherwise is the gambler's fallacy.
+
+If a generator never repeated and always spread its results evenly, that would be a sign it *wasn't* random. Our guide to [spin wheel probability](/guides/spin-wheel-probability) works through how often repeats and gaps happen; for draws where nothing should repeat, use the **No repeats** option on the [Random Number Generator](/random-number-generator).
 
 ## Choosing the right generator
 
@@ -338,7 +397,7 @@ Your entries also save automatically in your browser as you type, so the wheel i
 
 ## Four wheel recipes you can copy
 
-Paste each block into the entries box, one item per line.
+Paste each block into the entries box, one item per line. For party and game-night wheels, see [12 spin the wheel games with rules](/guides/spin-the-wheel-party-games).
 
 **1. Classroom cold-call.** Your class list, Remove winner **on**, pop-up heading "Your turn!". Ask the question first, then spin, so everyone prepares an answer. The [Name Picker Wheel](/name-picker-wheel) is set up for this already, and the [classroom guide](/guides/random-name-picker-classroom) has 25 more ideas.
 
@@ -534,5 +593,256 @@ Turning Remove winner on doesn't make any single spin more or less fair: on each
 **Does shuffling the list change the odds?** No. Shuffle changes where entries sit, not how big their slices are.
 
 **Want to see it happen?** Put your class list into the [Name Picker Wheel](/name-picker-wheel), leave Remove winner off for 25 spins, and count how many names never come up. Then turn it on and compare. For the theory behind the random numbers themselves, read [how random number generators work](/guides/how-random-number-generators-work).
+""",
+}
+
+GROUPS = {
+ "slug": "guides/random-classroom-groups", "updated": "2026-11-16", "date": "2026-11-16", "date_txt": "November 16, 2026",
+ "title": "How to Randomly Assign Students to Groups | Wheelova",
+ "desc": "Randomly assign students to groups or pairs: five methods, a group-size table for classes of 20 to 32, mixed-ability groups, and how often partners repeat.",
+ "h1": "How to randomly assign students to groups and pairs",
+ "sub": "Five ways to make random groups, how to split awkward class sizes, how to keep groups mixed, and what to expect when you regroup every week.",
+ "body": """To randomly assign students to groups, paste your class list into a group generator, choose how many groups you want, and let it deal the names out like cards. The [Random Team Generator](/random-team-generator) does this in one click and keeps every group within one student of the others. This guide covers the other ways to do it, how to handle class sizes that don't divide evenly, how to keep random groups mixed, and how often students end up with the same partners again.
+
+## Five ways to make random groups
+
+| Method | Best for | How |
+|---|---|---|
+| **Group generator** | Any class, in seconds | Paste the class list into the [Random Team Generator](/random-team-generator), choose the number of groups, press Generate |
+| **Pair generator** | Partner work and rotations | The [Random Pair Generator](/random-pair-generator) makes random pairs, or a round-robin schedule where everyone works with everyone once |
+| **Spin the wheel** | Building groups live, in front of the class | Put names on the [Name Picker Wheel](/name-picker-wheel) with Remove winner on, and spin one name at a time into each group |
+| **Your learning platform** | Groups that need their own space online | Blackboard, Moodle, Canvas and similar platforms can create groups and enrol students into them randomly |
+| **Count off or cards** | No screen, younger students | Students count off 1 to 6 around the room, or draw a playing card and group by number |
+
+**Generator or platform?** Platform groups are worth the extra clicks when each group needs its own discussion board, shared files or group assignment; Blackboard, for example, can randomly assign students to a number of groups you choose and spreads them equally ([Central Michigan University help](https://cmich.teamdynamix.com/TDClient/664/Portal/KB/ArticleDet?ID=36981)), and Moodle can allocate members randomly when auto-creating groups ([Tel Aviv University guide](https://virtualtraining-en.sites.tau.ac.il/random-groups)). For groups that only last a lesson, a generator is faster.
+
+**A count-off is not quite random.** Students choose where they sit, so counting around the room still puts neighbours, often friends, into a predictable pattern. Count off in seat order only if the seating plan itself was random.
+
+## Picking a group size for your class
+
+Choose **number of groups** rather than **people per group** when the class doesn't divide evenly. Dealing the names out keeps the groups balanced, while "groups of 4" leaves one small group at the end.
+
+| Class size | For groups of about 4, make… | Sizes you get | For groups of about 3, make… | Sizes you get |
+|---|---|---|---|---|
+| 20 | 5 groups | 4, 4, 4, 4, 4 | 7 groups | six of 3, one of 2 |
+| 24 | 6 groups | all 4 | 8 groups | all 3 |
+| 25 | 6 groups | one of 5, five of 4 | 8 groups | one of 4, seven of 3 |
+| 26 | 6 groups | two of 5, four of 4 | 9 groups | eight of 3, one of 2 |
+| 27 | 7 groups | six of 4, one of 3 | 9 groups | all 3 |
+| 28 | 7 groups | all 4 | 9 groups | one of 4, eight of 3 |
+| 29 | 7 groups | one of 5, six of 4 | 10 groups | nine of 3, one of 2 |
+| 30 | 8 groups | six of 4, two of 3 | 10 groups | all 3 |
+| 32 | 8 groups | all 4 | 11 groups | ten of 3, one of 2 |
+
+A pair of 2 in a class of trios is usually fine. If you'd rather not have one, make one fewer group, so some trios become fours instead.
+
+**Absent students?** Generate groups at the start of the lesson from the students who are actually there. Delete absent names from the list first, or a group may end up with only one person present.
+
+## Keeping random groups mixed
+
+Purely random groups are fair, because nobody chooses them, but they don't guarantee a mix. By chance, one group can end up with the four most confident students. If the activity needs a spread of strengths, combine randomness with a simple structure:
+
+1. **Sort students into bands,** for example three or four lists by confidence or prior attainment in this topic. Keep these lists private.
+2. **Deal each band across the groups.** Paste the first band into the [Random Team Generator](/random-team-generator) with the number of groups you want, then do the same for the next band, adding one student from each band to each group.
+3. **Check a short list of separations by hand.** Students who shouldn't work together, for safeguarding, behaviour or support plans, should be swapped after generating. The random step is for everyone else.
+
+The result is still random within each band, so students can't predict who they'll be with, but every group gets a range of strengths. Researchers call this stratified random assignment.
+
+## What happens when you regroup every week?
+
+Random groups repeat partners more often than people expect. Take a class of 28 split into 7 groups of 4:
+
+- **Any two particular students** have a 3 in 27 chance, about **11%**, of ending up together. That includes two friends hoping to be paired.
+- **Each regroup puts 42 pairs of students together,** so on average about **4 or 5 of those pairs** worked together last time as well.
+- **A regroup with no repeated pairs at all** happened in only **0.4%** of 100,000 simulated regroupings. Some repeats are almost certain.
+- **Over a term,** regrouping randomly every week, a student works with about 12 different classmates after 5 regroupings and about 19 after 10, out of 27 possible.
+
+If repeats bother you, use the [Random Pair Generator](/random-pair-generator)'s **round-robin schedule** for pairs: it guarantees everyone works with everyone exactly once. For larger groups, regroup randomly, then swap the one or two students who had the same group last week.
+
+## Roles inside groups
+
+Once groups are made, a second spin keeps roles fair too. Put the roles on a wheel (reporter, scribe, timekeeper, materials) and spin within each group, with Remove winner on so nobody gets two roles. Rotate roles each lesson by spinning again, so the same student isn't always the reporter. The [classroom guide](/guides/random-name-picker-classroom) has more routines like this.
+
+## Common questions
+
+**What's the fastest way to make random groups?** Paste the class list into the [Random Team Generator](/random-team-generator), set the number of groups, and press Generate. Copy the result onto the board or into your plan.
+
+**How do I stop the same students always being together?** Random groups break up predictable friendship clusters, but repeats still happen by chance. Use the round-robin schedule for pairs, or swap repeats by hand after generating.
+
+**Should students know the groups are random?** Yes. Showing the generator or the wheel on screen is part of what makes the groups feel fair, and it stops arguments about who chose what.
+
+**Can I save my class list?** The generators and wheels save your list in your own browser, so it's there next lesson on the same device. Nothing is uploaded.
+
+**Ready?** Open the [Random Team Generator](/random-team-generator), paste your class list and choose the number of groups.
+""",
+}
+
+QUIZ_WHEEL = {
+ "slug": "guides/random-quiz-wheel", "updated": "2026-11-16", "date": "2026-11-16", "date_txt": "November 16, 2026",
+ "title": "Random Question Wheel: 5 Classroom Quiz Games | Wheelova",
+ "desc": "Run a classroom quiz with a random question wheel: setup, five game formats, a points wheel with fair odds, scoring, and how to stop questions repeating.",
+ "h1": "Random question wheels for classroom quiz games",
+ "sub": "How to set up a question wheel, five quiz formats that work, how to build a points wheel with sensible odds, and how to stop the same question coming up twice.",
+ "body": """A random question wheel turns a review session into a game: spin to pick the question, spin to pick who answers, and keep score. The randomness matters for more than fun. Nobody, including you, chooses the easy or hard questions for particular students, and frequent low-stakes quizzing is one of the best-supported ways to help students remember: the US Institute of Education Sciences funded classroom research on test-enhanced learning, the use of frequent quizzes as learning events ([IES](https://ies.ed.gov/use-work/awards/test-enhanced-learning-classroom)). Below are the setup, five formats and the maths that keeps the game fair.
+
+## Set up a question wheel in three minutes
+
+You have two ways to put questions on the wheel. Pick the one that fits your questions.
+
+| Approach | How | Best when |
+|---|---|---|
+| **Question numbers** | Number your questions on a slide or sheet, then use the [Number Wheel](/number-wheel) with the range 1 to your last question | Questions are long, have images, or need to stay hidden until picked |
+| **Questions on the wheel** | Type short questions or prompts into the [wheel](/), one per line | Questions are short: a word to define, a sum, a date, a vocabulary item |
+
+Then:
+
+1. **Turn on Remove winner after each spin,** so a question leaves the wheel once it's been asked.
+2. **Add a second wheel for names or teams.** On the main [wheel](/) or the [Name Picker Wheel](/name-picker-wheel), press **+ Add wheel** and spin both at once: one spin gives a question and who answers it. The Number Wheel is a single wheel, so for numbered questions with a names wheel alongside, type the numbers 1, 2, 3… into the main wheel instead.
+3. **Press F for fullscreen** so the class can read the wheel from the back.
+4. **Save the wheel** under **My saved wheels** with the topic name, so you can reuse the question set next term.
+
+To keep the next question a surprise, use the [Mystery Wheel](/mystery-wheel): every slice shows "?" until the result is revealed.
+
+## Five quiz formats that work
+
+**1. Spin and answer.** Spin a question number and a student. The student answers; if they're stuck, they can pass to a partner. Simple, fast, and works for any subject.
+
+**2. Category wheel.** Put topics on the wheel ("fractions", "decimals", "word problems", "wild card") and keep a few questions for each topic on your slides. The team spins a category and picks the difficulty: 10, 20 or 30 points.
+
+**3. Team quiz with a points wheel.** Teams take turns. Each turn, spin the points wheel first, then the question. A correct answer wins the points shown. See the next section for how to build a fair points wheel.
+
+**4. Everyone answers.** Spin a question, give every student 30 seconds to write an answer on a mini whiteboard or paper, then spin a name to share theirs. Everybody practises recalling the answer, not just the student who is picked.
+
+**5. Review stations.** Groups rotate around stations; at each station, a device shows a wheel of questions on that topic. The group spins, answers on a shared sheet, and moves on when the timer ends.
+
+## Build a points wheel with sensible odds
+
+A points wheel adds suspense, but its odds decide whether the game stays close. Every slice on a Wheelova wheel is the same size, so a value's chance is simply its number of slices divided by the total.
+
+Example wheel with 8 slices:
+
+> 10 · 10 · 20 · 20 · 30 · 50 · Double · Lose turn
+
+| Result | Chance per spin |
+|---|---|
+| 10 points | 2 in 8 (25%) |
+| 20 points | 2 in 8 (25%) |
+| 30 points | 1 in 8 (12.5%) |
+| 50 points | 1 in 8 (12.5%) |
+| Double (the next correct answer scores double) | 1 in 8 (12.5%) |
+| Lose turn | 1 in 8 (12.5%) |
+
+Leaving out Double and Lose turn, the average number value is (10 + 10 + 20 + 20 + 30 + 50) ÷ 6 = 23.3 points. A few rules of thumb:
+
+- **Keep one or two "chaos" slices,** such as Double or Lose turn, not more. With three or four, luck decides the game more than knowledge.
+- **Avoid "Lose all points".** One unlucky spin late in the game can undo a team's whole effort, and it punishes the students who answered well.
+- **Want something more likely? Add it twice.** That's the only way to change the odds on a wheel with equal slices; see [how to weight a wheel](/guides/make-custom-spinning-wheel).
+
+## Why questions repeat, and how to stop it
+
+With Remove winner off, a question wheel repeats questions more than people expect. Spin a 30-question wheel 20 times and on average only about **15 different questions** come up; the other 5 spins land on questions already asked. That's normal randomness, not a fault: our guide to [spin wheel probability](/guides/spin-wheel-probability) explains why.
+
+To ask every question once, keep **Remove winner** on. To revisit the hardest questions, add them to a fresh wheel for a second round at the end of the lesson, or a few days later: spacing out practice helps students remember for longer.
+
+## Keeping score
+
+- **Write team scores on the board** or a shared slide, and update them after each turn so the whole class can see.
+- **Use the Results list** as a record of which questions were asked; copy it or download it as a CSV after the lesson.
+- **For the next lesson,** save the wheel, so you can see which questions are still left if you didn't finish.
+
+## Common questions
+
+**How many questions should a quiz wheel have?** Enough for every team to have several turns: 4 teams with 5 turns each need at least 20 questions, plus a few spares. Long questions go on slides with numbers on the wheel.
+
+**Can students see the questions before the spin?** Only if you put them on the wheel. Use question numbers or the [Mystery Wheel](/mystery-wheel) to keep them hidden.
+
+**Can I put pictures on the wheel?** Slices show text. For picture questions, number them and put the images on your slides.
+
+**What about a geography quiz?** The [Flag Quiz](/flag-quiz) is a ready-made game for flags, and the [Random Country Generator](/random-country-generator) picks a country to research or ask about.
+
+**Ready to play?** Number your questions, open the [Number Wheel](/number-wheel), turn on Remove winner, and press F.
+""",
+}
+
+PARTY_GAMES = {
+ "slug": "guides/spin-the-wheel-party-games", "updated": "2026-11-16", "date": "2026-11-16", "date_txt": "November 16, 2026",
+ "title": "Spin the Wheel Games: 12 Party Ideas With Rules | Wheelova",
+ "desc": "12 spin the wheel games for parties, family nights and team socials, each with players, wheel entries to paste and simple rules. Plus hosting tips.",
+ "h1": "Spin the wheel games: 12 party ideas with rules",
+ "sub": "Games for parties, family nights and team socials, each with the number of players, entries you can paste straight onto a wheel, and the rules.",
+ "body": """A spinning wheel turns almost any party game into something everyone can watch: the whole room sees the options, the suspense builds as it slows, and nobody can say the host picked. Below are 12 games that work well, each with the players it suits, entries to paste onto a wheel, and the rules. Every game runs on a free [Wheelova wheel](/) in a browser, with no account, and you can put the wheel on a TV with **F** for fullscreen.
+
+## Quick picker
+
+| Game | Players | Best for | Time |
+|---|---|---|---|
+| 1. Truth or dare | 3+ | Parties, sleepovers | Open-ended |
+| 2. Mystery challenge | 4+ | Parties, team socials | 15–30 min |
+| 3. Hot seat questions | 4+ | New groups, team socials | 10–20 min |
+| 4. Wheel charades | 4+ in 2 teams | Family nights | 20–40 min |
+| 5. Draw it in 60 seconds | 3+ | All ages | 15–30 min |
+| 6. Story chain | 3+ | Kids, writers | 10–20 min |
+| 7. Letter race | 2+ | Car trips, family nights | 10 min |
+| 8. Minute to win it | 4+ | Parties, team events | 20–40 min |
+| 9. Spin the teams | 6+ | Any team game | 1 min |
+| 10. Prize wheel | Any | Birthdays, events | 5 min |
+| 11. Who does what | 3+ | Hosting, chores | 2 min |
+| 12. Elimination wheel | 6+ | End-of-night finale | 10–15 min |
+
+## Games for parties and socials
+
+**1. Truth or dare.** Players take turns spinning the [Truth or Dare Wheel](/truth-or-dare-wheel), which lands on Truth or Dare and then shows a random prompt from a kids' or a teen and party deck. Want more truths for a quieter group? Choose the "More truths" wheel, which has four truth slices and two dare slices.
+
+**2. Mystery challenge.** Type a list of short challenges into the [Mystery Wheel](/mystery-wheel) while players look away. Every slice shows "?", so nobody knows where the easy ones are. A player spins and does whatever is revealed, or takes a forfeit agreed in advance.
+
+> Sing a chorus · Do your best accent · Compliment the person on your left · 10 jumping jacks · Free pass · Swap seats · Tell a joke · Mystery prize
+
+**3. Hot seat questions.** Put guests' names on one wheel and questions on a second (press **+ Add wheel** on the [main wheel](/)). Spin both: the named person answers the question. Keep the questions light for groups who don't know each other well.
+
+> What's the best trip you've taken? · What's a skill you'd love to learn? · What was your first job? · What's your go-to karaoke song? · What would you cook to impress someone?
+
+**4. Wheel charades.** Split into two teams with the [Random Team Generator](/random-team-generator). A player from each team in turn spins the [Random Word Wheel](/random-word-wheel) on a phone that only they can see, then acts the word out for their team in one minute. Switch the word list to verbs or animals for younger players.
+
+## Creative games
+
+**5. Draw it in 60 seconds.** Spin the [Drawing Prompt Wheel](/drawing-prompt-wheel) and everyone draws the prompt in 60 seconds. Hold the drawings up together; the group votes for the funniest. Paper and pens are all you need.
+
+**6. Story chain.** Spin the [Random Word Wheel](/random-word-wheel). The first player starts a story that uses the word. Spin again; the next player continues the story with the new word. After about ten spins, the last player has to finish it.
+
+**7. Letter race.** Spin the [Random Letter Generator](/random-letter-generator) and call a category: animals, cities, foods, film titles. The first person to shout a valid answer starting with that letter wins the round. Take tricky letters such as Q, X and Z off the wheel for younger players.
+
+## Competitive games
+
+**8. Minute to win it.** Put quick physical challenges on a wheel. A player spins and has one minute to complete the challenge with things you have in the house. A completed challenge scores a point for their team.
+
+> Stack 5 cups into a pyramid · Keep a balloon in the air without hands · Flip a bottle to stand up · Toss 3 coins into a cup · Unwrap a sweet wearing oven gloves
+
+**9. Spin the teams.** For any team game, paste everyone's names into the [Random Team Generator](/random-team-generator) and choose the number of teams. Nobody is picked last, and nobody can accuse the host of stacking a team.
+
+**10. Prize wheel.** Put the prizes on the [Lucky Wheel](/lucky-wheel). Want small prizes to be more common than the big one? Add the small prizes more than once; a prize that appears 3 times on a 10-slice wheel has a 3 in 10 chance. Tell people the odds if the prizes are worth something; see [how to weight a wheel honestly](/guides/make-custom-spinning-wheel).
+
+## Hosting games
+
+**11. Who does what.** Settle the hosting jobs in one spin: put names on one wheel and jobs on a second (dishes, drinks, music, clearing up, free pass) and spin both together.
+
+**12. Elimination wheel.** For a finale, put every player's name on the wheel and turn on **Remove winner after each spin**. Each spin knocks a player out of the game with a light forfeit; the last name left on the wheel is the winner. The Results list keeps the order, so you can announce the top three.
+
+## Tips for a good game
+
+- **Make dares optional.** Agree a simple pass or forfeit before you start, so nobody feels pushed into something they don't want to do. A dare should be funny for the person doing it, not only for the audience.
+- **Match the prompts to the room.** Use the kids' deck or write your own prompts when children are playing, and keep anything personal out of games with colleagues or people who've only just met.
+- **Two or three short games beat one long one.** Most wheel games are at their best for 10 to 20 minutes.
+- **Repeats are normal.** With Remove winner off, the same challenge can come up twice in a row; that's how randomness works. Turn on Remove winner if each prompt should come up once. Our guide to [spin wheel probability](/guides/spin-wheel-probability) explains why.
+- **Put it on the big screen.** Cast or connect a laptop to the TV and press **F**. Everyone watching the wheel slow down is half the fun.
+
+## Common questions
+
+**Can I save my game wheels?** Yes. Type a name under **My saved wheels** and press **Save list**; it stays in your browser on that device. To use it on another device, press **Share link**.
+
+**Can I play on a phone?** Yes. The wheels work in any modern mobile browser. For games where only one player should see the result, such as charades, spin on a phone.
+
+**How do I play online with friends?** Share your screen on a video call and spin for everyone, or send a share link so each person can open the same wheel.
+
+**Ready?** Pick a game above, paste the entries into the [wheel](/), and press Spin.
 """,
 }
