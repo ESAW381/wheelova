@@ -24,7 +24,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "41"
+V = "42"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -261,11 +261,25 @@ def scripts(p, cfg):
         g = {"type": p["tool"]}
         if p["tool"] in ("team", "pair"): g["sample"] = p["sample"]
         if p["tool"] == "name": g["data"] = p["data"]
-        return f'<script>window.WG={json.dumps(g, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/gen.js?v={V}" defer></script>' + (f'\n<script src="/coin.js?v={V}" defer></script>' if p["tool"] == "coin" else '')
+        return f'<script>window.WG={json.dumps(g, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/gen.js?v={V}" defer></script>' + (f'\n<script src="/coin.js?v={V}" defer></script>' if p["tool"] == "coin" else f'\n<script src="/dice.js?v={V}" defer></script>' if p["tool"] == "dice" else '')
     return embed_meta(p["slug"]) + f'<script>window.WV={json.dumps(cfg, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/app.js?v={V}" defer></script>'
 
 def gentool(p):
     t = p["tool"]
+    if t == "dice":
+        _b = lambda i, lab: f'<button type="button" class="dstep" id="{i}" aria-label="{lab}">{"−" if i.endswith("m") else "+"}</button>'
+        return ('<div class="tool ctool dtool" id="tool">'
+          '<div class="cbar"><div class="cseg" id="dside" role="group" aria-label="Die"><span class="clbl">Die</span>' + "".join(f'<button type="button" data-v="{n}" aria-pressed="false">d{n}</button>' for n in (4, 6, 8, 10, 12, 20, 100)) + '</div>'
+          '<div class="cicons"><button type="button" class="cicon" id="dsound" aria-pressed="false" aria-label="Sound off" title="Sound"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path class="sw" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/><path class="sx" d="m16 9 5 6M21 9l-5 6"/></svg></button>'
+          '<button type="button" class="cicon" id="dfs" aria-label="Fullscreen" title="Fullscreen (F)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div></div>'
+          '<div class="dsteps"><div class="dgrp"><span class="clbl">Dice</span>' + _b("dnm", "Fewer dice") + '<output id="dnval">1</output>' + _b("dnp", "More dice") + '</div>'
+          '<div class="dgrp"><span class="clbl">Modifier</span>' + _b("dmm", "Lower modifier") + '<output id="dmval">+0</output>' + _b("dmp", "Raise modifier") + '</div>'
+          '<div class="cseg" id="dadvrow"><div class="cseg" id="dadv" role="group" aria-label="d20 roll mode"><span class="clbl">d20</span><button type="button" data-v="normal" aria-pressed="true">Normal</button><button type="button" data-v="adv" aria-pressed="false">Advantage</button><button type="button" data-v="dis" aria-pressed="false">Disadvantage</button></div><span class="small dadvnote" id="dadvnote" hidden>Advantage needs exactly one d20.</span></div></div>'
+          '<div class="cstage"><span class="dnot" id="dnot">1d20</span><div class="dtray n1" id="dtray"></div>'
+          '<div class="dres" id="dres" aria-live="polite"></div><p class="dbrk" id="dbrk"></p>'
+          '<button class="gbtn cflip" id="droll" type="button">Roll</button></div>'
+          '<div class="dhistwrap"><div class="dhhead"><span class="clbl">Recent rolls</span><span class="cacts"><button type="button" class="btn" id="dshare">Share link</button><button type="button" class="btn" id="dclear">Clear</button></span></div><ol class="dhist" id="dhist"></ol></div>'
+          '<p class="small cnote">Space to roll · F for fullscreen. History and settings are saved only in this browser.</p></div>')
     if t == "coin":
         segb = lambda gid, label, items: f'<div class="cseg" id="{gid}" role="group" aria-label="{label}"><span class="clbl">{label}</span>' + "".join(f'<button type="button" data-v="{v}" aria-pressed="false">{n}</button>' for v, n in items) + '</div>'
         return ('<div class="tool ctool" id="tool" data-style="gold">'
@@ -782,7 +796,7 @@ os.makedirs(os.path.join(OUT, "es"), exist_ok=True)
 os.makedirs(os.path.join(OUT, "guides"), exist_ok=True)
 for name, body in files.items():
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(body)
-for f in ["app.css", "rng.js", "consent.js", "multi.js", "app.js", "gen.js", "coin.js", "search.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
+for f in ["app.css", "rng.js", "consent.js", "multi.js", "app.js", "gen.js", "coin.js", "search.js", "dice.js", "quiz.js", "embed.js", "embed.html", "favicon.svg", "robots.txt", "site.webmanifest"]:
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(open(os.path.join(ROOT, f), encoding="utf-8").read())
 shutil.copy(os.path.join(ROOT, "favicon.ico"), OUT)
 shutil.copytree(os.path.join(ROOT, "icons"), os.path.join(OUT, "icons"))

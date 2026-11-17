@@ -443,10 +443,10 @@ PAGES += [
 },
 {
  "slug":"dice-roller","key":"dice","nav":"Dice Roller","tool":"dice",
- "title":"Dice Roller – Roll Virtual Dice Online (d4 to d20) | Wheelova",
- "description":"Roll 1 to 6 virtual dice online — d4, d6, d8, d10, d12 or d20. See each die and the total. Free dice roller for board games, D&D and class.",
- "h1":"Dice Roller","subhead":"Roll up to six dice — d4, d6, d8, d10, d12 or d20 — and see the total.",
- "howTo":["Choose how many dice and how many sides.","Press Roll (or the Space bar).","See each die and the total. Recent rolls are listed below."],
+ "title":"Dice Roller – Roll a D20, D6 or Any Dice Online | Wheelova",
+ "description":"Free online dice roller: roll a d20, d6, d4, d8, d10, d12 or d100. Up to 10 dice, modifiers, advantage and disadvantage for D&D, with totals and history.",
+ "h1":"Dice Roller","subhead":"Roll a d20, a d6 or any die online. Pick a die, tap Roll, and see every result and the total.",
+ "howTo":["Pick a die: d4, d6, d8, d10, d12, d20 or d100.","Set how many dice (1 to 10) and any modifier, or choose Advantage or Disadvantage for a d20.","Tap the dice, press Roll or press Space. Each die, the total and your recent rolls are shown."],
  "sections":[],"faq":[],"related":["coin-flip","spinner","random-number-generator","number-wheel"]
 },
 ]

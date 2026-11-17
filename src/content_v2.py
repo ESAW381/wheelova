@@ -1016,3 +1016,53 @@ _cw["faq"] += [
  {"q": "What color is opposite red on the color wheel?", "a": "Green, on the traditional artist's wheel. The other complementary pairs are yellow–purple and blue–orange."},
  {"q": "Can I generate a random hair color?", "a": "Yes. Pick the Hair colors (12) preset and spin. The swatches are approximate screen colors, so check a dye brand's shade chart before buying."},
 ]
+
+# ---- Dice roller redesign content (Nov 18 2026): d20/D&D-first, answer-first blocks, notation, percentile ----
+_d = UPGRADES["dice-roller"]
+_d["updated"] = "2026-11-18"
+_DS = {s["h2"]: s for s in _d["sections"]}
+_DS["How the dice roller works"]["body"] = ("Pick a die, set how many (1 to 10) and an optional modifier, then tap the dice, press **Roll** or press the Space bar. "
+  "You'll see every die, the total and a running list of your last 20 rolls. Every face has exactly the same chance: 1 in 6 on a d6, 1 in 20 on a d20.\n\n" + RANDOM_NOTE)
+_DS["Which dice can I roll?"]["body"] = ("| Die | Sides | Chance of each face | Average roll | Common uses |\n|---|---|---|---|---|\n"
+  "| d4 | 4 | 25% | 2.5 | RPG damage (daggers, small spells) |\n| d6 | 6 | 16.7% | 3.5 | Board games, Yahtzee, Monopoly, RPG damage |\n"
+  "| d8 | 8 | 12.5% | 4.5 | RPG damage and hit points |\n| d10 | 10 | 10% | 5.5 | RPG damage, percentile pairs |\n"
+  "| d12 | 12 | 8.3% | 6.5 | Heavy-weapon damage, maths games |\n| d20 | 20 | 5% | 10.5 | Dungeons & Dragons checks, attacks and saves |\n"
+  "| d100 | 100 | 1% | 50.5 | Percentile rolls and random tables |")
+_short = {"h2": "Dice roller: the short answer", "body":
+  "- **Dice:** d4, d6, d8, d10, d12, d20 and d100. Roll 1 to 10 at once.\n"
+  "- **Odds:** every face is equally likely: 1 in 20 (5%) on a d20, 1 in 6 (16.7%) on a d6.\n"
+  "- **Averages:** a d20 averages 10.5, a d6 averages 3.5.\n"
+  "- **D&D tools:** add a modifier (like 1d20+5) and roll a d20 with **advantage** or **disadvantage**. Natural 20s and 1s are highlighted.\n"
+  "- **Extras:** roll history, share link, sound, fullscreen. Free, no sign-up, works on phones."}
+_d20 = {"h2": "Roll a d20: advantage, disadvantage and modifiers", "body":
+  "A d20 decides most checks, attacks and saving throws in Dungeons & Dragons. Roll it, add your **modifier**, and compare the total with the target number (the DC or armor class). Set the modifier with the + and − buttons; the tool shows the roll as notation, such as **1d20+5**.\n\n"
+  "**Advantage** means rolling two d20s and keeping the higher; **disadvantage** means keeping the lower. Choose either above the dice and the roller does both rolls for you, dimming the one that doesn't count.\n\n"
+  "| Need on the die | Normal | Advantage | Disadvantage |\n|---|---|---|---|\n"
+  "| 10 or higher | 55% | 79.8% | 30.3% |\n| 15 or higher | 30% | 51% | 9% |\n| 20 (natural 20) | 5% | 9.75% | 0.25% |\n\n"
+  "Advantage helps most when you need about an 11: it lifts your chance from 50% to 75%, roughly the same as a +5 bonus. On very easy or very hard rolls it helps much less. A plain d20 averages 10.5; with advantage the average rises to about 13.8, and with disadvantage it falls to about 7.2."}
+_note = {"h2": "Dice notation explained (1d20, 2d6+3, d100)", "body":
+  "Tabletop games write rolls as **XdY+Z**:\n\n"
+  "- **X** is how many dice (left out when it's 1, so **d20** means one twenty-sided die).\n"
+  "- **dY** is the type of die: d6 has 6 sides, d20 has 20.\n"
+  "- **+Z** or **−Z** is a fixed modifier added to the total.\n\n"
+  "So **2d6+3** means roll two six-sided dice, add them up, then add 3. The total can be anywhere from 5 to 15. **3d6** (3 to 18) is the classic way to roll ability scores. "
+  "**Share link** copies a link that opens this page set to the same roll, handy for sending to your group."}
+_one = {"h2": "Roll a die from 1 to 6", "body":
+  "Need a plain die for a board game? Choose **d6** and leave the count at 1. It shows a real dotted face and lands on each number from 1 to 6 with exactly the same 1 in 6 chance. Choose 2 dice for games like Monopoly or Catan; the total is added for you."}
+_pct = {"h2": "Percentile dice (d100)", "body":
+  "A d100 gives a number from 1 to 100, each with a 1% chance. At the table, people usually roll it with **two ten-sided dice**: one for the tens (00 to 90) and one for the ones (0 to 9), with 00 and 0 together counting as 100. "
+  "This roller's d100 gives the same 1-to-100 result in one roll, so there's nothing to add up. It's useful for random tables, loot and percentage chances (\"a 35% chance of rain\" means 35 or lower wins)."}
+_order = [_short, _DS["How the dice roller works"], _d20, _DS["Which dice can I roll?"], _note, _one, _DS["Two dice: why 7 comes up most"], _pct, _DS["Ideas"]]
+assert len(_order) == len(_d["sections"]) + 5
+_d["sections"] = _order
+_F = {f["q"]: f for f in _d["faq"]}
+_F["How many dice can I roll at once?"]["a"] = "Up to 10 dice of the same type per roll, plus an optional modifier from −20 to +20."
+_F["Can I roll a d20?"]["a"] = "Yes. Pick d20 and tap Roll. Each face has a 1 in 20 (5%) chance. You can also roll with advantage or disadvantage."
+_F["Can I use it for Dungeons & Dragons?"]["a"] = "Yes. Roll any die from d4 to d100, add modifiers like 1d20+5, and roll d20s with advantage or disadvantage. For mixed rolls such as 1d8+1d6, roll each type separately and add them."
+_d["faq"] += [
+ {"q": "What is advantage in D&D?", "a": "Roll two d20s and keep the higher result. Disadvantage is the opposite: keep the lower. Choose either option above the dice and the roller keeps the right one for you."},
+ {"q": "What is the average roll on a d20?", "a": "10.5. With advantage it rises to about 13.8; with disadvantage it falls to about 7.2."},
+ {"q": "What does 2d6+3 mean?", "a": "Roll two six-sided dice, add them, then add 3. The result ranges from 5 to 15."},
+ {"q": "How do percentile dice work?", "a": "Two d10s are rolled: one for the tens and one for the ones, with 00 and 0 counting as 100. This roller's d100 gives the same 1 to 100 result in one roll."},
+ {"q": "Can I roll a normal die from 1 to 6?", "a": "Yes. Choose d6. Each number from 1 to 6 has exactly a 1 in 6 chance, and the die shows real dots."},
+]

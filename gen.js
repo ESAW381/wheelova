@@ -68,21 +68,8 @@ if(cfg.type==='name'){
  $('ggo').onclick=run;
 }
 
-if(cfg.type==='dice'){
- var PIPS={1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
- function rund(){err.textContent='';var n=parseInt($('dcount').value,10)||1,s=parseInt($('dsides').value,10)||6,r=[];for(var i=0;i<n;i++)r.push(1+ri(s));
-  out.innerHTML='';out.className='gout diceout';
-  r.forEach(function(v){var d=document.createElement('div');d.className='die'+(s===6?' pips':'');d.setAttribute('aria-label',v);
-   if(s===6){for(var k=1;k<=9;k++){var p=document.createElement('i');if(PIPS[v].indexOf(k)>-1)p.className='on';d.appendChild(p)}}else{d.textContent=v}out.appendChild(d)});
-  var sum=r.reduce(function(a,b){return a+b},0);last=r.map(String);
-  $('gcount').textContent=n>1?('Total: '+sum):(n+'d'+s);
-  var tl=document.createElement('div');tl.className='dicetotal';tl.textContent=n>1?('Total '+sum):('You rolled '+sum);out.appendChild(tl);
-  var hi=$('ghist');if(hi){var li=document.createElement('li');li.textContent=n+'d'+s+': '+r.join(' + ')+(n>1?' = '+sum:'');hi.prepend(li);while(hi.children.length>10)hi.removeChild(hi.lastChild)}}
- $('ggo').onclick=rund;
-}
-document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT'&&$('ggo')){e.preventDefault();$('ggo').click()}
-if(cfg.type==='dice'&&e.code==='Space'&&!/TEXTAREA|INPUT|SELECT|BUTTON|A/.test(document.activeElement.tagName)){e.preventDefault();$('ggo').click()}});
-if(cfg.type==='dice'){out.innerHTML='<div class="gwait">Press Roll</div>'}else if(cfg.type!=='coin'){$('ggo').click()}
+document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT'&&$('ggo')){e.preventDefault();$('ggo').click()}});
+if(cfg.type!=='coin'&&cfg.type!=='dice'){$('ggo').click()}
 var lg=document.querySelector('.logo');if(lg)lg.addEventListener('click',function(){try{localStorage.removeItem('wv_entries_home2')}catch(e){}});
 var bg=$('burger'),nv=$('mnav');bg.onclick=function(){var o=!nv.classList.contains('open');nv.classList.toggle('open',o);bg.setAttribute('aria-expanded',o);bg.setAttribute('aria-label',o?'Close menu':'Open menu')};
 nv.addEventListener('click',function(e){if(e.target.tagName==='A'){nv.classList.remove('open');bg.setAttribute('aria-expanded',false)}});

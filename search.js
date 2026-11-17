@@ -36,6 +36,7 @@ function score(p,q){var ws=q.split(/\s+/).filter(Boolean),s=0;
   if(!hit)return 0;s+=hit}
  return s+(p.l===L?3:0)-(p.g?1:0)}
 function render(){
+ if(!idx)return;
  var q=norm(inp.value.trim());
  if(!q){items=POP.map(function(u){return idx.filter(function(p){return p.u===u})[0]}).filter(Boolean);
   if(!items.length)items=idx.filter(function(p){return p.l===L}).slice(0,8);dlg.querySelector('#shead').textContent=TX.pop}
