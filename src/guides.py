@@ -56,8 +56,8 @@ Five full quiz formats, with a points wheel and scoring, are in [random question
 
 ## Brain breaks and rewards
 
-20. **Brain-break wheel.** Entries like "10 jumping jacks", "stretch", "tell a joke", "30-second dance". Spin when energy drops.
-21. **Reward wheel.** Small classroom rewards: choose the music, sit anywhere, five minutes of free reading, first in line.
+20. **Brain-break wheel.** Entries like "10 jumping jacks", "stretch", "tell a joke", "30-second dance". Spin when energy drops. There are 50 more ideas, sorted by energy level, in the [brain break wheel guide](/guides/brain-break-wheel).
+21. **Reward wheel.** Small classroom rewards: choose the music, sit anywhere, five minutes of free reading, first in line. See the [classroom reward wheel](/guides/classroom-reward-wheel) for 40 ideas and how to set the odds.
 22. **Random act of kindness.** Spin a name each morning; that student gets a kind note from a classmate.
 23. **Yes or no decisions.** Let the [Yes or No Wheel](/yes-or-no-wheel) decide low-stakes questions, like "Do we take the lesson outside?".
 
@@ -354,7 +354,7 @@ People expect random results to look evenly spread, and they rarely do. A fair g
 - **Clusters and gaps:** in 20 picks from 1 to 30, only about 15 different numbers appear on average; the rest are repeats.
 - **Streaks that seem "due" to end:** a generator has no memory, so a number that hasn't appeared for a while is no more likely to come up next. Expecting otherwise is the gambler's fallacy.
 
-If a generator never repeated and always spread its results evenly, that would be a sign it *wasn't* random. Our guide to [spin wheel probability](/guides/spin-wheel-probability) works through how often repeats and gaps happen; for draws where nothing should repeat, use the **No repeats** option on the [Random Number Generator](/random-number-generator).
+If a generator never repeated and always spread its results evenly, that would be a sign it *wasn't* random. Our guide to [spin wheel probability](/guides/spin-wheel-probability) works through how often repeats and gaps happen, and [spinner vs dice](/guides/spinner-vs-dice-fairness) compares physical and online randomness; for draws where nothing should repeat, use the **No repeats** option on the [Random Number Generator](/random-number-generator).
 
 ## Choosing the right generator
 
@@ -844,5 +844,456 @@ PARTY_GAMES = {
 **How do I play online with friends?** Share your screen on a video call and spin for everyone, or send a share link so each person can open the same wheel.
 
 **Ready?** Pick a game above, paste the entries into the [wheel](/), and press Spin.
+""",
+}
+
+LIVESTREAM = {
+ "slug": "guides/spin-wheel-live-stream", "updated": "2026-11-17", "date": "2026-11-17", "date_txt": "November 17, 2026",
+ "title": "How to Use a Spin Wheel on a Live Stream or Zoom | Wheelova",
+ "desc": "Use a spin wheel on Twitch, YouTube Live, OBS, Zoom or Teams: setup, collecting entries from chat, sharing sound, giveaway rules and a pre-show checklist.",
+ "h1": "How to use a spin wheel on a live stream or virtual event",
+ "sub": "Set up a wheel in OBS or on a video call, collect entries from chat, make sure viewers hear the spin, and run on-stream giveaways that viewers trust.",
+ "body": """A spin wheel works on a stream or video call because everyone watches the same moment: the wheel slows, the chat reacts, and nobody can say the host picked. There are two ways to show it. **Streamers** add the wheel to their broadcast as a browser source in OBS or similar software. **Virtual events** on Zoom or Teams simply share a browser window. This guide covers both, plus collecting entries from chat and running a giveaway on stream.
+
+## Option 1: Add the wheel to OBS as a browser source
+
+1. Put your entries on a [Wheelova wheel](/), then open [Embed a wheel](/embed-a-wheel), choose your options and press **Copy URL only**.
+2. In OBS, add a **Browser** source, paste the URL and set the size to about 560 × 560.
+3. To spin on air, right-click the source and choose **Interact**, then click the wheel or press the Space bar. Viewers see the spin; they can't click it themselves.
+4. Test it before you go live, and if you change the entries, copy a fresh URL into the source.
+
+The [embed guide](/embed-a-wheel) has step-by-step screenshots of the settings, cache refresh and troubleshooting. Most streaming apps that support browser sources work the same way.
+
+**Prefer the full wheel with the results list and winner pop-up?** Add a **Window capture** of a browser window with the [wheel](/) open instead. You then spin in the browser as normal, and the stream shows exactly what you see.
+
+## Option 2: Share the wheel on Zoom, Teams or Meet
+
+1. Open the wheel in its own browser window and press **F** for fullscreen, so only the wheel is visible.
+2. Share that window, not your whole screen, so notifications and other tabs stay private.
+3. **Turn on sound sharing** if you want the audience to hear the spin. In Zoom, tick **Share sound** in the screen-share window ([University of Minnesota guide](https://it.umn.edu/services-technologies/how-tos/zoom-share-device-sound-during-screen)); in Teams, turn on **Include sound** when you share ([Microsoft Support](https://support.microsoft.com/en-us/office/share-sound-from-your-computer-in-a-teams-meeting-or-live-event-dddede9f-e3d0-4330-873a-fa061a0d8e3b)).
+4. Say the result out loud as well. Video calls can lag or drop frames, so attendees should hear the name even if their picture stutters.
+
+For large events, a host can share the wheel while a co-host reads names from the chat.
+
+## Collecting entries from chat
+
+Live chat is the messiest part of a wheel stream. A simple routine:
+
+1. **Announce one entry method and a cut-off.** For example, "type !enter in chat before the timer ends" or "type your name once".
+2. **Copy the names into the entries box** after the cut-off, one per line.
+3. **Press Sort.** Duplicates end up next to each other, so you can delete anyone who entered twice before the spin.
+4. **Read the count aloud,** for example "we have 143 entries", and leave the list visible for a moment.
+5. **Turn on Remove winner** if you're drawing several winners.
+
+For long lists, a chat bot that collects entries saves time; paste its export into the wheel, or use **Import** with a CSV.
+
+## Running a giveaway on stream
+
+A live draw builds trust only if viewers can see it's fair. Before you spin, show the entry list and count, keep the slices equal unless you announced otherwise, and keep the recording until the prize is delivered. The [fair giveaway guide](/guides/fair-giveaway) has the full routine and a rules template.
+
+**Check the platform's rules too.** YouTube, for example, requires creators to publish official rules for contests, conduct the contest as those rules describe, and not run contests through ads ([YouTube contest policies](https://support.google.com/youtube/answer/1620498)). Other platforms have their own policies, and prize promotions may also fall under local law.
+
+**Use the Mystery Wheel only for games,** not for prize draws. Its slices show "?", which is fun for challenges but means viewers can't check the entries.
+
+## Ideas for stream and event wheels
+
+- **Challenge wheel:** viewers suggest challenges; you spin one each hour.
+- **Game or map picker:** let the wheel choose tonight's game, map or character.
+- **Viewer spotlight:** spin a name from chat to join the next match or answer a question.
+- **Icebreaker for virtual meetings:** spin a name and a question to open the session.
+- **Q&A order:** spin the order in which submitted questions are answered.
+
+The [party games guide](/guides/spin-the-wheel-party-games) has 12 more game formats that work on stream.
+
+## Pre-show checklist
+
+| Check | Why |
+|---|---|
+| Entries copied in and duplicates removed | Each viewer gets one slice |
+| Wheel tested in OBS or a test meeting | Avoids a blank source on air |
+| Sound sharing on, at a sensible volume | Viewers hear the spin without it drowning out your voice |
+| Notifications off and only the wheel window shared | Keeps private information off the stream |
+| Rules and prize posted, for giveaways | Viewers know how the draw works |
+| Recording running before the spin | Proof of a fair draw if anyone asks |
+
+## Common questions
+
+**Can viewers spin the wheel themselves?** Not on your stream: the wheel in OBS is controlled from your computer. To let each person spin, send a share link so everyone can open the same wheel in their own browser.
+
+**Why does the embedded wheel look different from the main wheel?** The embed is a compact version made for websites and overlays, without the entries box and settings. Use a window capture of the main wheel if you want everything on screen.
+
+**Is the result really random?** Yes. Each spin uses your browser's cryptographically secure random number source; see the [fairness study](/is-the-wheel-random) for a 1,000,000-spin test.
+
+**Ready?** Put your entries on the [wheel](/), copy the embed URL, and add it to your scene.
+""",
+}
+
+PRESENTATIONS = {
+ "slug": "guides/spin-wheel-presentation", "updated": "2026-11-17", "date": "2026-11-17", "date_txt": "November 17, 2026",
+ "title": "Spinning Wheel in Google Slides or PowerPoint | Wheelova",
+ "desc": "How to use a spinning wheel in Google Slides, PowerPoint and Keynote: link a button to your wheel, embed it live in PowerPoint, and present it smoothly.",
+ "h1": "How to use a spinning wheel in Google Slides and PowerPoint",
+ "sub": "Three ways to bring a live wheel into a presentation, which one works in which app, and how to switch between slides and the wheel without fumbling.",
+ "body": """Presentation software can't spin a random wheel by itself, but you can bring a live one into your talk. The method that works everywhere is to **link a button on your slide to your wheel**: click it, spin in the browser, and return to your slides. PowerPoint can go further and show the live wheel inside the slide with an add-in. Here's how each option works, and which to choose.
+
+## Which method works where
+
+| Method | Google Slides | PowerPoint | Keynote | Spins inside the slide? |
+|---|---|---|---|---|
+| Link a button or image to the wheel | Yes | Yes | Yes | No, opens in the browser |
+| Live web page add-in | No | Yes, with an add-in | No | Yes |
+| Second window or screen | Yes | Yes | Yes | No, you switch windows |
+
+## Method 1: Link a button to your wheel (works everywhere)
+
+1. **Make the wheel.** Put your entries on the [wheel](/) and press **Share link** to copy a link that opens the wheel with those entries.
+2. **Add a button to the slide.** A shape that says "Spin!" or a screenshot of the wheel works well.
+3. **Link it.** Select the shape or image and add a link: in Google Slides use **Insert > Link** (Ctrl+K or Cmd+K); in PowerPoint and Keynote use the link or hyperlink option on the right-click menu. Paste the share link.
+4. **Present.** Click the button during the slideshow. The wheel opens in your browser, where you spin it; then switch back to the slides.
+
+Google Slides has no built-in way to embed a live web page in a slide, so a link is the dependable option there ([The Bricks](https://thebricks.com/resources/how-to-embed-a-website-in-google-slides) describes the limitation and the common workarounds).
+
+**Tip:** open the wheel in a browser tab before you start presenting. The click then switches to an already-loaded page, with no waiting.
+
+## Method 2: Show the live wheel inside a PowerPoint slide
+
+PowerPoint can display a live web page in a slide through an add-in. Microsoft retired its original Web Viewer add-in in December 2024; its listed successor, Web Viewer 2.0, loads https pages and runs in PowerPoint for Windows, Mac and the web, according to its Microsoft Marketplace listing ([Microsoft Marketplace](https://marketplace.microsoft.com/en-us/product/wa200010526)).
+
+1. In PowerPoint, open **Insert > Get Add-ins** (or **Home > Add-ins**), search for a web viewer add-in and add it.
+2. Insert it on your slide.
+3. Open [Embed a wheel](/embed-a-wheel), set up your wheel and press **Copy URL only**. Paste that address into the add-in. The embed version is compact and made for small frames.
+4. Resize the frame, then start the slideshow and click the wheel to spin.
+
+**Test it on the computer you'll present from, with the internet connection you'll have.** Add-ins need to be allowed by your organisation, they need a connection to load the page, and some work differently in Slide Show mode. If the frame stays blank on the day, fall back to Method 1.
+
+## Method 3: Use a second window or screen
+
+If you present with a second screen, keep the slides on one and the wheel on the other. On a single screen, put the wheel in its own browser window and switch with Alt+Tab (Windows) or Cmd+Tab (Mac). When the wheel is up, press **F** so it fills the screen.
+
+This is the most reliable option for important talks: nothing is embedded, so nothing can fail to load.
+
+## Ideas for wheels in presentations
+
+- **Who answers next:** in a training session, spin a name to answer each review question. The [classroom guide](/guides/random-name-picker-classroom) explains how to keep random calling supportive.
+- **Pick the next topic:** let the audience see the wheel choose which section comes next.
+- **Prize draw at the end of a talk:** a live draw from attendee names keeps people to the end; the [fair giveaway guide](/guides/fair-giveaway) covers doing it properly.
+- **Quiz break:** a question-number wheel turns a review slide into a game; see [random question wheels](/guides/random-quiz-wheel).
+- **Speaking order:** spin the order of presenters, with Remove winner on, at the start of a group session.
+
+## Before you present
+
+- **Open the wheel and test the link** on the presenting computer.
+- **Check the entries** are the final list; a share link is a snapshot, so make a new link after editing.
+- **Turn on Remove winner** if each name or question should come up once.
+- **Decide about sound.** The spin has a sound you can switch off with the **Sound** toggle under the entries; in a video call, share computer sound if you want the audience to hear it.
+
+## Common questions
+
+**Can I put a spinning wheel directly in Google Slides?** Not as a live wheel. Link a shape or image to the wheel instead, or use a screen recording of a spin as a video if you only need it to look like a spin, not to pick a random result.
+
+**Will my wheel still work if I edit it after making the link?** The link keeps the entries you had when you created it. After editing, press **Share link** again and update the link on your slide.
+
+**Can I use this in Canva or other slide tools?** Any tool that can add a link to a shape or image can open the wheel the same way.
+
+**Ready?** Build your wheel on the [homepage](/), press **Share link**, and paste it onto your "Spin!" button.
+""",
+}
+
+SPINNER_VS_DICE = {
+ "slug": "guides/spinner-vs-dice-fairness", "updated": "2026-11-17", "date": "2026-11-17", "date_txt": "November 17, 2026",
+ "title": "Spinner vs Dice: Which Is Fairer? | Wheelova",
+ "desc": "Are dice or spinners fairer? What research on real dice found, why physical spinners drift, how many rolls it takes to catch a biased die, and online options.",
+ "h1": "Random spinner vs dice: which is fairer?",
+ "sub": "What testing real dice has shown, where physical spinners go wrong, how many rolls you'd need to catch a biased die, and how online dice and wheels compare.",
+ "body": """**A well-made online spinner or dice roller is fairer than almost any physical die or spinner,** because its result comes from a secure random number rather than from the shape, weight and surface of an object. Among physical tools, precision casino dice come closest to fair; cheap dice and home-made spinners usually carry small biases. Most of those biases are too small to notice in a game, but large enough to matter for a prize draw. Here is the evidence.
+
+## How fair are real dice?
+
+A perfect die gives each face exactly a 1 in 6 chance. Real dice fall short in measurable ways:
+
+- **Hollow pips make dice lighter on the high-number faces.** In the 1890s, biologist Walter Weldon recorded 26,306 rolls of 12 dice. Karl Pearson's analysis found a clear bias towards fives and sixes, probably because the hollowed-out pips make the six face lighter than the opposite one face ([Labby, Chance, 2009](https://gwern.net/doc/statistics/probability/2009-labby.pdf)).
+- **Manufacturing tolerances matter more than materials.** Researchers at Western Kentucky University tested dice with tens of thousands of physical rolls. They concluded that differences in dimensions usually matter more than density, except for large off-centre air bubbles ([Fisher et al., WKU](https://core.ac.uk/download/323362672.pdf)).
+- **Many plastic dice fail a fairness test.** In the same research group's tests of plastic-moulded dice, about 1 in 4 tested fair over 3,000 rolls ([WKU](https://digitalcommons.wku.edu/seas_faculty_pubs/21)). Those were mostly 20-sided dice, which are harder to make accurately than 6-sided ones.
+
+None of this means your board game is ruined. It means a physical die is a physical object, and objects are never perfectly symmetrical.
+
+## Where physical spinners go wrong
+
+A spinner on a card, a prize wheel at a fair, or a paperclip-and-pencil spinner adds its own problems:
+
+- **An off-centre pivot** makes the pointer favour one side.
+- **Friction and wobble** mean the pointer tends to stop in similar places, especially on cheap spinners.
+- **Unequal slices** from hand-drawn or printed wheels give some outcomes more room.
+- **A weak spin** barely turns the pointer, so the result depends on where it started.
+
+The [paper spinner section of our wheel guide](/guides/make-custom-spinning-wheel) explains how to test a home-made spinner with a tally.
+
+## How many rolls does it take to spot a biased die?
+
+Fewer than you'd hope, if the bias is big, and far more than anyone actually rolls, if it's small. We calculated how often the standard fairness test (a chi-square test at the usual 95% level) would catch three biased dice:
+
+| The die | Chance of detecting the bias in 100 rolls | in 1,000 rolls | Rolls needed for an 80% chance |
+|---|---|---|---|
+| Six comes up 20% of the time instead of 16.7% | 12% | 82% | about 970 |
+| Five and six each 1 point too likely, one and two 1 point too unlikely | 6% | 18% | about 5,400 |
+| Six 1.3 points too likely, one 1.3 points too unlikely | 6% | 17% | about 6,000 |
+
+The first row is a die that is clearly loaded, yet in 100 rolls you would spot it only about 1 time in 8. We checked that row by simulating 20,000 sets of rolls, and it matched. The practical lesson: **you can't judge a die from one game night.** A suspicious streak in 30 rolls usually tells you nothing, and a die can be noticeably biased without you ever finding out.
+
+## Online dice and wheels
+
+An online tool has no shape, weight or friction, so it avoids every physical bias above. It has two different things to get right instead:
+
+1. **A secure random source.** Good tools use the browser's cryptographically secure generator rather than a basic one; [how random number generators work](/guides/how-random-number-generators-work) explains the difference.
+2. **Unbiased mapping.** Turning random bits into "a number from 1 to 6" must avoid modulo bias, explained in the same guide.
+
+Wheelova's [dice roller](/dice-roller), [coin flip](/coin-flip) and other number tools use the secure source with rejection sampling for unbiased mapping. The wheels pick a winner from a random stopping angle, and we published a [1,000,000-spin test](/is-the-wheel-random) of that code, with raw data you can check.
+
+## Which should you use?
+
+| Situation | Best choice | Why |
+|---|---|---|
+| Board game night | Physical dice | Small biases don't change the fun, and rolling is part of the game |
+| Prize draw or giveaway | Online wheel, on screen | Fair odds, visible to everyone, with a record of every spin |
+| Classroom probability lesson | Both | Compare a physical die's tally with an online roller's; differences start a discussion |
+| Tabletop games online | Online dice roller | Everyone sees the same roll |
+| Choosing between many options | Online wheel | A die only has six faces; a wheel holds as many options as you need |
+
+## Common questions
+
+**Are casino dice fair?** Casino dice are typically made to tighter tolerances than game dice, with sharp edges and filled pips, which removes the main sources of bias found in cheap dice. No physical die is perfect, but they are close.
+
+**Is a spinner fairer than a die?** It depends on the build. A precisely made die beats a hand-made spinner, while a well-made online spinner beats both.
+
+**Can an online dice roller be rigged?** The random number can't be steered by the person rolling, but whoever controls the device controls what it displays. For high-stakes draws, see the checklist in [can a spin wheel be rigged?](/is-the-wheel-random)
+
+**How do I test a die at home?** Roll it many times and tally the results; our calculation shows that even 1,000 rolls catch only a clearly loaded die reliably. Floating a die in salt water is a popular test for air bubbles, but it says nothing about uneven dimensions.
+
+**Want to compare for yourself?** Roll a real die 60 times and the [dice roller](/dice-roller) 60 times, then compare tallies. Expect neither to come out perfectly even; our [spin wheel probability guide](/guides/spin-wheel-probability) explains why.
+""",
+}
+
+REWARD_WHEEL = {
+ "slug": "guides/classroom-reward-wheel", "updated": "2026-11-17", "date": "2026-11-17", "date_txt": "November 17, 2026",
+ "title": "Classroom Reward Wheel: 40 Prize Ideas | Wheelova",
+ "desc": "Set up a classroom reward wheel: 40 free and low-cost non-food prize ideas, how to set the odds for big and small rewards, and how to keep it fair.",
+ "h1": "Classroom reward wheel: 40 prize ideas and how to set the odds",
+ "sub": "Free and low-cost rewards students actually want, how often the big prize should come up, and the routines that keep a prize wheel motivating rather than a lottery.",
+ "body": """A classroom reward wheel lets a student who earned a reward spin to find out what it is. The surprise does a lot of the work: a small privilege feels bigger when it was won on a spin. This guide has 40 reward ideas that cost little or nothing, how to set the odds so the best rewards stay special, and the routines that keep the wheel fair.
+
+## Set up the wheel in two minutes
+
+1. Open the [Lucky Wheel](/lucky-wheel), press **Clear**, and type one reward per line.
+2. **Repeat common rewards** so they come up more often, and type special rewards once (see the odds section below).
+3. Leave **Remove winner** off, so every reward stays available for the next student.
+4. Name it under **My saved wheels** and press **Save list**, so it's ready every day.
+5. Press **F** for fullscreen when a student spins, so the class can see.
+
+## 40 reward ideas
+
+Most of these cost nothing. Food is left out on purpose: the CDC's school nutrition resources include guidance on healthy non-food rewards ([CDC](https://www.cdc.gov/school-nutrition/school-meals/smart-snacks.html)), and non-food rewards also keep students with food allergies included.
+
+**Privileges (free)**
+1. Sit anywhere for a lesson
+2. Sit at the teacher's desk
+3. Choose the class music during work time
+4. First in line for the day
+5. Pick the class brain break
+6. Five minutes of free reading
+7. Use the special pen or marker set
+8. Skip one homework question of your choice
+9. Bring a soft toy for the day
+10. Choose the read-aloud book
+
+**Jobs and responsibility (free)**
+11. Teacher's helper for the day
+12. Line leader
+13. Take the register or attendance sheet to the office
+14. Hand out materials
+15. Run the class timer
+16. Choose the next class job assignments
+
+**Recognition (free)**
+17. Positive note or call home
+18. Name on the class "shout-out" board
+19. Certificate of achievement
+20. A compliment from a classmate of your choice
+21. Your work displayed for the week
+22. Lunch or a chat with the teacher
+
+**Learning choices (free)**
+23. Choose the next review game
+24. Answer a question with a drawing instead of writing
+25. Work with a partner of your choice
+26. Choose a fun fact or topic for tomorrow
+27. Be the "teacher" for a short review
+28. Use a whiteboard instead of paper for a task
+
+**Small items (low cost)**
+29. Sticker
+30. Bookmark
+31. Pencil or eraser
+32. Temporary tattoo
+33. Stamp on the hand
+34. Small toy from the prize box
+
+**Whole-class rewards (one spin when the class earns it)**
+35. Extra five minutes of break
+36. Class game at the end of the day
+37. Lesson outdoors
+38. Dance party for one song
+39. Pyjama or theme day
+40. Movie clip during lunch
+
+## How to set the odds
+
+Every slice on the wheel is the same size, so a reward's chance is simply the number of times it appears divided by the total number of slices. Mix frequent small rewards with a few rare big ones.
+
+Example wheel with 12 slices:
+
+| Reward | Slices | Chance per spin |
+|---|---|---|
+| Sticker | 4 | 33% |
+| Sit anywhere | 3 | 25% |
+| Choose the music | 2 | 17% |
+| Positive note home | 2 | 17% |
+| Lunch with the teacher | 1 | 8% |
+
+**How often will the big reward come up?** With 1 slice in 12, a student who spins once a week has about a 35% chance of winning lunch with the teacher in 5 weeks, and a class that spins every school day will see it about once or twice a month. With 1 slice in 10, the chance in 5 spins is 41%. If the special reward comes up too often or not often enough, add or remove copies of the common rewards rather than changing the special one.
+
+More on the maths: [spin wheel probability](/guides/spin-wheel-probability).
+
+## Keep it fair and motivating
+
+- **Spin for earned rewards, not for whether a student gets one.** The effort earns the spin; the wheel only chooses which reward. A student who did the work should never leave with nothing, so avoid "no prize" or "try again" slices in a classroom.
+- **Make the criteria clear and consistent.** Students should know what earns a spin: a full points chart, a week of homework, a kind act noticed by the class.
+- **Rotate the rewards.** Swap a few slices each half-term to keep the wheel interesting, and ask students to suggest new rewards.
+- **Use whole-class spins too.** A class wheel for collective goals builds teamwork and avoids a few students winning all the attention.
+- **Never take away a reward as a punishment.** Rewards that disappear for poor behaviour lose their meaning, and some, like break time, matter for learning.
+
+## Common questions
+
+**What's the difference between a reward wheel and a raffle?** A reward wheel picks which reward an earned spin gives. A raffle picks which student wins from a pool of entries; for that, use the [Raffle Wheel](/raffle-wheel) and the routine in the [fair giveaway guide](/guides/fair-giveaway).
+
+**How many rewards should the wheel have?** About 8 to 12 slices is readable from the back of a room. Put more than that on a second wheel for variety.
+
+**Can I use the wheel for older students?** Yes. Swap stickers for privileges like choosing a seat, a homework pass, or picking the playlist.
+
+**Ready?** Open the [Lucky Wheel](/lucky-wheel), paste your rewards, repeat the common ones, and save it. For more classroom routines, see [25 ways to use a random name picker](/guides/random-name-picker-classroom).
+""",
+}
+
+BRAIN_BREAKS = {
+ "slug": "guides/brain-break-wheel", "updated": "2026-11-17", "date": "2026-11-17", "date_txt": "November 17, 2026",
+ "title": "Brain Break Wheel: 50 Classroom Ideas | Wheelova",
+ "desc": "Build a classroom brain break wheel: 50 energizing, calming, seated and quiet ideas, how long breaks should last, when to use them, and routines that work.",
+ "h1": "Brain break wheel: 50 ideas for the classroom",
+ "sub": "Energizing, calming, seated and quiet brain breaks to put on a wheel, how long and how often to run them, and how to start and end a break smoothly.",
+ "body": """A brain break is a short pause, usually with movement, that resets a class's attention between tasks. Putting the breaks on a spinning wheel makes them quick to start and fair: nobody argues about which break, and the spin itself is a moment of fun. Research on classroom activity breaks supports keeping them short and regular. Breaks studied by the US Community Preventive Services Task Force run four to ten minutes, one to three times a school day ([The Community Guide](https://www.thecommunityguide.org/findings/physical-activity-classroom-based-physical-activity-break-interventions)), and the CDC links classroom physical activity to better motivation, engagement and academic performance ([CDC](https://www.cdc.gov/physical-activity-education/classroom-pa/)).
+
+## Set up the wheel
+
+1. Open the [wheel](/), press **Clear**, and paste one of the sets below, or mix your own.
+2. Save it under **My saved wheels** with a name like "Brain breaks: energize".
+3. Make a second wheel with calming breaks, so you can choose the set to match the class's energy.
+4. Leave **Remove winner** off so favourites can come up again, or turn it on to work through every break once.
+5. Set a timer: two to five minutes keeps the break short enough to return to work.
+
+## 50 brain break ideas
+
+**Energizing (when the class is sluggish)**
+1. 20 jumping jacks
+2. Run on the spot for 30 seconds
+3. Freeze dance to one song
+4. Simon says
+5. Mirror a partner's movements
+6. Ten squats, counting in another language
+7. Walk like an animal the class chooses
+8. Touch something blue, then something round, then something soft
+9. Pass an imaginary ball around the room
+10. Rock, paper, scissors tournament
+11. Shake each arm and leg ten times
+12. Desk-to-door relay walk
+13. Air drumming to a beat
+14. Balance on one foot for 30 seconds, then the other
+
+**Calming (after break, before a test)**
+15. Five slow breaths: in for four, out for six
+16. Stretch tall like a tree, then fold down
+17. Roll your shoulders and neck slowly
+18. One minute of silence with eyes closed
+19. Trace your hand while breathing in and out
+20. Name five things you can see, four you can hear, three you can feel
+21. Slow, gentle stretches to quiet music
+22. Imagine your favourite place for one minute
+23. Squeeze and relax each muscle group
+24. Listen for the last moment you can hear a chime
+
+**Seated (small rooms, limited mobility)**
+25. Seated marching
+26. Chair twists
+27. Finger tapping patterns
+28. Draw a shape in the air with your elbow
+29. Seated punches, as fast as you can for 15 seconds
+30. Lift and hold your feet off the floor
+31. Pretend to swim in your chair
+32. Clap a rhythm and the class copies
+
+**Thinking games (quiet energy)**
+33. Count to 20 as a class, one person at a time, without talking over each other
+34. Two truths and a lie
+35. Would you rather
+36. Spell a word with your body
+37. Fizz buzz
+38. Name a word for each letter of the alphabet in a category
+39. One-word story around the room
+40. Draw what the teacher describes in one minute
+
+**Social (building the class community)**
+41. Compliment the person next to you
+42. High-five three people
+43. Find someone with the same favourite colour
+44. Tell your partner something good from this week
+45. Thumbs up for choices: pizza or pasta, cats or dogs
+46. Group handshake invention
+
+**Quick resets (under one minute)**
+47. Stand up, stretch, sit down
+48. Shake it out for ten seconds
+49. Three big yawns and a stretch
+50. Water break
+
+## When to spin
+
+- **Between activities,** especially after a long stretch of sitting or listening.
+- **When attention drops,** before behaviour slips: yawning, fidgeting and off-task chatter are the signs.
+- **Before a test or demanding task,** with a calming break rather than an energizing one.
+- **After break or lunch,** with a calming break to settle the class.
+
+**Match the wheel to the room.** Use the energizing wheel when the class is flat and the calming wheel when it's overexcited. Keeping two saved wheels makes that a one-click choice.
+
+## Routines that make breaks work
+
+Teacher resources from public health programmes recommend a clear routine for moving into and out of a break, such as a signal phrase or chime, and agreeing behaviour expectations with the class ([Iowa HHS](https://hhs.iowa.gov/media/17349/download)). In practice:
+
+1. **Use the same start signal every time,** for example "Spin time!" followed by the spin.
+2. **Model the break once** if it's new.
+3. **Give a one-minute warning** before the end.
+4. **End with a settling action,** like a deep breath or hands on desks, before returning to work.
+5. **Offer a choice for anyone who can't do the movement,** such as a seated or quiet alternative. Every break above has a seated version or partner.
+
+**Don't withhold brain breaks as a punishment.** CDC guidance advises against withholding classroom physical activity as a disciplinary approach ([CDC data brief](https://www.cdc.gov/healthyschools/physicalactivity/pdf/Classroom_PA_Data_Brief_CDC-Logo_FINAL_191106.pdf)).
+
+## Common questions
+
+**How long should a brain break be?** Usually two to five minutes. Breaks studied in research ran four to ten minutes; anything shorter than a minute works as a quick reset.
+
+**How often should I use them?** One to three a day is a common pattern, adjusted to the length of your lessons and the age of the class.
+
+**Are brain breaks only for young children?** No. Older students benefit from short resets too; use stretches, breathing, thinking games and social breaks rather than games that feel childish.
+
+**Can students choose instead of spinning?** Sometimes. A spin keeps choices fair and quick; letting a student who earned a reward pick the break is a good alternative. See the [classroom reward wheel](/guides/classroom-reward-wheel) for more ideas.
+
+**Ready?** Paste one of the sets into the [wheel](/), save it, and spin when energy drops. For more classroom uses, see [25 ways to use a random name picker](/guides/random-name-picker-classroom).
 """,
 }

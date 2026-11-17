@@ -515,8 +515,8 @@ def study_page():
 </html>
 """
 
-from guides import TEACHER, GIVEAWAY, RNG_GUIDE, CUSTOM_WHEEL, PROBABILITY, GROUPS, QUIZ_WHEEL, PARTY_GAMES
-GUIDES = [CUSTOM_WHEEL, TEACHER, GROUPS, QUIZ_WHEEL, PARTY_GAMES, GIVEAWAY, PROBABILITY, RNG_GUIDE]
+from guides import TEACHER, GIVEAWAY, RNG_GUIDE, CUSTOM_WHEEL, PROBABILITY, GROUPS, QUIZ_WHEEL, PARTY_GAMES, LIVESTREAM, PRESENTATIONS, SPINNER_VS_DICE, REWARD_WHEEL, BRAIN_BREAKS
+GUIDES = [CUSTOM_WHEEL, TEACHER, GROUPS, QUIZ_WHEEL, REWARD_WHEEL, BRAIN_BREAKS, PARTY_GAMES, LIVESTREAM, PRESENTATIONS, GIVEAWAY, PROBABILITY, SPINNER_VS_DICE, RNG_GUIDE]
 GUIDE_FOR = {"lucky-wheel": GIVEAWAY, "name-picker-wheel": TEACHER, "random-team-generator": TEACHER, "raffle-wheel": GIVEAWAY, "random-number-generator": RNG_GUIDE, "number-wheel": RNG_GUIDE, "dice-roller": RNG_GUIDE}
 def guide_page(G):
     path = "/" + G["slug"]
@@ -551,7 +551,7 @@ def guides_hub():
 <h1>Guides</h1>
 <p class="sub1">Practical help for classrooms, giveaways and fair random picks.</p>
 <div class="prose" style="margin-top:20px;max-width:760px"><p>These guides explain how to use random picking well: fairly, transparently and without wasting class or event time. Each one is written and checked by our editor, links to the tool it describes, and states its limits. For example, the giveaway guide is general guidance, not legal advice.</p>
-<ul><li><b>Getting started:</b> how to make a custom wheel, weight it honestly, save, share or embed it, and make a paper spinner.</li><li><b>Teachers:</b> 25 classroom uses for a name picker with a free printable, plus guides to random groups and pairs and quiz games with a question wheel.</li><li><b>Parties and game nights:</b> 12 spin the wheel games with rules and entries you can paste.</li><li><b>Giveaway and raffle hosts:</b> a step-by-step process from rules to winner announcement, raffle vs free prize draw, and a rules template.</li><li><b>Curious about the odds:</b> spin wheel probability, from one spin to how many spins it takes before everyone is picked.</li><li><b>Curious how randomness works:</b> a plain-English guide to random number generators, seeds and the modulo-bias mistake.</li><li><b>Anyone who doubts the wheel:</b> our fairness study, with 1,000,000 spins per wheel, the raw data, and how to check any draw for rigging.</li></ul>
+<ul><li><b>Getting started:</b> how to make a custom wheel, weight it honestly, save, share or embed it, and make a paper spinner.</li><li><b>Teachers:</b> 25 classroom uses for a name picker with a free printable, plus guides to random groups, quiz wheels, reward wheels and brain breaks.</li><li><b>Parties and game nights:</b> 12 spin the wheel games with rules and entries you can paste.</li><li><b>Streamers and presenters:</b> using a wheel in OBS, Zoom, Teams, Google Slides and PowerPoint.</li><li><b>Giveaway and raffle hosts:</b> a step-by-step process from rules to winner announcement, raffle vs free prize draw, and a rules template.</li><li><b>Curious about the odds:</b> spin wheel probability, and whether spinners or dice are fairer.</li><li><b>Curious how randomness works:</b> a plain-English guide to random number generators, seeds and the modulo-bias mistake.</li><li><b>Anyone who doubts the wheel:</b> our fairness study, with 1,000,000 spins per wheel, the raw data, and how to check any draw for rigging.</li></ul>
 <p>Want a wheel on your own site? See <a href="/embed-a-wheel">how to embed a wheel</a>. Questions about how Wheelova works are answered in the <a href="/faq">FAQ</a>.</p></div>
 <div class="grid" style="margin-top:28px">{cards}</div>
 </div></main>

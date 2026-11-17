@@ -76,16 +76,24 @@
 "h": "b7f408f7d11c"
 },
 "guides": {
-"d": "2026-11-16",
-"h": "6ee2b2cc1336"
+"d": "2026-11-17",
+"h": "134826e8e083"
+},
+"guides/brain-break-wheel": {
+"d": "2026-11-17",
+"h": "0a22ab572322"
+},
+"guides/classroom-reward-wheel": {
+"d": "2026-11-17",
+"h": "f89c28ae323c"
 },
 "guides/fair-giveaway": {
 "d": "2026-11-14",
 "h": "b5eefc4f2010"
 },
 "guides/how-random-number-generators-work": {
-"d": "2026-11-16",
-"h": "1f304cdce396"
+"d": "2026-11-17",
+"h": "b295ff790350"
 },
 "guides/make-custom-spinning-wheel": {
 "d": "2026-11-16",
@@ -96,8 +104,8 @@
 "h": "a9875d544b66"
 },
 "guides/random-name-picker-classroom": {
-"d": "2026-11-16",
-"h": "249244216fd3"
+"d": "2026-11-17",
+"h": "4bf416ffb78e"
 },
 "guides/random-quiz-wheel": {
 "d": "2026-11-16",
@@ -107,9 +115,21 @@
 "d": "2026-11-16",
 "h": "002f8f675e97"
 },
+"guides/spin-wheel-live-stream": {
+"d": "2026-11-17",
+"h": "965427ff3d60"
+},
+"guides/spin-wheel-presentation": {
+"d": "2026-11-17",
+"h": "1b3027fe9efd"
+},
 "guides/spin-wheel-probability": {
 "d": "2026-11-14",
 "h": "8139d18906ae"
+},
+"guides/spinner-vs-dice-fairness": {
+"d": "2026-11-17",
+"h": "b34c34c92062"
 },
 "is-the-wheel-random": {
 "d": "2026-11-14",
