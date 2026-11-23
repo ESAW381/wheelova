@@ -181,6 +181,8 @@ Once you have a clean list, there are four common ways to draw from it. All four
 | **Spreadsheet formula** | Private, low-stakes picks | In Google Sheets, `=INDEX(A2:A213,RANDBETWEEN(1,COUNTA(A2:A213)))` returns a random row | The formula recalculates every time the sheet changes ([Ben Collins](https://www.benlcollins.com/spreadsheets/randbetween-function/)), so the result is hard to prove afterwards. Record your screen or copy the value straight away |
 | **Paper tickets from a container** | In-person events | Fold identical tickets, mix well, draw without looking | Tickets that differ in size or folding are easier to feel; mix after every addition |
 
+To shuffle a whole list rather than pick one name, see [how to randomize a list in Excel, Google Sheets or online](/guides/randomize-a-list).
+
 **Avoid these shortcuts:** picking "the first name" in a list (lists are often in entry or alphabetical order, which is not random), picking by scrolling and stopping, or asking a person to "choose any number" (people are poor at choosing randomly). Each of these looks random but isn't.
 
 ## Drawing numbered raffle tickets online
@@ -393,7 +395,7 @@ Your entries also save automatically in your browser as you type, so the wheel i
 | Show the wheel on a projector | Press F for fullscreen | Hides everything but the wheel |
 | Spin a name and a task together | **+ Add wheel** | Up to six wheels side by side, spun together |
 | Hide the options until the reveal | [Mystery Wheel](/mystery-wheel) | Every slice shows "?"; the result is revealed in the pop-up |
-| Pick numbers rather than words | [Number Wheel](/number-wheel) or [Random Number Generator](/random-number-generator) | The number wheel fills a range for you (up to 500 numbers); the generator draws up to 1,000 at once |
+| Pick numbers rather than words | [Number Wheel](/number-wheel) or [Random Number Generator](/random-number-generator) | The number wheel fills a range for you (up to 500 numbers); the generator draws up to 1,000 at once ([which to use](/guides/number-wheel-vs-random-number-generator)) |
 
 ## Four wheel recipes you can copy
 
@@ -822,6 +824,8 @@ PARTY_GAMES = {
 **10. Prize wheel.** Put the prizes on the [Lucky Wheel](/lucky-wheel). Want small prizes to be more common than the big one? Add the small prizes more than once; a prize that appears 3 times on a 10-slice wheel has a 3 in 10 chance. Tell people the odds if the prizes are worth something; see [how to weight a wheel honestly](/guides/make-custom-spinning-wheel).
 
 ## Hosting games
+
+**Gift exchange coming up?** See [how to draw names for Secret Santa](/guides/secret-santa-draw-names) without anyone getting themselves.
 
 **11. Who does what.** Settle the hosting jobs in one spin: put names on one wheel and jobs on a second (dishes, drinks, music, clearing up, free pass) and spin both together.
 
@@ -1295,5 +1299,284 @@ Teacher resources from public health programmes recommend a clear routine for mo
 **Can students choose instead of spinning?** Sometimes. A spin keeps choices fair and quick; letting a student who earned a reward pick the break is a good alternative. See the [classroom reward wheel](/guides/classroom-reward-wheel) for more ideas.
 
 **Ready?** Paste one of the sets into the [wheel](/), save it, and spin when energy drops. For more classroom uses, see [25 ways to use a random name picker](/guides/random-name-picker-classroom).
+""",
+}
+
+NUMBER_TOOLS = {
+ "slug": "guides/number-wheel-vs-random-number-generator", "updated": "2026-11-23", "date": "2026-11-23", "date_txt": "November 23, 2026",
+ "title": "Number Wheel vs Random Number Generator | Wheelova",
+ "desc": "Number wheel or random number generator? When each is better, how their limits and repeats differ, and which to use for raffles, classrooms and games.",
+ "h1": "Number wheel vs random number generator: which should you use?",
+ "sub": "Both pick numbers fairly. The difference is how many you need, how big the range is, and whether people should watch it happen.",
+ "body": """Use the **[Number Wheel](/number-wheel)** when people should watch a number being picked, one at a time, from a range of up to 500 numbers. Use the **[Random Number Generator](/random-number-generator)** when you need many numbers at once, a large range, or a list to copy into a sheet. Both use the same kind of secure random source, so neither is "more random" than the other. The choice is about the moment, not the maths.
+
+## Side-by-side
+
+| | Number Wheel | Random Number Generator |
+|---|---|---|
+| Best for | A visible, suspenseful draw | Fast results and bulk numbers |
+| How it picks | One number per spin | Up to 1,000 numbers per click |
+| Range | Up to 500 numbers on one wheel, such as 1 to 500 | Any whole-number range, including negative numbers and very large ranges |
+| Avoid repeats | Turn on **Remove winner** so a drawn number leaves the wheel | Tick **No repeats** |
+| Record of results | Results list, copy or CSV | Copy the list of numbers |
+| Feels like | A live draw | A calculator |
+
+## When the wheel is better
+
+- **Raffles with paper tickets.** Set the wheel to your ticket range, turn on Remove winner, and spin on camera. The audience watches every draw. The [fair giveaway guide](/guides/fair-giveaway) covers numbered-ticket draws step by step.
+- **Classrooms.** Number your students or questions and spin. The spin gives everyone a moment to focus, which a generator's instant result doesn't. See [random question wheels](/guides/random-quiz-wheel).
+- **Games and party picks.** Turn order, a forfeit number or a bingo-style call all work better with suspense.
+- **Small ranges.** From 2 to about 50 numbers, every slice stays readable on a projector.
+
+## When the generator is better
+
+- **Large ranges.** A range like 1 to 10,000 is too big for a wheel; the generator handles it instantly.
+- **Many numbers at once.** Lottery-style picks, a sample of rows from a spreadsheet, or 30 random seat numbers.
+- **No repeats across a big draw.** Ask for 50 numbers from 1 to 1,000 with **No repeats** in one click.
+- **Numbers you'll paste somewhere else.** Copy the list straight into a document or sheet.
+- **Private picks.** When nobody needs to watch, the generator is quicker.
+
+## What about repeats?
+
+Both tools let you choose. With repeats allowed, the same number can come up twice, which is normal randomness: pick 20 numbers from 1 to 30 and only about 15 different numbers appear on average. For draws where every number should be different, turn on **Remove winner** on the wheel or **No repeats** in the generator. The [spin wheel probability guide](/guides/spin-wheel-probability) explains how often repeats happen.
+
+## Other number tools
+
+- **[Dice Roller](/dice-roller):** dice notation, common gaming dice and several dice at once.
+- **[Coin Flip](/coin-flip):** a 50/50 call.
+- **[Yes or No Wheel](/yes-or-no-wheel):** a two-option decision with a spin.
+
+## Common questions
+
+**Is the number wheel as random as the generator?** Yes. Both use your browser's cryptographically secure random source. The wheel picks from a random stopping angle, which we tested with [1,000,000 spins](/is-the-wheel-random); the generator uses rejection sampling so that no number is favoured. [How random number generators work](/guides/how-random-number-generators-work) explains why that matters.
+
+**Can I pick a random number between 1 and 100 on the wheel?** Yes. Set the range to 1 to 100 on the [Number Wheel](/number-wheel). The labels get small, so a projector works better than a phone for a range that size.
+
+**Which should I use for a raffle with 1,000 tickets?** The generator. Draw the winning numbers with No repeats, then read them out and show each matching stub on camera.
+""",
+}
+
+ALTERNATIVES = {
+ "slug": "guides/wheel-of-names-alternatives", "updated": "2026-11-23", "date": "2026-11-23", "date_txt": "November 23, 2026",
+ "title": "Wheel of Names Alternatives: What to Compare | Wheelova",
+ "desc": "Choosing a Wheel of Names alternative? The features that matter: weighting, images, saving, privacy, limits, ads and fairness, with an honest comparison.",
+ "h1": "Wheel of Names alternatives: what to compare",
+ "sub": "A checklist for choosing a spinning wheel tool, and an honest comparison of Wheelova with Wheel of Names, including what Wheelova doesn't do.",
+ "body": """Wheel of Names is the best-known online spinner, and most alternatives look similar at first glance. The differences show up in the details: whether you can weight entries, add images, save wheels across devices, and keep a class list private. This guide explains what to compare, and how Wheelova and Wheel of Names differ, including the features Wheelova doesn't have.
+
+## Seven things worth comparing
+
+1. **Odds control.** Can you make some entries more likely (weights), or are all slices equal? Weights are useful for games and promotions with published odds. Equal slices are simpler to trust in a draw.
+2. **Images and styling.** Can you put pictures on slices or change the background? This matters for branded events and younger children.
+3. **Saving and devices.** Are wheels saved only in your browser, or in an account you can open anywhere?
+4. **Privacy.** Where are your entries stored, and does sharing a wheel upload them? This matters most for student names.
+5. **Limits.** How many entries can a wheel hold, and how many can a share link or import carry?
+6. **Extras.** Multiple wheels at once, embedding, fullscreen, a results history, removing winners, hiding entries.
+7. **Ads and accounts.** Can you use it without signing up, and are there ads around the wheel?
+
+## Wheelova and Wheel of Names compared
+
+The Wheel of Names details below come from its own homepage, checked on November 24, 2026; features change, so check the current version before you rely on one.
+
+| | Wheelova | Wheel of Names |
+|---|---|---|
+| Weighted entries | No. Slices are always equal; repeat an entry to make it more likely | Yes: weights can set the size of each segment |
+| Images on slices | No. Slices show text (country tools show flags) | Yes: upload photos or search an integrated image gallery |
+| Multiple wheels on one page | Yes, up to six, spun together | Yes |
+| Saving | In your browser, plus share links | Cloud saving for access from any device, or local saving |
+| Sharing | Share link that carries the entries | Short share links |
+| Account needed | No | No; its homepage says all features are free with no sign-up |
+| Ads | None; no advertising cookies | Yes; it says ads keep it free, and you can close them for a session |
+| Published fairness test | Yes: 1,000,000 spins per wheel, with raw data | Not something we found on its homepage |
+
+Sources: [Wheel of Names homepage](https://wheelofnames.com/) for its features; [Wheelova privacy policy](/privacy) and [fairness study](/is-the-wheel-random) for ours.
+
+**In short:** if you need weighted odds, images on slices or wheels saved to an account, Wheel of Names offers those and Wheelova doesn't. If you want a wheel without ads, with all slices equal and your entries kept in your browser, Wheelova is built for that.
+
+## How to test any spinning wheel yourself
+
+You don't have to take any site's word for its fairness or features. A quick check takes five minutes:
+
+1. **Try your real list.** Paste the list you'll actually use, at its full length, and check it stays readable.
+2. **Test the settings you need.** Remove winner, saving, sharing and fullscreen: try each one before the day.
+3. **Open a share link in a private window.** Check that the entries you expect are there, and only those.
+4. **Read the privacy policy.** Look for where entries are stored and whether the site uses advertising cookies.
+5. **Look for evidence of fairness.** A published test with raw data is better than a claim. The [rigging checklist](/is-the-wheel-random) works for any wheel.
+
+## Other kinds of alternatives
+
+- **For classrooms:** a name picker with Remove winner, plus group and pair generators. See [25 classroom ideas](/guides/random-name-picker-classroom) and [random groups](/guides/random-classroom-groups).
+- **For giveaways:** a raffle wheel with a visible entry list and results record. See the [fair giveaway guide](/guides/fair-giveaway).
+- **For big ranges or lists:** a [random number generator](/random-number-generator) is faster than any wheel. See [number wheel vs random number generator](/guides/number-wheel-vs-random-number-generator).
+- **For no screen at all:** a paper spinner or names in a hat; see the [paper spinner section](/guides/make-custom-spinning-wheel).
+
+## Common questions
+
+**Is Wheel of Names free?** Yes. Its homepage says all features are free to use with no sign-up and no paywalls, supported by ads.
+
+**Can I weight entries on Wheelova?** Not with a setting. Every slice is the same size, so you make an entry more likely by adding it more than once. The chance is copies divided by total slices; see [how to weight a wheel honestly](/guides/make-custom-spinning-wheel).
+
+**Which wheel is the most random?** Any wheel that uses a cryptographically secure random source and picks fairly from it is random enough for any everyday draw. What matters more is the list: duplicates and hidden entries change the odds on any site.
+
+**Ready to try Wheelova?** Paste your list into the [wheel](/) and press Spin. No account needed.
+""",
+}
+
+RANDOMIZE_LIST = {
+ "slug": "guides/randomize-a-list", "updated": "2026-11-23", "date": "2026-11-23", "date_txt": "November 23, 2026",
+ "title": "How to Randomize a List in Excel, Sheets or Online | Wheelova",
+ "desc": "How to randomize a list in Excel, Google Sheets, Python or online: copy-paste formulas, how to lock the order, and the mistakes that make a shuffle unfair.",
+ "h1": "How to randomize a list in Excel, Google Sheets, Python or online",
+ "sub": "Copy-paste methods for shuffling a list into random order, how to stop it reshuffling, and the common mistakes that quietly make a shuffle unfair.",
+ "body": """To randomize a list, give every item a random number and sort by it, or use a tool that shuffles in one step. In **Google Sheets**, select the cells and choose **Data > Randomize range**. In **Excel 365 or 2021**, use `=SORTBY(A2:A20,RANDARRAY(ROWS(A2:A20)))`. Online, paste the list into a wheel and press **Shuffle**. Below are step-by-step instructions for each, how to lock the order once it's shuffled, and the mistakes to avoid.
+
+## Quick answer by tool
+
+| Where your list is | Fastest method | Keeps rows together? |
+|---|---|---|
+| Google Sheets | Select the range, then **Data > Randomize range** | Yes, if you select every column |
+| Excel 365 or 2021 | `=SORTBY(range,RANDARRAY(ROWS(range)))` | Yes, if the range includes every column |
+| Older Excel | Helper column of `=RAND()`, then sort by it | Yes, if you sort the whole table |
+| Python | `random.shuffle(items)` | Not applicable |
+| Anywhere else | Paste into the [wheel](/) and press **Shuffle**, or use the [Random Team Generator](/random-team-generator) with one team | Not applicable |
+
+## Google Sheets
+
+1. Select the cells you want to shuffle, not the header.
+2. Open **Data > Randomize range**. You can also right-click and look under **View more cell actions**.
+3. The cells are shuffled in place.
+
+To keep each row's data together, for example a name with its email, select all the columns before randomizing. If you select only the name column, the names move and the emails stay put, which breaks your data.
+
+**Formula version:** `=SORT(A2:A20,RANDARRAY(ROWS(A2:A20)),TRUE)` shows a shuffled copy in a new place and leaves the original untouched.
+
+## Excel
+
+**Excel for Microsoft 365, Excel 2021 and later:**
+
+1. Click an empty cell where the shuffled list should start.
+2. Type `=SORTBY(A2:A20,RANDARRAY(ROWS(A2:A20)))` and press Enter. For a table, use the whole range, such as `A2:C20`.
+3. The shuffled list spills into the cells below.
+
+Microsoft's own documentation describes this combination of SORTBY and RANDARRAY for randomizing a list ([Microsoft Support](https://support.microsoft.com/en-us/excel/sortby-function)).
+
+**Older Excel versions** (2019 and earlier) don't have these functions. Instead:
+
+1. In the column next to your list, type `=RAND()` and fill it down to the last item.
+2. Select the list and the random column together.
+3. Sort by the random column (**Data > Sort**).
+4. Delete the random column when you're done.
+
+## Lock the order so it doesn't reshuffle
+
+Spreadsheet random functions recalculate every time the sheet changes, so your "random order" can quietly change when someone edits another cell. Once you have the order you want:
+
+- **Excel:** copy the shuffled cells, then **Paste Special > Values**.
+- **Google Sheets:** copy, then **Edit > Paste special > Values only**.
+- **Data > Randomize range** in Sheets already gives a fixed result.
+
+For a draw others will check later, save the shuffled list or take a screenshot at the moment you shuffle.
+
+## Python
+
+1. `import random`
+2. `items = ["Amira", "Ben", "Chloe", "Daniel"]`
+3. `random.shuffle(items)`
+4. `print(items)`
+
+`random.shuffle` reorders the list in place. For a shuffled copy, use `random.sample(items, len(items))`. Python's documentation warns that the `random` module's generators should not be used for security purposes; for prize draws or anything that must not be predictable, use `secrets.SystemRandom().shuffle(items)` instead ([Python docs](https://docs.python.org/3/library/random.html)).
+
+## Online, without a spreadsheet
+
+- **Shuffle on a wheel:** paste the list into the [wheel](/), press **Shuffle**, and copy the entries box. Use the wheel itself if you want to pick items one at a time in front of people.
+- **Spin until empty for a visible order:** turn on **Remove winner** and spin until the wheel is empty; the Results list is a random order everyone watched being made. Good for presentation order.
+- **Split a shuffled list into groups:** the [Random Team Generator](/random-team-generator) shuffles and deals the list into groups in one step.
+- **Shuffle numbers:** the [Random Number Generator](/random-number-generator) with **No repeats** and the full range gives a shuffled sequence such as 1 to 30.
+
+## Mistakes that make a shuffle unfair
+
+- **Sorting by a random number that only has a few values.** `=RANDBETWEEN(1,10)` gives lots of ties, and tied items are ordered by the sort rather than by chance, so early items tend to stay together. Use `RAND()` or `RANDARRAY()`, which return decimals.
+- **Shuffling one column of a table.** Names and their data get separated.
+- **Forgetting the header row.** It gets shuffled into the list.
+- **Reshuffling "until it looks random".** If you shuffle until you like the order, the result is your choice, not chance. Shuffle once, then use it.
+- **Swapping each item with any random position.** In code, the "swap with any position" shortcut is a known bug that makes some orders more likely than others. Use a built-in shuffle, which uses the Fisher–Yates method.
+
+## Common questions
+
+**What is the easiest way to randomize a list?** In Google Sheets, **Data > Randomize range**. With no spreadsheet, paste the list into a [wheel](/) and press Shuffle.
+
+**How do I randomize a list without repeats?** A shuffle never repeats an item; it only changes the order. Repeats only happen if you pick items one at a time and put them back. To pick without repeats, turn on **Remove winner** on a wheel.
+
+**How do I pick one random item from a list?** Spin the list on the [wheel](/), or see [four ways to pick a random winner from a list](/guides/fair-giveaway).
+
+**How do I randomize a list in Word?** Word has no shuffle command. Copy the list into Google Sheets or Excel, shuffle it there, and paste it back.
+""",
+}
+
+SECRET_SANTA = {
+ "slug": "guides/secret-santa-draw-names", "updated": "2026-11-23", "date": "2026-11-23", "date_txt": "November 23, 2026",
+ "title": "How to Draw Names for Secret Santa Online | Wheelova",
+ "desc": "Draw names for Secret Santa without anyone getting themselves: why hat draws fail 63% of the time, the chain method, and how to keep it secret.",
+ "h1": "How to draw names for Secret Santa without anyone getting themselves",
+ "sub": "Why pulling names from a hat goes wrong so often, a simple method that guarantees nobody gets their own name, and how to handle couples and keep it secret.",
+ "body": """The classic way to draw names for Secret Santa, everyone picking a slip from a hat, fails surprisingly often: **with six or more people, there is about a 63% chance that someone draws their own name.** The fix is a method where self-draws are impossible. The simplest is the **chain method**: shuffle the list once, and each person buys for the next person on the list, with the last person buying for the first. Here's how to run it, how to handle couples, and how to keep everyone's assignment secret.
+
+## Why the hat draw goes wrong so often
+
+A draw where nobody gets their own name is what mathematicians call a derangement. The share of draws that turn out this way settles at about 36.8%, so roughly 63% of hat draws need a redo ([SAS blogs](https://blogs.sas.com/content/iml/2013/12/04/probability-of-pulling-your-own-name-from-a-hat.html)). Here are the exact odds for common group sizes:
+
+| People | Chance nobody draws themselves | Chance someone does | Average number of draws needed |
+|---|---|---|---|
+| 3 | 33.3% | 66.7% | 3.0 |
+| 4 | 37.5% | 62.5% | 2.7 |
+| 5 | 36.7% | 63.3% | 2.7 |
+| 6 or more | 36.8% | 63.2% | 2.7 |
+
+The odds barely change with group size, which surprises most people: a 30-person office draw is just as likely to need a redo as a 6-person family one. On average, about one person draws their own name no matter how big the group is ([University of Technology Sydney](https://www.uts.edu.au/news/health-science/baffling-statistics-secret-santa)). Redoing the draw also leaks information: if Sam shouts "I got myself!", everyone now knows Sam's name was still in the hat.
+
+## The chain method: no self-draws, guaranteed
+
+1. **Write everyone's name** in the entries box of the [Name Picker Wheel](/name-picker-wheel), one per line.
+2. **Press Shuffle once.** Don't reshuffle until you like the order; use the first result.
+3. **Read the list as a chain.** Each person buys for the name below theirs, and the last person buys for the first.
+
+> Order after shuffle: Priya → Tom → Aisha → Leo → Grace → (back to Priya)
+
+Priya buys for Tom, Tom for Aisha, Aisha for Leo, Leo for Grace, and Grace for Priya. Nobody can get themselves, and nobody needs a redo. Because everyone is in one big loop, no two people simply swap gifts with each other either.
+
+**Prefer to spin?** Turn on **Remove winner** and spin until the wheel is empty. The Results list is a random order that everyone watched being made; read it as a chain in the same way.
+
+## Handling couples and other exclusions
+
+Many families don't want partners buying for each other. With the chain method, check the list after shuffling: if two partners are next to each other, swap one of them with the person after them, then check again. For a few exclusions this takes seconds.
+
+For long lists with many exclusions, a dedicated gift-exchange site that handles exclusions automatically is easier than juggling the order by hand.
+
+## Keeping it secret
+
+The chain method has one weakness: whoever shuffles the list sees every assignment. Some ways round it:
+
+- **Let the organiser play too, and accept they know.** Fine for many families.
+- **Ask someone who isn't taking part** to shuffle and send each person their name privately.
+- **Use numbered envelopes.** The organiser writes each assignment on a card, seals it in an envelope labelled with the giver's name, and hands them out unopened.
+- **Use a gift-exchange site** that emails each person only their own assignment.
+
+## Other gift-exchange formats
+
+- **White elephant or Yankee swap:** no names needed. Number the players with the [Random Number Generator](/random-number-generator) and No repeats to set the turn order.
+- **Gift exchange in pairs:** the [Random Pair Generator](/random-pair-generator) makes random pairs who swap with each other.
+- **Office party prize draw:** for a raffle rather than an exchange, see the [fair giveaway guide](/guides/fair-giveaway).
+
+## Common questions
+
+**What do I do if someone draws their own name from a hat?** The fair fix is to redraw everything, not just that person's slip; a partial redraw can leave the last person with only their own name. Better still, switch to the chain method.
+
+**Is the chain method really random?** Yes. The shuffle makes every order equally likely, so who buys for whom is random. It always produces one big loop rather than small separate groups, which most gift exchanges prefer anyway.
+
+**Can we do Secret Santa remotely?** Yes. Share your screen while you shuffle, or have a non-participant run the draw and message each person privately. For ideas on running it over video, see [using a wheel on Zoom or Teams](/guides/spin-wheel-live-stream).
+
+**How many people do you need?** At least three. With two people, the only possible draw is each buying for the other.
+
+**Ready?** Put the names on the [Name Picker Wheel](/name-picker-wheel), press Shuffle once, and read the list as a chain.
 """,
 }
