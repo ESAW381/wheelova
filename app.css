@@ -172,6 +172,7 @@ a.tpl{text-decoration:none}a.tpl:hover{color:var(--tx)}
 .gout{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;min-height:160px}
 .gitem{padding:8px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--line2);font:600 18px 'Inter Tight',sans-serif;color:var(--hi);font-variant-numeric:tabular-nums}
 .gout.big{align-items:center;justify-content:center}.gout.big .gitem{padding:20px 40px;font-size:clamp(48px,12vw,96px);border-radius:24px;line-height:1}
+.gout.lout{display:block;width:100%;max-height:560px;overflow:auto}.llist{margin:0;padding-left:2.6em;columns:2 220px;column-gap:28px;color:var(--hi);font-size:17px;line-height:1.75}.llist.plain{list-style:none;padding-left:0}.llist li{break-inside:avoid;padding:1px 0}.llist li::marker{color:var(--mu2);font-variant-numeric:tabular-nums}.lcomma{margin:0;color:var(--hi);font-size:17px;line-height:1.7;word-break:break-word}
 .gout.teams{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
 .team{background:var(--bg);border:1px solid var(--line2);border-radius:14px;padding:14px}.team b{color:var(--hi)}.team ul{margin:8px 0 0;padding-left:18px;color:var(--tx2)}
 .ghist{margin:8px 0 0;padding-left:20px;color:var(--mu);font-size:13px;max-height:140px;overflow:auto}

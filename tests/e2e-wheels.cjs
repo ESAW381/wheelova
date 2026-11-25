@@ -10,6 +10,7 @@ else if($('droll')){r='dice: '+D.querySelectorAll('#dtray .dd').length+' die on 
 else if($('ggo')){
  if($('nuniq')&&$('nmin')){$('nmin').value='1';$('nmax').value='10';$('ncount').value='10';$('nuniq').checked=true;$('ggo').click();const v=[...D.querySelectorAll('.gitem')].map(x=>x.textContent);r='10 unique of 1-10: '+(new Set(v).size===10)+' ';$('ncount').value='11';$('ggo').click();r+='| over-range msg: '+!!$('gerr').textContent}
  else if($('tnames')){$('tmode').value='teams';$('tnum').value='3';$('ggo').click();r='teams: '+[...D.querySelectorAll('.team b')].map(x=>x.textContent).join(', ');$('tmode').value='size';$('tnum').value='2';$('ggo').click();r+=' | pairs→'+D.querySelectorAll('.team').length}
+ else if($('lnames')){$('lnames').value='a\nb\nc\nd\ne';$('ggo').click();const v=[...D.querySelectorAll('#gout li')].map(x=>x.textContent);r='list: '+v.join(', ')+' | all kept '+([...v].sort().join('')==='abcde')}
  else{$('ncount').value='5';$('ggo').click();r='names: '+[...D.querySelectorAll('.gitem')].map(x=>x.textContent).join(', ')}
 }else{const ch=D.querySelectorAll('#variants .chip');if(ch.length>1){ch[1].click();r='preset2→'+$('count').textContent+' '}$('spin').click();await new Promise(x=>setTimeout(x,5100));r+='popup '+$('pop').classList.contains('on')+' : '+$('popwin').textContent+($('pophex').textContent?' '+$('pophex').textContent:'')}
 console.log(f.padEnd(32),r,errs.length?'ERR '+errs:'')}process.exit()})();

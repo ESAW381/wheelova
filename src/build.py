@@ -29,8 +29,8 @@ SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
 CORE = ["name-picker-wheel", "yes-or-no-wheel", "random-number-generator", "random-team-generator", "decision-wheel", "raffle-wheel", "lucky-wheel"]
-POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "truth-or-dare-wheel", "coin-flip", "dice-roller", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator", "flag-quiz", "random-pair-generator"]
-CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "food-wheel", "coin-flip"]), ("Games & parties", ["truth-or-dare-wheel", "dice-roller", "lucky-wheel", "mystery-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-pair-generator", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner", "dice-roller", "coin-flip"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "flag-quiz", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Words & creativity", ["random-word-wheel", "drawing-prompt-wheel", "random-letter-generator"]), ("Colors", ["color-wheel"])]
+POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "truth-or-dare-wheel", "coin-flip", "dice-roller", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator", "flag-quiz", "random-pair-generator", "list-randomizer"]
+CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "food-wheel", "coin-flip"]), ("Games & parties", ["truth-or-dare-wheel", "dice-roller", "lucky-wheel", "mystery-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-pair-generator", "list-randomizer", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner", "dice-roller", "coin-flip"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "flag-quiz", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Words & creativity", ["random-word-wheel", "drawing-prompt-wheel", "random-letter-generator"]), ("Colors", ["color-wheel"])]
 DOTS = ["#6E56F0", "#E11D48", "#F59E0B", "#16A34A", "#2563EB", "#DB2777", "#0D9488", "#EA580C"]
 e = html.escape
 
@@ -259,7 +259,7 @@ def scripts(p, cfg):
         return f'<script>window.WQ={json.dumps({"regions": COUNTRIES, "iso": iso}, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/quiz.js?v={V}" defer></script>'
     if p.get("tool"):
         g = {"type": p["tool"]}
-        if p["tool"] in ("team", "pair"): g["sample"] = p["sample"]
+        if p["tool"] in ("team", "pair", "list"): g["sample"] = p["sample"]
         if p["tool"] == "name": g["data"] = p["data"]
         return f'<script>window.WG={json.dumps(g, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/gen.js?v={V}" defer></script>' + (f'\n<script src="/coin.js?v={V}" defer></script>' if p["tool"] == "coin" else f'\n<script src="/dice.js?v={V}" defer></script>' if p["tool"] == "dice" else '')
     return embed_meta(p["slug"]) + f'<script>window.WV={json.dumps(cfg, ensure_ascii=False)}</script>\n<script src="/rng.js?v={V}" defer></script>\n<script src="/app.js?v={V}" defer></script>'
@@ -327,6 +327,11 @@ def gentool(p):
         ctr = """<label for="pnames" style="font-weight:600;color:var(--hi)">Names <span id="pcount" style="color:var(--mu2);font-weight:500"></span></label>
 <textarea id="pnames" spellcheck="false" style="min-height:200px"></textarea>
 <div class="nrow"><label>Make<select id="pmode" style="width:200px"><option value="pairs">Random pairs</option><option value="rr">Round-robin schedule</option></select></label><label>Odd number<select id="podd" style="width:170px"><option value="trio">Make one trio</option><option value="bye">One sits out</option></select></label></div>"""
+    elif t == "list":
+        ctr = """<label for="lnames" style="font-weight:600;color:var(--hi)">Items, one per line <span id="lcount" style="color:var(--mu2);font-weight:500"></span></label>
+<textarea id="lnames" spellcheck="false" style="min-height:220px"></textarea>
+<div class="nrow"><label>Show as<select id="lfmt" style="width:170px"><option value="num">Numbered list</option><option value="lines">One per line</option><option value="comma">Comma-separated</option></select></label><label>Keep only<input id="lkeep" type="number" inputmode="numeric" min="1" placeholder="All"></label></div>
+<label class="ck"><input id="ldedupe" type="checkbox"> Remove duplicates</label>"""
     elif t == "coin":
         ctr = """<div class="nrow"><label>How many flips<select id="ccount" style="width:150px"><option>1</option><option>5</option><option>10</option><option>20</option><option>50</option><option>100</option></select></label></div>"""
     elif t == "dice":
@@ -336,7 +341,7 @@ def gentool(p):
 <label class="ck"><input id="nfull" type="checkbox" checked> Add last name</label>"""
     return f"""<div class="tool gtool" id="tool" data-clarity-mask="true">
 <div class="card gctl">{ctr}
-<button class="gbtn" id="ggo" type="button">{ {"coin": "Flip", "dice": "Roll"}.get(t, "Generate") }</button>
+<button class="gbtn" id="ggo" type="button">{ {"coin": "Flip", "dice": "Roll", "list": "Randomize"}.get(t, "Generate") }</button>
 <p class="err" id="gerr" role="alert"></p>
 </div>
 <div class="stage gres">

@@ -512,3 +512,32 @@ PAGES += [{
  "sources":[],
  "related":["random-team-generator","name-picker-wheel","random-name-generator","decision-wheel"],
 }]
+
+# ---- List randomizer
+PAGES += [{
+ "slug":"list-randomizer","key":"listrand","nav":"List Randomizer","tool":"list","upgraded":True,
+ "sample":["Introduction","Market research","Product demo","Pricing","Customer stories","Roadmap","Q&A","Wrap-up"],
+ "title":"List Randomizer – Shuffle a List Online | Wheelova",
+ "description":"Paste any list and shuffle it into a random order in one click. Numbered or comma-separated output, remove duplicates, keep the first few. Free, no sign-up.",
+ "h1":"List Randomizer","subhead":"Paste a list, press Randomize, and get every item back in a fair random order.",
+ "howTitle":"How to randomize a list",
+ "howTo":["Paste or type your items, one per line. A single line separated by commas works too.","Choose how to show the result, and optionally remove duplicates or keep only the first few items.","Press Randomize, then copy the shuffled list. Press it again for a new order."],
+ "sections":[
+  {"h2":"How the shuffle works","body":"The list randomizer uses the **Fisher–Yates shuffle**, the standard method for putting a list in random order. It works from the end of the list to the start, swapping each item with a randomly chosen item at or before it. Every possible order is equally likely.\n\nThe random choices come from your browser's **cryptographically secure random number source**, and each one is drawn with rejection sampling, so no position is favoured. It's the same random code behind every Wheelova tool, and we published a [1,000,000-spin test](/is-the-wheel-random) of it.\n\nEverything happens in your browser. Your list is saved on your own device so it's there next time, and it is never uploaded."},
+  {"h2":"Options","body":"- **Numbered list:** shows 1, 2, 3… next to each item. Useful for a speaking order or a draw where position matters. Copying keeps the numbers.\n- **One per line:** a plain list, ready to paste back into a spreadsheet or document.\n- **Comma-separated:** everything on one line, for a message, email or chat.\n- **Remove duplicates:** keeps only the first copy of any item that appears twice, ignoring capital letters. Leave it off if repeated entries are deliberate.\n- **Keep only:** shuffles the whole list, then shows only the first few items. That's a fair way to pick, say, 3 winners or 5 questions from a longer list."},
+  {"h2":"How many possible orders are there?","body":"More than most people expect. A list of *n* items can be arranged in *n* × (*n* − 1) × … × 1 different orders:\n\n| Items | Possible orders |\n|---|---|\n| 3 | 6 |\n| 5 | 120 |\n| 8 | 40,320 |\n| 10 | 3,628,800 |\n| 15 | about 1.3 trillion |\n| 25 | about 15.5 million billion billion |\n\nThat's why the same order almost never comes up twice once a list has more than a handful of items."},
+  {"h2":"Ideas","body":"- **Presentation or speaking order:** paste the names and use the numbered list.\n- **Study and quiz questions:** shuffle a list of questions or flashcards so you don't learn the order.\n- **Playlists and reading lists:** mix up songs, books or episodes.\n- **Tournament seeding and draws:** shuffle teams before building brackets or pairs.\n- **Chore or task order:** decide who goes first, or which task comes next.\n- **Secret Santa:** shuffle the names once and read them as a chain; see [how to draw names for Secret Santa](/guides/secret-santa-draw-names)."},
+  {"h2":"Shuffle, pick or split?","body":"- To **shuffle a whole list** into a new order, use this list randomizer.\n- To **pick one item at a time** in front of people, use the [wheel](/) or the [Name Picker Wheel](/name-picker-wheel).\n- To **split a list into groups**, use the [Random Team Generator](/random-team-generator) or the [Random Pair Generator](/random-pair-generator).\n- To **shuffle inside Excel or Google Sheets**, see [how to randomize a list in Excel, Google Sheets or online](/guides/randomize-a-list)."}
+ ],
+ "faq":[
+  {"q":"How do I randomize a list online?","a":"Paste the items one per line, press Randomize, and copy the result. Each press gives a new random order."},
+  {"q":"Is the shuffle truly random?","a":"It uses your browser's cryptographically secure random number source with the Fisher–Yates shuffle, so every possible order is equally likely."},
+  {"q":"How many items can I shuffle?","a":"Up to 10,000 items at a time."},
+  {"q":"Can I paste a comma-separated list?","a":"Yes. If everything is on one line with commas, the randomizer splits it on the commas. For lists with several lines, put one item per line."},
+  {"q":"Can I pick a few random items from a list?","a":"Yes. Type a number in \"Keep only\". The whole list is shuffled first, then only the first items are shown, so every item has the same chance."},
+  {"q":"Will shuffling remove repeated items?","a":"Only if you tick \"Remove duplicates\". Otherwise every line is kept, including repeats."},
+  {"q":"Is my list saved or uploaded?","a":"It's saved only in your own browser so it's there next time. Nothing is uploaded."}
+ ],
+ "sources":[],
+ "related":["random-team-generator","random-pair-generator","name-picker-wheel","random-number-generator"],
+}]

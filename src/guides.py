@@ -1428,7 +1428,7 @@ RANDOMIZE_LIST = {
  "desc": "How to randomize a list in Excel, Google Sheets, Python or online: copy-paste formulas, how to lock the order, and the mistakes that make a shuffle unfair.",
  "h1": "How to randomize a list in Excel, Google Sheets, Python or online",
  "sub": "Copy-paste methods for shuffling a list into random order, how to stop it reshuffling, and the common mistakes that quietly make a shuffle unfair.",
- "body": """To randomize a list, give every item a random number and sort by it, or use a tool that shuffles in one step. In **Google Sheets**, select the cells and choose **Data > Randomize range**. In **Excel 365 or 2021**, use `=SORTBY(A2:A20,RANDARRAY(ROWS(A2:A20)))`. Online, paste the list into a wheel and press **Shuffle**. Below are step-by-step instructions for each, how to lock the order once it's shuffled, and the mistakes to avoid.
+ "body": """To randomize a list, give every item a random number and sort by it, or use a tool that shuffles in one step. In **Google Sheets**, select the cells and choose **Data > Randomize range**. In **Excel 365 or 2021**, use `=SORTBY(A2:A20,RANDARRAY(ROWS(A2:A20)))`. Online, paste it into the [List Randomizer](/list-randomizer) and press **Randomize**. Below are step-by-step instructions for each, how to lock the order once it's shuffled, and the mistakes to avoid.
 
 ## Quick answer by tool
 
@@ -1438,7 +1438,7 @@ RANDOMIZE_LIST = {
 | Excel 365 or 2021 | `=SORTBY(range,RANDARRAY(ROWS(range)))` | Yes, if the range includes every column |
 | Older Excel | Helper column of `=RAND()`, then sort by it | Yes, if you sort the whole table |
 | Python | `random.shuffle(items)` | Not applicable |
-| Anywhere else | Paste into the [wheel](/) and press **Shuffle**, or use the [Random Team Generator](/random-team-generator) with one team | Not applicable |
+| Anywhere else | Paste into the [List Randomizer](/list-randomizer) and press **Randomize** | Not applicable |
 
 ## Google Sheets
 
@@ -1488,6 +1488,7 @@ For a draw others will check later, save the shuffled list or take a screenshot 
 
 ## Online, without a spreadsheet
 
+- **List Randomizer:** paste the list into the [List Randomizer](/list-randomizer), press **Randomize**, and copy the result as a numbered list, one item per line or comma-separated. It can also remove duplicates or keep only the first few items.
 - **Shuffle on a wheel:** paste the list into the [wheel](/), press **Shuffle**, and copy the entries box. Use the wheel itself if you want to pick items one at a time in front of people.
 - **Spin until empty for a visible order:** turn on **Remove winner** and spin until the wheel is empty; the Results list is a random order everyone watched being made. Good for presentation order.
 - **Split a shuffled list into groups:** the [Random Team Generator](/random-team-generator) shuffles and deals the list into groups in one step.
@@ -1503,7 +1504,7 @@ For a draw others will check later, save the shuffled list or take a screenshot 
 
 ## Common questions
 
-**What is the easiest way to randomize a list?** In Google Sheets, **Data > Randomize range**. With no spreadsheet, paste the list into a [wheel](/) and press Shuffle.
+**What is the easiest way to randomize a list?** In Google Sheets, **Data > Randomize range**. With no spreadsheet, paste the list into the [List Randomizer](/list-randomizer).
 
 **How do I randomize a list without repeats?** A shuffle never repeats an item; it only changes the order. Repeats only happen if you pick items one at a time and put them back. To pick without repeats, turn on **Remove winner** on a wheel.
 
