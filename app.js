@@ -188,4 +188,20 @@ function idle(t){if(!idleOn)return;if(idleT!==null&&idleVis&&!spinning&&!documen
 requestAnimationFrame(idle);
 var lg=document.querySelector('.logo');if(lg)lg.addEventListener('click',function(){try{localStorage.removeItem('wv_entries_home2')}catch(e){}});
 if(document.fonts)document.fonts.ready.then(draw);
+(function(){var go=$('mpgo');if(!go)return;var out=$('mpout'),err=$('mperr'),cp=$('mpcopy'),cs=$('mpcase'),last=[];
+function esc(t){var d=document.createElement('span');d.textContent=t;return d.innerHTML}
+go.onclick=function(){err.textContent='';var n=parseInt($('mpn').value,10),u=$('mpuniq').checked,L=entries.slice();
+if(u){var seen={};L=L.filter(function(x){var k=cs?x.toLowerCase():x;if(seen[k])return false;seen[k]=1;return true})}
+if(!L.length){err.textContent='Add at least one entry to the list first.';return}
+if(!(n>=1&&n<=500)){err.textContent='Choose a number from 1 to 500.';return}
+if(u&&n>L.length){err.textContent='The list has '+L.length+' different entries, so you can pick up to '+L.length+' without repeats. Lower the number or untick "No repeats".';return}
+var r=[];if(u){r=RNG.shuffle(L).slice(0,n)}else{for(var i=0;i<n;i++)r.push(L[RNG.randInt(L.length)])}
+if(cs){var c=cs.value;r=r.map(function(x){return c==='lower'?x.toLowerCase():c==='mixed'?(RNG.randInt(2)?x.toUpperCase():x.toLowerCase()):x.toUpperCase()})}
+last=r;var big=!!cs&&r.every(function(x){return x.length<=2});
+out.innerHTML=big?'<div class="mpchips">'+r.map(function(x){return '<span>'+esc(x)+'</span>'}).join('')+'</div>':'<ol>'+r.map(function(x){var fc=FL&&FL[x];return '<li>'+(fc?'<img src="/flags/'+fc+'.svg" alt="" width="24" height="18" loading="lazy">':'')+esc(x)+'</li>'}).join('')+'</ol>';
+cp.hidden=false;cp.textContent='Copy'};
+cp.onclick=function(){var txt=cs?last.join(' '):last.join('\n'),b=cp,done=function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1400)};
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,function(){})}else{var t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(e){}t.remove();done()}};
+$('mpn').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();go.click()}});
+})();
 })();

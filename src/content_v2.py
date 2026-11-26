@@ -1066,3 +1066,68 @@ _d["faq"] += [
  {"q": "How do percentile dice work?", "a": "Two d10s are rolled: one for the tens and one for the ones, with 00 and 0 counting as 100. This roller's d100 gives the same 1 to 100 result in one roll."},
  {"q": "Can I roll a normal die from 1 to 6?", "a": "Yes. Choose d6. Each number from 1 to 6 has exactly a 1 in 6 chance, and the die shows real dots."},
 ]
+
+# ---- Phase 4 (Nov 26 2026): Tier-1 tool upgrades. "Pick several at once" panel + copy, NFL retitled to its main query.
+_T1_UPD = "2026-11-26"
+def _t1(slug, multi, section, faqs, how=None, at=1, **meta):
+    u = UPGRADES[slug]
+    u["multiPick"] = multi
+    u["sections"].insert(at, section)
+    u["faq"] = u["faq"][:2] + faqs + u["faq"][2:]
+    if how: u["howTo"] = how
+    u["updated"] = _T1_UPD
+    u.update(meta)
+
+_t1("random-letter-generator",
+ {"title": "Generate several letters at once", "help": "Draws from the letters in the list, so presets like Vowels or No Q, X, Z apply.", "button": "Generate letters", "n": 5, "case": True},
+ {"h2": "Generate several random letters at once", "body":
+  "Under the results there's a **Generate several letters at once** box. Choose how many letters you want, uppercase, lowercase or mixed, and whether letters may repeat, then press **Generate letters**. It draws from whatever is in the list, so if you pick the Vowels preset first you only get vowels. **Copy** puts the letters on your clipboard separated by spaces.\n\n"
+  "Repeats come up sooner than most people expect. If letters can repeat, a draw of just **5 letters** has about a **34% chance** of containing at least one repeated letter, and by **7 letters** it's more likely than not. Leave **No repeats** ticked when every letter must be different, for example when giving each team its own starting letter. Without repeats you can draw up to 26.\n\n"
+  "Some ways to use a set of letters:\n\n"
+  "- **Countdown-style word game.** Draw 9 letters, then everyone has 30 seconds to make the longest word. For a fairer mix, draw 3 from the Vowels preset and 6 from Consonants.\n"
+  "- **Categories for a whole game.** Draw 10 letters with no repeats and play one round per letter, so nobody argues about the next letter.\n"
+  "- **Phonics groups.** Give each table three letters and ask for a word that uses all three.\n"
+  "- **Quick labels.** Random letter codes for stations, groups or game pieces. Don't use them as passwords: a short string of letters is easy to guess, so use a password manager for that."},
+ [{"q": "Can I generate more than one letter at a time?", "a": "Yes. Use the \"Generate several letters at once\" box under the results. Pick how many, the case and whether repeats are allowed."},
+  {"q": "Can I get lowercase letters?", "a": "Yes. In the \"Generate several letters at once\" box, set Case to abc, or Mixed for a random mix of upper and lower case."}],
+ how=["Pick a preset (A–Z, Vowels, Consonants or No Q, X, Z) or edit the letters in the list.", "Spin the wheel for one letter, or use \"Generate several letters at once\" to get a whole set.", "Turn on \"Remove winner\" (or \"No repeats\" for a set) so no letter comes up twice."],
+ description="Random letter generator: spin the alphabet wheel for a letter A–Z, or generate several at once in upper or lower case. Vowels, consonants or no hard letters.")
+
+_t1("random-country-generator",
+ {"title": "Generate several countries at once", "help": "Draws from the current list, so a region preset limits it to that region.", "button": "Generate countries", "n": 5},
+ {"h2": "Generate a list of random countries", "body":
+  "To get several countries in one go, use the **Generate several countries at once** box under the results. Choose how many, keep **No repeats** ticked, and press **Generate countries**. Each country is listed with its flag, and **Copy** gives you a plain list, one country per line. Choose a region preset first to keep the list to that region.\n\n"
+  "**No repeats** matters more than it seems. If 30 students each spin the full wheel of 193 countries, there's about a **91% chance** that at least two of them land on the same country. Even with 17 students it's more likely than not. Generating 30 countries with No repeats on gives every student a different one in a single click.\n\n"
+  "- **Class research projects.** Generate one country per student, then paste the list into your class document.\n"
+  "- **Party draws.** Each guest gets a country for a food, flag or costume theme.\n"
+  "- **Travel shortlist.** Generate five countries in one region and compare them before choosing one."},
+ [{"q": "Can I generate several random countries at once?", "a": "Yes. Use the \"Generate several countries at once\" box under the results: up to 193 without repeats, each shown with its flag."}],
+ how=["Choose all countries or one region.", "Spin the wheel for one country, or use \"Generate several countries at once\" for a list.", "Turn on \"Remove winner\" (or \"No repeats\" for a list) so no country comes up twice."],
+ description="Random country generator: spin for one of the 193 UN countries, or generate a list with flags. Filter by Africa, Americas, Asia, Europe or Oceania. Free.")
+
+_t1("random-state-generator",
+ {"title": "Generate several states at once", "help": "Draws from the current list, so a region preset limits it to that region.", "button": "Generate states", "n": 5},
+ {"h2": "Generate a list of random states", "body":
+  "The **Generate several states at once** box under the results gives you a whole list in one click. Pick how many, keep **No repeats** ticked, and press **Generate states**. Choose a Census region first if you want, say, five states in the West only. **Copy** gives a plain list, one state per line.\n\n"
+  "If you spin the full wheel 10 times with repeats allowed, there's about a **62% chance** that at least one state comes up twice, and at 9 spins it's already more likely than not. Generating 10 with No repeats on avoids that.\n\n"
+  "- **Road-trip shortlist.** Generate five states in your region, then plan the route.\n"
+  "- **Classroom state reports.** One state per student, no two the same.\n"
+  "- **License-plate bingo.** Generate 9 or 16 states for each player's card."},
+ [{"q": "Can I generate several random states at once?", "a": "Yes. Use the \"Generate several states at once\" box under the results: up to 50 without repeats, or 51 with the \"50 states + DC\" preset."}],
+ how=["Choose all states or a region.", "Spin for one state, or use \"Generate several states at once\" for a list.", "Turn on \"Remove winner\" (or \"No repeats\" for a list) to visit every state once."],
+ description="Random state generator: spin for one of the 50 US states, or generate a list at once. Filter by Northeast, Midwest, South or West. Free, no sign-up.")
+
+_t1("random-nfl-team-generator",
+ {"title": "Pick several teams at once", "help": "Give everyone in a pool a team in one click. No repeats keeps every team different.", "button": "Pick teams", "n": 4},
+ {"h2": "Give everyone a team in one click", "body":
+  "Running a pool or a watch party? Use the **Pick several teams at once** box under the results. Enter how many people you have, keep **No repeats** ticked and press **Pick teams**: everyone gets a different team, and **Copy** gives you the list to paste into a group chat. Choose the AFC, the NFC or a division first to keep the pick to that group.\n\n"
+  "Spinning one at a time with repeats allowed clashes fast. With 8 people each spinning all 32 teams, there's about a **61% chance** at least two get the same team, and with 7 people it's already more likely than not. Read the list from top to bottom and assign the teams to people in a fixed order, such as alphabetical, so nobody can argue about who got which."},
+ [{"q": "Can I pick several NFL teams at once?", "a": "Yes. Use the \"Pick several teams at once\" box under the results. With No repeats on, you can pick up to 32 different teams."}],
+ how=["Choose all teams, a conference or a division.", "Spin the NFL team wheel, or use \"Pick several teams at once\" to give everyone a team.", "Use \"Remove winner\" (or \"No repeats\") so each person gets a different team."],
+ at=0,
+ title="NFL Team Wheel – Random NFL Team Generator | Wheelova",
+ description="Spin the NFL team wheel to pick a random team from all 32, or from the AFC, NFC or one division. Pick several at once for pools and parties. Free, no sign-up.",
+ h1="NFL Team Wheel",
+ subhead="Spin to pick one of the 32 NFL teams, or narrow it to a conference or division.")
+# keep "How the NFL team wheel works" as the first section
+_ns = UPGRADES["random-nfl-team-generator"]["sections"]; _ns.insert(0, _ns.pop(1))

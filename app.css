@@ -400,3 +400,7 @@ body.s-open{overflow:hidden}
 @media (max-width:360px){#dside button{padding:0 5px;font-size:12px}}
 .dtool .cstage{overflow-x:clip}
 @media (max-width:640px){.dtool .cbar{flex-wrap:wrap}#dside{flex:1 1 100%;min-width:0}#dside button{flex:1 1 0;padding:0}.dtool .cicons{margin-left:auto}.dtool{min-width:0}}
+
+.mpcard .mprow{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}.mpcard .mprow input[type=number]{width:96px}.mpbtns{display:flex;gap:8px;margin-top:10px}.mpout ol{margin:12px 0 0;padding-left:22px;max-height:260px;overflow:auto;color:var(--tx2)}.mpout li{margin:0 0 6px;break-inside:avoid}.mpout li img{vertical-align:-3px;margin-right:8px;border-radius:2px}.mpchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.mpchips span{min-width:44px;height:44px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;border-radius:12px;background:var(--panel2,rgba(127,127,127,.12));border:1px solid var(--line2);font:700 22px Inter,sans-serif;color:var(--hi)}
+.mprow label.ck{flex-direction:row;align-items:center;font-size:14px;color:var(--tx2)}.mprow .ck input{width:18px;height:18px;padding:0}
+.mpbtns{align-items:center}.mpbtns .gbtn.mpgo{margin:0;min-height:44px;padding:0 18px;font-size:15px}

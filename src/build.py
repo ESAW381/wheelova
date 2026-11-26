@@ -24,7 +24,7 @@ for _p in PAGES:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "42"
+V = "44"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -181,7 +181,7 @@ def footer():
 </div></footer>
 """
 
-def tool(controls="", default_label="Entries"):
+def tool(controls="", default_label="Entries", extra=""):
     return f"""<div class="tool" id="tool" data-clarity-mask="true">
 <div class="stage">
 <button class="fsbtn" id="fsbtn" type="button" aria-label="Fullscreen" title="Fullscreen (F)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="fs-in" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><path class="fs-out" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
@@ -212,9 +212,21 @@ def tool(controls="", default_label="Entries"):
 <div class="row"><div style="font-weight:600;color:var(--hi)">Results <span id="rcount" style="color:var(--mu2);font-weight:500">· 0</span></div><div class="resacts" id="resacts" hidden><button class="btn" id="rcopy" type="button">Copy</button><button class="btn" id="rcsv" type="button">CSV</button></div></div>
 <ol id="history" style="margin:10px 0 0;padding-left:20px;color:var(--mu);max-height:160px;overflow:auto"></ol>
 </div>
-</aside>
+{extra}</aside>
 <div class="wtoast" id="wtoast" role="status" aria-live="polite" hidden><span id="wtmsg"></span><button class="linkbtn" id="wtundo" type="button">Undo</button></div>
 </div>"""
+
+def multipick(p):
+    """Optional 'pick several at once' card. Uses the current wheel list, so presets apply."""
+    m = p.get("multiPick")
+    if not m: return ""
+    case = ('<label>Case<select id="mpcase"><option value="upper">ABC</option><option value="lower">abc</option><option value="mixed">Mixed</option></select></label>' if m.get("case") else "")
+    return (f'<div class="card mpcard" id="mpcard"><div style="font-weight:600;color:var(--hi)">{e(m["title"])}</div>'
+            f'<p class="small" style="margin:4px 0 10px">{e(m["help"])}</p>'
+            f'<div class="nrow mprow"><label>How many<input id="mpn" type="number" inputmode="numeric" min="1" max="500" value="{m.get("n",5)}"></label>{case}'
+            '<label class="ck"><input type="checkbox" id="mpuniq" checked> No repeats</label></div>'
+            f'<div class="mpbtns"><button class="gbtn mpgo" id="mpgo" type="button">{e(m["button"])}</button><button class="btn" id="mpcopy" type="button" hidden>Copy</button></div>'
+            '<p class="err" id="mperr" role="alert"></p><div class="mpout" id="mpout" aria-live="polite"></div></div>\n')
 
 def embed_line(p):
     """English wheel pages only: a plain link to the embed generator under Related tools."""
@@ -425,7 +437,7 @@ def page(p):
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <a href="/wheels">Wheels</a> / <span aria-current="page">{e(p["h1"])}</span></nav>
 <h1>{e(p["h1"])}</h1>
 <p class="sub1">{e(p["subhead"])}</p>
-{multi_wrap(p, gentool(p) if p.get("tool") else tool(controls))}
+{multi_wrap(p, gentool(p) if p.get("tool") else tool(controls, extra=multipick(p)))}
 </div>
 
 {('<div class="wrap"><a class="guidecta" href="/' + GUIDE_FOR[p["slug"]]["slug"] + '"><b>Guide:</b> ' + e(GUIDE_FOR[p["slug"]]["h1"][0].upper() + GUIDE_FOR[p["slug"]]["h1"][1:]) + ' →</a></div>') if p["slug"] in GUIDE_FOR else ''}
