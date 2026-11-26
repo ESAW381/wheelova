@@ -44,10 +44,20 @@ if(cfg.type==='pair'){
  var pa=$('pnames');pa.value=load('wg_pair')||cfg.sample.join('\n');
  function pn(){return pa.value.split('\n').map(function(s){return s.trim()}).filter(Boolean)}
  function pu(){$('pcount').textContent='· '+pn().length;store('wg_pair',pa.value)}pa.addEventListener('input',pu);pu();
+ var pb=$('pnames2'),pw=$('pbwrap'),pml=document.querySelector('label[for="pnames"]'),pmd=$('pmode');if(pb){pb.value=load('wg_pair2')||'';
+ function pn2(){return pb.value.split('\n').map(function(s){return s.trim()}).filter(Boolean)}
+ function pu2(){$('pcount2').textContent='· '+pn2().length;store('wg_pair2',pb.value)}pb.addEventListener('input',pu2);pu2();
+ function pmv(){var two=pmd.value==='two';pw.hidden=!two;$('poddl').style.display=two?'none':'';pml.firstChild.nodeValue=two?'List A ':'Names ';store('wg_pmode',pmd.value)}
+ var sm=load('wg_pmode');if(sm&&/^(pairs|rr|two)$/.test(sm))pmd.value=sm;pmd.addEventListener('change',pmv);pmv()}
  function box(title,items){var d=document.createElement('div');d.className='team';var h=document.createElement('b');h.textContent=title;d.appendChild(h);var ul=document.createElement('ul');items.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li)});d.appendChild(ul);out.appendChild(d)}
  function runp(){err.textContent='';var n=shuffle(pn()),mode=$('pmode').value,odd=$('podd').value;out.innerHTML='';out.className='gout teams';last=[];
-  if(n.length<2)return fail('Add at least two names.');if(n.length>500)return fail('Up to 500 names at a time.');
-  if(mode==='pairs'){var pairs=[];for(var i=0;i+1<n.length;i+=2)pairs.push([n[i],n[i+1]]);var extra=n.length%2?n[n.length-1]:null;
+  if(n.length<(mode==='two'?1:2))return fail(mode==='two'?'Add at least one name to List A.':'Add at least two names.');if(n.length>500)return fail('Up to 500 names at a time.');
+  if(mode==='two'){var B=shuffle(pn2());if(!B.length)return fail('Add at least one item to List B.');if(B.length>500)return fail('Up to 500 items in List B.');
+   var A=n,uses={},rows=[];if(B.length>=A.length){A.forEach(function(a,i){rows.push([a,B[i]])})}else{var pool=[];while(pool.length<A.length)pool=pool.concat(shuffle(B));A.forEach(function(a,i){rows.push([a,pool[i]])})}
+   rows.forEach(function(r,i){box('Match '+(i+1),r);last.push(r[0]+' → '+r[1])});
+   var left=B.length>A.length?B.slice(A.length):[];if(left.length){box('Not matched',left);last.push('Not matched: '+left.join(', '))}
+   $('gcount').textContent=rows.length+' matches · '+A.length+' + '+B.length+' items'}
+  else if(mode==='pairs'){var pairs=[];for(var i=0;i+1<n.length;i+=2)pairs.push([n[i],n[i+1]]);var extra=n.length%2?n[n.length-1]:null;
    if(extra){if(odd==='trio'&&pairs.length)pairs[pairs.length-1].push(extra);}
    pairs.forEach(function(p,i){box('Pair '+(i+1)+(p.length===3?' (trio)':''),p);last.push('Pair '+(i+1)+': '+p.join(' & '))});
    if(extra&&odd==='bye'){box('Sits out',[extra]);last.push('Sits out: '+extra)}
@@ -56,7 +66,7 @@ if(cfg.type==='pair'){
    for(var r=0;r<rounds;r++){var g=[],bye=null;for(var k=0;k<m/2;k++){var a=L[k],b=L[m-1-k];if(a===null||b===null)bye=a===null?b:a;else{g.push(a+' vs '+b);tot++}}
     if(bye)g.push(bye+' — bye');box('Round '+(r+1),g);last.push('Round '+(r+1)+': '+g.join('; '));L.splice(1,0,L.pop())}
    $('gcount').textContent=rounds+' rounds · '+tot+' matches'}
-  var h=$('ghist');if(h){var li=document.createElement('li');li.textContent=(mode==='pairs'?'Pairs':'Round robin')+' for '+n.length+' people';h.prepend(li);while(h.children.length>10)h.removeChild(h.lastChild)}}
+  var h=$('ghist');if(h){var li=document.createElement('li');li.textContent=(mode==='pairs'?'Pairs':mode==='two'?'Two-list match':'Round robin')+' for '+n.length+' people';h.prepend(li);while(h.children.length>10)h.removeChild(h.lastChild)}}
  $('ggo').onclick=runp;
 }
 if(cfg.type==='list'){

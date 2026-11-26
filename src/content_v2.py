@@ -1131,3 +1131,31 @@ _t1("random-nfl-team-generator",
  subhead="Spin to pick one of the 32 NFL teams, or narrow it to a conference or division.")
 # keep "How the NFL team wheel works" as the first section
 _ns = UPGRADES["random-nfl-team-generator"]["sections"]; _ns.insert(0, _ns.pop(1))
+
+# ---- Phase 4b (Nov 27 2026): Tier-1 batch 2 (NBA, color). Food + pair live in tier1.py (not in UPGRADES).
+_T1_UPD = "2026-11-27"
+_t1("random-nba-team-generator",
+ {"title": "Pick several teams at once", "help": "Give everyone a team in one click. No repeats keeps every team different.", "button": "Pick teams", "n": 4},
+ {"h2": "Give everyone a team in one click", "body":
+  "For an NBA 2K night, a bracket pool or a watch party, use the **Pick several teams at once** box under the results. Enter how many people you have, keep **No repeats** ticked and press **Pick teams**. Everyone gets a different team, and **Copy** gives you the list to paste into a group chat. Pick a conference or division first to keep the draw inside it.\n\n"
+  "Taking turns on the wheel with repeats allowed causes clashes sooner than people expect. With 6 people each spinning all 30 teams, there's about a **41% chance** two of them land on the same team. At 7 people it's more likely than not, and at 8 it's about **64%**. Assign the list to people in a fixed order, such as alphabetical, so there's no argument about who got which team."},
+ [{"q": "Can I pick several NBA teams at once?", "a": "Yes. Use the \"Pick several teams at once\" box under the results. With No repeats on, you can pick up to 30 different teams."}],
+ how=["Choose all teams, a conference or a division.", "Spin the NBA wheel, or use \"Pick several teams at once\" to give everyone a team.", "Turn on \"Remove winner\" (or \"No repeats\") so each person gets a different team."],
+ title="NBA Wheel – Random NBA Team Generator (All 30 Teams) | Wheelova",
+ description="Spin the NBA wheel to pick a random team from all 30, or from the East, West or one division. Pick several at once for 2K nights and pools. Free, no sign-up.",
+ subhead="Spin the NBA wheel to pick one of the 30 teams, or narrow it to a conference or division.")
+
+_t1("color-wheel",
+ {"title": "Generate a color palette", "help": "Picks several colors from the list, each with its swatch and hex code.", "button": "Generate palette", "n": 5},
+ {"h2": "Generate a random color palette", "body":
+  "To get several colors at once, use the **Generate a color palette** box under the results. Choose how many colors, keep **No repeats** ticked and press **Generate palette**. Each color is listed with its swatch and hex code, and **Copy** gives you one line per color, such as \"Coral #FF7F50\", ready to paste into notes or a design file. It draws from the current list, so choose Pastels or Hair colors first to stay within that set.\n\n"
+  "Leave No repeats on for palettes. Drawing 5 colors from the 12 Basic colors with repeats allowed gives about a **62% chance** that at least one color appears twice.\n\n"
+  "- **Art challenge.** Generate 3 colors and make a drawing using only those.\n"
+  "- **Sports day or house teams.** One color per team, no two the same.\n"
+  "- **Outfit or room palette.** Generate 3 to 5 colors and build an outfit or a mood board around them."},
+ [{"q": "Can I generate several random colors at once?", "a": "Yes. Use the \"Generate a color palette\" box under the results. Each color comes with its swatch and hex code, and Copy gives you the list."}],
+ how=["Pick a preset (Rainbow, Basic, Primary, Pastels or Hair colors) or type your own color names, one per line.", "Spin the color wheel for one color, or use \"Generate a color palette\" for several.", "Read the color name, swatch and hex code. Turn on Remove winner (or No repeats) to avoid repeats."],
+ title="Color Wheel Spinner – Random Color Generator | Wheelova",
+ description="Spin the color wheel for a random color with its name, swatch and hex code, or generate a palette at once. Rainbow, basic, pastel or hair colors.",
+ h1="Color Wheel Spinner",
+ subhead="A random color generator: spin for a color and get its name, a swatch and its hex code.")

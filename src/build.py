@@ -21,10 +21,12 @@ from content_v2 import UPGRADES, AUTHOR, UPDATED
 for _p in PAGES:
     if _p['slug'] in UPGRADES:
         _p.update(UPGRADES[_p['slug']]); _p['upgraded'] = True
+from tier1 import apply as _tier1
+_tier1(PAGES)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "44"
+V = "46"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -338,7 +340,9 @@ def gentool(p):
     elif t == "pair":
         ctr = """<label for="pnames" style="font-weight:600;color:var(--hi)">Names <span id="pcount" style="color:var(--mu2);font-weight:500"></span></label>
 <textarea id="pnames" spellcheck="false" style="min-height:200px"></textarea>
-<div class="nrow"><label>Make<select id="pmode" style="width:200px"><option value="pairs">Random pairs</option><option value="rr">Round-robin schedule</option></select></label><label>Odd number<select id="podd" style="width:170px"><option value="trio">Make one trio</option><option value="bye">One sits out</option></select></label></div>"""
+<div id="pbwrap" hidden><label for="pnames2" style="font-weight:600;color:var(--hi);display:block;margin-top:12px">List B <span id="pcount2" style="color:var(--mu2);font-weight:500"></span></label>
+<textarea id="pnames2" spellcheck="false" style="min-height:140px" placeholder="For example mentors, topics or partners, one per line"></textarea></div>
+<div class="nrow"><label>Make<select id="pmode" style="width:200px"><option value="pairs">Random pairs</option><option value="rr">Round-robin schedule</option><option value="two">Match two lists</option></select></label><label id="poddl">Odd number<select id="podd" style="width:170px"><option value="trio">Make one trio</option><option value="bye">One sits out</option></select></label></div>"""
     elif t == "list":
         ctr = """<label for="lnames" style="font-weight:600;color:var(--hi)">Items, one per line <span id="lcount" style="color:var(--mu2);font-weight:500"></span></label>
 <textarea id="lnames" spellcheck="false" style="min-height:220px"></textarea>
