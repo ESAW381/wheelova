@@ -26,11 +26,23 @@ _tier1(PAGES)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "46"
+V = "47"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
 CORE = ["name-picker-wheel", "yes-or-no-wheel", "random-number-generator", "random-team-generator", "decision-wheel", "raffle-wheel", "lucky-wheel"]
+TIER1_HOME = [
+    ("random-letter-generator", "Random letter generator", "A–Z, vowels, or several at once"),
+    ("random-country-generator", "Random country generator", "193 countries with flags"),
+    ("flag-quiz", "Flag quiz", "Guess the flag, by region"),
+    ("random-state-generator", "Random state generator", "50 US states by region"),
+    ("random-nfl-team-generator", "NFL team wheel", "All 32 teams or a division"),
+    ("random-nba-team-generator", "NBA wheel", "All 30 teams or a conference"),
+    ("color-wheel", "Color wheel spinner", "Colors with hex codes"),
+    ("food-wheel", "Food wheel", "Dinner ideas and meal plans"),
+    ("truth-or-dare-wheel", "Truth or dare wheel", "Kids and party decks"),
+    ("random-pair-generator", "Random pair generator", "Partners, two lists, round robin"),
+]
 POPULAR = ["yes-or-no-wheel", "name-picker-wheel", "random-number-generator", "random-team-generator", "spinner", "decision-wheel", "truth-or-dare-wheel", "coin-flip", "dice-roller", "random-letter-generator", "color-wheel", "random-name-generator", "random-country-generator", "raffle-wheel", "lucky-wheel", "mystery-wheel", "number-wheel", "random-state-generator", "random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator", "flag-quiz", "random-pair-generator", "list-randomizer"]
 CLUSTERS = [("Decisions", ["yes-or-no-wheel", "decision-wheel", "food-wheel", "coin-flip"]), ("Games & parties", ["truth-or-dare-wheel", "dice-roller", "lucky-wheel", "mystery-wheel"]), ("Names & groups", ["name-picker-wheel", "random-team-generator", "random-pair-generator", "list-randomizer", "random-name-generator", "random-letter-generator"]), ("Numbers & chance", ["random-number-generator", "number-wheel", "spinner", "dice-roller", "coin-flip"]), ("Giveaways", ["raffle-wheel"]), ("Geography", ["random-country-generator", "flag-quiz", "random-state-generator"]), ("Sports", ["random-nfl-team-generator", "random-nba-team-generator", "random-mlb-team-generator"]), ("Words & creativity", ["random-word-wheel", "drawing-prompt-wheel", "random-letter-generator"]), ("Colors", ["color-wheel"])]
 DOTS = ["#6E56F0", "#E11D48", "#F59E0B", "#16A34A", "#2563EB", "#DB2777", "#0D9488", "#EA580C"]
@@ -658,7 +670,9 @@ def home():
     ld = json.loads(re.search(r'<script type="application/ld\+json">\s*([\s\S]*?)\s*</script>', src).group(1))
     ld["@graph"].insert(0, {"@type": "Organization", "name": "Wheelova", "url": SITE + "/", "logo": SITE + "/icons/icon-512.png"})
     popular = "".join(card(s, i) for i, s in enumerate(CORE + ["spinner"]))
-    main = main.replace('<section id="features">', f'<section id="popular"><div class="wrap">\n<h2>Popular tools</h2>\n<p style="margin:0 0 28px;color:var(--mu)">Ready-made wheels and generators with their own presets and guides.</p>\n<div class="grid">{popular}</div>\n<p style="margin-top:24px"><a class="more" href="/wheels">See all {len(PAGES)} tools →</a></p>\n</div></section>\n\n<section id="features">', 1)
+    more_gen = ('<h3 class="hmore-h">More generators</h3><ul class="hmore">' + "".join(
+        f'<li><a href="/{sl}">{e(lab)}</a><span>{e(d)}</span></li>' for sl, lab, d in TIER1_HOME) + '</ul>\n')
+    main = main.replace('<section id="features">', f'<section id="popular"><div class="wrap">\n<h2>Popular tools</h2>\n<p style="margin:0 0 28px;color:var(--mu)">Ready-made wheels and generators with their own presets and guides.</p>\n<div class="grid">{popular}</div>\n{more_gen}<p style="margin-top:24px"><a class="more" href="/wheels">See all {len(PAGES)} tools →</a></p>\n</div></section>\n\n<section id="features">', 1)
     main = re.sub(r'<section id="wheels">[\s\S]*?</section>\s*', '', main, count=1)
     main = add_wheel_btn(main, "en")
     _toast = re.search(r'<div class="wtoast" id="wtoast"[^\n]*</div>\n</div>', main).group(0)

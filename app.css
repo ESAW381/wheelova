@@ -405,3 +405,4 @@ body.s-open{overflow:hidden}
 .mprow label.ck{flex-direction:row;align-items:center;font-size:14px;color:var(--tx2)}.mprow .ck input{width:18px;height:18px;padding:0}
 .mpbtns{align-items:center}.mpbtns .gbtn.mpgo{margin:0;min-height:44px;padding:0 18px;font-size:15px}
 .mpsw{display:inline-block;width:18px;height:18px;border-radius:5px;vertical-align:-4px;margin-right:8px;border:1px solid rgba(0,0,0,.2)}.mpout li code{font-size:12px;color:var(--mu)}
+.hmore-h{margin:36px 0 12px;font-size:18px;color:var(--hi)}.hmore{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 24px}.hmore li{padding:10px 0;border-bottom:1px solid var(--line2);display:flex;flex-direction:column;gap:2px}.hmore a{font-weight:600;color:var(--hi);text-decoration:none}.hmore a:hover{text-decoration:underline}.hmore span{font-size:13px;color:var(--mu)}
