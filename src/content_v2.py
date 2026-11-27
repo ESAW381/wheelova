@@ -1159,3 +1159,25 @@ _t1("color-wheel",
  description="Spin the color wheel for a random color with its name, swatch and hex code, or generate a palette at once. Rainbow, basic, pastel or hair colors.",
  h1="Color Wheel Spinner",
  subhead="A random color generator: spin for a color and get its name, a swatch and its hex code.")
+
+# ---- Phase 4c (Nov 27 2026): lucky wheel kept as the prize wheel (not merged into raffle); prize-odds panel
+_lw = UPGRADES["lucky-wheel"]
+_lw.update({
+ "oddsPanel": True, "updated": "2026-11-27",
+ "title": "Lucky Wheel – Prize Wheel with Custom Odds | Wheelova",
+ "description": "Make a lucky prize wheel with your own prizes, set how many slices each gets and see every prize's exact chance. Plan prize stock for events. Free, no sign-up.",
+ "subhead": "A prize wheel you control: add prizes, set the odds, spin to win.",
+ "howTo": ["Replace the sample prizes with your own, one per line.", "Use + and − in the Prize odds box to give each prize more or fewer slices, and check its chance.", "Optionally enter how many spins you expect, then spin and hand out the prize."],
+})
+_lw["sections"].insert(1, {"h2": "See every prize's chance before you spin", "body":
+ "The **Prize odds** box next to the wheel shows each prize once, with how many slices it has, its chance as a percentage and as \"1 in N\". Press **+** or **−** to add or remove a slice of a prize, and the wheel and the percentages update together. Removing a prize's last slice takes it off the wheel, and you can undo that.\n\n"
+ "Enter the number of spins you expect in **Planned spins** and the box adds an **≈ wins** column: the average number of times each prize will come up. That's the number to plan your prize stock from.\n\n"
+ "Identical prizes are grouped even if you typed them in different places on the list, and capital letters don't matter: \"Try again\" and \"try again\" count as one prize."})
+for _s in _lw["sections"]:
+    if _s["h2"] == "Budgeting prizes for an event":
+        _s["body"] += ("\n\nHow much extra? Take that 200-spin event with a 25% prize. On average it comes up 50 times, but in about 1 event in 20 it comes up **61 times or more**, and in about 1 in 100 it reaches **66**. So stock around 60 to 65 to be safe, or set a cut-off: when the stock runs out, change that slice to \"Try again\" with the **−** button and add another prize with **+**."
+                       "\n\nIt works the other way too. A grand prize that is 1 of 20 slices (5%) is almost certain to be won at least once over 200 spins (the chance it never comes up is under 0.01%). If you only have one, turn on **Remove winner** so it leaves the wheel once it's won.")
+_lw["faq"].insert(1, {"q": "How do I see the chance of each prize?", "a": "Look at the Prize odds box next to the wheel. It lists every prize with its number of slices, its chance as a percentage and as \"1 in N\". Use + and − to change a prize's slices."})
+for _f in _lw["faq"]:
+    if _f["q"] == "How many of each prize will I give away?":
+        _f["a"] = "Enter your expected number of spins in Planned spins in the Prize odds box: the ≈ wins column shows the average for each prize. Real counts vary, so keep some spare stock."

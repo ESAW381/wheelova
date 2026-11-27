@@ -26,7 +26,7 @@ _tier1(PAGES)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "dist")
-V = "47"
+V = "48"
 SITE = "https://wheelova.com"
 BY = {p["slug"]: p for p in PAGES}
 NAV = [("name-picker-wheel", "Name Picker"), ("yes-or-no-wheel", "Yes or No"), ("random-number-generator", "Number Generator"), ("random-team-generator", "Team Generator"), ("wheels", "All tools")]
@@ -242,6 +242,14 @@ def multipick(p):
             f'<div class="mpbtns"><button class="gbtn mpgo" id="mpgo" type="button">{e(m["button"])}</button><button class="btn" id="mpcopy" type="button" hidden>Copy</button></div>'
             '<p class="err" id="mperr" role="alert"></p><div class="mpout" id="mpout" aria-live="polite"></div></div>\n')
 
+def oddspanel(p):
+    """Prize odds card: groups identical entries, shows each prize's chance, +/- slice buttons, expected wins."""
+    if not p.get("oddsPanel"): return ""
+    return ('<div class="card oddscard" id="oddscard"><div style="font-weight:600;color:var(--hi)">Prize odds</div>'
+            '<p class="small" style="margin:4px 0 10px">Each slice is equally likely. Use + and − to give a prize more or fewer slices.</p>'
+            '<div class="nrow"><label>Planned spins <input id="oddspins" type="number" inputmode="numeric" min="1" max="1000000" placeholder="e.g. 200"></label></div>'
+            '<div id="oddsout" aria-live="polite"></div></div>\n')
+
 def embed_line(p):
     """English wheel pages only: a plain link to the embed generator under Related tools."""
     if lang_of(p["slug"]) != "en" or p.get("tool"):
@@ -453,7 +461,7 @@ def page(p):
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Wheelova</a> / <a href="/wheels">Wheels</a> / <span aria-current="page">{e(p["h1"])}</span></nav>
 <h1>{e(p["h1"])}</h1>
 <p class="sub1">{e(p["subhead"])}</p>
-{multi_wrap(p, gentool(p) if p.get("tool") else tool(controls, extra=multipick(p)))}
+{multi_wrap(p, gentool(p) if p.get("tool") else tool(controls, extra=multipick(p) + oddspanel(p)))}
 </div>
 
 {('<div class="wrap"><a class="guidecta" href="/' + GUIDE_FOR[p["slug"]]["slug"] + '"><b>Guide:</b> ' + e(GUIDE_FOR[p["slug"]]["h1"][0].upper() + GUIDE_FOR[p["slug"]]["h1"][1:]) + ' →</a></div>') if p["slug"] in GUIDE_FOR else ''}

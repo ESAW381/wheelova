@@ -23,7 +23,7 @@ var entries=[],rot=0,spinning=false,removeW=!!cfg.removeWinner,sound=true,hist=[
 function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
 var RNG=window.WVRNG;function rand(){return RNG.rand()}
-var sharedMode=false;function parse(){entries=ta.value.split('\n').map(function(s){return s.trim()}).filter(Boolean);$('count').textContent='· '+entries.length;if(!sharedMode)store(KEY,ta.value);draw()}
+var sharedMode=false;function parse(){entries=ta.value.split('\n').map(function(s){return s.trim()}).filter(Boolean);$('count').textContent='· '+entries.length;if(!sharedMode)store(KEY,ta.value);draw();if(window.WVODDS)window.WVODDS()}
 function setEntries(arr,msg){var prev=ta.value;ta.value=arr.join('\n');parse();if(msg&&prev.trim()&&prev!==ta.value)offerUndo(msg,prev)}
 function leaveShared(){if(!sharedMode)return;sharedMode=false;var n=$('sharenote');if(n)n.hidden=true;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}
 function lum(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c}).join('');var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);return (0.299*r+0.587*g+0.114*b)/255}
@@ -205,4 +205,18 @@ cp.onclick=function(){var txt=cs?last.join(' '):last.map(function(x){var h=hexOf
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,function(){})}else{var t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(e){}t.remove();done()}};
 $('mpn').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();go.click()}});
 })();
+(function(){var box=$('oddsout');if(!box)return;var sp=$('oddspins');
+function key(x){return x.trim().toLowerCase()}
+function render(){var g=[],ix={};entries.forEach(function(x){var k=key(x);if(ix[k]==null){ix[k]=g.length;g.push({l:x,n:0})}g[ix[k]].n++});
+var T=entries.length;if(!T){box.innerHTML='<p class="small">Add prizes to the list to see their odds.</p>';return}
+var S=parseInt(sp.value,10);S=S>0&&S<=1000000?S:0;g.sort(function(a,b){return b.n-a.n});
+var h='<table class="oddst"><thead><tr><th>Prize</th><th>Slices</th><th>Chance</th>'+(S?'<th>≈ wins</th>':'')+'</tr></thead><tbody>';
+g.forEach(function(r){var pc=r.n/T*100,ps=pc>=10?pc.toFixed(1):pc>=1?pc.toFixed(1):pc.toFixed(2);var d=document.createElement('span');d.textContent=r.l;
+h+='<tr><td><span class="oddsl">'+d.innerHTML+'</span><span class="oddsbar"><i style="width:'+pc.toFixed(2)+'%"></i></span></td><td class="oddsn"><button type="button" class="oddb" data-a="-" data-k="'+encodeURIComponent(key(r.l))+'" aria-label="One fewer slice for '+d.innerHTML+'">−</button><b>'+r.n+'</b><button type="button" class="oddb" data-a="+" data-k="'+encodeURIComponent(key(r.l))+'" aria-label="One more slice for '+d.innerHTML+'">+</button></td><td>'+ps+'%<br><span class="small">1 in '+(T/r.n>=10?Math.round(T/r.n):(T/r.n).toFixed(1).replace(/\.0$/,''))+'</span></td>'+(S?'<td>'+Math.round(S*r.n/T).toLocaleString()+'</td>':'')+'</tr>'});
+h+='</tbody></table><p class="small" style="margin:8px 0 0">'+T+' slices · '+g.length+' different prizes'+(S?' · wins are averages: real counts vary, so keep some spare stock':'')+'</p>';box.innerHTML=h}
+box.addEventListener('click',function(ev){var b=ev.target.closest('.oddb');if(!b)return;var k=decodeURIComponent(b.dataset.k),a=entries.slice(),last=-1;
+for(var i=0;i<a.length;i++)if(key(a[i])===k)last=i;if(last<0)return;
+if(b.dataset.a==='+'){a.splice(last+1,0,a[last]);setEntries(a)}else{if(a.length<=1)return;var lab=a[last],gone=a.filter(function(x){return key(x)===k}).length===1;a.splice(last,1);setEntries(a,gone?'Removed '+lab:null)}});
+sp.addEventListener('input',function(){try{localStorage.setItem('wv_oddspins',sp.value)}catch(e){}render()});try{var v=localStorage.getItem('wv_oddspins');if(v)sp.value=v}catch(e){}
+window.WVODDS=render;render()})();
 })();
