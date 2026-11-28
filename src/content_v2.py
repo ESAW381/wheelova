@@ -1181,3 +1181,75 @@ _lw["faq"].insert(1, {"q": "How do I see the chance of each prize?", "a": "Look 
 for _f in _lw["faq"]:
     if _f["q"] == "How many of each prize will I give away?":
         _f["a"] = "Enter your expected number of spins in Planned spins in the Prize odds box: the ≈ wins column shows the average for each prize. Real counts vary, so keep some spare stock."
+
+# ---- Weak-pages Phase 1 (Nov 28 2026): NFL/NBA/MLB de-clone — exact-term H1s, league-only sections, unique FAQs
+_W1 = "2026-11-28"
+def _sec(slug, h2):
+    for s in UPGRADES[slug]["sections"]:
+        if s["h2"] == h2: return s
+    raise KeyError((slug, h2))
+def _faq(slug, q):
+    for f in UPGRADES[slug]["faq"]:
+        if f["q"] == q: return f
+    raise KeyError((slug, q))
+def _ins_after(slug, after_h2, sec):
+    L = UPGRADES[slug]["sections"]; i = [s["h2"] for s in L].index(after_h2); L.insert(i + 1, sec)
+
+# NFL
+_n = UPGRADES["random-nfl-team-generator"]
+_n.update({"updated": _W1, "title": "Random NFL Team Generator – Spin the NFL Team Wheel | Wheelova", "h1": "Random NFL Team Generator",
+ "subhead": "A random NFL team generator: spin the NFL team wheel for one of the 32 teams, or narrow it to a conference or division.",
+ "description": "Random NFL team generator: spin a wheel of all 32 NFL teams, or just the AFC, NFC or one division. Pick several at once for pools. Free, no sign-up."})
+_ins_after("random-nfl-team-generator", "How the NFL team wheel works", {"h2": "Spin a wheel of NFL teams", "body":
+ "The wheel opens with all 32 teams loaded, so the random NFL team generator works with one tap. The presets above the list change what's on the wheel of NFL teams:\n\n"
+ "| Preset | Teams on the wheel | Chance for each team |\n|---|---|---|\n"
+ "| All 32 teams | 32 | 1 in 32 (3.1%) |\n| AFC or NFC | 16 | 1 in 16 (6.25%) |\n| One division (e.g. NFC North) | 4 | 1 in 4 (25%) |\n\n"
+ "To leave out a team, delete its line from the list; the wheel redraws at once. To favour a team, add its name a second time and it gets two slices. Turn on **Remove winner** if every person needs a different team, and the NFL team wheel shrinks after each spin until everyone has one."})
+_f = _sec("random-nfl-team-generator", "Set a fantasy football draft order")
+_f["h2"] = "Random NFL team for fantasy football and mock drafts"
+_f["body"] = ("A random NFL team generator settles the arguments that come with any fantasy or friends' league:\n\n"
+ "- **Fantasy defense (D/ST) roulette.** Late in the draft, spin the NFL team wheel and take whichever defense lands.\n"
+ "- **Mock-draft assignments.** Give every friend a team with **Pick several teams at once**, then each of you drafts for that franchise.\n"
+ "- **Madden franchise mode.** Spin for the team you'll rebuild, or use a division preset for a rivalry-only challenge.\n"
+ "- **Survivor pools.** Each week you pick one team to win, and you can't reuse a team all season. Load the teams you haven't used yet and spin when you can't decide.\n"
+ "- **Game-day watch parties.** Everyone spins a team at kickoff and roots for it all afternoon.\n\n") + _f["body"]
+_faq("random-nfl-team-generator", "Is this affiliated with the NFL?")["a"] = "No. Wheelova is independent and isn't endorsed by the National Football League or its clubs; team names appear only so you can tell the 32 teams apart."
+_n["faq"] += [
+ {"q": "How do I pick a random NFL team for fantasy football?", "a": "Spin the random NFL team generator once per manager, or use Pick several teams at once with No repeats on so every manager gets a different team for a defense draft or a team-based league."},
+ {"q": "Can I spin a wheel of NFL teams from one division only?", "a": "Yes. Choose a division preset, such as AFC West or NFC South, and only those four teams go on the wheel, each with a 25% chance."},
+]
+
+# NBA
+_b = UPGRADES["random-nba-team-generator"]; _b["updated"] = _W1
+_t = _sec("random-nba-team-generator", "All 30 NBA teams by division"); _t["h2"] = "All 30 NBA teams by conference"
+from data import NBA_CONF
+_t["body"] = ("The NBA splits its 30 teams into the **Eastern** and **Western Conference**, 15 each, with three divisions of five teams in every conference.\n\n"
+ "| Conference | Division | Teams |\n|---|---|---|\n" + "".join(f"| {c} | {d} | {', '.join(NBA[d])} |\n" for c, ds in NBA_CONF.items() for d in ds) +
+ "\nUse the **Eastern Conference** or **Western Conference** preset to spin within one side of the league, or a division preset for five teams.")
+_ins_after("random-nba-team-generator", "Simulate the NBA draft lottery", {"h2": "Random NBA team for fantasy basketball and 2K", "body":
+ "- **Fantasy basketball draft order.** Spin your managers' names (or one team each) with **Remove winner** on to set the order before a head-to-head or rotisserie draft.\n"
+ "- **NBA 2K MyLeague or MyNBA.** Spin for the franchise you'll take over. Rebuilding a random team is a popular challenge; a division preset keeps it to five rivals.\n"
+ "- **Random team challenge.** Two players each spin a team and play the matchup the wheel picks, no rerolls.\n"
+ "- **Playoff or bracket pools.** Hand out teams with **Pick several teams at once** so nobody fights over the favourites.\n\n"
+ "With all 30 teams on the wheel each one has a 1 in 30 (3.3%) chance; within a conference it's 1 in 15, and within a division 1 in 5."})
+_faq("random-nba-team-generator", "Is this affiliated with the NBA?")["a"] = "No. Wheelova is an independent tool with no connection to the National Basketball Association; the 30 team names are listed only so you can recognise them."
+_b["faq"].append({"q": "Can I pick a random NBA team for NBA 2K?", "a": "Yes. Spin the wheel for the franchise you'll run in MyLeague or MyNBA, or choose a conference or division preset to narrow the choice first."})
+
+# MLB
+_m = UPGRADES["random-mlb-team-generator"]; _m["updated"] = _W1
+_t = _sec("random-mlb-team-generator", "All 30 MLB teams by division"); _t["h2"] = "All 30 MLB teams — AL and NL"
+_t["body"] = ("Major League Baseball has two leagues of 15 teams: the **American League (AL)** and the **National League (NL)**, each with East, Central and West divisions of five. Both leagues have used the designated hitter since 2022.\n\n"
+ "| League | Division | Teams |\n|---|---|---|\n" + "".join(f"| {'American' if d.startswith('AL') else 'National'} | {d.split(' ',1)[1]} | {', '.join(MLB[d])} |\n" for d in MLB) +
+ "\nPick **American League** or **National League** above the list to spin one league, or a division preset to spin five teams.")
+_ins_after("random-mlb-team-generator", "How the MLB draft lottery works", {"h2": "Random MLB team for fantasy baseball and watch parties", "body":
+ "- **Fantasy baseball.** Spin the order for a snake or auction draft, or give each manager a random real team to build a keeper roster around.\n"
+ "- **Watch parties.** On a full slate, everyone spins a team and follows that game. A league preset keeps the night to AL or NL games.\n"
+ "- **Ballpark bucket list.** Spin for the next stadium to visit; turn on **Remove winner** and the wheel tracks which teams' parks you still have left.\n"
+ "- **MLB The Show franchise.** Spin for a random team to manage, or spin within one division for a rivalry-only season.\n"
+ "- **Classroom geography.** Spin a team, then find its city on a map.\n\n"
+ "Each of the 30 teams has a 1 in 30 (3.3%) chance on the full wheel, 1 in 15 within a league and 1 in 5 within a division."})
+_faq("random-mlb-team-generator", "Is this affiliated with MLB?")["a"] = "No. Wheelova has no relationship with Major League Baseball or any club. Team names appear only to identify the 30 teams on the wheel."
+_m["faq"].append({"q": "Can I spin only American League or National League teams?", "a": "Yes. Choose the American League or National League preset and only that league's 15 teams go on the wheel, each with a 1 in 15 chance."})
+_ins_after("random-mlb-team-generator", "Random MLB team for fantasy baseball and watch parties", {"h2": "Spin for a postseason pick", "body":
+ "Since 2022, **12 teams** make the MLB postseason: six from each league, made up of the three division winners and three wild cards. The two division winners with the best records in each league skip the best-of-three Wild Card Series and go straight to the Division Series.\n\n"
+ "For an October pool, wait until the field is set, delete the 18 teams that missed out, and spin the remaining 12 with **Remove winner** on so each friend gets a different contender. Before the season, spin all 30 for a pick-your-champion pool, and keep the list: whoever drew the eventual World Series winner takes the pot."})
